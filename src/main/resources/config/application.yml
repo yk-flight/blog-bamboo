@@ -39,3 +39,14 @@ mybatis-plus:
 logging:
   level:
     com.zrkizzy.blog.mapper: debug
+
+# Jwt配置
+jwt:
+  # JWT存储的请求头
+  tokenHeader: Authorization
+  # JWT加解密使用的秘钥
+  secret: blog-secret
+  # JWT的超期限时间（60 * 60 * 24）24小时失效
+  expiration: 604800
+  # JWT负载中拿到的开头
+  tokenHead: Bearer
