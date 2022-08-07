@@ -22,7 +22,6 @@ import java.io.PrintWriter;
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        System.out.println("执行了退出登录逻辑");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         // 获取输出流
