@@ -24,7 +24,7 @@ public class AccessDecisionManagerImpl implements AccessDecisionManager {
         for (ConfigAttribute configAttribute : collection) {
             // 当前url所需要的角色
             String needRole = configAttribute.getAttribute();
-            // 判断角色是否为登录即可访问的角色，在CustomFilter中设置的
+            // 判断角色是否为登录即可访问的角色，在FilterInvocationSecurityMetadataSourceImpl中设置的
             if ("ROLE_LOGIN".equals(needRole)) {
                 // 判断是否登录
                 if (authentication instanceof AnonymousAuthenticationToken) {

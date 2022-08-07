@@ -1,8 +1,11 @@
 package com.zrkizzy.blog.handler;
 
 import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.access.SecurityConfig;
+import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 
 import java.util.Collection;
 
@@ -14,9 +17,16 @@ import java.util.Collection;
  */
 @Component
 public class FilterInvocationSecurityMetadataSourceImpl implements FilterInvocationSecurityMetadataSource {
+
+    private AntPathMatcher antPathMatcher = new AntPathMatcher();
+
     @Override
-    public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
-        return null;
+    public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
+        // 获取请求的url
+        String requestUrl = ((FilterInvocation) object).getRequestUrl();
+
+        // 没有匹配到的url默认登录即可访问
+        return SecurityConfig.createList("ROLE_LOGIN");
     }
 
     @Override
