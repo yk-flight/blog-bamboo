@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 /**
+ * 权限控制过滤器：根据请求url分析请求所需的角色
+ *
  * @author zhangrongkang
  * @date 2022/8/7
  */
