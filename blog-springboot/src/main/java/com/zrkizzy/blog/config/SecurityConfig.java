@@ -1,10 +1,7 @@
 package com.zrkizzy.blog.config;
 
 import com.zrkizzy.blog.filters.JwtAuthenticationTokenFilter;
-import com.zrkizzy.blog.handler.AccessDecisionManagerImpl;
-import com.zrkizzy.blog.handler.AccessDeniedHandlerImpl;
-import com.zrkizzy.blog.handler.AuthenticationEntryPointImpl;
-import com.zrkizzy.blog.handler.FilterInvocationSecurityMetadataSourceImpl;
+import com.zrkizzy.blog.handler.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
@@ -41,6 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Resource
     private AccessDeniedHandlerImpl accessDeniedHandler;
+    /**
+     * 自定义退出登录成功返回结果
+     */
+    @Resource
+    private LogoutSuccessHandlerImpl logoutSuccessHandler;
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
@@ -87,6 +89,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // 退出登录配置
+        http.formLogin().loginProcessingUrl("/login")
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessHandler(logoutSuccessHandler);
         // 使用Jwt，不需要使用csrf
         http.csrf().disable()
                 // 基于token，不需要session
