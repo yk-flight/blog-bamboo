@@ -15,10 +15,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,9 +54,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User getUserByUserName(String username) {
-        return userMapper.selectOne(new QueryWrapper<User>().eq("username", username)
-                // 当前用户是否被禁用
-                .eq("enabled", true));
+        return userMapper.selectOne(new QueryWrapper<User>().eq("username", username));
     }
 
     /**
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isEmpty(kaptcha) || !kaptcha.equals(code)) {
             return Result.error("验证码输入错误，请重新输入");
         }
-
+        // 2. -------------------- 判断用户名和密码 --------------------
         // 获取到UserDetails
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         // 如果userDetails为空或密码匹配不一致
@@ -83,10 +83,14 @@ public class UserServiceImpl implements UserService {
             return Result.error("用户名或密码错误");
         }
 
+        // 3. -------------------- 判断账号是否被禁用 --------------------
         // 查看用户是否被禁用
         if (!userDetails.isEnabled()) {
             return Result.error("当前账号已禁用，请联系管理员");
         }
+
+        // 4. -------------------- 更新用户上一次登录时间 --------------------
+        updateLastLoginTime(username);
 
         // 更新security登录用户对象，参数1：userDetails，参数2：密码，参数3：用户权限列表
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -114,5 +118,18 @@ public class UserServiceImpl implements UserService {
         return roleMapper.getRoles(userId);
     }
 
-
+    /**
+     * 更新指定用户上一次登录时间
+     *
+     * @param username 用户名
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateLastLoginTime(String username) {
+        // 通过用户名获取到指定用户对象
+        User user = getUserByUserName(username);
+        // 重新设置当前用户上一次登录的时间
+        user.setLastLoginTime(new Date());
+        userMapper.updateById(user);
+    }
 }

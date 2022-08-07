@@ -41,4 +41,11 @@ public interface UserService {
      * @return 当前用户的权限集合
      */
     List<Role> getRoles(Integer userId);
+
+    /**
+     * 更新指定用户上一次登录时间
+     *
+     * @param username 用户名
+     */
+    void updateLastLoginTime(String username);
 }

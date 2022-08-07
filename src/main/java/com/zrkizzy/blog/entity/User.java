@@ -73,6 +73,12 @@ public class User implements UserDetails, Serializable {
     private boolean enabled;
 
     /**
+     * 上一次登录时间
+     */
+    @ApiModelProperty("上一次登录时间")
+    private Date lastLoginTime;
+
+    /**
      * 创建时间
      */
     @ApiModelProperty("创建时间")
