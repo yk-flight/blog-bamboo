@@ -1,0 +1,32 @@
+package com.zrkizzy.blog.controller;
+
+import com.zrkizzy.blog.service.UserService;
+import com.zrkizzy.blog.vo.Result;
+import com.zrkizzy.blog.vo.param.UserLoginVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * 登录模块控制器
+ *
+ * @author zhangrongkang
+ * @date 2022/8/7
+ */
+@Api(tags = "LoginController")
+@RestController
+public class LoginController {
+    @Resource
+    private UserService userService;
+
+    @ApiOperation(value = "登录后返回token")
+    @PostMapping("/login")
+    public Result login(@RequestBody UserLoginVO userLoginVO, HttpServletRequest request) {
+        return userService.login(userLoginVO.getUsername(), userLoginVO.getPassword(), userLoginVO.getCode(), request);
+    }
+}

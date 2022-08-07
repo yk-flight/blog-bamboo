@@ -67,6 +67,12 @@ public class User implements UserDetails, Serializable {
     private boolean position;
 
     /**
+     * 用户是否启用
+     */
+    @ApiModelProperty("用户是否启用")
+    private boolean enabled;
+
+    /**
      * 创建时间
      */
     @ApiModelProperty("创建时间")
@@ -78,6 +84,9 @@ public class User implements UserDetails, Serializable {
     @ApiModelProperty("更新时间")
     private Date updateTime;
 
+    /**
+     * 用户具有的角色
+     */
     @ApiModelProperty(value = "角色")
     @TableField(exist = false)
     private List<Role> roles;
@@ -109,8 +118,7 @@ public class User implements UserDetails, Serializable {
     }
 
     @Override
-    @JsonIgnore
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }
