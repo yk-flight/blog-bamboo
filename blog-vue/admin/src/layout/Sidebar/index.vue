@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import SidebarMenu from "./SidebarMenu";
+import SidebarMenu from "./components/SidebarMenu";
 
 export default {
   name: "Sidebar",
@@ -21,7 +21,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="scss" scoped>
 .layout-container {
   position: relative;
   height: 100%;

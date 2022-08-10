@@ -2,10 +2,10 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-
+// ======================= 导入外部组件 ========================
 import ElementUI from "element-ui";
 // ======================= 导入样式 ========================
-import "./styles/index.css";
+import "./styles/index.scss";
 import "nprogress/nprogress.css";
 import "element-ui/lib/theme-chalk/index.css";
 

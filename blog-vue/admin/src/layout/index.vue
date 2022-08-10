@@ -1,51 +1,57 @@
 <template>
-  <div style="height: 100%">
-    <el-container>
-      <el-header>头部导航栏</el-header>
-      <el-container>
-        <el-aside width="210px">
-          <!-- 侧边栏 -->
-          <sidebar></sidebar>
-        </el-aside>
-        <el-main>
-          <transition name="fade-transform" mode="out-in">
-            <router-view />
-          </transition>
-        </el-main>
-      </el-container>
-    </el-container>
+  <div class="app-wrapper" :class="isCollapse ? 'hideSidebar' : 'openSidebar'">
+    <!-- 侧边菜单栏 -->
+    <sidebar class="sidebar-container"></sidebar>
+    <div class="main-container">
+      <div class="fixed-header">
+        <!-- 顶部导航栏 -->
+        <navbar />
+      </div>
+      <!-- 主体内容区 -->
+      <app-main></app-main>
+    </div>
   </div>
 </template>
 
 <script>
+import AppMain from "./AppMain.vue";
 import Sidebar from "./Sidebar/index";
+import Navbar from "./Navbar/index";
+import { mapState } from "vuex";
 
 export default {
   name: "Layout",
-  components: { Sidebar },
+  components: { Sidebar, Navbar, AppMain },
+  computed: {
+    ...mapState(["isCollapse"]),
+  },
   data() {
     return {};
   },
 };
 </script>
 
-<style>
-.el-container {
+<style lang="scss" scoped>
+@import "~@/styles/mixin.scss";
+
+.app-wrapper {
+  @include clearfix;
+  position: relative;
   height: 100%;
-}
-.el-header {
-  background-color: #242f42;
-  text-align: center;
-  line-height: 60px;
-}
-
-.el-aside {
   width: 100%;
-  background-color: #304156;
 }
 
-.el-main {
-  background-color: #e9eef3;
-  text-align: center;
+// 吸顶导航栏
+.fixed-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9;
+  width: calc(100% - 210px);
+  transition: width 0.28s;
+}
+
+.hideSidebar .fixed-header {
+  width: calc(100% - 50px);
 }
 </style>
