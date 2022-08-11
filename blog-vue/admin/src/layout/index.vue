@@ -6,6 +6,8 @@
       <div class="fixed-header">
         <!-- 顶部导航栏 -->
         <navbar />
+        <!-- 标签页 -->
+        <tags-view></tags-view>
       </div>
       <!-- 主体内容区 -->
       <app-main></app-main>
@@ -17,11 +19,12 @@
 import AppMain from "./AppMain.vue";
 import Sidebar from "./Sidebar/index";
 import Navbar from "./Navbar/index";
+import TagsView from "@/components/TagsView/index.vue";
 import { mapState } from "vuex";
 
 export default {
   name: "Layout",
-  components: { Sidebar, Navbar, AppMain },
+  components: { Sidebar, Navbar, AppMain, TagsView },
   computed: {
     ...mapState(["isCollapse"]),
   },

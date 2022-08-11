@@ -1,27 +1,44 @@
 <template>
   <div class="app-main">
     <!-- 带有切换动画，并且具备组件缓存的 -->
-    <router-view v-slot="{ Component, route }">
-      <transition name="fade-transform" mode="out-in">
-        <keep-alive>
-          <component :is="Component" :key="route.path"></component>
-        </keep-alive>
-      </transition>
-    </router-view>
+    <transition name="fade-transform" mode="out-in">
+      <router-view />
+    </transition>
   </div>
 </template>
 
 <script>
+import { isTags } from "@/utils/tags";
+
 export default {
   name: "AppMain",
-
+  mounted() {},
   data() {
     return {};
   },
-
-  mounted() {},
-
-  methods: {},
+  watch: {
+    $route(to, from) {
+      this.addTagsViewList(to);
+    },
+  },
+  methods: {
+    // 添加到标签栏
+    addTagsViewList(to) {
+      // 并不是所有的路由都不需要保存
+      if (!isTags(to.path)) return;
+      // 从 to 中解构出想要的属性
+      const { fullPath, meta, name, params, path, query } = to;
+      this.$store.commit("addTagsViewList", {
+        fullPath,
+        meta,
+        name,
+        params,
+        path,
+        query,
+        title: this.$route.name,
+      });
+    },
+  },
 };
 </script>
 

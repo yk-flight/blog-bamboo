@@ -49,6 +49,7 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar-container {
+  margin-top: 76px;
   width: 100%;
 }
 </style>
