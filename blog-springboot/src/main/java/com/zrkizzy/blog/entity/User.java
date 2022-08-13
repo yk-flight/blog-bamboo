@@ -98,7 +98,6 @@ public class User implements UserDetails, Serializable {
     private List<Role> roles;
 
     @Override
-    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRoleName()))

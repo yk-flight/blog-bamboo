@@ -29,4 +29,10 @@ public class LoginController {
     public Result login(@RequestBody UserLoginVO userLoginVO, HttpServletRequest request) {
         return userService.login(userLoginVO.getUsername(), userLoginVO.getPassword(), userLoginVO.getCode(), request);
     }
+
+    @ApiOperation(value = "退出登录")
+    @PostMapping("/logout")
+    public Result logout() {
+        return Result.success("退出成功");
+    }
 }
