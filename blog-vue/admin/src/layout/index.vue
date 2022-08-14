@@ -1,5 +1,8 @@
 <template>
-  <div class="app-wrapper" :class="isCollapse ? 'hideSidebar' : 'openSidebar'">
+  <div
+    class="app-wrapper"
+    :class="this.$store.getters.isCollapse ? 'hideSidebar' : 'openSidebar'"
+  >
     <!-- 侧边菜单栏 -->
     <sidebar class="sidebar-container"></sidebar>
     <div class="main-container">
@@ -20,14 +23,11 @@ import AppMain from "./AppMain.vue";
 import Sidebar from "./Sidebar/index";
 import Navbar from "./Navbar/index";
 import TagsView from "@/components/TagsView/index.vue";
-import { mapState } from "vuex";
 
 export default {
   name: "Layout",
   components: { Sidebar, Navbar, AppMain, TagsView },
-  computed: {
-    ...mapState(["isCollapse"]),
-  },
+  computed: {},
   data() {
     return {};
   },

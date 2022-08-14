@@ -2,7 +2,7 @@
   <div class="tags-view-container">
     <router-link
       class="tags-view-item"
-      v-for="(tag, index) in tagsViewList"
+      v-for="(tag, index) in this.$store.getters.tagsViewList"
       :class="isActive(tag) ? 'active' : ''"
       :key="tag.fullPath"
       :to="{ path: tag.fullPath }"
@@ -32,7 +32,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["tagsViewList"]),
+    // ...mapState(["/app/tagsViewList"]),
   },
 
   watch: {
@@ -55,15 +55,15 @@ export default {
     // 关闭 tag 的点击事件
     onCloseClick(index) {
       this.selectIndex = index;
-      this.$store.commit("removeTagsView", {
+      this.$store.commit("app/removeTagsView", {
         type: "index",
         index,
       });
       // 如果关闭的是当前标签页则返回上一个标签页
       if (index === this.selectIndex) {
         this.$router.push(
-          this.$store.state.tagsViewList[
-            this.$store.state.tagsViewList.length - 1
+          this.$store.getters.tagsViewList[
+            this.$store.getters.tagsViewList.length - 1
           ].path
         );
       }

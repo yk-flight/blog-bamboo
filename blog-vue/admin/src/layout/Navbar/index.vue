@@ -65,7 +65,7 @@ export default {
         type: "warning",
       })
         .then(() => {
-          this.$store.dispatch("logout");
+          this.$store.dispatch("user/logout");
           // 输出消息提示
           this.$message.success("退出登录");
         })

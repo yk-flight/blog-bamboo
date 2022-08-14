@@ -1,18 +1,18 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import NProgress from "nprogress";
-import Login from "@/views/login/index";
 import Layout from "@/layout/index";
-import Dashboard from "@/views/dashboard/index";
-import Profile from "@/views/profile/index";
+
+import article from "./modules/Article";
+import articleList from "./modules/ArticleList";
 
 Vue.use(VueRouter);
 
-const routes = [
+// 公开路由表
+export const routes = [
   {
     path: "/login",
     name: "Login",
-    component: Login,
+    component: () => import("@/views/login/Login.vue"),
     hidden: true,
   },
   {
@@ -24,7 +24,7 @@ const routes = [
       {
         path: "/dashboard",
         name: "仪表盘",
-        component: Dashboard,
+        component: () => import("@/views/dashboard/Dashboard"),
         meta: {
           title: "仪表盘",
           icon: "dashboard",
@@ -34,7 +34,7 @@ const routes = [
       {
         path: "/profile",
         name: "个人中心",
-        component: Profile,
+        component: () => import("@/views/profile/Profile"),
         meta: {
           title: "个人中心",
           icon: "user",
@@ -44,39 +44,45 @@ const routes = [
   },
 ];
 
+// 私有路由表
+// export const privateRoutes = [article, articleList];
+export const privateRoutes = [
+  {
+    path: "/article",
+    component: Layout,
+    redirect: "/article/create-article",
+    name: "article",
+    meta: {
+      title: "文章管理",
+      icon: "article",
+    },
+    children: [
+      {
+        path: "/article/create-article",
+        name: "发布文章",
+        component: () => import("@/views/article/CreateArticle.vue"),
+        meta: {
+          title: "发布文章",
+          icon: "article-create",
+        },
+      },
+      {
+        path: "/article/article-list",
+        name: "文章列表",
+        component: () => import("@/views/article/ArticleList.vue"),
+        meta: {
+          title: "文章列表",
+          icon: "article-ranking",
+        },
+      },
+    ],
+  },
+];
+
 const router = new VueRouter({
   mode: "hash",
   base: process.env.BASE_URL,
-  routes,
-});
-
-// 调整进度条的速度
-NProgress.configure({ easing: "ease", speed: 500 });
-
-// ======================= 路由导航守卫 =======================
-// to：当前位置，from：将要跳转的位置
-router.beforeEach((to, from, next) => {
-  // 开启页面进度条
-  NProgress.start();
-  // // 如果本地中存储着token信息
-  // if (window.sessionStorage.getItem("token")) {
-  //   // 放行
-  //   next();
-  // } else {
-  //   // 放行登录的请求和验证码请求
-  //   if (to.path === "/login" || to.path === "/kaptcha") {
-  //     next();
-  //   } else {
-  //     // 否则在没有登录之前的一切路由都重定向到登录页面
-  //     next("/login");
-  //   }
-  // }
-  next();
-});
-
-router.afterEach((to, from) => {
-  // 关闭进度条
-  NProgress.done();
+  routes: [...routes, ...privateRoutes],
 });
 
 Vue.use(VueRouter);

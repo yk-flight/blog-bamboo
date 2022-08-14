@@ -1,7 +1,9 @@
 <template>
   <div class="hamburger-container" @click="setCollapse">
     <svg-icon
-      :icon="isCollapse ? 'hamburger-closed' : 'hamburger-opened'"
+      :icon="
+        this.$store.getters.isCollapse ? 'hamburger-closed' : 'hamburger-opened'
+      "
       class="hamburger"
     ></svg-icon>
   </div>
@@ -13,9 +15,7 @@ import { mapState, mapMutations } from "vuex";
 export default {
   name: "Hamburger",
 
-  computed: {
-    ...mapState(["isCollapse"]),
-  },
+  computed: {},
 
   data() {
     return {};
@@ -25,7 +25,9 @@ export default {
 
   methods: {
     // 获取vuex中设置菜单是否折叠的方法
-    ...mapMutations(["setCollapse"]),
+    setCollapse() {
+      this.$store.commit("app/setCollapse");
+    },
   },
 };
 </script>

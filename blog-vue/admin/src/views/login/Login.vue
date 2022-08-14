@@ -2,9 +2,6 @@
   <div class="login-container">
     <el-form
       ref="loginForm"
-      v-loading="loading"
-      element-loading-text="正在登录中"
-      element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.8)"
       :rules="loginRules"
       :model="loginForm"
@@ -53,7 +50,6 @@ export default {
   data() {
     return {
       kaptchaUrl: "/kaptcha?time=" + new Date(),
-      loading: false,
       // 用户登录表单
       loginForm: {
         username: "",
@@ -93,18 +89,9 @@ export default {
     submitLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.loading = true;
-          this.postRequest("/login", this.loginForm).then((result) => {
-            // 如果具有返回值则做接下来的操作
-            if (result) {
-              this.loading = false;
-              // 获取到用户登录后返回的token
-              const token = result.data.tokenHead + result.data.token;
-              // 将token存储到session中
-              window.sessionStorage.setItem("token", token);
-              // 跳转到后台首页
-              this.$router.replace("/");
-            }
+          this.$store.dispatch("user/login", this.loginForm).then(() => {
+            // 跳转到后台首页
+            this.$router.push("/");
           });
         } else {
           this.$message.error("请输入所有内容");

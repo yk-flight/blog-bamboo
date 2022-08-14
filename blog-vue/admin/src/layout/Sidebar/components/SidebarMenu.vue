@@ -6,7 +6,7 @@
       background-color="#304156"
       text-color="#bfcbd9"
       active-text-color="rgb(64, 158, 255)"
-      :collapse="isCollapse"
+      :collapse="this.$store.getters.isCollapse"
       router
     >
       <sidebar-item
@@ -21,7 +21,6 @@
 <script>
 import SidebarItem from "./SidebarItem.vue";
 import { filterRoutes, generateMenus } from "@/utils/route";
-import { mapState } from "vuex";
 
 export default {
   name: "SidebarMenu",
@@ -32,14 +31,13 @@ export default {
 
   mounted() {},
   computed: {
-    ...mapState(["isCollapse"]),
     activeMenu() {
       const { path } = this.$route;
       return path;
     },
     // 监视当路由是否发生变化
     routes() {
-      const filteRoutes = filterRoutes(this.$router.getRoutes());
+      const filteRoutes = filterRoutes(this.$router.options.routes);
       return generateMenus(filteRoutes);
     },
   },

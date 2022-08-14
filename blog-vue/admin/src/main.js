@@ -9,22 +9,12 @@ import "./styles/index.scss";
 import "nprogress/nprogress.css";
 import "element-ui/lib/theme-chalk/index.css";
 
-import {
-  getRequest,
-  postRequest,
-  putRequest,
-  deleteRequest,
-} from "@/utils/api.js";
+import "./permission";
 
 import SvgIcons from "@/icons";
 
 Vue.use(ElementUI);
 Vue.use(SvgIcons);
-// ======================= 定义请求操作作为插件在全局使用 ========================
-Vue.prototype.postRequest = postRequest;
-Vue.prototype.getRequest = getRequest;
-Vue.prototype.putRequest = putRequest;
-Vue.prototype.deleteRequest = deleteRequest;
 
 Vue.config.productionTip = false;
 
