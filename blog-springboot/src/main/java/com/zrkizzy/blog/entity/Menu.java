@@ -48,6 +48,12 @@ public class Menu implements Serializable {
     private String component;
 
     /**
+     * 菜单权限
+     */
+    @ApiModelProperty("菜单权限")
+    private String permission;
+
+    /**
      * 菜单名称
      */
     @ApiModelProperty("菜单名称")

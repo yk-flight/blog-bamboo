@@ -56,4 +56,16 @@ public class MenuServiceImpl implements MenuService {
 
         return menuList;
     }
+
+    /**
+     * 根据用户ID获取当前用户具有的菜单权限
+     *
+     * @return 菜单权限集合
+     */
+    @Override
+    public List<String> getPermissionByUserId() {
+        // 获取到当前登录用户的ID
+        Integer userId = UserUtil.getCurrentUser().getId();
+        return menuMapper.getPermissionByUserId(userId);
+    }
 }

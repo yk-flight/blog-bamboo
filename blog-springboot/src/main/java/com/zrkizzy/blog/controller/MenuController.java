@@ -29,4 +29,10 @@ public class MenuController {
     public List<Menu> getMenusByUserId() {
         return menuService.getMenusByUserId();
     }
+
+    @ApiOperation("获取当前角色具有的菜单权限")
+    @GetMapping("/getPermissionByUserId")
+    public List<String> getPermissionByUserId() {
+        return menuService.getPermissionByUserId();
+    }
 }

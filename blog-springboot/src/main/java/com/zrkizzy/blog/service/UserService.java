@@ -48,4 +48,11 @@ public interface UserService {
      * @param username 用户名
      */
     void updateLastLoginTime(String username);
+
+    /**
+     * 获取当前登录的用户信息
+     *
+     * @return 当前登录的用户对象
+     */
+    User getUserByUserId();
 }

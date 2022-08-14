@@ -3,10 +3,12 @@ package com.zrkizzy.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zrkizzy.blog.entity.Role;
 import com.zrkizzy.blog.entity.User;
+import com.zrkizzy.blog.mapper.MenuMapper;
 import com.zrkizzy.blog.mapper.RoleMapper;
 import com.zrkizzy.blog.mapper.UserMapper;
 import com.zrkizzy.blog.service.UserService;
 import com.zrkizzy.blog.utils.JwtTokenUtil;
+import com.zrkizzy.blog.utils.UserUtil;
 import com.zrkizzy.blog.vo.Result;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,6 +37,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Resource
     private RoleMapper roleMapper;
+    @Resource
+    private MenuMapper menuMapper;
 
     @Value("${jwt.tokenHead}")
     private String tokenHead;
@@ -131,5 +135,22 @@ public class UserServiceImpl implements UserService {
         // 重新设置当前用户上一次登录的时间
         user.setLastLoginTime(new Date());
         userMapper.updateById(user);
+    }
+
+    /**
+     * 获取当前登录的用户信息
+     *
+     * @return 当前登录的用户对象
+     */
+    @Override
+    public User getUserByUserId() {
+        // 获取当前登录用户的ID
+        Integer userId = UserUtil.getCurrentUser().getId();
+        // 根据用户ID查询到用户对象
+        User user = userMapper.selectById(userId);
+        // 设置用户的菜单权限
+        List<String> permission = menuMapper.getPermissionByUserId(userId);
+        user.setPermission(permission);
+        return user;
     }
 }

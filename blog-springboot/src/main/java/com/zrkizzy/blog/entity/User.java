@@ -97,7 +97,15 @@ public class User implements UserDetails, Serializable {
     @TableField(exist = false)
     private List<Role> roles;
 
+    /**
+     * 用户具有的菜单权限
+     */
+    @ApiModelProperty(value = "菜单权限")
+    @TableField(exist = false)
+    private List<String> permission;
+
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
