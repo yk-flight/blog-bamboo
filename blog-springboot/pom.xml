@@ -16,6 +16,8 @@
         <mysql.version>8.0.13</mysql.version>
         <jjwt.version>0.9.1</jjwt.version>
         <kaptcha.version>0.0.9</kaptcha.version>
+        <fastjson.version>2.0.10</fastjson.version>
+        <userAgent.version>1.21</userAgent.version>
         <swagger.version>3.0.0</swagger.version>
         <swagger-ui.version>1.9.6</swagger-ui.version>
         <commons-pool.version>2.9.0</commons-pool.version>
@@ -82,6 +84,12 @@
             <version>${commons-pool.version}</version>
         </dependency>
 
+        <!-- fastjson依赖 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
 
         <!-- Lombok依赖 -->
         <dependency>
@@ -94,6 +102,13 @@
             <groupId>com.github.axet</groupId>
             <artifactId>kaptcha</artifactId>
             <version>${kaptcha.version}</version>
+        </dependency>
+
+        <!-- 解析客户端操作系统、浏览器依赖 -->
+        <dependency>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>${userAgent.version}</version>
         </dependency>
 
     </dependencies>

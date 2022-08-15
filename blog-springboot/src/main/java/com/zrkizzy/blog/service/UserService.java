@@ -43,11 +43,12 @@ public interface UserService {
     List<Role> getRoles(Integer userId);
 
     /**
-     * 更新指定用户上一次登录时间
+     * 更新指定用户上一次登录信息
      *
      * @param username 用户名
+     * @param request 请求信息
      */
-    void updateLastLoginTime(String username);
+    void updateLastLoginInfo(String username, HttpServletRequest request);
 
     /**
      * 获取当前登录的用户信息
@@ -55,4 +56,12 @@ public interface UserService {
      * @return 当前登录的用户对象
      */
     User getUserByUserId();
+
+    /**
+     * 获取用户登录设备
+     *
+     * @param request 请求信息
+     * @return 用户登录设备
+     */
+    String getUserAgent(HttpServletRequest request);
 }

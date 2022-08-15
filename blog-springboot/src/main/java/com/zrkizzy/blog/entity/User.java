@@ -73,6 +73,18 @@ public class User implements UserDetails, Serializable {
     private boolean enabled;
 
     /**
+     * 登录IP
+     */
+    @ApiModelProperty("登录IP")
+    private String ipAddress;
+
+    /**
+     * IP属地
+     */
+    @ApiModelProperty("IP属地")
+    private String ipSource;
+
+    /**
      * 上一次登录时间
      */
     @ApiModelProperty("上一次登录时间")

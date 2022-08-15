@@ -7,9 +7,11 @@ import com.zrkizzy.blog.mapper.MenuMapper;
 import com.zrkizzy.blog.mapper.RoleMapper;
 import com.zrkizzy.blog.mapper.UserMapper;
 import com.zrkizzy.blog.service.UserService;
+import com.zrkizzy.blog.utils.IpUtil;
 import com.zrkizzy.blog.utils.JwtTokenUtil;
 import com.zrkizzy.blog.utils.UserUtil;
 import com.zrkizzy.blog.vo.Result;
+import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +28,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.zrkizzy.blog.constant.CommonConst.LOCAL_HOST;
 
 /**
  * @author zhangrongkang
@@ -94,7 +98,7 @@ public class UserServiceImpl implements UserService {
         }
 
         // 4. -------------------- 更新用户上一次登录时间 --------------------
-        updateLastLoginTime(username);
+        updateLastLoginInfo(username, request);
 
         // 更新security登录用户对象，参数1：userDetails，参数2：密码，参数3：用户权限列表
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -129,11 +133,23 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateLastLoginTime(String username) {
+    public void updateLastLoginInfo(String username, HttpServletRequest request) {
         // 通过用户名获取到指定用户对象
         User user = getUserByUserName(username);
         // 重新设置当前用户上一次登录的时间
         user.setLastLoginTime(new Date());
+        // 获取到用户登录IP
+        String ipAddress = IpUtil.getCurIpAddress(request);
+        // 获取到用户登录的IP属地
+        String ipSource = IpUtil.getIpSource(ipAddress);
+        // 判断是否获取到了真实IP地址，如果没有获取到真实IP地址则设置为本机
+        if (ipAddress.equals(LOCAL_HOST)) {
+            ipSource = "本机登录";
+        }
+        // 设置用户的IP信息
+        user.setIpAddress(ipAddress);
+        user.setIpSource(ipSource);
+        // 更新用户信息
         userMapper.updateById(user);
     }
 
@@ -152,5 +168,20 @@ public class UserServiceImpl implements UserService {
         List<String> permission = menuMapper.getPermissionByUserId(userId);
         user.setPermission(permission);
         return user;
+    }
+
+    /**
+     * 获取用户登录设备
+     *
+     * @param request 请求信息
+     * @return 用户登录设备
+     */
+    @Override
+    public String getUserAgent(HttpServletRequest request) {
+        UserAgent userAgent = IpUtil.getUserAgent(request);
+        // 拼接操作系统信息
+        return userAgent.getOperatingSystem().getName() + " " +
+                // 拼接浏览器信息
+                userAgent.getBrowser();
     }
 }
