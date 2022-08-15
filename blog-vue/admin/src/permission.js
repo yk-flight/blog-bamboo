@@ -25,6 +25,8 @@ router.beforeEach(async (to, from, next) => {
       if (!store.getters.hasUserInfo) {
         // 获取当前登录用户的设备
         store.dispatch("user/getUserAgent");
+        // 获取用户的个人信息
+        store.dispatch("user/getUserInfoById");
 
         const { permission } = await store.dispatch("user/getUserInfo");
         // 处理用户权限，筛选出需要添加的路由

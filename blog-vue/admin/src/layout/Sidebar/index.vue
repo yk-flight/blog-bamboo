@@ -11,7 +11,7 @@
       </h1>
     </div>
     <!-- 处理 menu 菜单过长时的情况 -->
-    <el-scrollbar>
+    <el-scrollbar style="height: 100%">
       <sidebar-menu></sidebar-menu>
     </el-scrollbar>
   </div>

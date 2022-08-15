@@ -3,6 +3,7 @@ import { TOKEN } from "@/constant";
 import { setTimeStamp } from "@/utils/auth";
 import { setItem, getItem, removeAllItem } from "@/utils/storage";
 import { login, getUserInfo, getUserAgent } from "../../api/sys";
+import { getUserInfoById } from "../../api/user";
 
 export default {
   // 表示模块为单独的模块
@@ -12,6 +13,8 @@ export default {
     token: getItem(TOKEN) || "",
     // 用户登录信息
     userInfo: {},
+    // 用户个人信息
+    userOtherInfo: {},
     // 用户登录设备
     userAgent: "",
   }),
@@ -25,6 +28,9 @@ export default {
     },
     setUserAgent(state, userAgent) {
       state.userAgent = userAgent;
+    },
+    setUserOtherInfo(state, userOtherInfo) {
+      state.userOtherInfo = userOtherInfo;
     },
   },
   actions: {
@@ -65,6 +71,14 @@ export default {
       // 获取服务器端返回的数据
       const res = await getUserAgent();
       this.commit("user/setUserAgent", res);
+      return res;
+    },
+
+    // 获取用户个人信息
+    async getUserInfoById(context) {
+      // 获取服务器端返回的数据
+      const res = await getUserInfoById();
+      this.commit("user/setUserOtherInfo", res);
       return res;
     },
 

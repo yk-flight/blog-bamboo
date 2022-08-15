@@ -1,13 +1,19 @@
 <template>
   <div class="dashboard-container">
-    <h1>须知少时凌云志，曾许人间第一流</h1>
+    <!-- 头部视图 -->
+    <top-view></top-view>
+    <!-- 访问量折线图 -->
+    <body-view></body-view>
   </div>
 </template>
 
 <script>
+import TopView from "./components/TopView.vue";
+import BodyView from "./components/BodyView.vue";
+
 export default {
   name: "Dashboard",
-
+  components: { TopView, BodyView },
   data() {
     return {};
   },

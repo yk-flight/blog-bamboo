@@ -16,6 +16,10 @@
             <el-tab-pane label="修改密码" name="changePass">
               <change-pass></change-pass>
             </el-tab-pane>
+            <!-- 上传头像 -->
+            <el-tab-pane label="上传头像" name="avatarUpload">
+              <avatar-up></avatar-up>
+            </el-tab-pane>
           </el-tabs>
         </el-card>
       </el-col>
@@ -27,10 +31,11 @@
 import UserInfo from "./components/UserInfo.vue";
 import BaseInfo from "./components/BaseInfo.vue";
 import ChangePass from "./components/ChangePass.vue";
+import AvatarUp from "./components/AvatarUp.vue";
 
 export default {
   name: "Profile",
-  components: { UserInfo, BaseInfo, ChangePass },
+  components: { UserInfo, BaseInfo, ChangePass, AvatarUp },
   data() {
     return {
       activeName: "baseInfo",

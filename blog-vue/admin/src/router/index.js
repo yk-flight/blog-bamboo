@@ -6,6 +6,10 @@ import article from "./modules/Article";
 import articleList from "./modules/ArticleList";
 import message from "./modules/Message";
 import security from "./modules/Security";
+import user from "./modules/User";
+import picture from "./modules/Picture";
+import system from "./modules/system";
+import log from "./modules/log";
 
 Vue.use(VueRouter);
 
@@ -47,7 +51,16 @@ export const routes = [
 ];
 
 // 私有路由表
-export const privateRoutes = [article, articleList, message, security];
+export const privateRoutes = [
+  article,
+  articleList,
+  message,
+  security,
+  user,
+  picture,
+  system,
+  log,
+];
 
 const router = new VueRouter({
   mode: "hash",

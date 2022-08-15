@@ -2,7 +2,7 @@
   <div class="sidebar-container">
     <el-menu
       :default-active="activeMenu"
-      :unique-opened="false"
+      :unique-opened="true"
       background-color="#304156"
       text-color="#bfcbd9"
       active-text-color="rgb(64, 158, 255)"

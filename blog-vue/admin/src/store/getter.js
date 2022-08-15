@@ -13,6 +13,8 @@ const getters = {
   userInfo: (state) => state.user.userInfo,
   // 用户登录设备
   userAgent: (state) => state.user.userAgent,
+  // 用户个人信息
+  userOtherInfo: (state) => state.user.userOtherInfo,
 };
 
 export default getters;

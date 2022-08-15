@@ -54,6 +54,10 @@ export default {
   transition: width 0.28s;
 }
 
+.main-container {
+  background-color: #f0f2f5;
+}
+
 .hideSidebar .fixed-header {
   width: calc(100% - 50px);
 }

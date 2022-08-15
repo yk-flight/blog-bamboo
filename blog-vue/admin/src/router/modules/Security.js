@@ -19,14 +19,23 @@ export default {
         icon: "menu",
       },
     },
-    // {
-    //   path: "/information/leave",
-    //   name: "留言管理",
-    //   component: () => import("@/views/information/Leave.vue"),
-    //   meta: {
-    //     title: "留言管理",
-    //     icon: "message",
-    //   },
-    // },
+    {
+      path: "/security/interface",
+      name: "接口管理 ",
+      component: () => import("@/views/security/Interface.vue"),
+      meta: {
+        title: "接口管理",
+        icon: "swagger",
+      },
+    },
+    {
+      path: "/security/roles",
+      name: "角色管理 ",
+      component: () => import("@/views/security/Roles.vue"),
+      meta: {
+        title: "角色管理",
+        icon: "role",
+      },
+    },
   ],
 };
