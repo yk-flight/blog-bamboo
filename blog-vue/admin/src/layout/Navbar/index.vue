@@ -14,7 +14,7 @@
           <el-avatar
             shape="square"
             :size="40"
-            src="https://www.zrkizzy.com/upload/2021/11/header-90431fbd9cf848e2a5aaea0bf6b1089b.jpg"
+            :src="this.$store.getters.userInfo.avatar"
           ></el-avatar>
           <i class="el-icon-caret-bottom"></i>
         </div>

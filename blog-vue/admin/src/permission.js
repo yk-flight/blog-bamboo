@@ -23,6 +23,9 @@ router.beforeEach(async (to, from, next) => {
     } else {
       // 判断用户资料是否存在，如果不存在则获取用户信息
       if (!store.getters.hasUserInfo) {
+        // 获取当前登录用户的设备
+        store.dispatch("user/getUserAgent");
+
         const { permission } = await store.dispatch("user/getUserInfo");
         // 处理用户权限，筛选出需要添加的路由
         const filterRoutes = await store.dispatch(

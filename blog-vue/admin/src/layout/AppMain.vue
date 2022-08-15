@@ -51,5 +51,6 @@ export default {
   overflow: hidden;
   padding: 104px 20px 20px 20px;
   box-sizing: border-box;
+  background-color: #f8f8f800;
 }
 </style>

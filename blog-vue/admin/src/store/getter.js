@@ -11,6 +11,8 @@ const getters = {
     return JSON.stringify(state.user.userInfo) !== "{}";
   },
   userInfo: (state) => state.user.userInfo,
+  // 用户登录设备
+  userAgent: (state) => state.user.userAgent,
 };
 
 export default getters;

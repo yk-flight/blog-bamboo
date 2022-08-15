@@ -19,13 +19,23 @@ export default {
         icon: "article-create",
       },
     },
-    // {
-    //   path: "/article/:id",
-    //   name: "articleDetail",
-    //   component: () => import("@/views/article-detail/index"),
-    //   meta: {
-    //     title: "articleDetail",
-    //   },
-    // },
+    {
+      path: "/article/categorys",
+      name: "分类管理",
+      component: () => import("@/views/article/Category"),
+      meta: {
+        title: "分类管理",
+        icon: "category",
+      },
+    },
+    {
+      path: "/article/tags",
+      name: "标签管理",
+      component: () => import("@/views/article/Tags"),
+      meta: {
+        title: "标签管理",
+        icon: "tags",
+      },
+    },
   ],
 };

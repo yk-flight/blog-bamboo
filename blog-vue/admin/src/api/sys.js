@@ -25,3 +25,13 @@ export const getUserInfo = () => {
     method: "GET",
   });
 };
+
+/**
+ * 获取用户登录设备
+ */
+export const getUserAgent = () => {
+  return request({
+    url: "/admin/getUserAgent",
+    method: "GET",
+  });
+};

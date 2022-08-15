@@ -2,14 +2,18 @@ import router from "@/router";
 import { TOKEN } from "@/constant";
 import { setTimeStamp } from "@/utils/auth";
 import { setItem, getItem, removeAllItem } from "@/utils/storage";
-import { login, getUserInfo } from "../../api/sys";
+import { login, getUserInfo, getUserAgent } from "../../api/sys";
 
 export default {
   // 表示模块为单独的模块
   namespaced: true,
   state: () => ({
+    // token
     token: getItem(TOKEN) || "",
+    // 用户登录信息
     userInfo: {},
+    // 用户登录设备
+    userAgent: "",
   }),
   mutations: {
     setToken(state, token) {
@@ -18,6 +22,9 @@ export default {
     },
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo;
+    },
+    setUserAgent(state, userAgent) {
+      state.userAgent = userAgent;
     },
   },
   actions: {
@@ -53,12 +60,21 @@ export default {
       return res;
     },
 
+    // 获取用户登录设备
+    async getUserAgent(context) {
+      // 获取服务器端返回的数据
+      const res = await getUserAgent();
+      this.commit("user/setUserAgent", res);
+      return res;
+    },
+
     // 退出登录
     logout() {
       // 1. 清除当前用户的令牌
-      // this.commit("user/setToken", "");
+      this.commit("user/setToken", "");
       // 2. 清除当前用户的信息
       this.commit("user/setUserInfo", {});
+      this.commit("user/setUserAgent", "");
       // 3. 清除本地缓存
       removeAllItem();
       // 4. 清除相关权限的菜单信息

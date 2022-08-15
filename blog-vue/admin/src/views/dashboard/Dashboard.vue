@@ -1,13 +1,6 @@
 <template>
   <div class="dashboard-container">
-    仪表盘
-    <svg-icon icon="add"></svg-icon>
-    <br />
-    git hub
-    <svg-icon icon="github"></svg-icon>
-    <br />
-    微信
-    <svg-icon icon="wechat"></svg-icon>
+    <h1>须知少时凌云志，曾许人间第一流</h1>
   </div>
 </template>
 

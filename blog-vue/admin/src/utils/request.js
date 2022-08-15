@@ -47,7 +47,10 @@ service.interceptors.response.use(
         Message.success({ message: message });
       }
       // 将后端传输的数据进行返回
-      return data;
+      if (data) {
+        return data;
+      }
+      return response.data;
     } else {
       // 失败（请求成功，业务失败），消息提示
       Message.error(message);

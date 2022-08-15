@@ -4,6 +4,8 @@ import Layout from "@/layout/index";
 
 import article from "./modules/Article";
 import articleList from "./modules/ArticleList";
+import message from "./modules/Message";
+import security from "./modules/Security";
 
 Vue.use(VueRouter);
 
@@ -45,39 +47,7 @@ export const routes = [
 ];
 
 // 私有路由表
-// export const privateRoutes = [article, articleList];
-export const privateRoutes = [
-  {
-    path: "/article",
-    component: Layout,
-    redirect: "/article/create-article",
-    name: "article",
-    meta: {
-      title: "文章管理",
-      icon: "article",
-    },
-    children: [
-      {
-        path: "/article/create-article",
-        name: "发布文章",
-        component: () => import("@/views/article/CreateArticle.vue"),
-        meta: {
-          title: "发布文章",
-          icon: "article-create",
-        },
-      },
-      {
-        path: "/article/article-list",
-        name: "文章列表",
-        component: () => import("@/views/article/ArticleList.vue"),
-        meta: {
-          title: "文章列表",
-          icon: "article-ranking",
-        },
-      },
-    ],
-  },
-];
+export const privateRoutes = [article, articleList, message, security];
 
 const router = new VueRouter({
   mode: "hash",

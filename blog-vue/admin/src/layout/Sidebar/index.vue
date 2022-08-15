@@ -4,16 +4,16 @@
       <el-avatar
         :size="44"
         shape="circle"
-        src="https://www.zrkizzy.com/upload/2021/11/header-90431fbd9cf848e2a5aaea0bf6b1089b.jpg"
+        :src="this.$store.getters.userInfo.avatar"
       ></el-avatar>
       <h1 class="logo-title" v-if="!this.$store.getters.isCollapse">
         后台管理系统
       </h1>
     </div>
     <!-- 处理 menu 菜单过长时的情况 -->
-    <!-- <el-scrollbar> -->
-    <sidebar-menu></sidebar-menu>
-    <!-- </el-scrollbar> -->
+    <el-scrollbar>
+      <sidebar-menu></sidebar-menu>
+    </el-scrollbar>
   </div>
 </template>
 
