@@ -1,59 +1,59 @@
 <template>
   <div class="baseInfo-container">
-    <el-form>
-      <el-form-item prop="" label="昵称" label-width="60px">
+    <el-form :model="userInfo" :rules="userInfoRules" ref="userInfoForm">
+      <el-form-item prop="nickName" label="昵称" label-width="60px">
         <el-input
           placeholder="用户昵称"
-          v-model="this.$store.getters.userInfo.nickName"
+          v-model="nickName"
           type="text"
         ></el-input>
       </el-form-item>
-      <el-form-item prop="" label="邮箱" label-width="60px">
+      <el-form-item prop="email" label="邮箱" label-width="60px">
         <el-input
           placeholder="用户邮箱"
-          v-model="this.$store.getters.userOtherInfo.email"
+          v-model="userInfo.email"
           type="text"
         ></el-input>
       </el-form-item>
-      <el-form-item prop="" label="电话" label-width="60px">
+      <el-form-item prop="phone" label="电话" label-width="60px">
         <el-input
           placeholder="联系电话"
-          v-model="this.$store.getters.userOtherInfo.phone"
+          v-model="userInfo.phone"
           type="text"
         ></el-input>
       </el-form-item>
       <el-form-item prop="" label="QQ" label-width="60px">
         <el-input
           placeholder="QQ账号"
-          v-model="this.$store.getters.userOtherInfo.qq"
+          v-model="userInfo.qq"
           type="text"
         ></el-input>
       </el-form-item>
       <el-form-item prop="" label="git hub" label-width="60px">
         <el-input
           placeholder="Github主页"
-          v-model="this.$store.getters.userOtherInfo.github"
+          v-model="userInfo.github"
           type="text"
         ></el-input>
       </el-form-item>
       <el-form-item prop="" label="gitee" label-width="60px">
         <el-input
           placeholder="Gitee主页"
-          v-model="this.$store.getters.userOtherInfo.gitee"
+          v-model="userInfo.gitee"
           type="text"
         ></el-input>
       </el-form-item>
       <el-form-item prop="" label="csdn" label-width="60px">
         <el-input
           placeholder="CSDN主页"
-          v-model="this.$store.getters.userOtherInfo.csdn"
+          v-model="userInfo.csdn"
           type="text"
         ></el-input>
       </el-form-item>
       <el-form-item prop="" label="力扣" label-width="60px">
         <el-input
           placeholder="LeetCode主页"
-          v-model="this.$store.getters.userOtherInfo.leetcode"
+          v-model="userInfo.leetcode"
           type="text"
         ></el-input>
       </el-form-item>
@@ -61,7 +61,7 @@
         <el-input
           type="textarea"
           placeholder="这里输入自我介绍"
-          v-model="this.$store.getters.userOtherInfo.description"
+          v-model="userInfo.description"
         ></el-input>
       </el-form-item>
       <el-form-item>
@@ -69,7 +69,6 @@
           <el-button type="primary" @click="submitUserInfoForm('userInfoForm')">
             保存
           </el-button>
-          <el-button type="danger" @click="closeCurPage()"> 关闭 </el-button>
         </div>
       </el-form-item>
     </el-form>
@@ -80,7 +79,50 @@
 export default {
   name: "BaseInfo",
   data() {
-    return {};
+    // =================== 修改手机号校验规则 ===================
+    var checkPhone = (rule, value, callback) => {
+      const phoneReg = /^1[3|4|5|7|8][0-9]{9}$/;
+      if (!value) {
+        return callback(new Error("电话号码不能为空"));
+      }
+      setTimeout(() => {
+        // Number.isInteger是es6验证数字是否为整数的方法,但是我实际用的时候输入的数字总是识别成字符串
+        if (!Number.isInteger(+value)) {
+          callback(new Error("请输入数字值"));
+        } else {
+          if (phoneReg.test(value)) {
+            callback();
+          } else {
+            callback(new Error("电话号码格式不正确"));
+          }
+        }
+      }, 100);
+    };
+    // =================== 修改邮箱校验规则 ===================
+    var checkEmail = (rule, value, callback) => {
+      const mailReg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+      if (!value) {
+        return callback(new Error("邮箱不能为空"));
+      }
+      setTimeout(() => {
+        if (mailReg.test(value)) {
+          callback();
+        } else {
+          callback(new Error("请输入正确的邮箱格式"));
+        }
+      }, 100);
+    };
+    return {
+      // 用户昵称
+      nickName: this.$store.getters.userInfo.nickName,
+      // 用户其他信息
+      userInfo: this.$store.getters.userOtherInfo,
+      // 用户信息修改校验规则
+      userInfoRules: {
+        email: [{ required: true, validator: checkEmail, trigger: "blur" }],
+        phone: [{ required: true, validator: checkPhone, trigger: "blur" }],
+      },
+    };
   },
 
   mounted() {},

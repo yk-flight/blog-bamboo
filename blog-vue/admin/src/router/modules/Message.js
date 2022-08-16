@@ -1,8 +1,8 @@
-import Layout from "@/layout";
+import Main from "@/layout/Main.vue";
 
 export default {
   path: "/information",
-  component: Layout,
+  component: Main,
   redirect: "/information/comment",
   name: "information",
   meta: {

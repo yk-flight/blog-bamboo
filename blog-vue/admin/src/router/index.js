@@ -45,6 +45,18 @@ export const routes = [
           title: "个人中心",
           icon: "user",
         },
+        // 404
+      },
+      {
+        path: "/404",
+        name: "404",
+        component: () => import("@/views/error-page/404"),
+      },
+      // 401
+      {
+        path: "/401",
+        name: "401",
+        component: () => import("@/views/error-page/401"),
       },
     ],
   },
@@ -65,7 +77,7 @@ export const privateRoutes = [
 const router = new VueRouter({
   mode: "hash",
   base: process.env.BASE_URL,
-  routes: [...routes, ...privateRoutes],
+  routes: [...routes],
 });
 
 Vue.use(VueRouter);

@@ -1,5 +1,23 @@
 <template>
-  <div>修改密码</div>
+  <div>
+    <el-form>
+      <el-form-item label="原密码" label-width="80px">
+        <el-input
+          v-model="this.$store.getters.userInfo.password"
+          type="password"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="新密码" label-width="80px">
+        <el-input v-model="newPassword" type="password"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <div class="button-container">
+          <el-button type="primary"> 修改 </el-button>
+          <el-button type="danger"> 关闭 </el-button>
+        </div>
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
 
 <script>
@@ -7,7 +25,9 @@ export default {
   name: "ChangePass",
 
   data() {
-    return {};
+    return {
+      newPassword: "",
+    };
   },
 
   mounted() {},
@@ -16,4 +36,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.button-container {
+  margin-top: 10px;
+  text-align: center;
+}
+</style>

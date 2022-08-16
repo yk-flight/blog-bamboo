@@ -1,8 +1,8 @@
-import Layout from "@/layout";
+import Main from "@/layout/Main.vue";
 
 export default {
   path: "/security",
-  component: Layout,
+  component: Main,
   redirect: "/security/menus",
   name: "security",
   meta: {

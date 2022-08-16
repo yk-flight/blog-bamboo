@@ -1,8 +1,8 @@
-import Layout from "@/layout";
+import Main from "@/layout/Main.vue";
 
 export default {
   path: "/user",
-  component: Layout,
+  component: Main,
   redirect: "/user/userList",
   name: "userManage",
   meta: {

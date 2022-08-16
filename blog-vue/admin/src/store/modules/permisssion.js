@@ -33,9 +33,7 @@ export default {
         path: "/:catchAll(.*)",
         redirect: "/404",
       });
-
       context.commit("setRoutes", routes);
-
       return routes;
     },
   },

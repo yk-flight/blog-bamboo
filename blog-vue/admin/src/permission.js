@@ -37,9 +37,21 @@ router.beforeEach(async (to, from, next) => {
 
         // 循环添加动态路由
         filterRoutes.forEach((item) => {
-          router.addRoute(item);
+          // if (item.name) {
+          //   router.addRoute(item.name, item);
+          // }
+          // if (item.children) {
+          //   for (let i = 0; i < item.children.length; i++) {
+          //     router.options.routes[1].children.push(item.children[i]);
+          //   }
+          // }
+
+          router.options.routes[1].children.push(item);
+          // router.options.routes[1].push(filterRoutes);
         });
 
+        //重新加载路由
+        router.addRoutes(router.options.routes);
         // 动态路由添加完成后，需要进行一次主动跳转
         return next(to.path);
       }

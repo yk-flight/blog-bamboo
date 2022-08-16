@@ -21,7 +21,6 @@
 
 <script>
 import { mapState } from "vuex";
-import { isTags } from "@/utils/tags";
 
 export default {
   name: "TagsView",
@@ -33,18 +32,6 @@ export default {
   },
   computed: {
     // ...mapState(["/app/tagsViewList"]),
-  },
-
-  watch: {
-    // 监听 visible 的值
-    visible(val) {
-      // 如果当前菜单是打开状态，为 body 添加一个点击监听事件
-      if (val) {
-        document.body.addEventListener("click", this.closeMenu);
-      } else {
-        document.body.removeEventListener("click", this.closeMenu);
-      }
-    },
   },
 
   methods: {
@@ -61,6 +48,7 @@ export default {
       });
       // 如果关闭的是当前标签页则返回上一个标签页
       if (index === this.selectIndex) {
+        console.log("关闭当前标签页：", index, "  ", this.selectIndex);
         this.$router.push(
           this.$store.getters.tagsViewList[
             this.$store.getters.tagsViewList.length - 1

@@ -1,8 +1,8 @@
-import Layout from "@/layout";
+import Main from "@/layout/Main.vue";
 
 export default {
   path: "/log",
-  component: Layout,
+  component: Main,
   redirect: "/log/operation",
   name: "logManage",
   meta: {

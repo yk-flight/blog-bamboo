@@ -1,8 +1,8 @@
-import Layout from "@/layout";
+import Main from "@/layout/Main.vue";
 
 export default {
   path: "/picture",
-  component: Layout,
+  component: Main,
   redirect: "/picture/pictureList",
   name: "picture",
   meta: {

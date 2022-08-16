@@ -1,8 +1,8 @@
-import Layout from "@/layout";
+import Main from "@/layout/Main.vue";
 
 export default {
   path: "/article",
-  component: Layout,
+  component: Main,
   redirect: "/article/create-article",
   // 判断是否具有该菜单的权限标识
   name: "article",
