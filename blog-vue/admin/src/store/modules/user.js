@@ -3,7 +3,7 @@ import { TOKEN } from "@/constant";
 import { setTimeStamp } from "@/utils/auth";
 import { setItem, getItem, removeAllItem } from "@/utils/storage";
 import { login, getUserInfo, getUserAgent } from "../../api/sys";
-import { getUserInfoById } from "../../api/user";
+import { getUserInfoById, updateUserInfo, getAccessPath } from "../../api/user";
 
 export default {
   // 表示模块为单独的模块
@@ -17,6 +17,8 @@ export default {
     userOtherInfo: {},
     // 用户登录设备
     userAgent: "",
+    // 用户可以访问的页面
+    accessPath: [],
   }),
   mutations: {
     setToken(state, token) {
@@ -31,6 +33,9 @@ export default {
     },
     setUserOtherInfo(state, userOtherInfo) {
       state.userOtherInfo = userOtherInfo;
+    },
+    setAccessPath(state, accessPath) {
+      state.accessPath = accessPath;
     },
   },
   actions: {
@@ -80,6 +85,38 @@ export default {
       const res = await getUserInfoById();
       this.commit("user/setUserOtherInfo", res);
       return res;
+    },
+
+    // 更新用户个人信息
+    updateUserInfo(context, data) {
+      // 将需要返回到后端的数据进行提取
+      const { email, csdn, description, gitee, github, leetcode, phone, qq } =
+        data.userInfo;
+      return new Promise((resolve, reject) => {
+        updateUserInfo({
+          nickName: data.nickName,
+          email: email,
+          csdn: csdn,
+          description: description,
+          gitee: gitee,
+          github: github,
+          leetcode: leetcode,
+          phone: phone,
+          qq: qq,
+        })
+          .then(() => {
+            resolve();
+          })
+          // 如果出现错误
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    // 获取用户可访问的页面路径
+    async getAccessPath() {
+      const res = await getAccessPath();
+      this.commit("user/setAccessPath", res);
     },
 
     // 退出登录

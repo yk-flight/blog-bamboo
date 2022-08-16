@@ -12,7 +12,7 @@ export default {
   children: [
     {
       path: "/information/comment",
-      name: "评论管理",
+      name: "comment",
       component: () => import("@/views/information/Comment.vue"),
       meta: {
         title: "评论管理",
@@ -21,7 +21,7 @@ export default {
     },
     {
       path: "/information/leave",
-      name: "留言管理",
+      name: "leave",
       component: () => import("@/views/information/Leave.vue"),
       meta: {
         title: "留言管理",

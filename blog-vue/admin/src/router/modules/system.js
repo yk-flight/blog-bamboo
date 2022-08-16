@@ -12,7 +12,7 @@ export default {
   children: [
     {
       path: "/system/website",
-      name: "网站管理",
+      name: "website",
       component: () => import("@/views/system/Website.vue"),
       meta: {
         title: "网站管理",
@@ -21,7 +21,7 @@ export default {
     },
     {
       path: "/system/pages",
-      name: "页面管理",
+      name: "pages",
       component: () => import("@/views/system/Pages.vue"),
       meta: {
         title: "页面管理",
@@ -30,7 +30,7 @@ export default {
     },
     {
       path: "/system/links",
-      name: "友链管理",
+      name: "links",
       component: () => import("@/views/system/Links.vue"),
       meta: {
         title: "友链管理",
@@ -39,7 +39,7 @@ export default {
     },
     {
       path: "/system/about",
-      name: "关于我",
+      name: "about",
       component: () => import("@/views/system/About.vue"),
       meta: {
         title: "关于我",

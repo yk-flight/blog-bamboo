@@ -9,7 +9,7 @@
       :style="{
         backgroundColor: isActive(tag) ? '#409EFF' : '',
       }"
-      >{{ tag.title }}
+      >{{ tag.meta.title }}
       <i
         v-show="tag.path != '/dashboard'"
         class="el-icon-close"
@@ -48,7 +48,6 @@ export default {
       });
       // 如果关闭的是当前标签页则返回上一个标签页
       if (index === this.selectIndex) {
-        console.log("关闭当前标签页：", index, "  ", this.selectIndex);
         this.$router.push(
           this.$store.getters.tagsViewList[
             this.$store.getters.tagsViewList.length - 1

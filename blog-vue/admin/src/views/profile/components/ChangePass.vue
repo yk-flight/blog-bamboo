@@ -13,7 +13,6 @@
       <el-form-item>
         <div class="button-container">
           <el-button type="primary"> 修改 </el-button>
-          <el-button type="danger"> 关闭 </el-button>
         </div>
       </el-form-item>
     </el-form>

@@ -12,7 +12,7 @@ export default {
   children: [
     {
       path: "/picture/pictureList",
-      name: "图片列表",
+      name: "pictureList",
       component: () => import("@/views/picture/PictureList.vue"),
       meta: {
         title: "图片列表",

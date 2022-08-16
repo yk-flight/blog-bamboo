@@ -15,6 +15,8 @@ const getters = {
   userAgent: (state) => state.user.userAgent,
   // 用户个人信息
   userOtherInfo: (state) => state.user.userOtherInfo,
+  // 用户可以访问的页面
+  accessPath: (state) => state.user.accessPath,
 };
 
 export default getters;

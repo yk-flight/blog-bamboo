@@ -12,7 +12,7 @@ export default {
   children: [
     {
       path: "/security/menus",
-      name: "菜单管理",
+      name: "menus",
       component: () => import("@/views/security/Menus.vue"),
       meta: {
         title: "菜单管理",
@@ -21,7 +21,7 @@ export default {
     },
     {
       path: "/security/interface",
-      name: "接口管理 ",
+      name: "interface ",
       component: () => import("@/views/security/Interface.vue"),
       meta: {
         title: "接口管理",
@@ -30,7 +30,7 @@ export default {
     },
     {
       path: "/security/roles",
-      name: "角色管理 ",
+      name: "roles ",
       component: () => import("@/views/security/Roles.vue"),
       meta: {
         title: "角色管理",

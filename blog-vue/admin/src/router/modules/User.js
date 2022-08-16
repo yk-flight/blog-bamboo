@@ -12,7 +12,7 @@ export default {
   children: [
     {
       path: "/user/userList",
-      name: "用户列表",
+      name: "userList",
       component: () => import("@/views/user/UserList.vue"),
       meta: {
         title: "用户列表",

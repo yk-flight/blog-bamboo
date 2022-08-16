@@ -12,7 +12,7 @@ export default {
   children: [
     {
       path: "/log/operation",
-      name: "操作日志",
+      name: "operation",
       component: () => import("@/views/log/Operation.vue"),
       meta: {
         title: "操作日志",

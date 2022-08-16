@@ -13,7 +13,7 @@ export default {
         name: "dashboard",
         path: "/dashboard",
         meta: {
-          title: "dashboard",
+          title: "仪表盘",
           icon: "dashboard",
         },
         title: "仪表盘",

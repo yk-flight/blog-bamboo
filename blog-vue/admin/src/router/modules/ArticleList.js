@@ -13,7 +13,7 @@ export default {
   children: [
     {
       path: "/article/article-list",
-      name: "文章列表",
+      name: "articleList",
       component: () => import("@/views/article/ArticleList.vue"),
       meta: {
         title: "文章列表",

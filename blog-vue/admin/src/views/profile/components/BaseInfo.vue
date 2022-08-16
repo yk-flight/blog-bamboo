@@ -82,9 +82,6 @@ export default {
     // =================== 修改手机号校验规则 ===================
     var checkPhone = (rule, value, callback) => {
       const phoneReg = /^1[3|4|5|7|8][0-9]{9}$/;
-      if (!value) {
-        return callback(new Error("电话号码不能为空"));
-      }
       setTimeout(() => {
         // Number.isInteger是es6验证数字是否为整数的方法,但是我实际用的时候输入的数字总是识别成字符串
         if (!Number.isInteger(+value)) {
@@ -120,14 +117,36 @@ export default {
       // 用户信息修改校验规则
       userInfoRules: {
         email: [{ required: true, validator: checkEmail, trigger: "blur" }],
-        phone: [{ required: true, validator: checkPhone, trigger: "blur" }],
+        phone: [{ validator: checkPhone, trigger: "blur" }],
       },
     };
   },
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    // 更新用户个人信息
+    submitUserInfoForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 调用后端接口
+          this.$store
+            .dispatch("user/updateUserInfo", {
+              userInfo: this.userInfo,
+              nickName: this.nickName,
+            })
+            .then(() => {
+              // 重新设置用户登录信息
+              this.$store.dispatch("user/getUserInfo");
+              // 重新设置用户个人信息
+              this.$store.dispatch("user/getUserInfoById");
+            });
+        } else {
+          return false;
+        }
+      });
+    },
+  },
 };
 </script>
 

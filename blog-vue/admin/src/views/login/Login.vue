@@ -91,7 +91,7 @@ export default {
         if (valid) {
           this.$store.dispatch("user/login", this.loginForm).then(() => {
             // 跳转到后台首页
-            this.$router.push("/");
+            this.$router.push("/dashboard");
           });
         } else {
           this.$message.error("请输入所有内容");
