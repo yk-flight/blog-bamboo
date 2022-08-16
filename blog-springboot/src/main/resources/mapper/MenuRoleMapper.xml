@@ -3,4 +3,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zrkizzy.blog.mapper.MenuRoleMapper">
 
+    <select id="getAccessPath" resultType="java.lang.String">
+        SELECT
+            m.path
+        FROM
+            menu m,
+            user_role ur,
+            `user` u,
+            menu_role mr
+        WHERE
+            u.id = #{userId}
+          AND ur.user_id = u.id
+          AND ur.role_id = mr.role_id
+          AND mr.menu_id = m.id
+          AND m.enabled = 1
+    </select>
 </mapper>
