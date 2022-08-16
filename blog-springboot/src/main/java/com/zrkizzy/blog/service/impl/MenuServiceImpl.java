@@ -3,8 +3,8 @@ package com.zrkizzy.blog.service.impl;
 import com.zrkizzy.blog.entity.Menu;
 import com.zrkizzy.blog.mapper.MenuMapper;
 import com.zrkizzy.blog.service.MenuService;
+import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.utils.UserUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,17 @@ public class MenuServiceImpl implements MenuService {
      */
     @Override
     public List<Menu> getMenuWithRole() {
-        return menuMapper.getMenuWithRole();
+        ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
+        // Redis中拉取菜单数据
+        List<Menu> roleMenus = BeanCopyUtil.castObjectToList(valueOperations.get("roleMenus"), Menu.class);
+        // 查看从Redis中拉取到的菜单数据是否存在
+        if (CollectionUtils.isEmpty(roleMenus)) {
+            // 如果不存在则从数据库中拉取
+            roleMenus = menuMapper.getMenuWithRole();
+            // 将从数据库中拉取到的数据添加到Redis中
+            valueOperations.set("roleMenus", roleMenus);
+        }
+        return roleMenus;
     }
 
     /**
@@ -45,7 +55,7 @@ public class MenuServiceImpl implements MenuService {
         Integer userId = UserUtil.getCurrentUser().getId();
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
         // 从Redis中获取菜单数据
-        List<Menu> menuList = (List<Menu>) valueOperations.get("menu_" + userId);
+        List<Menu> menuList = BeanCopyUtil.castObjectToList(valueOperations.get("menu_" + userId), Menu.class);
         // 判断从Redis中获取到的菜单列表是否存在
         if (CollectionUtils.isEmpty(menuList)) {
             // 如果为空则从数据库中获取

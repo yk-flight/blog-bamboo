@@ -55,4 +55,25 @@ public class BeanCopyUtil {
         BeanUtils.copyProperties(source, obj);
         return obj;
     }
+
+
+    /**
+     * 将传来的Object对象转为指定的List集合
+     *
+     * @param object 传来的Object对象
+     * @param clazz 指定类型
+     * @param <T> 泛型
+     * @return 指定的List集合
+     */
+    public static <T> List<T> castObjectToList(Object object, Class<T> clazz) {
+        List<T> result = new ArrayList<>();
+        // 如果传来的对象属于List集合
+        if (object instanceof List<?>) {
+            for (Object o : (List<T>) object) {
+                result.add(clazz.cast(o));
+            }
+            return result;
+        }
+        return null;
+    }
 }
