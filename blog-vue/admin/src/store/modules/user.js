@@ -159,6 +159,7 @@ export default {
       // 2. 清除当前用户的信息
       this.commit("user/setUserInfo", {});
       this.commit("user/setUserAgent", "");
+      this.commit("user/setAccessPath", []);
       // 3. 清除本地缓存
       removeAllItem();
       // 4. 清除相关权限的菜单信息
