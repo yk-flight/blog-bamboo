@@ -26,9 +26,28 @@ export const updateUserInfo = (data) => {
   });
 };
 
+/**
+ * 获取用户可以访问的页面
+ *
+ * @returns 用户可以访问的页面集合
+ */
 export const getAccessPath = () => {
   return request({
     url: "/admin/getAccessPath",
     method: "GET",
+  });
+};
+
+/**
+ * 用户更新密码操作
+ *
+ * @param {*} data 密码表单
+ * @returns
+ */
+export const updatePassword = (data) => {
+  return request({
+    url: "/admin/updatePassword",
+    method: "PUT",
+    data,
   });
 };

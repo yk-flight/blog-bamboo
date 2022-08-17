@@ -3,7 +3,14 @@ import { TOKEN } from "@/constant";
 import { setTimeStamp } from "@/utils/auth";
 import { setItem, getItem, removeAllItem } from "@/utils/storage";
 import { login, getUserInfo, getUserAgent } from "../../api/sys";
-import { getUserInfoById, updateUserInfo, getAccessPath } from "../../api/user";
+import {
+  getUserInfoById,
+  updateUserInfo,
+  getAccessPath,
+  updatePassword,
+} from "../../api/user";
+
+import { Notification } from "element-ui";
 
 export default {
   // 表示模块为单独的模块
@@ -117,6 +124,32 @@ export default {
     async getAccessPath() {
       const res = await getAccessPath();
       this.commit("user/setAccessPath", res);
+    },
+
+    // 用户更新密码
+    updatePassword(context, data) {
+      // 将需要返回到后端的数据进行提取
+      const { oldPassword, newPassword } = data;
+      return new Promise((resolve, reject) => {
+        updatePassword({
+          oldPassword: oldPassword,
+          newPassword: newPassword,
+        })
+          .then((data) => {
+            if (data.code === 200) {
+              // 输出消息提示
+              Notification.success({
+                title: "密码更新成功",
+                message: "3 秒后系统将自动退出，请重新登录",
+              });
+            }
+            resolve();
+          })
+          // 如果出现错误
+          .catch((error) => {
+            reject(error);
+          });
+      });
     },
 
     // 退出登录
