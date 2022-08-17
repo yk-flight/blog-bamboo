@@ -2,10 +2,10 @@ package com.zrkizzy.blog.controller;
 
 import com.zrkizzy.blog.service.UserService;
 import com.zrkizzy.blog.vo.Result;
+import com.zrkizzy.blog.vo.param.PasswordVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +32,12 @@ public class UserController {
     @GetMapping("/admin/getUserAgent")
     public String getUserAgent(HttpServletRequest request) {
         return userService.getUserAgent(request);
+    }
+
+    @ApiOperation("更新用户密码")
+    @PutMapping("/admin/updatePassword")
+    public Result updatePassword(@RequestBody PasswordVO passwordVO) {
+        return userService.updatePassword(passwordVO);
     }
 
 }

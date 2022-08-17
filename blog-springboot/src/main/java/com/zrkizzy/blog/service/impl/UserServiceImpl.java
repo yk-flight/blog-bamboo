@@ -11,6 +11,7 @@ import com.zrkizzy.blog.utils.IpUtil;
 import com.zrkizzy.blog.utils.JwtTokenUtil;
 import com.zrkizzy.blog.utils.UserUtil;
 import com.zrkizzy.blog.vo.Result;
+import com.zrkizzy.blog.vo.param.PasswordVO;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -183,5 +184,36 @@ public class UserServiceImpl implements UserService {
         return userAgent.getOperatingSystem().getName() + " " +
                 // 拼接浏览器信息
                 userAgent.getBrowser();
+    }
+
+    /**
+     * 用户更新密码
+     *
+     * @param passwordVO 用户密码参数对象
+     * @return 返回结果对象
+     */
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public Result updatePassword(PasswordVO passwordVO) {
+        // 判断新旧密码是否一致
+        if (passwordEncoder.matches(passwordVO.getNewPassword(), passwordVO.getOldPassword())) {
+            return Result.error("新密码不能与旧密码相同");
+        }
+        // 获取当前登录用户的ID
+        Integer userId = UserUtil.getCurrentUser().getId();
+        // 通过用户ID查询到对应的用户对象
+        User user = userMapper.selectById(userId);
+
+        String password = passwordEncoder.encode(passwordVO.getNewPassword());
+        // 更新上一次用户更新时间
+        user.setUpdateTime(new Date());
+        // 更新用户密码
+        user.setPassword(password);
+
+        int count = userMapper.updateById(user);
+        if (count > 0) {
+            return Result.success("更新密码成功");
+        }
+        return Result.error("更新密码失败");
     }
 }

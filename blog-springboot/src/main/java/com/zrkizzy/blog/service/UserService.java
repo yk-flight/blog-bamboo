@@ -3,6 +3,7 @@ package com.zrkizzy.blog.service;
 import com.zrkizzy.blog.entity.Role;
 import com.zrkizzy.blog.entity.User;
 import com.zrkizzy.blog.vo.Result;
+import com.zrkizzy.blog.vo.param.PasswordVO;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -64,4 +65,12 @@ public interface UserService {
      * @return 用户登录设备
      */
     String getUserAgent(HttpServletRequest request);
+
+    /**
+     * 用户更新密码
+     *
+     * @param passwordVO 用户密码参数对象
+     * @return 返回结果对象
+     */
+    Result updatePassword(PasswordVO passwordVO);
 }
