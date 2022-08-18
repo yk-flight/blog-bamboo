@@ -48,7 +48,7 @@ public class CategoryController {
     }
 
     @ApiOperation("更新指定的文章分类")
-    @PostMapping("/admin/updateCategory")
+    @PutMapping("/admin/updateCategory")
     public Result updateCategory(@RequestBody CategoryDto categoryDto) {
         return categoryService.updateCategory(categoryDto);
     }
