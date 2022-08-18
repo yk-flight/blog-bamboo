@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkizzy.blog.mapper.CategoryMapper">
+    <!-- 通用查询对象 -->
+    <sql id="all_col">id, `name`, description, article_amount, image, create_time, update_time</sql>
+
+    <!-- 获取文章所有分类分页对象 -->
+    <select id="getCategoryByPage" resultType="com.zrkizzy.blog.entity.Category">
+        SELECT
+        <include refid="all_col"></include>
+        FROM categories
+        <if test="name!=null and ''!=name">
+        WHERE
+            `name` LIKE CONCAT( '%', #{name}, '%' )
+        </if>
+        ORDER BY id
+    </select>
+</mapper>

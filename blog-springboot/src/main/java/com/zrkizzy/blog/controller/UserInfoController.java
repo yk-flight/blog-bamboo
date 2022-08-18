@@ -2,12 +2,10 @@ package com.zrkizzy.blog.controller;
 
 import com.zrkizzy.blog.entity.UserInfo;
 import com.zrkizzy.blog.service.UserInfoService;
-import com.zrkizzy.blog.service.impl.UserDetailsServiceImpl;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.UserInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
