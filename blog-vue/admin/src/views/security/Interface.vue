@@ -1,19 +1,15 @@
 <template>
-  <div>接口管理</div>
+  <i-frame :src="url" />
 </template>
-
 <script>
+import iFrame from "@/components/iFrame/index";
 export default {
-  name: "Interface",
-
+  name: "Swagger",
+  components: { iFrame },
   data() {
-    return {};
+    return {
+      url: "http://localhost:8090/doc.html",
+    };
   },
-
-  mounted() {},
-
-  methods: {},
 };
 </script>
-
-<style lang="scss" scoped></style>

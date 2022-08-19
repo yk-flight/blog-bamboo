@@ -24,7 +24,7 @@ export default {
       name: "interface ",
       component: () => import("@/views/security/Interface.vue"),
       meta: {
-        title: "接口管理",
+        title: "接口文档",
         icon: "swagger",
       },
     },

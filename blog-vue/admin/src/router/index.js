@@ -8,8 +8,8 @@ import message from "./modules/Message";
 import security from "./modules/Security";
 import user from "./modules/User";
 import picture from "./modules/Picture";
-import system from "./modules/system";
-import log from "./modules/log";
+import system from "./modules/System";
+import log from "./modules/Log";
 
 Vue.use(VueRouter);
 
