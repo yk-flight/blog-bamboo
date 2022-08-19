@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -82,6 +83,12 @@ public class Menu implements Serializable {
      */
     @ApiModelProperty("是否启用")
     private boolean enabled;
+
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("创建时间")
+    private Date createTime;
 
     /**
      * 子菜单

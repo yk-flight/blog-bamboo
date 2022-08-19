@@ -14,6 +14,7 @@
         <result column="requireAuth" property="requireAuth"/>
         <result column="parentId" property="parentId"/>
         <result column="enabled" property="enabled"/>
+        <result column="createTime" property="createTime"/>
     </resultMap>
     
     <!-- 根据角色获取菜单列表 -->
@@ -54,6 +55,7 @@
             <result column="requireAuth2" property="requireAuth"/>
             <result column="parentId2" property="parentId"/>
             <result column="enabled2" property="enabled"/>
+            <result column="createTime2" property="createTime"/>
         </collection>
     </resultMap>
 
@@ -70,6 +72,7 @@
             m2.require_auth AS requireAuth2,
             m2.parent_id AS parentId2,
             m2.enabled AS enabled2
+            m2.create_time AS createTime2
         FROM
             menu m1,
             menu m2,

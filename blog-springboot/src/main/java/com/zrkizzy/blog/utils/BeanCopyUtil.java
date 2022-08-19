@@ -21,7 +21,7 @@ public class BeanCopyUtil {
      * @param <T> 泛型
      * @return 复制完成的集合
      */
-    public static <T> List<T> copyList(List<T> source, Class<T> clazz) {
+    public static <T> List<T> copyList(List source, Class<T> clazz) {
         List<T> target = new ArrayList<>();
         if (!CollectionUtils.isEmpty(source)) {
             if (!CollectionUtils.isEmpty(source)) {

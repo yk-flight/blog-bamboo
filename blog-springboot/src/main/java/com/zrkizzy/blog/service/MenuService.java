@@ -1,6 +1,8 @@
 package com.zrkizzy.blog.service;
 
+import com.zrkizzy.blog.dto.MenuDto;
 import com.zrkizzy.blog.entity.Menu;
+import com.zrkizzy.blog.vo.param.MenuVO;
 
 import java.util.List;
 
@@ -29,4 +31,12 @@ public interface MenuService {
      * @return 菜单权限集合
      */
     List<String> getPermissionByUserId();
+
+    /**
+     * 根据菜单名称和菜单状态获取符合条件的所有菜单
+     *
+     * @param menuVO 菜单参数对象
+     * @return 菜单列表
+     */
+    List<MenuDto> getAllMenus(MenuVO menuVO);
 }
