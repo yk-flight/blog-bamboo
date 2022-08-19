@@ -13,6 +13,8 @@ const whiteList = ["/login", "/404", "/401", "/dashboard", "/profile"];
 router.beforeEach(async (to, from, next) => {
   // 开启页面进度条
   NProgress.start();
+  // 修改网站的标题
+  window.document.title = "后台管理系统 - " + to.meta.title;
 
   // 如果本地已经缓存token
   if (store.getters.token) {

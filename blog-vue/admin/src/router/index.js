@@ -51,12 +51,18 @@ export const routes = [
         path: "/404",
         name: "404",
         component: () => import("@/views/error-page/404"),
+        meta: {
+          title: "404",
+        },
       },
       // 401
       {
         path: "/401",
         name: "401",
         component: () => import("@/views/error-page/401"),
+        meta: {
+          title: "401",
+        },
       },
     ],
   },
