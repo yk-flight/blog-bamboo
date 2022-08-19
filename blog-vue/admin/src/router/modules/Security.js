@@ -15,13 +15,13 @@ export default {
       name: "menus",
       component: () => import("@/views/security/Menus.vue"),
       meta: {
-        title: "菜单管理",
+        title: "菜单列表",
         icon: "menu",
       },
     },
     {
       path: "/security/interface",
-      name: "interface ",
+      name: "swagger ",
       component: () => import("@/views/security/Interface.vue"),
       meta: {
         title: "接口文档",
