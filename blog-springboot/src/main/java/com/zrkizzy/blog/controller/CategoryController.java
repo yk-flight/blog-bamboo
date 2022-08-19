@@ -24,8 +24,8 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @ApiOperation("获取所有文章分类（分页）")
-    @PostMapping("/admin/getCategoryByPage")
-    public PageVO getCategoryByPage(Integer curPage,Integer size, String name) {
+    @GetMapping("/admin/getCategoryByPage")
+    public PageVO getCategoryByPage(@RequestParam("curPage") Integer curPage, @RequestParam("size") Integer size, @RequestParam("name") String name) {
         return categoryService.getCategoryByPage(curPage, size, name);
     }
 
@@ -42,8 +42,8 @@ public class CategoryController {
     }
 
     @ApiOperation("批量删除文章分类")
-    @DeleteMapping("/admin/deleteCategoryBatchIds")
-    public Result deleteCategoryBatchIds(Integer[] ids) {
+    @DeleteMapping("/admin/deleteCategoryBatchIds/{ids}")
+    public Result deleteCategoryBatchIds(@PathVariable Integer[] ids) {
         return categoryService.deleteCategoryBatchIds(ids);
     }
 

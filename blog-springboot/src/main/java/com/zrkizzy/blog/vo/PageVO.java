@@ -24,5 +24,5 @@ public class PageVO {
     /**
      * 数据集合
      */
-    private List<?> data;
+    private List<?> list;
 }
