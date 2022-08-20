@@ -1,7 +1,5 @@
 package com.zrkizzy.blog.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -52,5 +50,5 @@ public class RoleDto {
      * 角色权限
      */
     @ApiModelProperty("角色权限")
-    private List<String> permission;
+    private List<PermissionDto> permission;
 }

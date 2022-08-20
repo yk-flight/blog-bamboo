@@ -1,6 +1,7 @@
 package com.zrkizzy.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zrkizzy.blog.dto.PermissionDto;
 import com.zrkizzy.blog.entity.Role;
 
 import java.util.List;
@@ -24,6 +25,6 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @param roleId 角色ID
      * @return 权限列表
      */
-    List<String> getPermissionByRoles(Integer roleId);
+    List<PermissionDto> getPermissionByRoles(Integer roleId);
 }
 

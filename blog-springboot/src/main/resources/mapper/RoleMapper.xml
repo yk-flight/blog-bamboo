@@ -15,8 +15,9 @@
     </select>
 
     <!-- 获取角色对应的权限 -->
-    <select id="getPermissionByRoles" resultType="java.lang.String">
+    <select id="getPermissionByRoles" resultType="com.zrkizzy.blog.dto.PermissionDto">
         SELECT DISTINCT
+        m.id,
         m.path
         FROM
         menu_role mr,
