@@ -2,10 +2,11 @@ package com.zrkizzy.blog.controller;
 
 import com.zrkizzy.blog.dto.RoleDto;
 import com.zrkizzy.blog.service.RoleService;
+import com.zrkizzy.blog.vo.Result;
+import com.zrkizzy.blog.vo.param.RoleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -26,5 +27,23 @@ public class RoleController {
     @GetMapping("/admin/getAllRoles")
     public List<RoleDto> getAllRoles() {
         return roleService.getAllRoles();
+    }
+
+    @ApiOperation("更新角色")
+    @PutMapping("/admin/updateRole")
+    public Result updateRole(@RequestBody RoleVO roleVO) {
+        return roleService.updateRole(roleVO);
+    }
+
+    @ApiOperation("新增角色")
+    @PostMapping("/admin/insertRole")
+    public Result insertRole(@RequestBody RoleVO roleVO) {
+        return roleService.insertRole(roleVO);
+    }
+
+    @ApiOperation("删除角色")
+    @DeleteMapping("/admin/deleteRole/{id}")
+    public Result deleteRoleById(@PathVariable Integer id) {
+        return roleService.deleteRoleById(id);
     }
 }

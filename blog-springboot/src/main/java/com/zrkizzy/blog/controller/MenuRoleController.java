@@ -1,9 +1,11 @@
 package com.zrkizzy.blog.controller;
 
 import com.zrkizzy.blog.service.MenuRoleService;
+import com.zrkizzy.blog.vo.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -27,5 +29,9 @@ public class MenuRoleController {
         return menuRoleService.getAccessPath();
     }
 
-
+    @ApiOperation("更新用户角色权限")
+    @PutMapping("/admin/updateRolePermission")
+    public Result updateRolePermission(Integer roleId, Integer[] ids) {
+        return menuRoleService.updateRolePermission(roleId, ids);
+    }
 }
