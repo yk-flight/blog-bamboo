@@ -13,4 +13,17 @@
         WHERE
             ur.user_id = #{userId}
     </select>
+
+    <!-- 获取角色对应的权限 -->
+    <select id="getPermissionByRoles" resultType="java.lang.String">
+        SELECT DISTINCT
+        m.path
+        FROM
+        menu_role mr,
+        menu m
+        WHERE
+        mr.role_id = #{roleId}
+        AND mr.menu_id = m.id
+        AND m.path != '/'
+    </select>
 </mapper>
