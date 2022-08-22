@@ -168,6 +168,8 @@ public class UserServiceImpl implements UserService {
         // 设置用户的菜单权限
         List<String> permission = menuMapper.getPermissionByUserId(userId);
         user.setPermission(permission);
+        // 设置用户的角色
+        user.setRoles(roleMapper.getRoles(userId));
         return user;
     }
 

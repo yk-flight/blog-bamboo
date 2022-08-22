@@ -40,6 +40,8 @@ public class RoleServiceImpl implements RoleService {
         List<RoleDto> roleDtoList = BeanCopyUtil.copyList(roles, RoleDto.class);
         // 设置每一个角色的权限
         for (RoleDto roleDto : roleDtoList) {
+            // 将Spring Security中的角色前缀隐藏
+            roleDto.setRoleName(roleDto.getRoleName().replace("ROLE_", ""));
             roleDto.setPermission(roleMapper.getPermissionByRoles(roleDto.getId()));
         }
         return roleDtoList;
@@ -54,10 +56,11 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public Result updateRole(RoleVO roleVO) {
+        Role role = BeanCopyUtil.copy(roleVO, Role.class);
         // 定义上一次更新时间
-        roleVO.setUpdateTime(new Date());
+        role.setUpdateTime(new Date());
         // 复制当前角色对象
-        int row = roleMapper.updateById(BeanCopyUtil.copy(roleVO, Role.class));
+        int row = roleMapper.updateById(role);
         if (row > 0) {
             return Result.success("角色信息更新成功");
         }
@@ -94,8 +97,11 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public Result insertRole(RoleVO roleVO) {
-        System.out.println(BeanCopyUtil.copy(roleVO, Role.class));
-        int row = roleMapper.insert(BeanCopyUtil.copy(roleVO, Role.class));
+        Role role = BeanCopyUtil.copy(roleVO, Role.class);
+        // 设置当前角色的创建时间和上一次更新时间
+        role.setCreateTime(new Date());
+        role.setUpdateTime(new Date());
+        int row = roleMapper.insert(role);
         if (row > 0) {
             return Result.success("新增角色成功");
         }
