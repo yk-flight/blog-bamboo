@@ -7,3 +7,10 @@ export const getAllMenus = (data) => {
     data,
   });
 };
+
+export const getAllRoles = () => {
+  return request({
+    url: "/admin/getAllRoles",
+    method: "GET",
+  });
+};
