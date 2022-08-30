@@ -1,19 +1,21 @@
 package com.zrkizzy.blog.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zrkizzy.blog.dto.RoleDto;
-import com.zrkizzy.blog.entity.MenuRole;
 import com.zrkizzy.blog.entity.Role;
-import com.zrkizzy.blog.mapper.MenuRoleMapper;
+import com.zrkizzy.blog.entity.UserRole;
+import com.zrkizzy.blog.mapper.MenuMapper;
 import com.zrkizzy.blog.mapper.RoleMapper;
+import com.zrkizzy.blog.mapper.UserRoleMapper;
 import com.zrkizzy.blog.service.RoleService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
+import com.zrkizzy.blog.utils.UserUtil;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.RoleVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +28,9 @@ public class RoleServiceImpl implements RoleService {
     @Resource
     private RoleMapper roleMapper;
     @Resource
-    private MenuRoleMapper menuRoleMapper;
+    private MenuMapper menuMapper;
+    @Resource
+    private UserRoleMapper userRoleMapper;
 
     /**
      * 获取所有角色
@@ -36,13 +40,12 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleDto> getAllRoles() {
         List<Role> roles = roleMapper.selectList(null);
-        // 复制当前所有的角色对象
-        List<RoleDto> roleDtoList = BeanCopyUtil.copyList(roles, RoleDto.class);
-        // 设置每一个角色的权限
-        for (RoleDto roleDto : roleDtoList) {
-            // 将Spring Security中的角色前缀隐藏
-            roleDto.setRoleName(roleDto.getRoleName().replace("ROLE_", ""));
-            roleDto.setPermission(roleMapper.getPermissionByRoles(roleDto.getId()));
+        List<RoleDto> roleDtoList = new ArrayList<>();
+        // 设置每一个角色对象
+        for (Role role : roles) {
+            RoleDto roleDto = BeanCopyUtil.copy(role, RoleDto.class);
+            roleDto.setPermission(UserUtil.getPermissionByString(role.getPermission()));
+            roleDtoList.add(roleDto);
         }
         return roleDtoList;
     }
@@ -57,6 +60,10 @@ public class RoleServiceImpl implements RoleService {
     @Transactional(rollbackFor = RuntimeException.class)
     public Result updateRole(RoleVO roleVO) {
         Role role = BeanCopyUtil.copy(roleVO, Role.class);
+        // 如果权限列表中含有数据则说明需要更新权限
+        if (roleVO.getPermission().size() > 0) {
+            role.setPermission(UserUtil.setPermissionToString(roleVO.getPermission()));
+        }
         // 定义上一次更新时间
         role.setUpdateTime(new Date());
         // 复制当前角色对象
@@ -76,11 +83,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public Result deleteRoleById(Integer roleId) {
-        // 1. 删除角色菜单表中对应的数据
-        QueryWrapper<MenuRole> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("role_id", roleId);
-        menuRoleMapper.delete(queryWrapper);
-        // 2. 删除角色表中的数据
+        // 删除角色表中对应的数据
         int row = roleMapper.deleteById(roleId);
         if (row > 0) {
             return Result.success("角色删除成功");
@@ -98,6 +101,8 @@ public class RoleServiceImpl implements RoleService {
     @Transactional(rollbackFor = RuntimeException.class)
     public Result insertRole(RoleVO roleVO) {
         Role role = BeanCopyUtil.copy(roleVO, Role.class);
+        // 设置角色的初始权限
+        role.setPermission("[2,3]");
         // 设置当前角色的创建时间和上一次更新时间
         role.setCreateTime(new Date());
         role.setUpdateTime(new Date());
@@ -107,4 +112,27 @@ public class RoleServiceImpl implements RoleService {
         }
         return Result.error("新增角色失败");
     }
+
+    /**
+     * 获取当前登录用户可访问的页面路径
+     *
+     * @return 可访问的页面路径集合
+     */
+    @Override
+    public List<String> getAccessPath() {
+        // 获取当前登录用户的ID
+        Integer userId = UserUtil.getCurrentUser().getId();
+        // 通过当前用户ID获取到用户对应到角色
+        UserRole userRole = userRoleMapper.selectById(userId);
+        // 通过角色ID获取到对应到角色对象
+        Role role = roleMapper.selectById(userRole.getRoleId());
+        List<Integer> permission = UserUtil.getPermissionByString(role.getPermission());
+        if (permission == null) {
+            return null;
+        }
+        // 获取到当前用户可以访问的路径并返回
+        return menuMapper.selectAccessPath(permission);
+    }
+
+
 }

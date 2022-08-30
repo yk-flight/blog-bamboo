@@ -41,6 +41,12 @@ public class Role implements Serializable {
     private String roleNameZh;
 
     /**
+     * 角色权限
+     */
+    @ApiModelProperty("角色权限")
+    private String permission;
+
+    /**
      * 创建时间
      */
     @ApiModelProperty("创建时间")

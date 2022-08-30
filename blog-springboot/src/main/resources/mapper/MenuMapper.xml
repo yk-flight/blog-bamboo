@@ -104,4 +104,30 @@
           AND m2.enabled = 1
     </select>
 
+
+    <select id="selectAccessPath" resultType="java.lang.String">
+        SELECT m.path
+        FROM menu m
+        WHERE
+            m.path != '/'
+            AND m.id IN
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+               #{id}
+            </foreach>
+    </select>
+
+    <select id="selectPermission" resultType="java.lang.String">
+        SELECT DISTINCT
+            m.permission
+        FROM
+            menu m
+        WHERE
+            m.enabled = 1
+          AND
+            m.id IN
+            <foreach collection="ids" open="(" close=")" separator="," item="id">
+                #{id}
+            </foreach>
+    </select>
+
 </mapper>

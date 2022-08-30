@@ -2,8 +2,10 @@ package com.zrkizzy.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zrkizzy.blog.dto.MenuDto;
+import com.zrkizzy.blog.dto.PermissionDto;
 import com.zrkizzy.blog.entity.Menu;
 import com.zrkizzy.blog.mapper.MenuMapper;
+import com.zrkizzy.blog.mapper.RoleMapper;
 import com.zrkizzy.blog.service.MenuService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.utils.UserUtil;
@@ -25,6 +27,8 @@ import java.util.List;
 public class MenuServiceImpl implements MenuService {
     @Resource
     private MenuMapper menuMapper;
+    @Resource
+    private RoleMapper roleMapper;
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
@@ -110,6 +114,25 @@ public class MenuServiceImpl implements MenuService {
     }
 
     /**
+     * 获取角色权限
+     *
+     * @param roleId 角色ID
+     * @return 所有角色权限
+     */
+    @Override
+    public List<PermissionDto> getAllPermission() {
+        List<PermissionDto> permissionList = roleMapper.getAllPermission();
+        List<PermissionDto> result = new ArrayList<>();
+        for (PermissionDto permissionDto : permissionList) {
+            permissionDto.setChildren(setPermissionChildren(permissionDto.getPath(), permissionList));
+            if (!CollectionUtils.isEmpty(permissionDto.getChildren())) {
+                result.add(permissionDto);
+            }
+        }
+        return result;
+    }
+
+    /**
      * 根据查询出的菜单集合封装每个菜单的子菜单
      *
      * @param id       当前menu的父ID
@@ -136,5 +159,30 @@ public class MenuServiceImpl implements MenuService {
         }
         // 将封装好的菜单集合返回
         return childrenList;
+    }
+
+    /**
+     * 设置权限的子集
+     *
+     * @param path 当前权限的路径
+     * @param permissionList 权限列表
+     * @return 设置好权限的集合
+     */
+    private List<PermissionDto> setPermissionChildren(String path, List<PermissionDto> permissionList) {
+        List<PermissionDto> children = new ArrayList<>();
+
+        for (PermissionDto permissionDto : permissionList) {
+            // 如果遍历到本身
+            if (path.equals(permissionDto.getPath())) {
+                continue;
+            }
+            // 如果当前权限路径以传来的路径作为开头
+            if (permissionDto.getPath().startsWith(path)) {
+                children.add(permissionDto);
+            }
+        }
+
+        // 因为在本系统中只设置了两层，因此不需要再次递归获取权限
+        return children;
     }
 }

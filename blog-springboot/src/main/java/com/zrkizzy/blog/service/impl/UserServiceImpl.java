@@ -165,11 +165,14 @@ public class UserServiceImpl implements UserService {
         Integer userId = UserUtil.getCurrentUser().getId();
         // 根据用户ID查询到用户对象
         User user = userMapper.selectById(userId);
-        // 设置用户的菜单权限
-        List<String> permission = menuMapper.getPermissionByUserId(userId);
-        user.setPermission(permission);
         // 设置用户的角色
-        user.setRoles(roleMapper.getRoles(userId));
+        List<Role> roles = roleMapper.getRoles(userId);
+        user.setRoles(roles);
+        // 查询到当前角色的ID
+        String rolePermission = roleMapper.selectByUserId(userId);
+        // 获取到当前用户可以访问的路径集合
+        List<Integer> permission = UserUtil.getPermissionByString(rolePermission);
+        user.setPermission(menuMapper.selectPermission(permission));
         return user;
     }
 

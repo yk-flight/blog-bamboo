@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * 角色数据传输对象
  *
@@ -30,4 +32,10 @@ public class RoleVO {
      */
     @ApiModelProperty("角色名称")
     private String roleNameZh;
+
+    /**
+     * 角色权限
+     */
+    @ApiModelProperty("角色权限")
+    private List<Integer> permission;
 }

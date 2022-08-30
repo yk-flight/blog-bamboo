@@ -19,6 +19,7 @@ import java.util.List;
  */
 @Api(tags = "RoleController")
 @RestController
+@RequestMapping("/role")
 public class RoleController {
     @Resource
     private RoleService roleService;
@@ -45,5 +46,11 @@ public class RoleController {
     @DeleteMapping("/admin/deleteRole/{id}")
     public Result deleteRoleById(@PathVariable Integer id) {
         return roleService.deleteRoleById(id);
+    }
+
+    @ApiOperation("获取当前登录用户可访问的页面")
+    @GetMapping("/admin/getAccessPath")
+    public List<String> getAccessPath() {
+        return roleService.getAccessPath();
     }
 }

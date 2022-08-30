@@ -20,11 +20,18 @@ public interface RoleMapper extends BaseMapper<Role> {
     List<Role> getRoles(Integer userId);
 
     /**
-     * 通过角色获取用户权限
+     * 获取所有权限
      *
-     * @param roleId 角色ID
      * @return 权限列表
      */
-    List<PermissionDto> getPermissionByRoles(Integer roleId);
+    List<PermissionDto> getAllPermission();
+
+    /**
+     * 通过UserId获取到对应到角色
+     *
+     * @param userId 用户ID
+     * @return 角色权限
+     */
+    String selectByUserId(Integer userId);
 }
 

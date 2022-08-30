@@ -50,5 +50,5 @@ public class RoleDto {
      * 角色权限
      */
     @ApiModelProperty("角色权限")
-    private List<PermissionDto> permission;
+    private List<Integer> permission;
 }

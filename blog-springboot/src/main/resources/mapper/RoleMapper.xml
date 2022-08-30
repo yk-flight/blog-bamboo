@@ -14,17 +14,27 @@
             ur.user_id = #{userId}
     </select>
 
-    <!-- 获取角色对应的权限 -->
-    <select id="getPermissionByRoles" resultType="com.zrkizzy.blog.dto.PermissionDto">
+    <!-- 获取所有权限 -->
+    <select id="getAllPermission" resultType="com.zrkizzy.blog.dto.PermissionDto">
         SELECT DISTINCT
         m.id,
-        m.path
+        m.path,
+        m.name,
+        m.icon
         FROM
-        menu_role mr,
         menu m
         WHERE
-        mr.role_id = #{roleId}
-        AND mr.menu_id = m.id
-        AND m.path != '/'
+        m.path != '/'
+    </select>
+
+    <select id="selectByUserId" resultType="java.lang.String">
+        SELECT
+            r.permission
+        FROM
+            `role` r,
+            user_role ur
+        WHERE
+            ur.user_id = #{userId}
+          AND r.id = ur.role_id
     </select>
 </mapper>

@@ -41,4 +41,11 @@ public interface RoleService {
      * @return 前端返回对象
      */
     Result insertRole(RoleVO roleVO);
+
+    /**
+     * 获取当前登录用户可访问的页面路径
+     *
+     * @return 可访问的页面路径集合
+     */
+    List<String> getAccessPath();
 }
