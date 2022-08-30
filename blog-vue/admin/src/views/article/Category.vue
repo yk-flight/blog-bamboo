@@ -92,7 +92,12 @@
           </el-table-column>
           <el-table-column label="分类图片" width="170" align="center">
             <template slot-scope="scope">
-              <img :src="scope.row.image" width="140px" />
+              <el-image
+                :src="scope.row.image"
+                width="140px"
+                @click="preViewImage(scope.row.image)"
+                :preview-src-list="srcList"
+              ></el-image>
             </template>
           </el-table-column>
           <el-table-column
@@ -243,6 +248,8 @@ export default {
       dialogTitle: "",
       // 表格多选框
       multipleSelection: [],
+      // 图片预览
+      srcList: [],
     };
   },
 
@@ -388,6 +395,11 @@ export default {
     dateFormat(date) {
       // 使用 dayjs 处理时间
       return dayjs(date).format("YYYY-MM-DD HH:mm:ss");
+    },
+    // 图片预览
+    preViewImage(val) {
+      this.srcList = [];
+      this.srcList.push(val);
     },
   },
 };
