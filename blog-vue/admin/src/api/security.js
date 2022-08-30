@@ -10,14 +10,14 @@ export const getAllMenus = (data) => {
 
 export const getAllRoles = () => {
   return request({
-    url: "/admin/getAllRoles",
+    url: "/role/admin/getAllRoles",
     method: "GET",
   });
 };
 
 export const insertRole = (data) => {
   return request({
-    url: "/admin/insertRole",
+    url: "/role/admin/insertRole",
     method: "POST",
     data,
   });
@@ -25,7 +25,7 @@ export const insertRole = (data) => {
 
 export const updateRole = (data) => {
   return request({
-    url: "/admin/updateRole",
+    url: "/role/admin/updateRole",
     method: "PUT",
     data,
   });
@@ -33,7 +33,14 @@ export const updateRole = (data) => {
 
 export const deleteRole = (id) => {
   return request({
-    url: `/admin/deleteRole/${id}`,
+    url: `/role/admin/deleteRole/${id}`,
     method: "DELETE",
+  });
+};
+
+export const getAllPermission = () => {
+  return request({
+    url: "/admin/getAllPermission",
+    method: "GET",
   });
 };

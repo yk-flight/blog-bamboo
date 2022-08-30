@@ -49,20 +49,19 @@
                 @click="handleUpdate(scope.row)"
                 type="text"
                 size="small"
-                v-if="userRole == 'ROLE_admin'"
                 >编辑角色
               </el-button>
+              <!-- v-if="scope.row.roleName != 'admin' && userRole == 'ROLE_admin'" -->
               <el-button
-                @click="handleUpdate(scope.row)"
+                @click="handlePermission(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.roleName != 'admin' && userRole == 'ROLE_admin'"
                 >分配权限
               </el-button>
               <el-button
                 type="text"
                 size="small"
-                v-if="scope.row.roleName != 'admin' && userRole == 'ROLE_admin'"
+                v-if="scope.row.roleName != 'ROLE_admin'"
                 @click="handleDelete(scope.row)"
                 >删除角色
               </el-button>
@@ -87,7 +86,7 @@
         </el-form-item>
         <el-form-item label="权限字符" label-width="80px">
           <el-input v-model="role.roleName" placeholder="请输入权限字符">
-            <template slot="prepend">ROLE_</template>
+            <!-- <template slot="prepend">ROLE_</template> -->
           </el-input>
         </el-form-item>
         <el-form-item label="创建时间" label-width="80px">
@@ -111,6 +110,36 @@
         <el-button @click="handleClose">取消</el-button>
       </span>
     </el-dialog>
+
+    <!--  分配权限对话框  -->
+    <el-dialog
+      title="分配权限"
+      width="500px"
+      :visible="permissoionDialog"
+      :before-close="handleClosePermission"
+    >
+      <el-tree
+        ref="tree"
+        :data="permissionData"
+        show-checkbox
+        node-key="id"
+        style="margin-bottom: 20px"
+        check-on-click-node
+        check-strictly
+      >
+        <span class="custom-tree-node" slot-scope="{ data }">
+          <svg-icon :icon="data.icon"></svg-icon>
+          <span style="margin-left: 5px; margin-right: 50px">
+            {{ data.name }}
+          </span>
+        </span>
+      </el-tree>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="savePermission">确定</el-button>
+        <el-button @click="handleClosePermission">取消</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -121,6 +150,7 @@ import {
   insertRole,
   updateRole,
   deleteRole,
+  getAllPermission,
 } from "@/api/security";
 
 export default {
@@ -141,9 +171,14 @@ export default {
         id: undefined,
         roleName: "",
         roleNameZh: "",
+        permission: [],
         createTime: "",
         updateTime: "",
       },
+      // 分配权限对话框
+      permissoionDialog: false,
+      // 权限数据
+      permissionData: [],
     };
   },
 
@@ -157,6 +192,21 @@ export default {
       getAllRoles().then((result) => {
         this.roleList = result;
       });
+      // 获取权限数据
+      this.getPermission();
+    },
+
+    // 获取所有权限数据
+    getPermission() {
+      getAllPermission().then((result) => {
+        // 先将权限数据清空
+        this.permissionData = [];
+        // 将获取到的权限数据赋值到权限数据集合中
+        result.forEach((element) => {
+          this.permissionData.push(element);
+        });
+        // this.permissionData = result;
+      });
     },
 
     // 点击添加按钮
@@ -166,8 +216,8 @@ export default {
       this.role.updateTime = this.dateFormat(new Date());
       this.dialogShow = true;
     },
+    // 点击删除按钮
     handleDelete(row) {
-      console.log(row);
       this.$confirm("确定删除 " + row.roleNameZh + " 吗？", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -182,6 +232,7 @@ export default {
         })
         .catch(() => {});
     },
+    // 点击更新按钮
     handleUpdate(row) {
       this.dialogTitle = "更新角色";
       this.role = row;
@@ -195,7 +246,6 @@ export default {
     // 点击提交按钮
     submitForm() {
       this.dialogShow = false;
-      this.role.roleName = "ROLE_" + this.role.roleName;
       // 如果存在ID则说明为更新操作
       if (this.role.id) {
         updateRole(this.role).then(() => {
@@ -216,7 +266,31 @@ export default {
       // 重置表单对象
       this.role = {};
     },
+    // 点击分配权限对话框
+    handlePermission(row) {
+      this.role = row;
+      this.permissoionDialog = true;
+      // this.permissionList = this.getUserPermission(row.permission);
+      this.$nextTick(() => {
+        // 设置选中的节点
+        // this.$refs.tree.setCheckedKeys(row.permission);
+        this.$refs.tree.setCheckedKeys(this.role.permission);
+      });
+    },
+    // 点击确定分配权限
+    savePermission() {
+      this.role.permission = this.$refs.tree.getCheckedNodes().map((v) => v.id);
+      this.submitForm();
+      // 关闭对话框
+      this.handleClosePermission();
+    },
 
+    // 关闭分配权限对话框
+    handleClosePermission() {
+      this.permissoionDialog = false;
+      // 重新获取权限数据
+      this.getPermission();
+    },
     // 格式化时间
     dateFormat(date) {
       // 使用 dayjs 处理时间

@@ -9,7 +9,7 @@ NProgress.configure({ easing: "ease", speed: 500 });
 const whiteList = ["/login", "/404", "/401", "/dashboard", "/profile"];
 
 // ======================= 路由导航守卫 =======================
-// to：当前位置，from：将要跳转的位置
+// to：当前位置，from：从哪来
 router.beforeEach(async (to, from, next) => {
   // 开启页面进度条
   NProgress.start();

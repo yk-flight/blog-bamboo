@@ -33,7 +33,7 @@ export const updateUserInfo = (data) => {
  */
 export const getAccessPath = () => {
   return request({
-    url: "/admin/getAccessPath",
+    url: "/role/admin/getAccessPath",
     method: "GET",
   });
 };

@@ -162,8 +162,8 @@ export default {
       this.commit("user/setAccessPath", []);
       // 3. 清除本地缓存
       removeAllItem();
-      // 4. 清除相关权限的菜单信息
-      // resetRouter();
+      // 4. 删除缓存信息
+      window.sessionStorage.removeItem("vuex");
       // 5. 跳转到登录页
       router.push("/login");
       // 刷新当前页面
