@@ -1,8 +1,10 @@
 package com.zrkizzy.blog.controller;
 
 import com.zrkizzy.blog.service.UserRoleService;
+import com.zrkizzy.blog.vo.Result;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -14,7 +16,20 @@ import javax.annotation.Resource;
  */
 @Api(tags = "UserRoleController")
 @RestController
+@RequestMapping("/user-role")
 public class UserRoleController {
     @Resource
     private UserRoleService userRoleService;
+
+    @ApiOperation("根据用户ID获取角色ID")
+    @GetMapping("/getRoleByUserId/{id}")
+    public Integer getRoleByUserId(@PathVariable Integer id) {
+        return userRoleService.getRoleByUserId(id);
+    }
+
+    @ApiOperation("更新用户角色")
+    @PutMapping("/updateUserRole")
+    public Result updateUserRole(Integer userId, Integer roleId) {
+        return userRoleService.updateUserRole(userId, roleId);
+    }
 }

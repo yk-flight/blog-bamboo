@@ -1,8 +1,10 @@
 package com.zrkizzy.blog.controller;
 
 import com.zrkizzy.blog.service.UserService;
+import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.PasswordVO;
+import com.zrkizzy.blog.vo.param.UserInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @Api(tags = "UserController")
+@RequestMapping("/user")
 public class UserController {
     @Resource
     private UserService userService;
@@ -40,4 +43,27 @@ public class UserController {
         return userService.updatePassword(passwordVO);
     }
 
+    @ApiOperation("修改指定用户密码")
+    @PutMapping("/admin/updatePasswordById")
+    public Result updatePasswordById(Integer userId, String password) {
+        return userService.updatePasswordById(userId, password);
+    }
+
+    @ApiOperation("获取所有用户")
+    @GetMapping("/admin/getUserList")
+    public PageVO getUserList(@RequestParam("curPage") Integer curPage, @RequestParam("size") Integer size, @RequestParam("name") String username) {
+        return userService.getUserList(curPage, size, username);
+    }
+
+    @ApiOperation("新增用户")
+    @PostMapping("/admin/addUser")
+    public Result addUser(@RequestBody UserInfoVO userInfoVO) {
+        return userService.addUser(userInfoVO);
+    }
+
+    @ApiOperation("删除用户")
+    @DeleteMapping("/admin/deleteUserById/{id}")
+    public Result deleteUserById(@PathVariable Integer id) {
+        return userService.deleteUserById(id);
+    }
 }

@@ -6,10 +6,7 @@ import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.UserInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -26,14 +23,26 @@ public class UserInfoController {
     private UserInfoService userInfoService;
 
     @ApiOperation("获取用户个人信息")
-    @GetMapping("/admin/getUserInfoById")
-    public UserInfo getUserInfoById() {
-        return userInfoService.getUserInfoById();
+    @GetMapping("/admin/getCurrentUserInfo")
+    public UserInfo getCurrentUserInfo() {
+        return userInfoService.getCurrentUserInfo();
     }
 
     @ApiOperation("更新用户个人信息")
     @PostMapping("/admin/updateUserInfo")
     public Result updateUserInfo(@RequestBody UserInfoVO userInfoVO) {
         return userInfoService.updateUserInfo(userInfoVO);
+    }
+
+    @ApiOperation("获取指定用户信息")
+    @GetMapping("/admin/getUserInfoById/{id}")
+    public UserInfo getUserInfoById(@PathVariable Integer id) {
+        return userInfoService.getUserInfoById(id);
+    }
+
+    @ApiOperation("修改用户启用状态")
+    @PutMapping("/admin/changeUserEnabled/{id}")
+    public Result changeUserEnabled(@PathVariable Integer id) {
+        return userInfoService.changeUserEnabled(id);
     }
 }

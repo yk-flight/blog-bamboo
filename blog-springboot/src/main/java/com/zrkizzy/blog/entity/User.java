@@ -7,7 +7,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -61,16 +63,11 @@ public class User implements UserDetails, Serializable {
     private String avatar;
 
     /**
-     * 是否为管理员
-     */
-    @ApiModelProperty("是否为管理员")
-    private boolean position;
-
-    /**
      * 用户是否启用
      */
     @ApiModelProperty("用户是否启用")
-    private boolean enabled;
+    @Getter(AccessLevel.NONE)
+    private Boolean enabled;
 
     /**
      * 登录IP

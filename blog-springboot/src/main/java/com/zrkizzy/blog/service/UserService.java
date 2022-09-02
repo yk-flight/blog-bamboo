@@ -2,8 +2,10 @@ package com.zrkizzy.blog.service;
 
 import com.zrkizzy.blog.entity.Role;
 import com.zrkizzy.blog.entity.User;
+import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.PasswordVO;
+import com.zrkizzy.blog.vo.param.UserInfoVO;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -73,4 +75,39 @@ public interface UserService {
      * @return 返回结果对象
      */
     Result updatePassword(PasswordVO passwordVO);
+
+    /**
+     * 获取用户列表
+     *
+     * @param curPage 当前页面
+     * @param size 页面大小
+     * @param username 用户名
+     * @return 分页对象
+     */
+    PageVO getUserList(Integer curPage, Integer size, String username);
+
+    /**
+     * 新增用户
+     *
+     * @param userInfoVO 用户数据传递对象
+     * @return 前端响应对象
+     */
+    Result addUser(UserInfoVO userInfoVO);
+
+    /**
+     * 根据用户ID删除用户
+     *
+     * @param userId 用户ID
+     * @return 前端响应对象
+     */
+    Result deleteUserById(Integer userId);
+
+    /**
+     * 根据用户ID修改密码
+     *
+     * @param userId 用户ID
+     * @param password 新密码
+     * @return 前端响应对象
+     */
+    Result updatePasswordById(Integer userId, String password);
 }

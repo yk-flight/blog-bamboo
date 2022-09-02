@@ -3,7 +3,6 @@ package com.zrkizzy.blog.service;
 import com.zrkizzy.blog.entity.UserInfo;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.UserInfoVO;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author zhangrongkang
@@ -11,11 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public interface UserInfoService {
     /**
-     * 通过用户ID获取用户个人信息
+     * 获取当前登录用户的个人信息
      *
-     * @return 用户个人信息
+     * @return 当前登录用户的个人信息
      */
-    UserInfo getUserInfoById();
+    UserInfo getCurrentUserInfo();
 
     /**
      * 更新登录用户的个人信息
@@ -24,4 +23,20 @@ public interface UserInfoService {
      * @return 前端返回对象
      */
     Result updateUserInfo(UserInfoVO userInfoVO);
+
+    /**
+     * 通过用户ID获取指定的用户信息
+     *
+     * @param userId 用户ID
+     * @return 指定的用户信息
+     */
+    UserInfo getUserInfoById(Integer userId);
+
+    /**
+     * 修改用户是否启用状态
+     *
+     * @param userId 用户ID
+     * @return 前端响应对象
+     */
+    Result changeUserEnabled(Integer userId);
 }

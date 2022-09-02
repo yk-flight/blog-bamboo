@@ -13,6 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -32,12 +33,12 @@ public class UserInfoServiceImpl implements UserInfoService {
     private RedisTemplate<String, Object> redisTemplate;
 
     /**
-     * 通过用户ID获取用户个人信息
+     * 获取当前登录用户的个人信息
      *
-     * @return 用户个人信息
+     * @return 当前登录用户的个人信息
      */
     @Override
-    public UserInfo getUserInfoById() {
+    public UserInfo getCurrentUserInfo() {
         // 获取用户ID
         Integer userId = UserUtil.getCurrentUser().getId();
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
@@ -61,13 +62,18 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Transactional(rollbackFor = RuntimeException.class)
     public Result updateUserInfo(UserInfoVO userInfoVO) {
         // 获取当前登录用户ID
-        Integer userId = UserUtil.getCurrentUser().getId();
-        // 查询当前用户的昵称
+        Integer userId = userInfoVO.getId();
+        // 查询当前用户的昵称和账号
         User user = userMapper.selectById(userId);
         // 判断昵称是否需要修改
         if (!user.getNickName().equals(userInfoVO.getNickName())) {
             // 如果昵称需要更新则将用户昵称进行设置
             user.setNickName(userInfoVO.getNickName());
+        }
+        // 判断用户账号是否需要修改
+        if (!StringUtils.isEmpty(userInfoVO.getUsername()) && !user.getUsername().equals(userInfoVO.getUsername())) {
+            // 如果需要更新账号
+            user.setUsername(userInfoVO.getUsername());
         }
         // 更新用户上一次更新时间
         user.setUpdateTime(new Date());
@@ -86,5 +92,41 @@ public class UserInfoServiceImpl implements UserInfoService {
             return Result.success("信息更新成功");
         }
         return Result.error("信息更新失败");
+    }
+
+    /**
+     * 通过用户ID获取指定的用户信息
+     *
+     * @param userId 用户ID
+     * @return 指定的用户信息
+     */
+    @Override
+    public UserInfo getUserInfoById(Integer userId) {
+        ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
+        // 从Redis中获取个人信息数据
+        UserInfo userInfo = (UserInfo) valueOperations.get("userInfo_" + userId);
+        if (userInfo == null) {
+            // 如果Redis中不存在个人信息数据则到数据库中查询，查询后存储到Redis中
+            userInfo = userInfoMapper.selectById(userId);
+            valueOperations.set("userInfo_" + userId, userInfo);
+        }
+        return userInfo;
+    }
+
+    /**
+     * 修改用户是否启用状态
+     *
+     * @param userId 用户ID
+     * @return 前端响应对象
+     */
+    @Override
+    public Result changeUserEnabled(Integer userId) {
+        User user = userMapper.selectById(userId);
+        user.setEnabled(!user.isEnabled());
+        int count = userMapper.updateById(user);
+        if (count > 0) {
+            return Result.success("用户状态更新成功");
+        }
+        return Result.error("用户状态更新失败");
     }
 }

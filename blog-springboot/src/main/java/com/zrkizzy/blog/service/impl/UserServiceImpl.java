@@ -1,17 +1,21 @@
 package com.zrkizzy.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.blog.entity.Role;
 import com.zrkizzy.blog.entity.User;
-import com.zrkizzy.blog.mapper.MenuMapper;
-import com.zrkizzy.blog.mapper.RoleMapper;
-import com.zrkizzy.blog.mapper.UserMapper;
+import com.zrkizzy.blog.entity.UserInfo;
+import com.zrkizzy.blog.entity.UserRole;
+import com.zrkizzy.blog.mapper.*;
 import com.zrkizzy.blog.service.UserService;
+import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.utils.IpUtil;
 import com.zrkizzy.blog.utils.JwtTokenUtil;
 import com.zrkizzy.blog.utils.UserUtil;
+import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.PasswordVO;
+import com.zrkizzy.blog.vo.param.UserInfoVO;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,6 +46,10 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Resource
     private RoleMapper roleMapper;
+    @Resource
+    private UserInfoMapper userInfoMapper;
+    @Resource
+    private UserRoleMapper userRoleMapper;
     @Resource
     private MenuMapper menuMapper;
 
@@ -98,7 +106,7 @@ public class UserServiceImpl implements UserService {
             return Result.error("当前账号已禁用，请联系管理员");
         }
 
-        // 4. -------------------- 更新用户上一次登录时间 --------------------
+        // 4. -------------------- 更新用户登录信息 --------------------
         updateLastLoginInfo(username, request);
 
         // 更新security登录用户对象，参数1：userDetails，参数2：密码，参数3：用户权限列表
@@ -221,4 +229,96 @@ public class UserServiceImpl implements UserService {
         }
         return Result.error("更新密码失败");
     }
+
+    /**
+     * 获取用户列表
+     *
+     * @param curPage  当前页面
+     * @param size     页面大小
+     * @param username 用户名
+     * @return 分页对象
+     */
+    @Override
+    public PageVO getUserList(Integer curPage, Integer size, String username) {
+        // 开启分页
+        Page<User> page = new Page<>(curPage, size);
+        // 定义查询条件
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("username", username);
+        Page<User> userPage = userMapper.selectPage(page, queryWrapper);
+        return new PageVO(userPage.getTotal(), userPage.getRecords());
+    }
+
+    /**
+     * 新增用户
+     *
+     * @param userInfoVO 用户数据传递对象
+     * @return 前端响应对象
+     */
+    @Override
+    public Result addUser(UserInfoVO userInfoVO) {
+        User user = BeanCopyUtil.copy(userInfoVO, User.class);
+        user.setEnabled(true);
+        user.setCreateTime(new Date());
+        user.setUpdateTime(new Date());
+        user.setPassword(passwordEncoder.encode("123456"));
+        // 新增用户信息
+        int insertUser = userMapper.insert(user);
+        // 根据用户信息获取到用户ID
+        Integer userId = userMapper.selectOne(new QueryWrapper<User>().eq("username", userInfoVO.getUsername())).getId();
+        // 根据用户ID新增用户信息
+        UserInfo userInfo = BeanCopyUtil.copy(userInfoVO, UserInfo.class);
+        userInfo.setId(userId);
+        int insertUserInfo = userInfoMapper.insert(userInfo);
+        // 为新增用户赋值角色
+        UserRole userRole = new UserRole();
+        userRole.setUserId(userId);
+        userRole.setRoleId(userInfoVO.getRoleId());
+        int insertRole = userRoleMapper.insert(userRole);
+        if (insertUser > 0 && insertUserInfo > 0 && insertRole > 0) {
+            return Result.success("添加用户成功");
+        }
+        return Result.error("添加用户失败");
+    }
+
+    /**
+     * 根据用户ID删除用户
+     *
+     * @param userId 用户ID
+     * @return 前端响应对象
+     */
+    @Override
+    public Result deleteUserById(Integer userId) {
+        // 1. 删除user表中的数据
+        int deleteUser = userMapper.deleteById(userId);
+        // 2. 删除user_info表格中的数据
+        int deleteUserInfo = userInfoMapper.deleteById(userId);
+        // 3. 删除user_role表中的数据
+        int deleteUserRole = userRoleMapper.delete(new QueryWrapper<UserRole>().eq("user_id", userId));
+        if (deleteUser > 0 && deleteUserInfo > 0 && deleteUserRole > 0) {
+            return Result.success("删除成功");
+        }
+        return Result.error("删除失败");
+    }
+
+    /**
+     * 根据用户ID修改密码
+     *
+     * @param userId   用户ID
+     * @param password 新密码
+     * @return 前端响应对象
+     */
+    @Override
+    public Result updatePasswordById(Integer userId, String password) {
+        User user = userMapper.selectById(userId);
+        // 更新用户密码
+        user.setPassword(passwordEncoder.encode(password));
+        int count = userMapper.updateById(user);
+        if (count > 0) {
+            return Result.success("重置成功");
+        }
+        return Result.error("重置失败");
+    }
+
+
 }
