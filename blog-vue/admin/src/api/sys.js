@@ -21,7 +21,7 @@ export const login = (data) => {
  */
 export const getUserInfo = () => {
   return request({
-    url: "/admin/getUserById",
+    url: "/user/admin/getUserById",
     method: "GET",
   });
 };
@@ -31,7 +31,7 @@ export const getUserInfo = () => {
  */
 export const getUserAgent = () => {
   return request({
-    url: "/admin/getUserAgent",
+    url: "/user/admin/getUserAgent",
     method: "GET",
   });
 };

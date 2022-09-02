@@ -4,7 +4,7 @@ import { setTimeStamp } from "@/utils/auth";
 import { setItem, getItem, removeAllItem } from "@/utils/storage";
 import { login, getUserInfo, getUserAgent } from "../../api/sys";
 import {
-  getUserInfoById,
+  getCurrentUserInfo,
   updateUserInfo,
   getAccessPath,
   updatePassword,
@@ -89,7 +89,7 @@ export default {
     // 获取用户个人信息
     async getUserInfoById(context) {
       // 获取服务器端返回的数据
-      const res = await getUserInfoById();
+      const res = await getCurrentUserInfo();
       this.commit("user/setUserOtherInfo", res);
       return res;
     },
@@ -97,11 +97,26 @@ export default {
     // 更新用户个人信息
     updateUserInfo(context, data) {
       // 将需要返回到后端的数据进行提取
-      const { email, csdn, description, gitee, github, leetcode, phone, qq } =
-        data.userInfo;
+      const {
+        id,
+        roleId,
+        username,
+        nickName,
+        email,
+        csdn,
+        description,
+        gitee,
+        github,
+        leetcode,
+        phone,
+        qq,
+      } = data.userInfo;
       return new Promise((resolve, reject) => {
         updateUserInfo({
-          nickName: data.nickName,
+          id: id,
+          roleId: roleId,
+          username: username,
+          nickName: nickName,
           email: email,
           csdn: csdn,
           description: description,

@@ -5,9 +5,9 @@ import request from "@/utils/request";
  *
  * return Promise
  */
-export const getUserInfoById = () => {
+export const getCurrentUserInfo = () => {
   return request({
-    url: "/admin/getUserInfoById",
+    url: "/admin/getCurrentUserInfo",
     method: "GET",
   });
 };
@@ -46,8 +46,86 @@ export const getAccessPath = () => {
  */
 export const updatePassword = (data) => {
   return request({
-    url: "/admin/updatePassword",
+    url: "/user/admin/updatePassword",
     method: "PUT",
     data,
+  });
+};
+
+/**
+ * 获取用户列表
+ *
+ * @returns
+ */
+export const getUserList = (data) => {
+  return request({
+    url: "/user/admin/getUserList",
+    method: "GET",
+    params: data,
+  });
+};
+
+/**
+ * 通过ID获取指定的用户信息
+ *
+ * @param {*} id
+ * @returns
+ */
+export const getUserInfoById = (id) => {
+  return request({
+    url: `/admin/getUserInfoById/${id}`,
+    method: "GET",
+  });
+};
+
+/**
+ * 更新用户启用状态
+ *
+ * @param {*} id
+ * @returns
+ */
+export const changeUserEnabled = (id) => {
+  return request({
+    url: `/admin/changeUserEnabled/${id}`,
+    method: "PUT",
+  });
+};
+
+/**
+ * 新增用户
+ *
+ * @param {*} data
+ */
+export const addUser = (data) => {
+  return request({
+    url: "/user/admin/addUser",
+    method: "POST",
+    data: data,
+  });
+};
+
+/**
+ * 重置指定用户的密码88
+ *
+ * @param {*} params
+ */
+export const updatePasswordById = (params) => {
+  return request({
+    url: "/user/admin/updatePasswordById",
+    method: "PUT",
+    params: params,
+  });
+};
+
+/**
+ * 根据用户ID删除用户
+ *
+ * @param {*} id
+ * @returns
+ */
+export const deleteUserById = (id) => {
+  return request({
+    url: `/user/admin/deleteUserById/${id}`,
+    method: "DELETE",
   });
 };

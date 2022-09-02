@@ -4,7 +4,7 @@
       <el-form-item prop="nickName" label="昵称" label-width="60px">
         <el-input
           placeholder="用户昵称"
-          v-model="nickName"
+          v-model="userInfo.nickName"
           type="text"
         ></el-input>
       </el-form-item>
@@ -110,13 +110,29 @@ export default {
       }, 100);
     };
     return {
-      // 用户昵称
-      nickName: this.$store.getters.userInfo.nickName,
       // 用户其他信息
-      userInfo: this.$store.getters.userOtherInfo,
+      // userInfo: this.$store.getters.userOtherInfo,
+      userInfo: {
+        // 当前登录用户的ID
+        id: this.$store.getters.userInfo.id,
+        // 角色ID
+        roleId: undefined,
+        // 用户名
+        username: this.$store.getters.userInfo.username,
+        // 用户昵称
+        nickName: this.$store.getters.userInfo.nickName,
+        email: this.$store.getters.userOtherInfo.email,
+        phone: this.$store.getters.userOtherInfo.phone,
+        qq: this.$store.getters.userOtherInfo.qq,
+        github: this.$store.getters.userOtherInfo.github,
+        gitee: this.$store.getters.userOtherInfo.gitee,
+        csdn: this.$store.getters.userOtherInfo.csdn,
+        leetcode: this.$store.getters.userOtherInfo.leetcode,
+        description: this.$store.getters.userOtherInfo.description,
+      },
       // 用户信息修改校验规则
       userInfoRules: {
-        email: [{ required: true, validator: checkEmail, trigger: "blur" }],
+        email: [{ validator: checkEmail, trigger: "blur" }],
         phone: [{ validator: checkPhone, trigger: "blur" }],
       },
     };
@@ -131,10 +147,7 @@ export default {
         if (valid) {
           // 调用后端接口
           this.$store
-            .dispatch("user/updateUserInfo", {
-              userInfo: this.userInfo,
-              nickName: this.nickName,
-            })
+            .dispatch("user/updateUserInfo", { userInfo: this.userInfo })
             .then(() => {
               // 重新设置用户登录信息
               this.$store.dispatch("user/getUserInfo");

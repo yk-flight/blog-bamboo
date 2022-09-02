@@ -44,3 +44,30 @@ export const getAllPermission = () => {
     method: "GET",
   });
 };
+
+/**
+ * 根据用户ID获取用户对应的角色ID
+ *
+ * @param {*} id
+ * @returns
+ */
+export const getRoleByUserId = (id) => {
+  return request({
+    url: `/user-role/getRoleByUserId/${id}`,
+    method: "GET",
+  });
+};
+
+/**
+ * 更新用户角色
+ *
+ * @param {*} params
+ * @returns
+ */
+export const updateUserRole = (params) => {
+  return request({
+    url: "/user-role/updateUserRole",
+    method: "PUT",
+    params: params,
+  });
+};

@@ -55,7 +55,6 @@ export const deleteCategory = (id) => {
  * 批量删除文章分类
  */
 export const deleteCategoryBatchIds = (ids) => {
-  console.log(ids);
   return request({
     url: `/admin/deleteCategoryBatchIds/${ids}`,
     method: "DELETE",

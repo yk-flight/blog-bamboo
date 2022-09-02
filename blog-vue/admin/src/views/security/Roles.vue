@@ -51,8 +51,8 @@
                 size="small"
                 >编辑角色
               </el-button>
-              <!-- v-if="scope.row.roleName != 'admin' && userRole == 'ROLE_admin'" -->
               <el-button
+                v-if="scope.row.roleName != 'ROLE_admin'"
                 @click="handlePermission(scope.row)"
                 type="text"
                 size="small"

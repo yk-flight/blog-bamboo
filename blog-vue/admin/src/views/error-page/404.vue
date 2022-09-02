@@ -37,8 +37,12 @@
   </div>
 </template>
 
-<script setup>
+<script>
 import {} from "vue";
+
+export default {
+  name: "NotFound", // 此时的命名符合 HTML5 规范
+};
 </script>
 
 <style lang="scss" scoped>
