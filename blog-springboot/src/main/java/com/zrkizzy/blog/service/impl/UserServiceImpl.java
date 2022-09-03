@@ -8,12 +8,10 @@ import com.zrkizzy.blog.entity.UserInfo;
 import com.zrkizzy.blog.entity.UserRole;
 import com.zrkizzy.blog.mapper.*;
 import com.zrkizzy.blog.service.UserService;
-import com.zrkizzy.blog.utils.BeanCopyUtil;
-import com.zrkizzy.blog.utils.IpUtil;
-import com.zrkizzy.blog.utils.JwtTokenUtil;
-import com.zrkizzy.blog.utils.UserUtil;
+import com.zrkizzy.blog.utils.*;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
+import com.zrkizzy.blog.vo.param.AvatarVO;
 import com.zrkizzy.blog.vo.param.PasswordVO;
 import com.zrkizzy.blog.vo.param.UserInfoVO;
 import eu.bitwalker.useragentutils.UserAgent;
@@ -26,9 +24,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +58,10 @@ public class UserServiceImpl implements UserService {
 
     @Value("${jwt.tokenHead}")
     private String tokenHead;
+    @Value("${file.path}")
+    private String path;
+    @Value("${file.domain}")
+    private String domain;
 
     @Resource
     private UserDetailsService userDetailsService;
@@ -318,6 +325,54 @@ public class UserServiceImpl implements UserService {
             return Result.success("重置成功");
         }
         return Result.error("重置失败");
+    }
+
+    /**
+     * 上传用户头像
+     *
+     * @param file 上传文件
+     * @return 前端响应对象
+     */
+    @Override
+    public Result uploadAvatar(MultipartFile file) throws IOException {
+        // 获取文件类型
+        int index = file.getOriginalFilename().lastIndexOf(".") + 1;
+        String suffix = file.getOriginalFilename().substring(index);
+        String fileName = UuidUtil.getShortUuid() + "." + suffix;
+        // 拼接文件的全路径
+        String fullPath = path +
+                // 拼接 "/"
+                File.separator +
+                // 拼接文件名
+                fileName;
+
+        // 如果不存在文件保存的位置
+        if (!Files.exists(Paths.get(path))) {
+            // 创建文件夹
+            Files.createDirectory(Paths.get(path));
+        }
+        // 保存上传的文件
+        file.transferTo(new File(fullPath));
+        // 定义返回的路径
+        String avatarUrl = "/images/" + fileName;
+        return Result.success("头像上传成功", avatarUrl);
+    }
+
+    /**
+     * 更新用户头像路径
+     *
+     * @param avatarVO 用户头像参数接收对象
+     */
+    @Override
+    public void updateAvatarById(AvatarVO avatarVO) {
+        // 获取到当前登录用户的ID
+        Integer userId = UserUtil.getCurrentUser().getId();
+        // 获取到当前用户
+        User user = userMapper.selectById(userId);
+        user.setAvatar(avatarVO.getAvatar());
+        user.setUpdateTime(new Date());
+        // 更新用户头像和上一次更新时间
+        userMapper.updateById(user);
     }
 
 

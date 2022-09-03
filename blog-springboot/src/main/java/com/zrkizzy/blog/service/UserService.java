@@ -4,10 +4,13 @@ import com.zrkizzy.blog.entity.Role;
 import com.zrkizzy.blog.entity.User;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
+import com.zrkizzy.blog.vo.param.AvatarVO;
 import com.zrkizzy.blog.vo.param.PasswordVO;
 import com.zrkizzy.blog.vo.param.UserInfoVO;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -110,4 +113,19 @@ public interface UserService {
      * @return 前端响应对象
      */
     Result updatePasswordById(Integer userId, String password);
+
+    /**
+     * 上传用户头像
+     *
+     * @param file 上传文件
+     * @return 前端响应对象
+     */
+    Result uploadAvatar(MultipartFile file) throws IOException;
+
+    /**
+     * 更新用户头像路径
+     *
+     * @param avatarVO 用户头像参数接收对象
+     */
+    void updateAvatarById(AvatarVO avatarVO);
 }

@@ -25,7 +25,14 @@ spring:
       # 测试连接是否可以用的查询语句
       connection-test-query: SELECT 1
 
-    # redis配置
+  servlet:
+    multipart:
+      # 单个上传文件的大小
+      max-file-size: 50MB
+      # 请求的大小
+      max-request-size: 50MB
+
+  # redis配置
   redis:
     # 超时时间
     connect-timeout: 10000ms
@@ -73,3 +80,8 @@ jwt:
   expiration: 604800
   # JWT负载中拿到的开头
   tokenHead: Bearer
+
+# 文件上传配置
+file:
+  path: /Users/zhangrongkang/workspace/MyProject/blog/blog-springboot/upload/
+  domain: http://127.0.0.1:8090/images/

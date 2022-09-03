@@ -3,14 +3,17 @@ package com.zrkizzy.blog.controller;
 import com.zrkizzy.blog.service.UserService;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
+import com.zrkizzy.blog.vo.param.AvatarVO;
 import com.zrkizzy.blog.vo.param.PasswordVO;
 import com.zrkizzy.blog.vo.param.UserInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 /**
  * 用户模块控制器
@@ -20,50 +23,63 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @Api(tags = "UserController")
-@RequestMapping("/user")
+@RequestMapping("/user/admin")
 public class UserController {
     @Resource
     private UserService userService;
 
     @ApiOperation("获取当前登录的用户信息")
-    @GetMapping("/admin/getUserById")
+    @GetMapping("/getUserById")
     public Result getUserById() {
         return Result.success("", userService.getUserByUserId());
     }
 
     @ApiOperation("获取用户登录设备")
-    @GetMapping("/admin/getUserAgent")
+    @GetMapping("/getUserAgent")
     public String getUserAgent(HttpServletRequest request) {
         return userService.getUserAgent(request);
     }
 
     @ApiOperation("更新用户密码")
-    @PutMapping("/admin/updatePassword")
+    @PutMapping("/updatePassword")
     public Result updatePassword(@RequestBody PasswordVO passwordVO) {
         return userService.updatePassword(passwordVO);
     }
 
     @ApiOperation("修改指定用户密码")
-    @PutMapping("/admin/updatePasswordById")
+    @PutMapping("/updatePasswordById")
     public Result updatePasswordById(Integer userId, String password) {
         return userService.updatePasswordById(userId, password);
     }
 
     @ApiOperation("获取所有用户")
-    @GetMapping("/admin/getUserList")
+    @GetMapping("/getUserList")
     public PageVO getUserList(@RequestParam("curPage") Integer curPage, @RequestParam("size") Integer size, @RequestParam("name") String username) {
         return userService.getUserList(curPage, size, username);
     }
 
     @ApiOperation("新增用户")
-    @PostMapping("/admin/addUser")
+    @PostMapping("/addUser")
     public Result addUser(@RequestBody UserInfoVO userInfoVO) {
         return userService.addUser(userInfoVO);
     }
 
     @ApiOperation("删除用户")
-    @DeleteMapping("/admin/deleteUserById/{id}")
+    @DeleteMapping("/deleteUserById/{id}")
     public Result deleteUserById(@PathVariable Integer id) {
         return userService.deleteUserById(id);
     }
+    
+    @ApiOperation("用户头像上传")
+    @PostMapping("/uploadAvatar")
+    public Result uploadAvatar(MultipartFile file) throws IOException {
+        return userService.uploadAvatar(file);
+    }
+
+    @ApiOperation("更新用户头像")
+    @PostMapping("/updateAvatarById")
+    public void updateAvatarById(@RequestBody AvatarVO avatarVO) {
+        userService.updateAvatarById(avatarVO);
+    }
+   
 }

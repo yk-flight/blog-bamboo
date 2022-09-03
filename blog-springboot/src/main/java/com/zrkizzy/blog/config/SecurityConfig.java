@@ -78,7 +78,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/swagger-resources/**",
                 "/v2/api-docs/**",
                 // 放行验证码
-                "/kaptcha"
+                "/kaptcha",
+                "/images/**"
         );
     }
 
@@ -102,9 +103,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         return object;
                     }
                 })
-                // 所有请求都要认证
-                .anyRequest()
-                .authenticated()
+                // 其他所有请求都要认证
+                .anyRequest().authenticated()
                 .and()
                 // 禁用缓存
                 .headers()
