@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.zrkizzy.blog.constant.CommonConst.DOMAIN;
 import static com.zrkizzy.blog.constant.CommonConst.LOCAL_HOST;
 
 /**
@@ -60,8 +61,6 @@ public class UserServiceImpl implements UserService {
     private String tokenHead;
     @Value("${file.path}")
     private String path;
-    @Value("${file.domain}")
-    private String domain;
 
     @Resource
     private UserDetailsService userDetailsService;
@@ -354,7 +353,7 @@ public class UserServiceImpl implements UserService {
         // 保存上传的文件
         file.transferTo(new File(fullPath));
         // 定义返回的路径
-        String avatarUrl = "/images/" + fileName;
+        String avatarUrl = DOMAIN + fileName;
         return Result.success("头像上传成功", avatarUrl);
     }
 

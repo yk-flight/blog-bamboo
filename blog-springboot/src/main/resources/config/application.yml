@@ -84,4 +84,3 @@ jwt:
 # 文件上传配置
 file:
   path: /Users/zhangrongkang/workspace/MyProject/blog/blog-springboot/upload/
-  domain: http://127.0.0.1:8090/images/
