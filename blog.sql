@@ -11,11 +11,8 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 23/08/2022 00:19:40
+ Date: 03/09/2022 17:15:46
 */
-CREATE DATABASE blog;
-
-use blog;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
@@ -40,6 +37,26 @@ CREATE TABLE `categories` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `categories` (`id`, `name`, `description`, `article_amount`, `image`, `create_time`, `update_time`) VALUES (1, '测试分类1', '测试修改文章分类', 0, 'https://z3.ax1x.com/2021/06/29/RdTyyq.jpg', '2022-08-18 08:00:00', '2022-08-18 23:41:50');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for files
+-- ----------------------------
+DROP TABLE IF EXISTS `files`;
+CREATE TABLE `files` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `file_name` varchar(255) DEFAULT NULL COMMENT '文件名称',
+  `url` varchar(255) DEFAULT NULL COMMENT '文件上传路径',
+  `upload_time` datetime DEFAULT NULL COMMENT '文件上传时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of files
+-- ----------------------------
+BEGIN;
+INSERT INTO `files` (`id`, `file_name`, `url`, `upload_time`) VALUES (1, 'h9BVg9XX.jpeg', '/images/h9BVg9XX.jpeg', '2022-09-03 11:34:57');
+INSERT INTO `files` (`id`, `file_name`, `url`, `upload_time`) VALUES (2, '5eoV1YxS.jpg', '/images/5eoV1YxS.jpg', '2022-09-03 11:35:31');
 COMMIT;
 
 -- ----------------------------
@@ -94,87 +111,29 @@ INSERT INTO `menu` (`id`, `url`, `path`, `component`, `permission`, `name`, `ico
 COMMIT;
 
 -- ----------------------------
--- Table structure for menu_role
+-- Table structure for operate_log
 -- ----------------------------
-DROP TABLE IF EXISTS `menu_role`;
-CREATE TABLE `menu_role` (
+DROP TABLE IF EXISTS `operate_log`;
+CREATE TABLE `operate_log` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `menu_id` int DEFAULT NULL COMMENT '菜单ID',
-  `role_id` int DEFAULT NULL COMMENT '权限ID',
+  `model` varchar(255) DEFAULT NULL COMMENT '系统模块',
+  `type` varchar(255) DEFAULT NULL COMMENT '操作类型',
+  `request_method` varchar(255) DEFAULT NULL COMMENT '请求方式',
+  `operate_method` varchar(255) DEFAULT NULL COMMENT '操作方法',
+  `user` varchar(255) DEFAULT NULL COMMENT '操作人员',
+  `operate_ip` varchar(255) DEFAULT NULL COMMENT '操作地址',
+  `operate_addr` varchar(255) DEFAULT NULL COMMENT '操作地点',
+  `status` tinyint DEFAULT NULL COMMENT '操作状态',
+  `request_param` varchar(255) DEFAULT NULL COMMENT '请求参数',
+  `return_param` varchar(255) DEFAULT NULL COMMENT '返回参数',
+  `operate_time` datetime DEFAULT NULL COMMENT '操作日期',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
--- Records of menu_role
+-- Records of operate_log
 -- ----------------------------
 BEGIN;
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (1, 2, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (2, 3, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (3, 4, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (4, 5, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (5, 6, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (6, 7, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (7, 8, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (8, 9, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (9, 10, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (10, 11, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (11, 12, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (12, 13, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (13, 14, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (14, 15, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (15, 16, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (16, 17, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (17, 18, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (18, 19, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (19, 20, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (20, 21, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (21, 22, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (22, 23, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (23, 24, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (24, 25, 1);
-INSERT INTO `menu_role` (`id`, `menu_id`, `role_id`) VALUES (25, 26, 1);
-COMMIT;
-
--- ----------------------------
--- Table structure for menu_role_copy1
--- ----------------------------
-DROP TABLE IF EXISTS `menu_role_copy1`;
-CREATE TABLE `menu_role_copy1` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `menu_id` int DEFAULT NULL COMMENT '菜单ID',
-  `role_id` int DEFAULT NULL COMMENT '权限ID',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- ----------------------------
--- Records of menu_role_copy1
--- ----------------------------
-BEGIN;
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (1, 2, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (2, 3, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (3, 4, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (4, 5, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (5, 6, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (6, 7, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (7, 8, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (8, 9, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (9, 10, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (10, 11, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (11, 12, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (12, 13, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (13, 14, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (14, 15, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (15, 16, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (16, 17, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (17, 18, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (18, 19, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (19, 20, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (20, 21, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (21, 22, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (22, 23, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (23, 24, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (24, 25, 1);
-INSERT INTO `menu_role_copy1` (`id`, `menu_id`, `role_id`) VALUES (25, 26, 1);
 COMMIT;
 
 -- ----------------------------
@@ -185,18 +144,19 @@ CREATE TABLE `role` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
   `role_name` varchar(255) DEFAULT NULL COMMENT '角色',
   `role_name_zh` varchar(255) DEFAULT NULL COMMENT '角色名称',
+  `permission` varchar(255) DEFAULT NULL COMMENT '角色权限',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
 BEGIN;
-INSERT INTO `role` (`id`, `role_name`, `role_name_zh`, `create_time`, `update_time`) VALUES (1, 'ROLE_admin', '系统管理员', '2022-08-07 01:06:37', '2022-08-07 01:06:39');
-INSERT INTO `role` (`id`, `role_name`, `role_name_zh`, `create_time`, `update_time`) VALUES (2, 'ROLE_test', '测试账号', '2022-08-07 12:39:32', '2022-08-07 12:39:34');
-INSERT INTO `role` (`id`, `role_name`, `role_name_zh`, `create_time`, `update_time`) VALUES (4, 'ROLE_user', '普通用户', '2022-08-18 08:00:00', '2022-08-23 00:09:59');
+INSERT INTO `role` (`id`, `role_name`, `role_name_zh`, `permission`, `create_time`, `update_time`) VALUES (1, 'ROLE_admin', '系统管理员', '[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]', '2022-08-07 01:06:37', '2022-08-29 13:53:31');
+INSERT INTO `role` (`id`, `role_name`, `role_name_zh`, `permission`, `create_time`, `update_time`) VALUES (2, 'ROLE_test', '测试账号', '[4,11,12,13,14,5,15,16]', '2022-08-07 12:39:32', '2022-08-31 19:17:22');
+INSERT INTO `role` (`id`, `role_name`, `role_name_zh`, `permission`, `create_time`, `update_time`) VALUES (4, 'ROLE_user', '普通用户', '[2,3]', '2022-08-18 08:00:00', '2022-08-29 13:55:11');
 COMMIT;
 
 -- ----------------------------
@@ -209,22 +169,22 @@ CREATE TABLE `user` (
   `username` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户名',
   `password` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户密码',
   `avatar` varchar(255) DEFAULT NULL COMMENT '用户头像',
-  `position` tinyint(1) NOT NULL COMMENT '是否为管理员',
   `ip_address` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '登录IP',
   `ip_source` varchar(64) DEFAULT NULL COMMENT 'IP属地',
-  `last_login_time` datetime NOT NULL COMMENT '用户上次登录时间',
+  `last_login_time` datetime DEFAULT NULL COMMENT '用户上次登录时间',
   `enabled` tinyint(1) DEFAULT NULL COMMENT '当前用户是否启用',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `position`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (1, '世纪末的架构师', 'admin', '$2a$10$HuvpRzm8tO9.dzJndwOF9.5225hspJiRNqDJ2NFXm9SfF/7lMIN26', 'https://www.zrkizzy.com/upload/2021/11/header-90431fbd9cf848e2a5aaea0bf6b1089b.jpg', 1, '127.0.0.1', '本机登录', '2022-08-22 23:28:32', 1, '2022-08-06 23:40:44', '2022-08-19 22:26:17');
-INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `position`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (2, '测试账号', 'test', '$2a$10$xvIHdVJKY0eF0eXLfkOfK.dqwRWN/6HTwEiZnH.iMOT3o9Ho4fUTe', 'https://portrait.gitee.com/uploads/avatars/user/34/102150_wizzer_1578917558.png!avatar200', 1, '127.0.0.1', '本机登录', '2022-08-22 23:27:50', 1, '2022-08-13 18:23:02', '2022-08-18 00:45:32');
+INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (1, '世纪末的架构师', 'admin', '$2a$10$Tt3NW32EBpMk9ClWUCAkOu6FIRXyhfze7xJ0bQGx8sdVgV4IqYzqO', '/images/h9BVg9XX.jpeg', '127.0.0.1', '本机登录', '2022-09-03 11:13:33', 1, '2022-08-06 23:40:44', '2022-09-03 11:18:28');
+INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (2, '测试账号', 'test', '$2a$10$qmqXxCiHH99iUC4esmxRfO9MYhC6EUtuTaNDsgOEAhp5Ef0BoS4.C', '/images/5eoV1YxS.jpg', '127.0.0.1', '本机登录', '2022-09-03 11:12:53', 1, '2022-08-13 18:23:02', '2022-09-03 11:13:17');
+INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (4, 'nick', 'myCount', '$2a$10$YvE51d7kLfdQKF02R/DNXu1FUkHbY6.XymZHqxyNU9UMC2isMN/Eq', 'http://localhost:8090/images/21BId5lf.jpg', NULL, NULL, NULL, 1, '2022-09-03 01:20:19', '2022-09-03 01:20:19');
 COMMIT;
 
 -- ----------------------------
@@ -242,14 +202,15 @@ CREATE TABLE `user_info` (
   `leetcode` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'leetcode主页',
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '自我描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
 BEGIN;
 INSERT INTO `user_info` (`id`, `email`, `phone`, `qq`, `github`, `gitee`, `csdn`, `leetcode`, `description`) VALUES (1, '1072876976@qq.com', '15234417033', '1072876976', 'https://github.com/Architect-Java', 'https://gitee.com/dream-flight', 'https://blog.csdn.net/qq_48455576?spm=1011.2124.3001.5343', 'https://leetcode.cn/u/dream-flight/', '一个想进大厂的大三学生狗');
-INSERT INTO `user_info` (`id`, `email`, `phone`, `qq`, `github`, `gitee`, `csdn`, `leetcode`, `description`) VALUES (2, 'test@qq.com', '15234410000', '', '', NULL, NULL, NULL, NULL);
+INSERT INTO `user_info` (`id`, `email`, `phone`, `qq`, `github`, `gitee`, `csdn`, `leetcode`, `description`) VALUES (2, 'test@qq.com', '15234410000', '2675525537', 'github.com', 'github.com', 'csdn111', 'leetcode', '这里是测试账号的自我描述');
+INSERT INTO `user_info` (`id`, `email`, `phone`, `qq`, `github`, `gitee`, `csdn`, `leetcode`, `description`) VALUES (4, '@qq.com', '15233337777', '267552', 'gthub.com', 'gitee.com', 'csdn.com', 'leetcode.com', '这里是自我描述');
 COMMIT;
 
 -- ----------------------------
@@ -261,14 +222,15 @@ CREATE TABLE `user_role` (
   `user_id` int DEFAULT NULL COMMENT '用户ID',
   `role_id` int DEFAULT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of user_role
 -- ----------------------------
 BEGIN;
 INSERT INTO `user_role` (`id`, `user_id`, `role_id`) VALUES (1, 1, 1);
-INSERT INTO `user_role` (`id`, `user_id`, `role_id`) VALUES (2, 2, 2);
+INSERT INTO `user_role` (`id`, `user_id`, `role_id`) VALUES (2, 2, 4);
+INSERT INTO `user_role` (`id`, `user_id`, `role_id`) VALUES (4, 4, 4);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
