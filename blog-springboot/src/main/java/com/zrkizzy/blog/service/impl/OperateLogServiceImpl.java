@@ -1,10 +1,15 @@
 package com.zrkizzy.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zrkizzy.blog.entity.OperateLog;
 import com.zrkizzy.blog.mapper.OperateLogMapper;
 import com.zrkizzy.blog.service.IOperateLogService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zrkizzy.blog.vo.PageVO;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -16,5 +21,29 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OperateLogServiceImpl extends ServiceImpl<OperateLogMapper, OperateLog> implements IOperateLogService {
+    @Resource
+    private OperateLogMapper operateLogMapper;
 
+    /**
+     * 获取操作日志列表
+     *
+     * @param curPage 当前页数
+     * @param size 页面大小
+     * @param nickName 用户名
+     * @param module 系统模块
+     * @return 分页对象
+     */
+    @Override
+    public PageVO getOperateLogList(Integer curPage, Integer size, String nickName, String module) {
+        // 开启分页
+        Page<OperateLog> page = new Page<>(curPage, size);
+        // 定义查询条件
+        QueryWrapper<OperateLog> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("user", nickName);
+        queryWrapper.like("module", module);
+        // 查询数据库
+        Page<OperateLog> logPage = operateLogMapper.selectPage(page, queryWrapper);
+        // 返回分页对象
+        return new PageVO(logPage.getTotal(), logPage.getRecords());
+    }
 }

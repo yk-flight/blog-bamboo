@@ -17,7 +17,7 @@ public class Result {
     /**
      * 状态码
      */
-    private long code;
+    private Integer code;
     /**
      * 提示信息
      */
