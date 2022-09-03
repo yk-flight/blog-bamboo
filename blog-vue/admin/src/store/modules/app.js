@@ -69,5 +69,22 @@ export default {
       }
       setItem(TAGS_VIEW, state.tagsViewList);
     },
+    // 关闭全部标签页
+    closeAllTagsView(state) {
+      (state.tagsViewList = [
+        {
+          fullPath: "/dashboard",
+          name: "dashboard",
+          path: "/dashboard",
+          meta: {
+            title: "仪表盘",
+            icon: "dashboard",
+          },
+          title: "仪表盘",
+        },
+      ]),
+        // 更新存储的标签页
+        setItem(TAGS_VIEW, state.tagsViewList);
+    },
   },
 };

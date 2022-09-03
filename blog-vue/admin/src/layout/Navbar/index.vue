@@ -32,9 +32,21 @@
               </el-dropdown-item>
             </a>
             <!-- 退出登录 -->
-            <el-dropdown-item divided @click.native="logout">
-              <svg-icon icon="logout"></svg-icon>
-              &nbsp;退出登录
+            <el-dropdown-item icon="el-icon-user-solid">
+              <router-link
+                to="profile"
+                style="text-decoration: none; color: #606266; font-size: 14px"
+              >
+                <span>个人中心</span>
+              </router-link>
+            </el-dropdown-item>
+            <!-- 退出登录 -->
+            <el-dropdown-item
+              divided
+              @click.native="logout"
+              icon="el-icon-switch-button"
+            >
+              <span>退出登录</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
