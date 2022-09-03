@@ -10,6 +10,7 @@
           :autoCropWidth="options.autoCropWidth"
           :autoCropHeight="options.autoCropHeight"
           :canMove="options.canMove"
+          :fixedBox="options.fixedBox"
           @realTime="realTime"
         />
       </el-col>
@@ -25,6 +26,7 @@
         <el-upload
           action="#"
           :http-request="requestUpload"
+          :before-upload="beforeAvatarUpload"
           :show-file-list="false"
         >
           <el-button size="small">
@@ -62,7 +64,9 @@
         ></el-button>
       </el-col>
       <el-col :lg="{ span: 2, offset: 6 }" :md="2">
-        <el-button type="primary" size="small">提 交</el-button>
+        <el-button type="primary" size="small" @click="uploadImg()"
+          >提 交</el-button
+        >
       </el-col>
     </el-row>
   </div>
@@ -70,6 +74,7 @@
 
 <script>
 import { VueCropper } from "vue-cropper";
+import { uploadAvatar, updateAvatarById } from "@/api/user";
 
 export default {
   name: "AvatarUp",
@@ -79,32 +84,34 @@ export default {
       options: {
         img: this.$store.getters.userInfo.avatar, //裁剪图片的地址
         autoCrop: true, // 是否默认生成截图框
-        autoCropWidth: 200, // 默认生成截图框宽度
-        autoCropHeight: 200, // 默认生成截图框高度
+        autoCropWidth: 100, // 默认生成截图框宽度
+        autoCropHeight: 100, // 默认生成截图框高度
         canMoveBox: true, // 截图框能否拖动
-        // fixedBox: true, // 固定截图框大小 不允许改变
+        fixedBox: true, // 固定截图框大小 不允许改变
       },
       previews: {},
+      // 上传的文件名称
+      imageName: "",
+      avatarVO: {},
     };
   },
 
   mounted() {},
 
   methods: {
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
     beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+      if (file.type.indexOf("image/") == -1) {
+        this.$modal.msgError(
+          "文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。"
+        );
+      } else {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          this.options.img = reader.result;
+        };
       }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
+      this.imageName = file.name;
     },
     // 实时预览
     realTime(data) {
@@ -124,6 +131,45 @@ export default {
     changeScale(num) {
       num = num || 1;
       this.$refs.cropper.changeScale(num);
+    },
+    // 上传图片
+    uploadImg() {
+      this.$refs.cropper.getCropBlob((data) => {
+        let formData = new FormData();
+        var fileOfBlob = new File([data], this.imageName);
+        formData.append("file", fileOfBlob);
+        uploadAvatar(formData).then((result) => {
+          this.options.img = result;
+          this.avatarVO.avatar = result;
+          // 更新用户信息
+          updateAvatarById(this.avatarVO).then();
+          // 重新设置用户登录信息
+          this.$store.dispatch("user/getUserInfo");
+        });
+      });
+    },
+    // 设置需要展示的图片  base64
+    setAvatarBase64(src, callback) {
+      let _this = this;
+      let image = new Image();
+      // 处理缓存
+      image.src = src + "?v=" + Math.random();
+      // 支持跨域图片
+      image.crossOrigin = "*";
+      image.onload = function () {
+        let base64 = _this.transBase64FromImage(image);
+        callback && callback(base64);
+      };
+    },
+    // 将网络图片转换成base64格式
+    transBase64FromImage(image) {
+      let canvas = document.createElement("canvas");
+      canvas.width = image.width;
+      canvas.height = image.height;
+      let ctx = canvas.getContext("2d");
+      ctx.drawImage(image, 0, 0, image.width, image.height);
+      // 可选其他值 image/jpeg
+      return canvas.toDataURL("image/jpeg");
     },
   },
 };

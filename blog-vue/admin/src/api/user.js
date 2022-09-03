@@ -129,3 +129,28 @@ export const deleteUserById = (id) => {
     method: "DELETE",
   });
 };
+
+/**
+ * 上传用户头像
+ */
+export const uploadAvatar = (data) => {
+  return request({
+    url: "/user/admin/uploadAvatar",
+    method: "POST",
+    data: data,
+  });
+};
+
+/**
+ * 更新用户头像路径
+ *
+ * @param {*} data
+ * @returns
+ */
+export const updateAvatarById = (data) => {
+  return request({
+    url: "/user/admin/updateAvatarById",
+    method: "POST",
+    data: data,
+  });
+};
