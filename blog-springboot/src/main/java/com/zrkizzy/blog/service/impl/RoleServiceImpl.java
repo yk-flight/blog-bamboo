@@ -1,5 +1,6 @@
 package com.zrkizzy.blog.service.impl;
 
+import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.dto.RoleDto;
 import com.zrkizzy.blog.entity.Role;
 import com.zrkizzy.blog.entity.UserRole;
@@ -57,6 +58,7 @@ public class RoleServiceImpl implements RoleService {
      * @return 前端返回对象
      */
     @Override
+    @LogAnnotation(module = "角色模块", description = "更新角色")
     @Transactional(rollbackFor = RuntimeException.class)
     public Result updateRole(RoleVO roleVO) {
         Role role = BeanCopyUtil.copy(roleVO, Role.class);
@@ -81,6 +83,7 @@ public class RoleServiceImpl implements RoleService {
      * @return 前端返回对象
      */
     @Override
+    @LogAnnotation(module = "角色模块", description = "删除角色")
     @Transactional(rollbackFor = RuntimeException.class)
     public Result deleteRoleById(Integer roleId) {
         // 删除角色表中对应的数据
@@ -98,6 +101,7 @@ public class RoleServiceImpl implements RoleService {
      * @return 前端返回对象
      */
     @Override
+    @LogAnnotation(module = "角色模块", description = "新增角色")
     @Transactional(rollbackFor = RuntimeException.class)
     public Result insertRole(RoleVO roleVO) {
         Role role = BeanCopyUtil.copy(roleVO, Role.class);

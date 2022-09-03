@@ -30,10 +30,10 @@ public class OperateLog implements Serializable {
     private Integer id;
 
     @ApiModelProperty(value = "系统模块")
-    private String model;
+    private String module;
 
-    @ApiModelProperty(value = "操作类型")
-    private String type;
+    @ApiModelProperty(value = "操作描述")
+    private String description;
 
     @ApiModelProperty(value = "请求方式")
     private String requestMethod;
@@ -48,16 +48,19 @@ public class OperateLog implements Serializable {
     private String operateIp;
 
     @ApiModelProperty(value = "操作地点")
-    private String operateAddr;
+    private String operateSource;
 
     @ApiModelProperty(value = "操作状态")
-    private Integer status;
+    private Boolean status;
+
+    @ApiModelProperty(value = "操作状态描述")
+    private String statusDescription;
 
     @ApiModelProperty(value = "请求参数")
     private String requestParam;
 
-    @ApiModelProperty(value = "返回参数")
-    private String returnParam;
+    @ApiModelProperty("执行时长")
+    private Long duration;
 
     @ApiModelProperty(value = "操作日期")
     private LocalDateTime operateTime;

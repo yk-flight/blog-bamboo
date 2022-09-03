@@ -1,5 +1,6 @@
 package com.zrkizzy.blog.service.impl;
 
+import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.entity.User;
 import com.zrkizzy.blog.entity.UserInfo;
 import com.zrkizzy.blog.mapper.UserInfoMapper;
@@ -59,6 +60,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @return 前端返回对象
      */
     @Override
+    @LogAnnotation(module = "用户信息模块", description = "更新用户个人信息")
     @Transactional(rollbackFor = RuntimeException.class)
     public Result updateUserInfo(UserInfoVO userInfoVO) {
         // 获取当前登录用户ID
@@ -120,6 +122,8 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @return 前端响应对象
      */
     @Override
+    @LogAnnotation(module = "用户信息模块", description = "修改用户是否启用")
+    @Transactional(rollbackFor = RuntimeException.class)
     public Result changeUserEnabled(Integer userId) {
         User user = userMapper.selectById(userId);
         user.setEnabled(!user.isEnabled());

@@ -3,6 +3,7 @@ package com.zrkizzy.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.dto.CategoryDto;
 import com.zrkizzy.blog.entity.Category;
 import com.zrkizzy.blog.mapper.CategoryMapper;
@@ -52,6 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @return 前端返回对象
      */
     @Override
+    @LogAnnotation(module = "文章模块", description = "新增文章分类")
     @Transactional(rollbackFor = RuntimeException.class)
     public Result insertCategory(CategoryVO categoryVO) {
         // 判断是否有同名分类
@@ -85,6 +87,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @return 前端返回对象
      */
     @Override
+    @LogAnnotation(module = "文章模块", description = "删除文章分类")
     @Transactional(rollbackFor = RuntimeException.class)
     public Result deleteCategory(Integer id) {
         // TODO 将当前分类下的文章所属分类重置
@@ -103,6 +106,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @return 前端返回对象
      */
     @Override
+    @LogAnnotation(module = "文章模块", description = "批量删除文章分类")
     public Result deleteCategoryBatchIds(Integer[] ids) {
         // TODO 将当前分类下的文章所属分类重置
 
@@ -120,6 +124,8 @@ public class CategoryServiceImpl implements CategoryService {
      * @return 前端返回对象
      */
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    @LogAnnotation(module = "文章模块", description = "更新文章分类")
     public Result updateCategory(CategoryDto categoryDto) {
         // 设置当前分类的更新时间
         categoryDto.setUpdateTime(new Date());

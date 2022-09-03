@@ -2,6 +2,7 @@ package com.zrkizzy.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.entity.Role;
 import com.zrkizzy.blog.entity.User;
 import com.zrkizzy.blog.entity.UserInfo;
@@ -212,6 +213,7 @@ public class UserServiceImpl implements UserService {
      * @return 返回结果对象
      */
     @Override
+    @LogAnnotation(module = "用户模块", description = "用户更新密码")
     @Transactional(rollbackFor = RuntimeException.class)
     public Result updatePassword(PasswordVO passwordVO) {
         // 判断新旧密码是否一致
@@ -262,6 +264,8 @@ public class UserServiceImpl implements UserService {
      * @return 前端响应对象
      */
     @Override
+    @LogAnnotation(module = "用户模块", description = "新增用户")
+    @Transactional(rollbackFor = RuntimeException.class)
     public Result addUser(UserInfoVO userInfoVO) {
         User user = BeanCopyUtil.copy(userInfoVO, User.class);
         user.setEnabled(true);
@@ -294,6 +298,8 @@ public class UserServiceImpl implements UserService {
      * @return 前端响应对象
      */
     @Override
+    @LogAnnotation(module = "用户模块", description = "删除用户")
+    @Transactional(rollbackFor = RuntimeException.class)
     public Result deleteUserById(Integer userId) {
         // 1. 删除user表中的数据
         int deleteUser = userMapper.deleteById(userId);
@@ -315,6 +321,8 @@ public class UserServiceImpl implements UserService {
      * @return 前端响应对象
      */
     @Override
+    @LogAnnotation(module = "用户模块", description = "管理员更新指定用户密码")
+    @Transactional(rollbackFor = RuntimeException.class)
     public Result updatePasswordById(Integer userId, String password) {
         User user = userMapper.selectById(userId);
         // 更新用户密码
@@ -363,6 +371,8 @@ public class UserServiceImpl implements UserService {
      * @param avatarVO 用户头像参数接收对象
      */
     @Override
+    @LogAnnotation(module = "用户模块", description = "更新用户头像路径")
+    @Transactional(rollbackFor = RuntimeException.class)
     public void updateAvatarById(AvatarVO avatarVO) {
         // 获取到当前登录用户的ID
         Integer userId = UserUtil.getCurrentUser().getId();
