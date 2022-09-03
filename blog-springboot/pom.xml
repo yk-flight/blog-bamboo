@@ -13,10 +13,12 @@
         <maven.compiler.target>8</maven.compiler.target>
         <spring-boot.version>2.4.1</spring-boot.version>
         <mybatis-plus.version>3.4.3</mybatis-plus.version>
+        <mybatis-generator.version>3.4.1</mybatis-generator.version>
         <mysql.version>8.0.13</mysql.version>
         <jjwt.version>0.9.1</jjwt.version>
         <kaptcha.version>0.0.9</kaptcha.version>
         <fastjson.version>2.0.10</fastjson.version>
+        <freemarker.version>2.3.28</freemarker.version>
         <userAgent.version>1.21</userAgent.version>
         <swagger.version>3.0.0</swagger.version>
         <swagger-ui.version>1.9.6</swagger-ui.version>
@@ -47,6 +49,13 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
+        </dependency>
+
+        <!-- Mybatis-Plus代码生成器依赖 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>${mybatis-generator.version}</version>
         </dependency>
 
         <!-- MySQL依赖 -->
@@ -89,6 +98,13 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
+        </dependency>
+
+        <!-- freemarker依赖 -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>${freemarker.version}</version>
         </dependency>
 
         <!-- Lombok依赖 -->
