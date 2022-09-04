@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zrkizzy.blog.dto.MenuDto;
 import com.zrkizzy.blog.dto.PermissionDto;
 import com.zrkizzy.blog.entity.Menu;
+import com.zrkizzy.blog.entity.Role;
 import com.zrkizzy.blog.mapper.MenuMapper;
 import com.zrkizzy.blog.mapper.RoleMapper;
 import com.zrkizzy.blog.service.MenuService;
@@ -45,46 +46,15 @@ public class MenuServiceImpl implements MenuService {
         // 查看从Redis中拉取到的菜单数据是否存在
         if (CollectionUtils.isEmpty(roleMenus)) {
             // 如果不存在则从数据库中拉取
-            roleMenus = menuMapper.getMenuWithRole();
+            // 首先获取到管理员到权限(管理员具备所有权限)
+            Role role = roleMapper.selectById(1);
+            // 根据管理员具有到权限ID进行查询
+            List<Integer> ids = UserUtil.getPermissionByString(role.getPermission());
+            roleMenus = menuMapper.getMenuWithRole(ids);
             // 将从数据库中拉取到的数据添加到Redis中
             valueOperations.set("roleMenus", roleMenus);
         }
         return roleMenus;
-    }
-
-    /**
-     * 通过用户ID获取菜单列表
-     *
-     * @return 菜单列表
-     */
-    @Override
-    public List<Menu> getMenusByUserId() {
-        // 获取到当前登录用户的ID
-        Integer userId = UserUtil.getCurrentUser().getId();
-        ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
-        // 从Redis中获取菜单数据
-        List<Menu> menuList = BeanCopyUtil.castObjectToList(valueOperations.get("menu_" + userId), Menu.class);
-        // 判断从Redis中获取到的菜单列表是否存在
-        if (CollectionUtils.isEmpty(menuList)) {
-            // 如果为空则从数据库中获取
-            menuList = menuMapper.getMenusByUserId(userId);
-            // 将从数据库中获取到的菜单数据设置到Redis中
-            valueOperations.set("menu_" + userId, menuList);
-        }
-
-        return menuList;
-    }
-
-    /**
-     * 根据用户ID获取当前用户具有的菜单权限
-     *
-     * @return 菜单权限集合
-     */
-    @Override
-    public List<String> getPermissionByUserId() {
-        // 获取到当前登录用户的ID
-        Integer userId = UserUtil.getCurrentUser().getId();
-        return menuMapper.getPermissionByUserId(userId);
     }
 
     /**
@@ -116,7 +86,6 @@ public class MenuServiceImpl implements MenuService {
     /**
      * 获取角色权限
      *
-     * @param roleId 角色ID
      * @return 所有角色权限
      */
     @Override

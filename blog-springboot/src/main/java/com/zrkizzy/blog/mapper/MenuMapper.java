@@ -16,25 +16,10 @@ public interface MenuMapper extends BaseMapper<Menu> {
     /**
      * 根据角色获取菜单列表
      *
+     * @param ids 菜单ID集合
      * @return 菜单列表
      */
-    List<Menu> getMenuWithRole();
-
-    /**
-     * 通过用户ID获取菜单列表
-     *
-     * @param userId 用户ID
-     * @return 菜单列表
-     */
-    List<Menu> getMenusByUserId(Integer userId);
-
-    /**
-     * 根据用户ID获取当前用户具有的菜单权限
-     *
-     * @param userId 用户ID
-     * @return 菜单权限集合
-     */
-    List<String> getPermissionByUserId(Integer userId);
+    List<Menu> getMenuWithRole(@Param("ids") List<Integer> ids);
 
     /**
      * 获取到当前角色可以访问的路径
