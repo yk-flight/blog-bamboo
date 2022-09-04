@@ -1,20 +1,21 @@
 <template>
   <div class="sidebar-container">
-    <el-menu
-      :default-active="activeMenu"
-      :unique-opened="true"
-      background-color="#304156"
-      text-color="#bfcbd9"
-      active-text-color="rgb(64, 158, 255)"
-      :collapse="this.$store.getters.isCollapse"
-      router
-    >
-      <sidebar-item
-        v-for="item in routes"
-        :key="item.path"
-        :route="item"
-      ></sidebar-item>
-    </el-menu>
+    <perfect-scrollbar ref="scrollbar">
+      <el-menu
+        :default-active="activeMenu"
+        background-color="#304156"
+        text-color="#bfcbd9"
+        active-text-color="rgb(64, 158, 255)"
+        :collapse="this.$store.getters.isCollapse"
+        router
+      >
+        <sidebar-item
+          v-for="item in routes"
+          :key="item.path"
+          :route="item"
+        ></sidebar-item>
+      </el-menu>
+    </perfect-scrollbar>
   </div>
 </template>
 
@@ -49,5 +50,10 @@ export default {
 .sidebar-container {
   margin-top: 76px;
   width: 100%;
+
+  .ps {
+    margin-top: 16px;
+    height: 90%;
+  }
 }
 </style>

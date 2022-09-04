@@ -10,15 +10,11 @@
         后台管理系统
       </h1>
     </div>
-    <!-- 处理 menu 菜单过长时的情况 -->
-    <el-scrollbar style="height: 100%">
-      <sidebar-menu></sidebar-menu>
-    </el-scrollbar>
+    <sidebar-menu></sidebar-menu>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
 import SidebarMenu from "./components/SidebarMenu";
 
 export default {
@@ -36,7 +32,7 @@ export default {
 
 <style lang="scss" scoped>
 .logo-container {
-  height: "76px";
+  height: 76px;
   padding: 10px 0 22px 0;
   display: flex;
   align-items: center;
