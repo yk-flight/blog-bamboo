@@ -19,5 +19,14 @@ export default {
         icon: "dict",
       },
     },
+    {
+      path: "/picture/pictureManage",
+      name: "PictureManage",
+      component: () => import("@/views/picture/PictureManage.vue"),
+      meta: {
+        title: "相册管理",
+        icon: "tool",
+      },
+    },
   ],
 };
