@@ -3,6 +3,7 @@ package com.zrkizzy.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.blog.annotation.LogAnnotation;
+import com.zrkizzy.blog.dto.FilesDto;
 import com.zrkizzy.blog.entity.Role;
 import com.zrkizzy.blog.entity.User;
 import com.zrkizzy.blog.entity.UserInfo;
@@ -33,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -57,6 +59,8 @@ public class UserServiceImpl implements UserService {
     private UserRoleMapper userRoleMapper;
     @Resource
     private MenuMapper menuMapper;
+    @Resource
+    private FilesMapper filesMapper;
 
     @Value("${jwt.tokenHead}")
     private String tokenHead;
@@ -362,6 +366,19 @@ public class UserServiceImpl implements UserService {
         file.transferTo(new File(fullPath));
         // 定义返回的路径
         String avatarUrl = DOMAIN + fileName;
+        // 将当前上传的图片保存在数据库中
+        FilesDto filesDto = new FilesDto();
+        // 上传的用户
+        filesDto.setUser(UserUtil.getCurrentUser().getNickName());
+        // 上传时间
+        filesDto.setUploadTime(LocalDate.now());
+        // 文件路径
+        filesDto.setUrl(avatarUrl);
+        // 文件名称
+        filesDto.setFileName(fileName);
+        // 设置备注
+        filesDto.setDescription("用户上传头像");
+        filesMapper.insert(BeanCopyUtil.copy(filesDto, com.zrkizzy.blog.entity.Files.class));
         return Result.success("头像上传成功", avatarUrl);
     }
 
