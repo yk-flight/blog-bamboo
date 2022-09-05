@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background-color: rgb(48, 65, 86)">
     <div class="logo-container">
       <el-avatar
         :size="44"

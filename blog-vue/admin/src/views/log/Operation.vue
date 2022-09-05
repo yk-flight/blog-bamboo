@@ -148,66 +148,78 @@
       :visible="visible"
       :before-close="handleClose"
     >
-      <el-descriptions class="margin-top" :column="2" border>
-        <el-descriptions-item>
-          <template slot="label"> 系统模块 </template>
-          {{ log.module }}
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label"> 操作描述 </template>
-          {{ log.description }}
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label"> 操作人员 </template>
-          {{ log.user }}
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label"> 请求方式 </template>
-          <el-tag v-if="log.requestMethod === 'PUT'">
-            {{ log.requestMethod }}
-          </el-tag>
-          <el-tag v-else-if="log.requestMethod === 'GET'" type="success">
-            {{ log.requestMethod }}
-          </el-tag>
-          <el-tag v-else-if="log.requestMethod === 'POST'" type="warning">
-            {{ log.requestMethod }}
-          </el-tag>
-          <el-tag v-else type="danger">{{ log.requestMethod }}</el-tag>
-        </el-descriptions-item>
-        <el-descriptions-item :span="2">
-          <template slot="label"> 操作方法 </template>
-          {{ log.operateMethod }}
-        </el-descriptions-item>
-        <el-descriptions-item :span="2">
-          <template slot="label"> 请求参数 </template>
-          {{ log.requestParam }}
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label"> 操作地址 </template>
-          {{ log.operateIp }}
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label"> 操作地点 </template>
-          {{ log.operateSource }}
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label"> 操作状态 </template>
-          <el-tag v-if="log.status" type="success">成功</el-tag>
-          <el-tag v-else type="danger">失败</el-tag>
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label"> 执行时长 </template>
-          {{ log.duration / 1000 }}s
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label"> 操作日期 </template>
-          {{ log.operateTime | dateFilter }}
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label"> 操作状态描述 </template>
-          {{ log.statusDescription }}
-        </el-descriptions-item>
-      </el-descriptions>
+      <el-form label-width="120px">
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="系统模块：">
+              {{ log.module }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="操作描述：">
+              {{ log.description }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="操作人员：">
+              {{ log.user }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="请求方式：">
+              <el-tag v-if="log.requestMethod === 'PUT'">
+                {{ log.requestMethod }}
+              </el-tag>
+              <el-tag v-else-if="log.requestMethod === 'GET'" type="success">
+                {{ log.requestMethod }}
+              </el-tag>
+              <el-tag v-else-if="log.requestMethod === 'POST'" type="warning">
+                {{ log.requestMethod }}
+              </el-tag>
+              <el-tag v-else type="danger">
+                {{ log.requestMethod }}
+              </el-tag>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="操作方法：">
+              {{ log.operateMethod }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="请求参数：">
+              {{ log.requestParam }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="操作地址：">
+              {{ log.operateIp }}
+            </el-form-item>
+            <el-form-item label="操作地点：">
+              {{ log.operateSource }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="操作状态：">
+              <el-tag v-if="log.status" type="success">成功</el-tag>
+              <el-tag v-else type="danger">失败</el-tag>
+            </el-form-item>
+            <el-form-item label="执行时长：">
+              {{ log.duration / 1000 }}s
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="操作日期：">
+              {{ log.operateTime | dateFilter }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="操作状态描述：">
+              {{ log.statusDescription }}
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleClose">关闭</el-button>
       </span>
