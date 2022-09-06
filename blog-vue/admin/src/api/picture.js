@@ -13,3 +13,11 @@ export const getFilesList = (params) => {
     params: params,
   });
 };
+
+export const upload = (data) => {
+  return request({
+    url: "/upload",
+    method: "POST",
+    data: data,
+  });
+};
