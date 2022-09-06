@@ -4,13 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.dto.FilesDto;
-import com.zrkizzy.blog.entity.Role;
-import com.zrkizzy.blog.entity.User;
-import com.zrkizzy.blog.entity.UserInfo;
-import com.zrkizzy.blog.entity.UserRole;
+import com.zrkizzy.blog.entity.*;
 import com.zrkizzy.blog.mapper.*;
+import com.zrkizzy.blog.service.IFilesService;
 import com.zrkizzy.blog.service.UserService;
-import com.zrkizzy.blog.utils.*;
+import com.zrkizzy.blog.utils.BeanCopyUtil;
+import com.zrkizzy.blog.utils.IpUtil;
+import com.zrkizzy.blog.utils.JwtTokenUtil;
+import com.zrkizzy.blog.utils.UserUtil;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.AvatarVO;
@@ -30,17 +31,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.zrkizzy.blog.constant.CommonConst.DOMAIN;
 import static com.zrkizzy.blog.constant.CommonConst.LOCAL_HOST;
 
 /**
@@ -64,11 +60,11 @@ public class UserServiceImpl implements UserService {
 
     @Value("${jwt.tokenHead}")
     private String tokenHead;
-    @Value("${file.path}")
-    private String path;
 
     @Resource
     private UserDetailsService userDetailsService;
+    @Resource
+    private IFilesService filesService;
     @Resource
     private PasswordEncoder passwordEncoder;
     @Resource
@@ -345,41 +341,14 @@ public class UserServiceImpl implements UserService {
      * @return 前端响应对象
      */
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public Result uploadAvatar(MultipartFile file) throws IOException {
-        // 获取文件类型
-        int index = file.getOriginalFilename().lastIndexOf(".") + 1;
-        String suffix = file.getOriginalFilename().substring(index);
-        String fileName = UuidUtil.getShortUuid() + "." + suffix;
-        // 拼接文件的全路径
-        String fullPath = path +
-                // 拼接 "/"
-                File.separator +
-                // 拼接文件名
-                fileName;
-
-        // 如果不存在文件保存的位置
-        if (!Files.exists(Paths.get(path))) {
-            // 创建文件夹
-            Files.createDirectory(Paths.get(path));
+        FilesDto filesDto = filesService.saveFile(file);
+        int count = filesMapper.insert(BeanCopyUtil.copy(filesDto, Files.class));
+        if (count > 0) {
+            return Result.success("头像上传成功", filesDto.getUrl());
         }
-        // 保存上传的文件
-        file.transferTo(new File(fullPath));
-        // 定义返回的路径
-        String avatarUrl = DOMAIN + fileName;
-        // 将当前上传的图片保存在数据库中
-        FilesDto filesDto = new FilesDto();
-        // 上传的用户
-        filesDto.setUser(UserUtil.getCurrentUser().getNickName());
-        // 上传时间
-        filesDto.setUploadTime(LocalDate.now());
-        // 文件路径
-        filesDto.setUrl(avatarUrl);
-        // 文件名称
-        filesDto.setFileName(fileName);
-        // 设置备注
-        filesDto.setDescription("用户上传头像");
-        filesMapper.insert(BeanCopyUtil.copy(filesDto, com.zrkizzy.blog.entity.Files.class));
-        return Result.success("头像上传成功", avatarUrl);
+        return Result.error("头像上传失败");
     }
 
     /**

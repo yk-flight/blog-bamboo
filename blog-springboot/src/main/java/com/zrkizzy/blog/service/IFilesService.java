@@ -1,8 +1,12 @@
 package com.zrkizzy.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zrkizzy.blog.dto.FilesDto;
 import com.zrkizzy.blog.entity.Files;
 import com.zrkizzy.blog.vo.PageVO;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * <p>
@@ -24,4 +28,14 @@ public interface IFilesService extends IService<Files> {
      * @return 分页对象
      */
     PageVO getFilesList(Integer curPage, Integer size, String nickName, String startTime, String endTime);
+
+    /**
+     * 将文件解析并上传到指定路径
+     *
+     *
+     * @param file 要进行上传到文件
+     * @return 文件上传数据对象
+     * @exception IOException IO流异常
+     */
+    FilesDto saveFile(MultipartFile file) throws IOException;
 }
