@@ -1,6 +1,5 @@
 package com.zrkizzy.blog.controller;
 
-import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.dto.FilesDto;
 import com.zrkizzy.blog.entity.Files;
 import com.zrkizzy.blog.mapper.FilesMapper;
@@ -34,13 +33,12 @@ public class UploadController {
 
     @ApiOperation("上传文件")
     @PostMapping("/")
-    @LogAnnotation(module = "文件上传模块", description = "用户上传图片")
     public Result upload(MultipartFile file) throws IOException {
         FilesDto filesDto = filesService.saveFile(file);
         int count = filesMapper.insert(BeanCopyUtil.copy(filesDto, Files.class));
         if (count > 0) {
-            return Result.success("头像上传成功", filesDto.getUrl());
+            return Result.success("图片上传成功", filesDto.getUrl());
         }
-        return Result.error("头像上传失败");
+        return Result.error("图片上传失败");
     }
 }
