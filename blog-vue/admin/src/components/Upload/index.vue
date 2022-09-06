@@ -30,7 +30,7 @@
       </el-row>
       <span slot="footer" class="dialog-footer">
         <!-- @click="submitUpload" -->
-        <el-button type="primary">确定</el-button>
+        <el-button type="primary" @click="uploadFile">确定</el-button>
         <el-button @click="handleDialogClose">取消</el-button>
       </span>
     </el-dialog>
@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { upload } from "@/api/picture.js";
+
 export default {
   name: "Upload",
   props: {
@@ -49,7 +51,9 @@ export default {
   },
   data() {
     return {
+      // 是否显示对话框
       visibled: this.visible,
+      file: {},
     };
   },
   watch: {
@@ -74,6 +78,8 @@ export default {
         this.$message.error(`上传图片大小不能超过 10 MB!`);
         return false;
       }
+      // 将当前上传的图片数据赋值给自定义file变量
+      this.file = file;
       return true;
     },
     // 关闭对话框
@@ -83,7 +89,20 @@ export default {
       this.$emit("func", this.visibled);
     },
     // 覆盖默认的上传行为
-    requestUpload() {},
+    requestUpload() {
+      let formData = new FormData();
+      formData.append("file", this.file.raw);
+      upload(formData).then((result) => {
+        // 清除当前文件对象
+        this.file = {};
+      });
+      // 关闭上传文件对话框
+      this.handleDialogClose();
+    },
+    // 上传文件
+    uploadFile() {
+      this.$refs.upload.submit();
+    },
   },
 };
 </script>

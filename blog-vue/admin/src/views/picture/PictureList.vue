@@ -44,33 +44,39 @@
 
         <div class="button-container">
           <el-row>
-            <el-col :span="2">
-              <el-button
-                type="primary"
-                plain
-                icon="el-icon-picture"
-                size="mini"
-                @click="handleUpload"
-              >
-                上传图片
-              </el-button>
-            </el-col>
+            <el-button
+              type="primary"
+              plain
+              icon="el-icon-picture"
+              size="mini"
+              @click="handleUpload"
+            >
+              上传图片
+            </el-button>
 
-            <el-col :span="2">
-              <el-button type="danger" plain icon="el-icon-delete" size="mini">
-                批量删除
-              </el-button>
-            </el-col>
+            <el-button type="danger" plain icon="el-icon-delete" size="mini">
+              删除
+            </el-button>
+
+            <el-button
+              type="info"
+              plain
+              icon="el-icon-refresh"
+              size="mini"
+              @click="refreshFile"
+            >
+              刷新
+            </el-button>
+
+            <span class="file-count">已选择{{ selectFilesList.length }}张</span>
+            <el-checkbox
+              class="all-check"
+              v-model="checkAll"
+              @change="handleCheckAllChange"
+            >
+              全选
+            </el-checkbox>
           </el-row>
-
-          <span class="file-count">已选择{{ selectFilesList.length }}张</span>
-          <el-checkbox
-            class="all-check"
-            v-model="checkAll"
-            @change="handleCheckAllChange"
-          >
-            全选
-          </el-checkbox>
         </div>
       </div>
 
@@ -109,7 +115,7 @@
 
       <div class="file-footer">
         <el-pagination
-          :page-sizes="[10, 20, 30, 40, 50]"
+          :page-sizes="[20, 30, 40, 50]"
           :page-size="20"
           layout="total, sizes, prev, pager, next, jumper"
           :total="total"
@@ -127,11 +133,12 @@
       :before-close="handleDialogClose"
     >
       <el-form>
+        <el-image :src="file.url" fit="contain" class="file-form"></el-image>
         <el-form-item label="图片名称" label-width="80px">
           <el-input v-model="file.fileName" disabled></el-input>
         </el-form-item>
         <el-form-item label="上传用户" label-width="80px">
-          <el-input v-model="file.user"></el-input>
+          <el-input v-model="file.user" disabled></el-input>
         </el-form-item>
         <el-form-item label="文件路径" label-width="80px">
           <el-input v-model="file.url" disabled></el-input>
@@ -157,7 +164,7 @@
 
 <script>
 import { getFilesList } from "@/api/picture.js";
-import Upload from "../../components/Upload";
+import Upload from "@/components/Upload";
 
 export default {
   name: "PictureList",
@@ -203,7 +210,7 @@ export default {
       // 当前页数
       curPage: 1,
       // 页面大小
-      size: 10,
+      size: 20,
       // 数据总数
       total: 0,
       // 用户数据
@@ -248,7 +255,7 @@ export default {
       }).then((result) => {
         this.filesList = result.list;
         this.total = result.total;
-
+        // 将所有的文件ID进行存储
         this.filesList.forEach((item) => {
           this.filesIds.push(item.id);
         });
@@ -303,6 +310,13 @@ export default {
       this.uploadList = [];
       this.dialogShow = false;
       this.uploadDialog = false;
+    },
+    // 上传文件结束后调用的方法
+    refreshFile() {
+      // 清除查询信息
+      this.resetQuery();
+      // 获取全部图片
+      this.handleQuery();
     },
   },
 };
@@ -368,6 +382,11 @@ export default {
     font-size: 14px;
     line-height: 20px;
     margin-right: 1rem;
+  }
+  .file-form {
+    margin-bottom: 20px;
+    width: 100%;
+    height: 150px;
   }
 }
 </style>

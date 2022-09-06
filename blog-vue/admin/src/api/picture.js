@@ -16,7 +16,7 @@ export const getFilesList = (params) => {
 
 export const upload = (data) => {
   return request({
-    url: "/upload",
+    url: "/upload/",
     method: "POST",
     data: data,
   });
