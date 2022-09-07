@@ -54,7 +54,13 @@
               上传图片
             </el-button>
 
-            <el-button type="danger" plain icon="el-icon-delete" size="mini">
+            <el-button
+              type="danger"
+              plain
+              icon="el-icon-delete"
+              size="mini"
+              @click="handleDelete"
+            >
               删除
             </el-button>
 
@@ -147,12 +153,16 @@
           <el-input v-model="file.uploadTime" disabled></el-input>
         </el-form-item>
         <el-form-item label="备注" label-width="80px">
-          <el-input type="textarea" v-model="file.description"></el-input>
+          <el-input
+            type="textarea"
+            v-model="file.description"
+            placeholder="请输入图片备注"
+          ></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <!-- @click="submitForm" -->
-        <el-button type="primary">确定</el-button>
+        <el-button type="primary" @click="handleSubmit">确定</el-button>
         <el-button @click="handleDialogClose">取消</el-button>
       </span>
     </el-dialog>
@@ -163,7 +173,11 @@
 </template>
 
 <script>
-import { getFilesList } from "@/api/picture.js";
+import {
+  getFilesList,
+  deleteFileBatchIds,
+  updateFileInfo,
+} from "@/api/picture.js";
 import Upload from "@/components/Upload";
 
 export default {
@@ -272,6 +286,7 @@ export default {
       this.times = undefined;
       this.startTime = "";
       this.endTime = "";
+      this.selectFilesList = [];
     },
     // 处理上传
     handleUpload() {
@@ -317,6 +332,31 @@ export default {
       this.resetQuery();
       // 获取全部图片
       this.handleQuery();
+    },
+    // 点击了删除按钮
+    handleDelete() {
+      this.$confirm("确定删除这些图片吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          // 执行删除操作
+          deleteFileBatchIds(this.selectFilesList).then(() => {
+            // 重新获取表格数据
+            this.refreshFile();
+          });
+        })
+        .catch(() => {});
+    },
+    // 处理更新事件
+    handleSubmit() {
+      updateFileInfo(this.file).then(() => {
+        // 刷新当前数据
+        this.refreshFile();
+        // 关闭对话框
+        this.handleDialogClose();
+      });
     },
   },
 };
