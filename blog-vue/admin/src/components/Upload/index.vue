@@ -17,6 +17,7 @@
             :http-request="requestUpload"
             :on-change="beforeUpload"
             :auto-upload="false"
+            :file-list="fileList"
           >
             <i class="el-icon-upload"></i>
             <div class="el-upload__text">
@@ -53,7 +54,10 @@ export default {
     return {
       // 是否显示对话框
       visibled: this.visible,
+      // 当前文件对象
       file: {},
+      // 上传文件列表
+      fileList: [],
     };
   },
   watch: {
@@ -65,17 +69,27 @@ export default {
 
   methods: {
     // 上传前的预处理
-    beforeUpload(file) {
+    beforeUpload(file, fileList) {
+      this.fileList = fileList;
+      if (this.fileList.length > 1) {
+        this.$message.error("一次只能上传一张图片");
+        this.fileList.length = 1;
+        return false;
+      }
       const fileType = file.name
         .substring(file.name.lastIndexOf(".") + 1)
         .toLowerCase();
       const isLtSize = file.size / 1024 / 1024 < 10;
       if (["png", "jpeg", "jpg", "gif"].indexOf(fileType) === -1) {
         this.$message.error("上传图片只能是 JPG、PNG、GIF格式!");
+        // 删除当前文件
+        this.fileList = [];
         return false;
       }
       if (!isLtSize) {
         this.$message.error(`上传图片大小不能超过 10 MB!`);
+        // 删除当前文件
+        this.fileList = [];
         return false;
       }
       // 将当前上传的图片数据赋值给自定义file变量
@@ -87,6 +101,8 @@ export default {
       this.visibled = !this.visibled;
       //组件内变更后向外部发送事件通知
       this.$emit("func", this.visibled);
+      // 清空当前图片列表
+      this.fileList = [];
     },
     // 覆盖默认的上传行为
     requestUpload() {

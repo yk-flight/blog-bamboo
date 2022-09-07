@@ -90,8 +90,9 @@
               <el-tag
                 v-else-if="scope.row.requestMethod === 'POST'"
                 type="warning"
-                >{{ scope.row.requestMethod }}</el-tag
               >
+                {{ scope.row.requestMethod }}
+              </el-tag>
               <el-tag v-else type="danger">{{
                 scope.row.requestMethod
               }}</el-tag>
@@ -322,7 +323,7 @@ export default {
       this.multipleSelection.forEach((item) => {
         ids.push(item.id);
       });
-      this.$confirm("确定删除这些分类吗？", "提示", {
+      this.$confirm("确定删除这些操作日志吗？", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
@@ -332,6 +333,8 @@ export default {
           deleteLogBatchIds(ids).then(() => {
             // 重新获取表格数据
             this.getTableData();
+            // 清空当前多选项
+            this.multipleSelection = [];
           });
         })
         .catch(() => {});
