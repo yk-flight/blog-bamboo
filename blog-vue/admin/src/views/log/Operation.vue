@@ -192,6 +192,11 @@
               {{ log.requestParam }}
             </el-form-item>
           </el-col>
+          <el-col :span="24">
+            <el-form-item label="返回参数：">
+              {{ log.returnParam }}
+            </el-form-item>
+          </el-col>
           <el-col :span="12">
             <el-form-item label="操作地址：">
               {{ log.operateIp }}
