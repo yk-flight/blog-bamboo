@@ -98,6 +98,8 @@ public class LogAspect {
         operateLog.setOperateIp(ipAddress);
         // 设置当前操作的IP属地
         operateLog.setOperateSource(ipSource);
+        // 返回参数
+        operateLog.setReturnParam(JSON.toJSONString(result));
         // 操作状态
         StatusEnum statusEnum = StatusEnum.getStatusEnum(response.getStatus());
         if (statusEnum == null) {

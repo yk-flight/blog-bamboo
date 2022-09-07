@@ -59,6 +59,9 @@ public class OperateLog implements Serializable {
     @ApiModelProperty(value = "请求参数")
     private String requestParam;
 
+    @ApiModelProperty(value = "返回参数")
+    private String returnParam;
+
     @ApiModelProperty("执行时长")
     private Long duration;
 
