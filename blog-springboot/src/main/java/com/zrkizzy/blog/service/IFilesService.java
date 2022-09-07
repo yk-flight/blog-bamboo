@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.zrkizzy.blog.dto.FilesDto;
 import com.zrkizzy.blog.entity.Files;
 import com.zrkizzy.blog.vo.PageVO;
+import com.zrkizzy.blog.vo.Result;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -38,4 +39,12 @@ public interface IFilesService extends IService<Files> {
      * @exception IOException IO流异常
      */
     FilesDto saveFile(MultipartFile file) throws IOException;
+
+    /**
+     * 通过id删除指定的文件
+     *
+     * @param ids ID集合
+     * @return 前端响应对象
+     */
+    Result deleteFileBatchIds(Integer[] ids);
 }

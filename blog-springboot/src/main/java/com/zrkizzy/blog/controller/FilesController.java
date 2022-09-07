@@ -1,13 +1,15 @@
 package com.zrkizzy.blog.controller;
 
+import com.zrkizzy.blog.annotation.LogAnnotation;
+import com.zrkizzy.blog.entity.Files;
 import com.zrkizzy.blog.service.IFilesService;
+import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.vo.PageVO;
+import com.zrkizzy.blog.vo.Result;
+import com.zrkizzy.blog.vo.param.FilesVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -34,5 +36,22 @@ public class FilesController {
                                @RequestParam("startTime")String startTime,
                                @RequestParam("endTime") String endTime) {
         return filesService.getFilesList(curPage, size, nickName, startTime, endTime);
+    }
+
+    @ApiOperation("批量删除文件")
+    @DeleteMapping("/deleteFileBatchIds/{ids}")
+    public Result deleteFileBatchIds(@PathVariable Integer[] ids) {
+        return filesService.deleteFileBatchIds(ids);
+    }
+
+    @ApiOperation("更新文件信息")
+    @LogAnnotation(module = "文件管理模块", description = "用户更新文件备注")
+    @PostMapping("/updateFileInfo")
+    public Result updateFileInfo(@RequestBody FilesVO filesVO) {
+        Files files = BeanCopyUtil.copy(filesVO, Files.class);
+        if (filesService.updateById(files)) {
+            return Result.success("更新成功");
+        }
+        return Result.error("更新失败");
     }
 }

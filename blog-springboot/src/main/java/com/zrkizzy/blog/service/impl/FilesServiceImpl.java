@@ -3,6 +3,7 @@ package com.zrkizzy.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.dto.FilesDto;
 import com.zrkizzy.blog.entity.Files;
 import com.zrkizzy.blog.mapper.FilesMapper;
@@ -11,6 +12,7 @@ import com.zrkizzy.blog.utils.TimeUtil;
 import com.zrkizzy.blog.utils.UserUtil;
 import com.zrkizzy.blog.utils.UuidUtil;
 import com.zrkizzy.blog.vo.PageVO;
+import com.zrkizzy.blog.vo.Result;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.zrkizzy.blog.constant.CommonConst.DOMAIN;
 
@@ -111,5 +115,37 @@ public class FilesServiceImpl extends ServiceImpl<FilesMapper, Files> implements
         // 设置备注
         filesDto.setDescription("用户上传图片");
         return filesDto;
+    }
+
+    /**
+     * 通过ID删除指定的文件
+     *
+     * @param ids ID集合
+     * @return 前端响应对象
+     */
+    @Override
+    @LogAnnotation(module = "文件管理模块", description = "用户批量删除文件")
+    @Transactional(rollbackFor = RuntimeException.class)
+    public Result deleteFileBatchIds(Integer[] ids) {
+        // 先将当前要删除的图片路径进行获取
+        QueryWrapper<Files> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("id", Arrays.asList(ids));
+        List<Files> files = filesMapper.selectList(queryWrapper);
+        for (Files file : files) {
+            // 获取到删除文件的路径
+            String url = path + file.getUrl().replace(DOMAIN, "");
+            System.out.println(url);
+            // 将当前文件逐个删除
+            File deleteFile = new File(url);
+            if (!deleteFile.delete()) {
+                return Result.error("删除失败");
+            }
+        }
+        // 删除数据库文件
+        int count = filesMapper.deleteBatchIds(Arrays.asList(ids));
+        if (count == ids.length) {
+            return Result.success("删除成功");
+        }
+        return Result.error("删除失败");
     }
 }
