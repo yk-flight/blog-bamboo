@@ -1,0 +1,18 @@
+.scroll-down {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  font-size: 2.5rem;
+  color: #fff;
+  cursor: pointer;
+  z-index: 2;
+  --animate-duration: 2s; // 变换速度
+  animation-iteration-count:infinite;//重复闪烁
+}
+
+.typed-cursor {
+  opacity: 1;
+  color: #fff;
+  font-size: 1.8rem;
+  animation-iteration-count:infinite;
+}
