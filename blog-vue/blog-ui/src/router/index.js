@@ -7,12 +7,33 @@ const routes = [
   {
     path: "/",
     component: (resolve) => require(["../views/home/Home.vue"], resolve),
+    meta: {
+      title: "首页",
+    },
   },
   {
     path: "/about",
     name: "About",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    component: () => import("../views/about/About.vue"),
+    meta: {
+      title: "关于我",
+    },
+  },
+  {
+    path: "/category",
+    name: "Category",
+    component: () => import("../views/category/Category.vue"),
+    meta: {
+      title: "分类",
+    },
+  },
+  {
+    path: "/archive",
+    name: "Archive",
+    component: () => import("../views/archive/Archive.vue"),
+    meta: {
+      title: "归档",
+    },
   },
 ];
 

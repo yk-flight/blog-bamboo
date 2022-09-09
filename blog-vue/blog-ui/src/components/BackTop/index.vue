@@ -59,11 +59,11 @@ export default {
   color: #fff;
   background-color: #42b983;
   text-align: center;
-  line-height: 70px;
-  box-shadow: 2px 2px 2px 2px #fff;
+  line-height: 65px;
+  box-shadow: 1px 1px 1px 1px #fff;
 }
 .top-btn {
-  font-size: 36px;
+  font-size: 28px;
 }
 
 .rightside {

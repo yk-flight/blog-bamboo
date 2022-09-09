@@ -1,13 +1,28 @@
 <template>
   <div class="banner-container">
     <div class="banner-body">
-      <h1 class="blog-title animate__animated animate__slideInRight">
+      <h1 class="blog-title animate__animated animate__zoomIn">
         世纪末的架构师
       </h1>
-      <span class="blog-word animate__animated animate__slideInRight">
-        长风破浪会有时，直挂云帆济沧海
-      </span>
-      <span class="typed-cursor animate__animated animate__bounceIn"> | </span>
+      <div>
+        <!-- :loop="true" -->
+
+        <vue-typed-js
+          :strings="typingTexts"
+          class="blog-word"
+          :startDelay="300"
+          :typeSpeed="100"
+          :backSpeed="100"
+        >
+          <!-- <span
+            class="blog-word animate__animated animate__slideInRight"
+          ></span> -->
+          <span class="typing"></span>
+        </vue-typed-js>
+        <!-- <span class="typed-cursor animate__animated animate__bounceIn">
+          |
+        </span> -->
+      </div>
     </div>
     <div
       class="scroll-down animate__animated animate__fadeInDown"
@@ -23,7 +38,9 @@ export default {
   name: "Banner",
 
   data() {
-    return {};
+    return {
+      typingTexts: ["数风流人物，还看今朝"],
+    };
   },
 
   mounted() {},
@@ -43,14 +60,17 @@ export default {
 <style lang="scss" scoped>
 .banner-container {
   overflow: hidden;
-  background-size: 100% 100%;
   width: 100%;
-  height: 100%;
+  height: calc(100vh);
+  background-size: 100% 100%;
   background-image: url("../../assets/images/banner-2.jpg");
 }
 .banner-body {
-  text-align: center;
-  margin-top: 20%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .blog-title {
   color: white;
@@ -61,7 +81,6 @@ export default {
 .blog-word {
   color: white;
   font-weight: 400;
-  font-size: 1.8rem;
-  max-height: none;
+  font-size: 1.7rem;
 }
 </style>

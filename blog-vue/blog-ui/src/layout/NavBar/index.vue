@@ -15,12 +15,12 @@
         <i class="icon-item"></i>
       </div>
       <div class="menu-item">
-        <router-link class="menu-btn" to="/">
+        <router-link class="menu-btn" to="/archive">
           <svg-icon icon="tags"></svg-icon> 归档
         </router-link>
       </div>
       <div class="menu-item">
-        <router-link class="menu-btn" to="/">
+        <router-link class="menu-btn" to="/category">
           <svg-icon icon="bxs-category"></svg-icon> 分类
         </router-link>
       </div>

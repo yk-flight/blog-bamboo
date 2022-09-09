@@ -3,11 +3,13 @@
     <!--  顶部导航栏  -->
     <NavBar></NavBar>
     <!-- 博客内容 -->
-    <router-view />
-    <!--  博客页脚  -->
-    <Footer></Footer>
+    <transition name="fade-transform" mode="out-in">
+      <router-view />
+    </transition>
     <!--  返回顶部  -->
     <BackTop></BackTop>
+    <!--  博客页脚  -->
+    <Footer></Footer>
   </div>
 </template>
 

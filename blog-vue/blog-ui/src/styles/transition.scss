@@ -1,0 +1,18 @@
+/* 路由切换动画 */
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all 0.8s;
+}
+
+.fade-transform-enter-from {
+  /* 透明度为0 */
+  opacity: 0;
+  /* 竖向移动 30px */
+  transform: translateY(-10px);
+  
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  // transform: translateY(10px);
+}
