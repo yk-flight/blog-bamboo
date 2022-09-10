@@ -1,14 +1,24 @@
 <template>
   <div>
-    <el-form ref="passForm" :rules="passwordRules" :model="passwordForm">
-      <el-form-item label="原密码" label-width="80px">
-        <el-input v-model="passwordForm.oldPassword" type="password"></el-input>
+    <el-form
+      ref="passForm"
+      :rules="passwordRules"
+      :model="passwordForm"
+      label-position="left"
+    >
+      <el-form-item label="原密码" label-width="90px">
+        <el-input
+          v-model="passwordForm.oldPassword"
+          type="password"
+          size="small"
+        ></el-input>
       </el-form-item>
-      <el-form-item label="新密码" label-width="80px" prop="newPassword">
+      <el-form-item label="新密码" label-width="90px" prop="newPassword">
         <el-input
           v-model="passwordForm.newPassword"
           type="password"
           maxlength="20"
+          size="small"
         ></el-input>
       </el-form-item>
       <el-form-item>
@@ -78,5 +88,8 @@ export default {
 .button-container {
   margin-top: 10px;
   text-align: center;
+}
+.el-form-item {
+  margin-bottom: 10px;
 }
 </style>

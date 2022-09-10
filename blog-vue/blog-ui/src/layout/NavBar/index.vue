@@ -1,11 +1,13 @@
 <template>
   <div class="navbar-container">
     <div class="navbar-left">
-      <img
-        src="https://www.zrkizzy.com/upload/2021/11/header-90431fbd9cf848e2a5aaea0bf6b1089b.jpg"
-        class="logo"
-      />
-      <router-link to="/" class="navbar-title">世纪末的架构师</router-link>
+      <router-link to="/" class="left-container">
+        <img
+          src="https://www.zrkizzy.com/upload/2021/11/header-90431fbd9cf848e2a5aaea0bf6b1089b.jpg"
+          class="logo"
+        />
+        <span class="navbar-title">世纪末的架构师</span>
+      </router-link>
     </div>
     <div class="navbar-right">
       <div class="menu-item">
@@ -76,8 +78,6 @@ export default {
   margin-left: 20px;
 }
 .navbar-left {
-  display: flex;
-  justify-content: space-between;
   margin-top: 10px;
   cursor: pointer;
 }
@@ -94,10 +94,13 @@ export default {
 .navbar-title {
   font-size: 18px;
   font-weight: 500;
-  line-height: 35px;
   margin-left: 10px;
+  line-height: 40px;
 }
-
+.left-container {
+  display: flex;
+  justify-content: space-between;
+}
 .menu-item a {
   transition: all 0.2s;
 }

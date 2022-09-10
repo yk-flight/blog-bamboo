@@ -287,6 +287,7 @@ export default {
       this.startTime = "";
       this.endTime = "";
       this.selectFilesList = [];
+      this.checkAll = false;
     },
     // 处理上传
     handleUpload() {
