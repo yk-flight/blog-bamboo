@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 07/09/2022 16:21:05
+ Date: 13/09/2022 22:17:26
 */
 
 SET NAMES utf8mb4;
@@ -51,14 +51,18 @@ CREATE TABLE `files` (
   `description` varchar(255) DEFAULT NULL COMMENT '备注',
   `upload_time` datetime DEFAULT NULL COMMENT '文件上传时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of files
 -- ----------------------------
 BEGIN;
-INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (1, 'ijrbhduX.png', '世纪末的架构师', '/images/ijrbhduX.png', '用户上传图片', '2022-09-07 00:00:00');
+INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (1, 'ijrbhduX.png', '世纪末的架构师', '/images/ijrbhduX.png', '用户上传图片', '2021-05-06 00:00:00');
 INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (2, '4u03nrRo.jpg', '测试账号', '/images/4u03nrRo.jpg', '用户上传图片', '2022-09-07 00:00:00');
+INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (3, 'zpw1h2aC.jpg', '世纪末的架构师', '/images/zpw1h2aC.jpg', '用户上传图片', '2022-09-08 00:00:00');
+INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (4, 'ncgViPvg.jpg', '世纪末的架构师', '/images/ncgViPvg.jpg', '用户上传图片', '2022-09-11 00:00:00');
+INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (5, '2fNqMyrf.jpg', '世纪末的架构师', '/images/2fNqMyrf.jpg', '用户上传图片', '2022-09-11 00:00:00');
+INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (6, 'ot7oGykS.jpg', '世纪末的架构师', '/images/ot7oGykS.jpg', '用户上传图片', '2022-09-11 00:00:00');
 COMMIT;
 
 -- ----------------------------
@@ -133,7 +137,7 @@ CREATE TABLE `operate_log` (
   `duration` int unsigned DEFAULT NULL COMMENT '执行时长',
   `operate_time` datetime DEFAULT NULL COMMENT '操作日期',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of operate_log
@@ -142,6 +146,11 @@ BEGIN;
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (1, '文件管理模块', '用户批量删除文件', 'DELETE', 'com.zrkizzy.blog.service.impl.FilesServiceImpl.deleteFileBatchIds', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[[3,5,7,8,9,10,11,13]]', '{\"code\":200,\"message\":\"删除成功\"}', 21, '2022-09-07 16:13:17');
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (2, '用户模块', '更新用户头像路径', 'POST', 'com.zrkizzy.blog.service.impl.UserServiceImpl.updateAvatarById', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"avatar\":\"/images/ijrbhduX.png\"}]', 'null', 10, '2022-09-07 16:16:28');
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (3, '用户模块', '更新用户头像路径', 'POST', 'com.zrkizzy.blog.service.impl.UserServiceImpl.updateAvatarById', '测试账号', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"avatar\":\"/images/4u03nrRo.jpg\"}]', 'null', 5, '2022-09-07 16:17:27');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (4, '角色模块', '用户更新角色', 'PUT', 'com.zrkizzy.blog.service.impl.UserRoleServiceImpl.updateUserRole', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[2,4]', '{\"code\":200,\"message\":\"更新成功\"}', 16, '2022-09-08 19:56:04');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (5, '用户模块', '管理员更新指定用户密码', 'PUT', 'com.zrkizzy.blog.service.impl.UserServiceImpl.updatePasswordById', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[2,\"1234567\"]', '{\"code\":200,\"message\":\"重置成功\"}', 90, '2022-09-08 19:56:31');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (6, '用户信息模块', '修改用户是否启用', 'PUT', 'com.zrkizzy.blog.service.impl.UserInfoServiceImpl.changeUserEnabled', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[2]', '{\"code\":200,\"message\":\"用户状态更新成功\"}', 14, '2022-09-08 19:57:12');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (7, '用户信息模块', '修改用户是否启用', 'PUT', 'com.zrkizzy.blog.service.impl.UserInfoServiceImpl.changeUserEnabled', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[2]', '{\"code\":200,\"message\":\"用户状态更新成功\"}', 13, '2022-09-08 19:57:14');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (8, '角色模块', '用户更新角色', 'PUT', 'com.zrkizzy.blog.service.impl.UserRoleServiceImpl.updateUserRole', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[2,2]', '{\"code\":200,\"message\":\"更新成功\"}', 9, '2022-09-08 22:30:39');
 COMMIT;
 
 -- ----------------------------
@@ -168,6 +177,27 @@ INSERT INTO `role` (`id`, `role_name`, `role_name_zh`, `permission`, `create_tim
 COMMIT;
 
 -- ----------------------------
+-- Table structure for social
+-- ----------------------------
+DROP TABLE IF EXISTS `social`;
+CREATE TABLE `social` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `github_show` tinyint DEFAULT NULL COMMENT '是否展示Github',
+  `gitee_show` tinyint DEFAULT NULL COMMENT '是否展示Gitee',
+  `csdn_show` tinyint DEFAULT NULL COMMENT '是否展示CSDN',
+  `qq_show` tinyint DEFAULT NULL COMMENT '是否展示QQ',
+  `leetcode_show` tinyint DEFAULT NULL COMMENT '是否展示LeetCode',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of social
+-- ----------------------------
+BEGIN;
+INSERT INTO `social` (`id`, `github_show`, `gitee_show`, `csdn_show`, `qq_show`, `leetcode_show`) VALUES (1, 1, 0, 0, 1, 1);
+COMMIT;
+
+-- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -190,8 +220,8 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (1, '世纪末的架构师', 'admin', '$2a$10$Tt3NW32EBpMk9ClWUCAkOu6FIRXyhfze7xJ0bQGx8sdVgV4IqYzqO', '/images/ijrbhduX.png', '127.0.0.1', '本机登录', '2022-09-07 16:17:46', 1, '2022-08-06 23:40:44', '2022-09-07 16:16:28');
-INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (2, '测试账号', 'test', '$2a$10$g5pQvid1RhUCitEfLktIGO2gVRLWlvVQgfC3t/1LhX81RghnIuEaC', '/images/4u03nrRo.jpg', '127.0.0.1', '本机登录', '2022-09-07 16:16:52', 1, '2022-08-13 18:23:02', '2022-09-07 16:17:27');
+INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (1, '世纪末的架构师', 'admin', '$2a$10$Tt3NW32EBpMk9ClWUCAkOu6FIRXyhfze7xJ0bQGx8sdVgV4IqYzqO', '/images/ijrbhduX.png', '127.0.0.1', '本机登录', '2022-09-13 20:10:17', 1, '2022-08-06 23:40:44', '2022-09-07 16:16:28');
+INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (2, '测试账号', 'test', '$2a$10$o5mhJfOF1brtQb0kxeAu7OiurnwRn/d9TqbzdE08RinS4p3s60Cey', '/images/4u03nrRo.jpg', '127.0.0.1', '本机登录', '2022-09-13 20:09:59', 1, '2022-08-13 18:23:02', '2022-09-07 16:17:27');
 COMMIT;
 
 -- ----------------------------
@@ -236,6 +266,30 @@ CREATE TABLE `user_role` (
 BEGIN;
 INSERT INTO `user_role` (`id`, `user_id`, `role_id`) VALUES (1, 1, 1);
 INSERT INTO `user_role` (`id`, `user_id`, `role_id`) VALUES (2, 2, 2);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for website
+-- ----------------------------
+DROP TABLE IF EXISTS `website`;
+CREATE TABLE `website` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `logo` varchar(255) DEFAULT NULL COMMENT '网站头像',
+  `name` varchar(255) DEFAULT NULL COMMENT '网站名称',
+  `author` varchar(255) DEFAULT NULL COMMENT '网站作者',
+  `introduction` varchar(255) DEFAULT NULL COMMENT '网站简介',
+  `create_date` datetime DEFAULT NULL COMMENT '网站创建日期',
+  `publish` tinytext COMMENT '公告',
+  `motto` varchar(255) DEFAULT NULL COMMENT '座右铭',
+  `record` varchar(255) DEFAULT NULL COMMENT '备案号',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of website
+-- ----------------------------
+BEGIN;
+INSERT INTO `website` (`id`, `logo`, `name`, `author`, `introduction`, `create_date`, `publish`, `motto`, `record`) VALUES (1, '/images/ijrbhduX.png', '世纪末的架构师', '世纪末的架构师', '疯狂的热爱夹带着文雅', '2021-08-06 20:57:35', '欢迎大家访问我的个人博客，项目源码在左边Git hub和Gitee，交流群号：782739347，欢迎大家加入', '困难只能吓倒懦夫、懒汉，而胜利永远属于攀登高峰的人。人生的奋斗目标不要太大，认准了一件事情，投入兴趣与热情坚持去做，你就会成功。人生，要的就是惊涛骇浪，这波涛中的每一朵浪花都是伟大的，最后汇成闪着金光的海洋。', '晋ICP备2021018904号');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
