@@ -25,3 +25,29 @@ export const updateWebsiteInfo = (data) => {
     data: data,
   });
 };
+
+/**
+ * 获取用户社交信息是否展示
+ *
+ * @returns
+ */
+export const getSocialInfo = () => {
+  return request({
+    url: "/social/getSocialInfo",
+    method: "GET",
+  });
+};
+
+/**
+ * 更新用户社交信息状态
+ *
+ * @param {*} data
+ * @returns
+ */
+export const updateSocialInfo = (data) => {
+  return request({
+    url: "/social/updateSocialInfo",
+    method: "POST",
+    data: data,
+  });
+};

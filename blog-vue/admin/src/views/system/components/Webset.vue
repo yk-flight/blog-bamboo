@@ -180,10 +180,8 @@ export default {
     },
     // 更新网站信息
     handleUpadte() {
-      console.log(this.website);
       this.website.createDate = this.dateFormat(this.website.createDate);
       updateWebsiteInfo(this.website).then((result) => {
-        console.log(result);
         // 刷新当前表格数据
         this.getData();
       });
@@ -235,7 +233,7 @@ export default {
 }
 .upload-container {
   display: flex;
-  margin-bottom: px;
+  margin-bottom: 10px;
 }
 .choose-button {
   margin-left: 30px;
