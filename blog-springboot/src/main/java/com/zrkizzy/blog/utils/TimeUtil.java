@@ -3,6 +3,7 @@ package com.zrkizzy.blog.utils;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -34,13 +35,26 @@ public class TimeUtil {
     }
 
     /**
-     * String 转 LocalDateTime
+     * String 转 LocalDate
      *
      * @param time String
-     * @return LocalDateTime
+     * @return LocalDate
      */
     public static LocalDate stringToLocalDateDay(String time){
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(time, df);
     }
+
+    /**
+     * String 转 LocalDateTime
+     *
+     * @param time String
+     * @return LocalDateTime
+     */
+    public static LocalDateTime stringToLocalDateTimeDay(String time){
+        // 先转LocalDate ===> 再转LocalDateTime
+        LocalDate localDate = stringToLocalDateDay(time);
+        return localDate.atTime(LocalTime.now());
+    }
+
 }

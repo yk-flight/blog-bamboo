@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zrkizzy.blog.mapper.WebsiteMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zrkizzy.blog.entity.Website">
+        <id column="id" property="id" />
+        <result column="logo" property="logo" />
+        <result column="author" property="author" />
+        <result column="introduction" property="introduction" />
+        <result column="create_date" property="createDate" />
+        <result column="publish" property="publish" />
+        <result column="motto" property="motto" />
+        <result column="record" property="record" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, logo, author, introduction, create_date, publish, motto, record
+    </sql>
+
+</mapper>
