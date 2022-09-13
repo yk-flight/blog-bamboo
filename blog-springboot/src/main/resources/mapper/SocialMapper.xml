@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zrkizzy.blog.mapper.SocialMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zrkizzy.blog.entity.Social">
+        <id column="id" property="id" />
+        <result column="github_show" property="githubShow" />
+        <result column="gitee_show" property="giteeShow" />
+        <result column="csdn_show" property="csdnShow" />
+        <result column="qq_show" property="qqShow" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, github_show, gitee_show, csdn_show, qq_show
+    </sql>
+
+</mapper>
