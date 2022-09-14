@@ -69,59 +69,33 @@
           ref="table"
           row-key="id"
           style="width: 100%"
-          stripe
           size="medium"
         >
           <el-table-column
             type="selection"
-            width="55"
+            width="50"
+            align="center"
             :reserve-selection="true"
           >
           </el-table-column>
-          <el-table-column label="序号" width="60" align="center">
-            <template slot-scope="scope">
-              {{ scope.$index + 1 }}
-            </template>
+          <el-table-column prop="name" label="分类名称" align="center">
           </el-table-column>
-          <el-table-column
-            prop="name"
-            label="分类名称"
-            width="150"
-            align="center"
-          >
-          </el-table-column>
-          <el-table-column label="分类图片" width="170" align="center">
+          <el-table-column label="分类图片" align="center">
             <template slot-scope="scope">
               <el-image
                 :src="scope.row.image"
-                width="140px"
                 @click="preViewImage(scope.row.image)"
                 :preview-src-list="srcList"
               ></el-image>
             </template>
           </el-table-column>
-          <el-table-column
-            prop="description"
-            label="分类描述"
-            width="300"
-            align="center"
-          >
+          <el-table-column prop="description" label="分类描述" align="center">
           </el-table-column>
-          <el-table-column
-            prop="articleAmount"
-            label="文章数量"
-            width="80"
-            align="center"
-          >
+          <el-table-column prop="articleAmount" label="文章数量" align="center">
           </el-table-column>
-          <el-table-column label="创建时间" width="200" align="center">
+          <el-table-column label="创建时间" align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.createTime | dateFilter }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="更新时间" width="200" align="center">
-            <template slot-scope="scope">
-              <span>{{ scope.row.updateTime | dateFilter }}</span>
             </template>
           </el-table-column>
           <el-table-column label="操作" align="center">
@@ -129,15 +103,17 @@
               <el-button
                 @click="handleClick(scope.row)"
                 type="text"
-                size="small"
-                >编辑</el-button
+                icon="el-icon-edit-outline"
               >
+                编辑
+              </el-button>
               <el-button
                 type="text"
-                size="small"
                 @click="handleDelete(scope.row)"
-                >删除</el-button
+                icon="el-icon-delete"
               >
+                删除
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -145,7 +121,7 @@
 
       <div class="category-footer">
         <el-pagination
-          :page-sizes="[5, 10, 20, 50, 100]"
+          :page-sizes="[10, 20, 50, 100]"
           :page-size="10"
           layout="total, sizes, prev, pager, next, jumper"
           :total="total"
@@ -158,7 +134,7 @@
 
     <el-dialog
       :title="dialogTitle"
-      width="500px"
+      width="600px"
       :visible="dialogShow"
       :before-close="handleClose"
     >
@@ -170,10 +146,7 @@
           ></el-input>
         </el-form-item>
         <el-form-item label="分类图片" label-width="80px">
-          <el-input
-            placeholder="上传分类图片"
-            v-model="category.image"
-          ></el-input>
+          <el-image fit="contain" :src="category.image"></el-image>
         </el-form-item>
         <el-form-item label="分类描述" label-width="80px">
           <el-input

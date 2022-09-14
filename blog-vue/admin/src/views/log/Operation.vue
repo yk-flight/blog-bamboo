@@ -79,23 +79,21 @@
           </el-table-column>
           <el-table-column label="请求方式" align="center">
             <template slot-scope="scope">
-              <el-tag v-if="scope.row.requestMethod === 'PUT'">{{
-                scope.row.requestMethod
-              }}</el-tag>
+              <el-tag v-if="scope.row.requestMethod === 'PUT'" type="info">
+                {{ scope.row.requestMethod }}
+              </el-tag>
               <el-tag
                 v-else-if="scope.row.requestMethod === 'GET'"
                 type="success"
-                >{{ scope.row.requestMethod }}</el-tag
-              >
-              <el-tag
-                v-else-if="scope.row.requestMethod === 'POST'"
-                type="warning"
               >
                 {{ scope.row.requestMethod }}
               </el-tag>
-              <el-tag v-else type="danger">{{
-                scope.row.requestMethod
-              }}</el-tag>
+              <el-tag v-else-if="scope.row.requestMethod === 'POST'">
+                {{ scope.row.requestMethod }}
+              </el-tag>
+              <el-tag v-else type="danger">
+                {{ scope.row.requestMethod }}
+              </el-tag>
             </template>
           </el-table-column>
           <el-table-column prop="user" label="操作人员" align="center">
@@ -168,13 +166,13 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="请求方式：">
-              <el-tag v-if="log.requestMethod === 'PUT'">
+              <el-tag v-if="log.requestMethod === 'PUT'" type="info">
                 {{ log.requestMethod }}
               </el-tag>
               <el-tag v-else-if="log.requestMethod === 'GET'" type="success">
                 {{ log.requestMethod }}
               </el-tag>
-              <el-tag v-else-if="log.requestMethod === 'POST'" type="warning">
+              <el-tag v-else-if="log.requestMethod === 'POST'">
                 {{ log.requestMethod }}
               </el-tag>
               <el-tag v-else type="danger">

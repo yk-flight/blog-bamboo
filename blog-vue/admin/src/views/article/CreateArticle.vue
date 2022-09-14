@@ -1,20 +1,38 @@
 <template>
   <div class="create-container">
     <div class="article-title">
-      <el-input placeholder="请输入文章标题" v-model="title"></el-input>
+      <el-row :gutter="20">
+        <el-col :span="20">
+          <el-input placeholder="请输入文章标题" v-model="title"></el-input>
+        </el-col>
+        <el-col :span="4">
+          <el-button type="danger">保存草稿</el-button>
+          <el-button type="primary" @click="showDrawer">发布文章</el-button>
+        </el-col>
+      </el-row>
     </div>
-
+    <!-- 博客区域 -->
     <mavon-editor
       v-model="context"
       @imgAdd="$imgAdd"
       @imgDel="$imgDel"
-      :toolbars="toolbars"
       class="article-content"
     />
+
+    <!--  文章信息抽屉  -->
+    <el-drawer
+      title="文章设置"
+      :visible.sync="drawerVisible"
+      :wrapperClosable="false"
+    >
+      <span>我来啦!</span>
+    </el-drawer>
   </div>
 </template>
 
 <script>
+import dayjs from "dayjs";
+
 export default {
   name: "CreateArticle",
 
@@ -24,42 +42,32 @@ export default {
       title: "",
       // 博客文本数据
       context: "",
-      toolbars: {
-        bold: true, // 粗体
-        italic: true, // 斜体
-        header: true, // 标题
-        underline: true, // 下划线
-        mark: true, // 标记
-        superscript: true, // 上角标
-        quote: true, // 引用
-        ol: true, // 有序列表
-        ul: true, // 无序列表
-        table: true, // 表格
-        link: true, // 链接
-        imagelink: true, // 图片链接
-        help: true, // 帮助
-        code: true, // code
-        subfield: true, // 是否需要分栏
-        readmodel: true, // 沉浸式阅读
-        /* 1.3.5 */
-        undo: true, // 上一步
-        trash: true, // 清空
-        save: true, // 保存（触发events中的save事件）
-        /* 1.4.2 */
-        navigation: true, // 导航目录
-      },
+      // 抽屉是否展示
+      drawerVisible: false,
     };
   },
 
-  mounted() {},
+  mounted() {
+    this.title = this.dateFormat(new Date());
+  },
 
   methods: {
-    // 绑定@imgAdd event
+    // 绑定添加图片调用的方法
     $imgAdd() {
       console.log("添加图片");
     },
+    // 删除图片调用的方法
     $imgDel() {
       console.log("删除图片");
+    },
+    // 打开抽屉对话框
+    showDrawer() {
+      this.drawerVisible = true;
+    },
+    // 格式化时间
+    dateFormat(date) {
+      // 使用 dayjs 处理时间
+      return dayjs(date).format("YYYY-MM-DD hh:ss");
     },
   },
 };
@@ -70,12 +78,13 @@ export default {
   margin-top: 10px;
 
   .article-title {
+    width: 100%;
     margin-bottom: 10px;
   }
 
   .article-content {
     margin-top: 20px;
-    height: 700px;
+    height: calc(100vh - 200px);
   }
 }
 </style>

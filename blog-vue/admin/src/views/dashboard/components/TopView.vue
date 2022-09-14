@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import AccessView from "@/components/AccessView/index";
-import ArticleView from "@/components/ArticleView/index";
-import LeaveView from "@/components/LeaveView/index";
-import UserView from "@/components/UserView/index";
+import AccessView from "./AccessView/index";
+import ArticleView from "./ArticleView/index";
+import LeaveView from "./LeaveView/index";
+import UserView from "./UserView/index";
 
 export default {
   name: "TopView",
