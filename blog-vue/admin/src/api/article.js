@@ -60,3 +60,70 @@ export const deleteCategoryBatchIds = (ids) => {
     method: "DELETE",
   });
 };
+
+/**
+ * 获取所有标签
+ *
+ * @returns
+ */
+export const getTagsList = (params) => {
+  return request({
+    url: "/tags/getTagsList",
+    method: "GET",
+    params: params,
+  });
+};
+
+/**
+ * 添加标签
+ *
+ * @param {*} data
+ * @returns
+ */
+export const insertTags = (data) => {
+  return request({
+    url: "/tags/insertTags",
+    method: "POST",
+    data: data,
+  });
+};
+
+/**
+ * 更新标签
+ *
+ * @param {*} data
+ * @returns
+ */
+export const updateTags = (data) => {
+  return request({
+    url: "/tags/updateTags",
+    method: "POST",
+    data: data,
+  });
+};
+
+/**
+ * 删除标签
+ *
+ * @param {*} id
+ * @returns
+ */
+export const deleteTags = (id) => {
+  return request({
+    url: `/tags/deleteTags/${id}`,
+    method: "DELETE",
+  });
+};
+
+/**
+ * 批量删除标签
+ *
+ * @param {*} ids
+ * @returns
+ */
+export const deleteTagsBatchIds = (ids) => {
+  return request({
+    url: `/tags/deleteTagsBatchIds/${ids}`,
+    method: "DELETE",
+  });
+};
