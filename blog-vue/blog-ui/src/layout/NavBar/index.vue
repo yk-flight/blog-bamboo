@@ -78,18 +78,23 @@ export default {
   margin-left: 20px;
 }
 .navbar-left {
-  margin-top: 10px;
+  display: flex;
+  align-items: center;
   cursor: pointer;
 }
 
 .navbar-right {
   margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .menu-item {
   position: relative;
-  display: inline-block;
-  margin-top: 15px;
-  margin-right: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 12px;
 }
 .navbar-title {
   font-size: 18px;
@@ -108,6 +113,9 @@ export default {
   // color: rgba(66, 185, 133, 0.8) !important;
   color: #fff !important;
 }
+.menu-btn {
+  font-size: 16px;
+}
 .menu-btn:hover:after {
   width: 100%;
 }
@@ -119,7 +127,7 @@ export default {
   width: 0;
   height: 3px;
   // background-color: rgba(66, 185, 133, 0.8);
-  background-color: #fff;
+  background-color: #409eff;
   content: "";
   transition: all 0.3s ease-in-out;
 }

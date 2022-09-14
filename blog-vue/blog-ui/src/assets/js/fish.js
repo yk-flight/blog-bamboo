@@ -1,7 +1,8 @@
 var RENDERER = {
   POINT_INTERVAL: 5,
-  FISH_COUNT: 5,
+  FISH_COUNT: 7,
   MAX_INTERVAL_COUNT: 50,
+  // 初始海平面高度
   INIT_HEIGHT_RATE: 0.5,
   THRESHOLD: 50,
 
@@ -319,7 +320,8 @@ FISH.prototype = {
     // ================================ 画鱼开始 ================================
     context.save();
     // 设置鱼的颜色
-    context.fillStyle = "rgba(66, 185, 133, 0.8)";
+    // context.fillStyle = "rgba(66, 185, 133, 0.8)";
+    context.fillStyle = "#fff";
     context.translate(this.x, this.y);
     context.rotate(Math.PI + Math.atan2(this.vy, this.vx));
     context.scale(1, this.direction ? 1 : -1);
@@ -364,8 +366,8 @@ FISH.prototype = {
 
     context.restore();
     // 定义海的颜色
-    context.fillStyle = "rgba(66, 185, 133, 0.6)";
-
+    // context.fillStyle = "rgba(66, 185, 133, 0.6)";
+    context.fillStyle = "#7396ee";
     // ================================ 画鱼结束 ================================
     this.controlStatus(context);
   },

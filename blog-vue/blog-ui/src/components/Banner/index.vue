@@ -5,23 +5,16 @@
         世纪末的架构师
       </h1>
       <div>
-        <!-- :loop="true" -->
-
         <vue-typed-js
           :strings="typingTexts"
+          :loop="false"
           class="blog-word"
-          :startDelay="300"
+          :startDelay="100"
           :typeSpeed="100"
           :backSpeed="100"
         >
-          <!-- <span
-            class="blog-word animate__animated animate__slideInRight"
-          ></span> -->
           <span class="typing"></span>
         </vue-typed-js>
-        <!-- <span class="typed-cursor animate__animated animate__bounceIn">
-          |
-        </span> -->
       </div>
     </div>
     <div
@@ -63,7 +56,8 @@ export default {
   width: 100%;
   height: calc(100vh);
   background-size: 100% 100%;
-  background-image: url("../../assets/images/banner-2.jpg");
+  background-image: url("https://blog-springbot.oss-cn-hangzhou.aliyuncs.com/images/banner.gif");
+  // background-image: url("../../assets/images/banner-2.jpg");
 }
 .banner-body {
   height: 100%;

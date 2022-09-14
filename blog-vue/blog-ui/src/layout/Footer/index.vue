@@ -35,7 +35,8 @@ export default {
   justify-content: center;
   align-items: center;
   color: #fff;
-  background: rgba(66, 185, 133, 0.6);
+  // background: rgba(66, 185, 133, 0.6);
+  background: #7396ee;
 }
 .footer-copyright {
   margin-top: 8px;
