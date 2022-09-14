@@ -11,11 +11,39 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 13/09/2022 22:17:26
+ Date: 15/09/2022 01:40:30
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for article
+-- ----------------------------
+DROP TABLE IF EXISTS `article`;
+CREATE TABLE `article` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` varchar(255) NOT NULL COMMENT '博客标题',
+  `category` int DEFAULT NULL COMMENT '博客分类',
+  `publish_time` datetime DEFAULT NULL COMMENT '发表时间',
+  `tags` varchar(255) DEFAULT NULL COMMENT '标签',
+  `summary` varchar(255) DEFAULT NULL COMMENT '摘要',
+  `content_html` longtext NOT NULL COMMENT '文章内容html',
+  `content_md` longtext NOT NULL COMMENT '文章内容md',
+  `type` enum('原创','转载','翻译') DEFAULT NULL COMMENT '文章类型',
+  `state` enum('草稿','已发布') DEFAULT NULL COMMENT '文章状态',
+  `deleted` tinyint DEFAULT '0' COMMENT '是否删除',
+  `allow_comment` tinyint DEFAULT '1' COMMENT '是否开启评论',
+  `top` tinyint DEFAULT '0' COMMENT '是否置顶',
+  `background` varchar(255) DEFAULT NULL COMMENT '文章封面图',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of article
+-- ----------------------------
+BEGIN;
+COMMIT;
 
 -- ----------------------------
 -- Table structure for categories
@@ -137,7 +165,7 @@ CREATE TABLE `operate_log` (
   `duration` int unsigned DEFAULT NULL COMMENT '执行时长',
   `operate_time` datetime DEFAULT NULL COMMENT '操作日期',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of operate_log
@@ -151,6 +179,14 @@ INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `ope
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (6, '用户信息模块', '修改用户是否启用', 'PUT', 'com.zrkizzy.blog.service.impl.UserInfoServiceImpl.changeUserEnabled', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[2]', '{\"code\":200,\"message\":\"用户状态更新成功\"}', 14, '2022-09-08 19:57:12');
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (7, '用户信息模块', '修改用户是否启用', 'PUT', 'com.zrkizzy.blog.service.impl.UserInfoServiceImpl.changeUserEnabled', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[2]', '{\"code\":200,\"message\":\"用户状态更新成功\"}', 13, '2022-09-08 19:57:14');
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (8, '角色模块', '用户更新角色', 'PUT', 'com.zrkizzy.blog.service.impl.UserRoleServiceImpl.updateUserRole', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[2,2]', '{\"code\":200,\"message\":\"更新成功\"}', 9, '2022-09-08 22:30:39');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (9, '标签模块', '添加新标签', 'POST', 'com.zrkizzy.blog.controller.TagsController.insertTags', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"name\":\"测试标签\"}]', '{\"code\":200,\"message\":\"标签添加成功\"}', 18, '2022-09-14 20:22:35');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (10, '标签模块', '添加新标签', 'POST', 'com.zrkizzy.blog.controller.TagsController.insertTags', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"name\":\"继续测试\"}]', '{\"code\":200,\"message\":\"标签添加成功\"}', 13, '2022-09-14 20:33:41');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (11, '标签模块', '添加新标签', 'POST', 'com.zrkizzy.blog.controller.TagsController.insertTags', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"name\":\"我还测试\"}]', '{\"code\":200,\"message\":\"标签添加成功\"}', 14, '2022-09-15 00:53:21');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (12, '标签模块', '更新标签', 'POST', 'com.zrkizzy.blog.controller.TagsController.updateTags', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"articleNum\":0,\"createTime\":1663158821000,\"id\":2,\"name\":\"继续测试吗？\"}]', '{\"code\":200,\"message\":\"标签更新成功\"}', 16, '2022-09-15 01:05:42');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (13, '标签模块', '更新标签', 'POST', 'com.zrkizzy.blog.controller.TagsController.updateTags', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"articleNum\":0,\"createTime\":1663174401000,\"id\":3,\"name\":\"我还测试呀\"}]', '{\"code\":200,\"message\":\"标签更新成功\"}', 7, '2022-09-15 01:05:51');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (14, '标签模块', '删除标签', 'DELETE', 'com.zrkizzy.blog.controller.TagsController.deleteTags', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[3]', '{\"code\":200,\"message\":\"标签删除成功\"}', 10, '2022-09-15 01:23:18');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (15, '标签模块', '批量删除标签', 'DELETE', 'com.zrkizzy.blog.controller.TagsController.deleteTagsBatchIds', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[[1,2]]', '{\"code\":200,\"message\":\"标签删除成功\"}', 8, '2022-09-15 01:23:25');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (16, '标签模块', '添加新标签', 'POST', 'com.zrkizzy.blog.controller.TagsController.insertTags', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"name\":\"测试\"}]', '{\"code\":200,\"message\":\"标签添加成功\"}', 9, '2022-09-15 01:23:40');
 COMMIT;
 
 -- ----------------------------
@@ -195,6 +231,25 @@ CREATE TABLE `social` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `social` (`id`, `github_show`, `gitee_show`, `csdn_show`, `qq_show`, `leetcode_show`) VALUES (1, 1, 0, 0, 1, 1);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for tags
+-- ----------------------------
+DROP TABLE IF EXISTS `tags`;
+CREATE TABLE `tags` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(255) DEFAULT NULL COMMENT '标签名称',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `article_num` int DEFAULT '0' COMMENT '文章数量',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of tags
+-- ----------------------------
+BEGIN;
+INSERT INTO `tags` (`id`, `name`, `create_time`, `article_num`) VALUES (4, '测试', '2022-09-15 01:23:40', 0);
 COMMIT;
 
 -- ----------------------------
