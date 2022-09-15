@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,8 +34,8 @@ public class UploadController {
 
     @ApiOperation("上传文件")
     @PostMapping("/")
-    public Result upload(MultipartFile file) throws IOException {
-        FilesDto filesDto = filesService.saveFile(file);
+    public Result upload(@RequestPart("file")MultipartFile file, @RequestPart("filePath") String filePath) throws IOException {
+        FilesDto filesDto = filesService.saveFile(file, filePath);
         int count = filesMapper.insert(BeanCopyUtil.copy(filesDto, Files.class));
         if (count > 0) {
             return Result.success("图片上传成功", filesDto.getUrl());

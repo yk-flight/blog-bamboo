@@ -33,12 +33,13 @@ public interface IFilesService extends IService<Files> {
     /**
      * 将文件解析并上传到指定路径
      *
-     *
      * @param file 要进行上传到文件
+     * @param filePath 文件存储路径
      * @return 文件上传数据对象
      * @exception IOException IO流异常
      */
-    FilesDto saveFile(MultipartFile file) throws IOException;
+    FilesDto saveFile(MultipartFile file, String filePath) throws IOException;
+
 
     /**
      * 通过id删除指定的文件
