@@ -6,7 +6,7 @@
       width="520px"
       :before-close="handleDialogClose"
     >
-      <el-row>
+      <el-row style="margin-bottom: 25px">
         <el-col :span="18" :offset="3">
           <el-upload
             ref="upload"
@@ -29,6 +29,28 @@
           </el-upload>
         </el-col>
       </el-row>
+      <!-- 文件用途 -->
+      <el-row class="use-container">
+        <el-col :span="4" :offset="3">
+          <span class="use-title">图片用途：</span>
+        </el-col>
+        <el-col :span="17">
+          <el-select
+            v-model="value"
+            clearable
+            placeholder="请选择图片用途"
+            size="small"
+          >
+            <el-option
+              v-for="item in options"
+              :key="item.path"
+              :label="item.description"
+              :value="item.path"
+            >
+            </el-option>
+          </el-select>
+        </el-col>
+      </el-row>
       <span slot="footer" class="dialog-footer">
         <!-- @click="submitUpload" -->
         <el-button type="primary" @click="uploadFile">确定</el-button>
@@ -39,6 +61,7 @@
 </template>
 
 <script>
+import { getFileUse } from "@/api/file.js";
 import { upload } from "@/api/picture.js";
 
 export default {
@@ -50,6 +73,9 @@ export default {
       default: false,
     },
   },
+  created() {
+    this.getFilesUse();
+  },
   data() {
     return {
       // 是否显示对话框
@@ -58,6 +84,8 @@ export default {
       file: {},
       // 上传文件列表
       fileList: [],
+      options: [],
+      value: "",
     };
   },
   watch: {
@@ -68,6 +96,12 @@ export default {
   },
 
   methods: {
+    // 获取文件用途
+    getFilesUse() {
+      getFileUse().then((result) => {
+        this.options = result;
+      });
+    },
     // 上传前的预处理
     beforeUpload(file, fileList) {
       this.fileList = fileList;
@@ -108,6 +142,7 @@ export default {
     requestUpload() {
       let formData = new FormData();
       formData.append("file", this.file.raw);
+      formData.append("filePath", this.value);
       upload(formData).then((result) => {
         // 清除当前文件对象
         this.file = {};
@@ -123,4 +158,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.use-title {
+  font-size: 14px;
+  font-weight: 400;
+  color: #303133;
+}
+.use-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
