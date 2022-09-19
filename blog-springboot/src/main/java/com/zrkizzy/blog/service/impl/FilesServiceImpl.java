@@ -90,7 +90,6 @@ public class FilesServiceImpl extends ServiceImpl<FilesMapper, Files> implements
         for (Files file : files) {
             // 获取到删除文件的路径
             String url = path + file.getUrl().replace(DOMAIN, "");
-            System.out.println(url);
             // 将当前文件逐个删除
             File deleteFile = new File(url);
             if (!deleteFile.delete()) {
