@@ -2,9 +2,10 @@
   <!-- 带有切换动画，并且具备组件缓存的 -->
   <div>
     <transition name="fade-transform" mode="out-in">
-      <!-- <keep-alive> -->
-      <router-view />
-      <!-- </keep-alive> -->
+      <!-- 开启组件缓存 -->
+      <keep-alive>
+        <router-view />
+      </keep-alive>
     </transition>
   </div>
 </template>

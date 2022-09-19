@@ -22,7 +22,7 @@
       </el-form-item>
       <!-- 网站名称 -->
       <el-row :gutter="5">
-        <el-col :span="8">
+        <el-col :span="12">
           <el-form-item label="网站名称">
             <el-input size="small" v-model="website.name"></el-input>
           </el-form-item>
@@ -30,7 +30,7 @@
       </el-row>
       <!-- 网站作者 -->
       <el-row :gutter="5">
-        <el-col :span="8">
+        <el-col :span="12">
           <el-form-item label="网站作者">
             <el-input size="small" v-model="website.author"></el-input>
           </el-form-item>
@@ -38,7 +38,7 @@
       </el-row>
       <!-- 网站简介 -->
       <el-row :gutter="5">
-        <el-col :span="8">
+        <el-col :span="12">
           <el-form-item label="网站简介">
             <el-input size="small" v-model="website.introduction"></el-input>
           </el-form-item>
@@ -46,7 +46,7 @@
       </el-row>
       <!-- 创建日期 -->
       <el-row :gutter="5">
-        <el-col :span="8">
+        <el-col :span="12">
           <el-form-item label="创建日期">
             <el-date-picker
               v-model="website.createDate"
@@ -59,7 +59,7 @@
       </el-row>
       <!-- 网站公告 -->
       <el-row :gutter="5">
-        <el-col :span="8">
+        <el-col :span="12">
           <el-form-item label="网站公告">
             <el-input
               type="textarea"
@@ -73,7 +73,7 @@
       </el-row>
       <!-- 座右铭 -->
       <el-row :gutter="5">
-        <el-col :span="8">
+        <el-col :span="12">
           <el-form-item label="座右铭">
             <el-input
               type="textarea"
@@ -87,7 +87,7 @@
       </el-row>
       <!-- 备案号 -->
       <el-row :gutter="5">
-        <el-col :span="8">
+        <el-col :span="12">
           <el-form-item label="备案号">
             <el-input size="small" v-model="website.record"></el-input>
           </el-form-item>

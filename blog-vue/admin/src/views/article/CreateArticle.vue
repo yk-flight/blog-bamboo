@@ -6,16 +6,18 @@
           <el-input placeholder="请输入文章标题" v-model="title"></el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="danger">保存草稿</el-button>
+          <el-button type="danger" @click="saveDraft">保存草稿</el-button>
           <el-button type="primary" @click="showDrawer">发布文章</el-button>
         </el-col>
       </el-row>
     </div>
     <!-- 博客区域 -->
+    <!-- 如果需要使用到文章内容的HTML格式则添加该配置 @change="changeHtml" -->
     <mavon-editor
-      v-model="context"
-      @imgAdd="$imgAdd"
-      @imgDel="$imgDel"
+      ref="mdedit"
+      v-model="content"
+      @imgAdd="handleImgAdd"
+      @imgDel="handleImgDel"
       class="article-content"
     />
 
@@ -32,6 +34,8 @@
 
 <script>
 import dayjs from "dayjs";
+import { upload } from "@/api/picture";
+import { deleteFileByPath } from "@/api/file";
 
 export default {
   name: "CreateArticle",
@@ -41,7 +45,9 @@ export default {
       // 博客标题
       title: "",
       // 博客文本数据
-      context: "",
+      content: "",
+      // 博客文本HTML数据
+      // contentHtml: "",
       // 抽屉是否展示
       drawerVisible: false,
     };
@@ -53,17 +59,32 @@ export default {
 
   methods: {
     // 绑定添加图片调用的方法
-    $imgAdd() {
-      console.log("添加图片");
+    handleImgAdd(pos, $file) {
+      let formData = new FormData();
+      formData.append("file", $file);
+      formData.append("filePath", "article/");
+      upload(formData).then((result) => {
+        // 替换上传文件的回显路径
+        this.$refs.mdedit.$img2Url(pos, result);
+      });
     },
     // 删除图片调用的方法
-    $imgDel() {
-      console.log("删除图片");
+    handleImgDel(pos) {
+      // markdown中的图片是一个数组，可以直接通过pos[0]取出图片路径
+      deleteFileByPath({ path: pos[0] }).then(() => {});
     },
     // 打开抽屉对话框
     showDrawer() {
       this.drawerVisible = true;
     },
+    // 保存草稿箱事件
+    saveDraft() {
+      console.log(this.content);
+    },
+    // 获取markdowm解析后的结果
+    // changeHtml(value, render) {
+    //   this.contentHtml = render;
+    // },
     // 格式化时间
     dateFormat(date) {
       // 使用 dayjs 处理时间

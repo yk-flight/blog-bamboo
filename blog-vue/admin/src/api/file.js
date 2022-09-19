@@ -9,3 +9,17 @@ export const getFileUse = () => {
     method: "GET",
   });
 };
+
+/**
+ * 根据上传的文件路径删除文件
+ *
+ * @param {*} path
+ * @returns
+ */
+export const deleteFileByPath = (path) => {
+  return request({
+    url: "/upload/deleteFileByPath/",
+    method: "GET",
+    params: path,
+  });
+};
