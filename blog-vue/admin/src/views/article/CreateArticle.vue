@@ -9,7 +9,7 @@
           ></el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="danger" @click="saveDraft">保存草稿</el-button>
+          <el-button type="danger" @click="showDrawer">保存草稿</el-button>
           <el-button type="primary" @click="showDrawer">发布文章</el-button>
         </el-col>
       </el-row>
@@ -234,7 +234,7 @@ export default {
         // 文章是否删除
         deleted: false,
         // 文章状态：0 草稿 1 已发布
-        state: undefined,
+        state: true,
       },
       // 文章类型
       typeList: [
@@ -310,7 +310,9 @@ export default {
     },
     // 保存草稿箱事件
     saveDraft() {
-      console.log(this.article.contentMd);
+      // 修改文章状态为草稿
+      this.article.state = false;
+      this.save();
     },
     // 发布文章方法
     save() {
@@ -323,15 +325,11 @@ export default {
           // 使用正则表达式将截取后的文本内容换行替换为空格
           .replace(/\r|\n/gi, " ");
       }
-      // 定义文章状态为已发布
-      this.article.state = true;
       // 发布文章
       saveArticle(this.article).then(() => {
         // 重置当前文章对象
         this.reset();
       });
-      console.log(this.article);
-      // 保存编辑好的文章
     },
     // 选择本地图片
     handleChoose() {
