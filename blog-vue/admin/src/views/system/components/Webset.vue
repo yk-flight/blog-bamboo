@@ -169,6 +169,8 @@ export default {
         // 将选择的图片赋值给logo
         this.website.logo = this.fileUrl;
       } else {
+        this.website.logo = "";
+        this.fileUrl = "";
         this.$message.info("取消选择图片");
       }
       // 关闭对话框

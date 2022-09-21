@@ -1,7 +1,7 @@
 import request from "@/utils/request";
 
 /**
- * 获取所有文章分类
+ * 获取所有文章分类(分页)
  *
  * @param {*} data
  */
@@ -10,6 +10,18 @@ export const getCategoryByPage = (data) => {
     url: "/admin/getCategoryByPage",
     method: "GET",
     params: data,
+  });
+};
+
+/**
+ * 获取所有分类
+ *
+ * @returns
+ */
+export const getAllCategory = () => {
+  return request({
+    url: "/category/getAllCategory",
+    method: "GET",
   });
 };
 
@@ -62,7 +74,7 @@ export const deleteCategoryBatchIds = (ids) => {
 };
 
 /**
- * 获取所有标签
+ * 获取所有标签(分页)
  *
  * @returns
  */
@@ -71,6 +83,18 @@ export const getTagsList = (params) => {
     url: "/tags/getTagsList",
     method: "GET",
     params: params,
+  });
+};
+
+/**
+ * 获取所有标签
+ *
+ * @returns
+ */
+export const getAllTags = () => {
+  return request({
+    url: "/tags/getAllTags",
+    method: "GET",
   });
 };
 
@@ -125,5 +149,19 @@ export const deleteTagsBatchIds = (ids) => {
   return request({
     url: `/tags/deleteTagsBatchIds/${ids}`,
     method: "DELETE",
+  });
+};
+
+/**
+ * 保存文章
+ *
+ * @param {*} data
+ * @returns
+ */
+export const saveArticle = (data) => {
+  return request({
+    url: "/article/save",
+    method: "POST",
+    data: data,
   });
 };
