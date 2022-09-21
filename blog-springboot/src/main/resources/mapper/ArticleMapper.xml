@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zrkizzy.blog.mapper.ArticleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zrkizzy.blog.entity.Article">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="category" property="category" />
+        <result column="publish_time" property="publishTime" />
+        <result column="tags" property="tags" />
+        <result column="summary" property="summary" />
+        <result column="content_md" property="contentMd" />
+        <result column="type" property="type" />
+        <result column="state" property="state" />
+        <result column="deleted" property="deleted" />
+        <result column="allow_comment" property="allowComment" />
+        <result column="top" property="top" />
+        <result column="background" property="background" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, title, category, publish_time, tags, summary, content_md, type, state, deleted, allow_comment, top, background
+    </sql>
+
+</mapper>

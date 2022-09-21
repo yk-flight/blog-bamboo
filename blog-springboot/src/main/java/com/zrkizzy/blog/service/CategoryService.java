@@ -1,9 +1,12 @@
 package com.zrkizzy.blog.service;
 
 import com.zrkizzy.blog.dto.CategoryDto;
+import com.zrkizzy.blog.entity.Category;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.CategoryVO;
+
+import java.util.List;
 
 /**
  * @author zhangrongkang
@@ -52,4 +55,11 @@ public interface CategoryService {
      * @return 前端返回对象
      */
     Result updateCategory(CategoryDto categoryDto);
+
+    /**
+     * 获取所有文章分类
+     *
+     * @return 所有文章分类集合
+     */
+    List<Category> getAllCategory();
 }

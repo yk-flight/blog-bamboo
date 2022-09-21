@@ -1,7 +1,7 @@
 package com.zrkizzy.blog.service;
 
-import com.zrkizzy.blog.entity.Tags;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zrkizzy.blog.entity.Tags;
 import com.zrkizzy.blog.vo.PageVO;
 
 /**
@@ -23,4 +23,12 @@ public interface ITagsService extends IService<Tags> {
      * @return 分页对象
      */
     PageVO getTagsList(String name, Integer curPage, Integer size);
+
+    /**
+     * 将标签名称集合转为对应的ID集合
+     *
+     * @param tags 标签名称集合
+     * @return ID集合
+     */
+    String tagsConvertIds(String[] tags);
 }

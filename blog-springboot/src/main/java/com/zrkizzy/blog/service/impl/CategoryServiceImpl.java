@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author zhangrongkang
@@ -137,5 +138,15 @@ public class CategoryServiceImpl implements CategoryService {
             return Result.success("文章分类更新成功");
         }
         return Result.error("文章分类更新失败");
+    }
+
+    /**
+     * 获取所有文章分类
+     *
+     * @return 所有文章分类集合
+     */
+    @Override
+    public List<Category> getAllCategory() {
+        return categoryMapper.selectList(null);
     }
 }

@@ -46,6 +46,17 @@ public class TimeUtil {
     }
 
     /**
+     * String 转 LocalDate
+     *
+     * @param time String
+     * @return LocalDate
+     */
+    public static LocalDate stringToLocalDate(String time){
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return LocalDate.parse(time, df);
+    }
+
+    /**
      * String 转 LocalDateTime
      *
      * @param time String
@@ -54,6 +65,18 @@ public class TimeUtil {
     public static LocalDateTime stringToLocalDateTimeDay(String time){
         // 先转LocalDate ===> 再转LocalDateTime
         LocalDate localDate = stringToLocalDateDay(time);
+        return localDate.atTime(LocalTime.now());
+    }
+
+    /**
+     * String转LocalDateTime (yyyy-MM-dd HH:mm:ss格式)
+     *
+     * @param time String格式时间
+     * @return LocalDateTime
+     */
+    public static LocalDateTime stringToLocalDateTime(String time){
+        // 先转LocalDate ===> 再转LocalDateTime
+        LocalDate localDate = stringToLocalDate(time);
         return localDate.atTime(LocalTime.now());
     }
 

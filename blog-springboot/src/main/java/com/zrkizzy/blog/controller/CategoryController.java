@@ -1,7 +1,9 @@
 package com.zrkizzy.blog.controller;
 
 import com.zrkizzy.blog.dto.CategoryDto;
+import com.zrkizzy.blog.entity.Category;
 import com.zrkizzy.blog.service.CategoryService;
+import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.CategoryVO;
@@ -10,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 文章分类控制器
@@ -51,5 +54,13 @@ public class CategoryController {
     @PutMapping("/admin/updateCategory")
     public Result updateCategory(@RequestBody CategoryDto categoryDto) {
         return categoryService.updateCategory(categoryDto);
+    }
+
+    @ApiOperation("获取所有文章分类")
+    @GetMapping("/category/getAllCategory")
+    public List<CategoryVO> getAllCategory() {
+        List<Category> list = categoryService.getAllCategory();
+        // 复制集合对象并返回
+        return BeanCopyUtil.copyList(list, CategoryVO.class);
     }
 }

@@ -2,6 +2,7 @@ package com.zrkizzy.blog.controller;
 
 
 import com.zrkizzy.blog.annotation.LogAnnotation;
+import com.zrkizzy.blog.dto.TagsDto;
 import com.zrkizzy.blog.entity.Tags;
 import com.zrkizzy.blog.service.ITagsService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -31,7 +33,7 @@ public class TagsController {
     @Resource
     private ITagsService tagsService;
 
-    @ApiOperation("获取所有标签")
+    @ApiOperation("获取所有标签(分页)")
     @GetMapping("/getTagsList")
     public PageVO getTagsList(@RequestParam("name") String name,
                               @RequestParam("curPage") Integer curPage,
@@ -84,5 +86,13 @@ public class TagsController {
             return Result.success("标签更新成功");
         }
         return Result.error("标签更新失败");
+    }
+
+    @ApiOperation("获取所有标签")
+    @GetMapping("/getAllTags")
+    public List<TagsDto> getAllTags() {
+        List<Tags> list = tagsService.list();
+        // 复制集合对象并返回
+        return BeanCopyUtil.copyList(list, TagsDto.class);
     }
 }

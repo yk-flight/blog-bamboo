@@ -16,6 +16,11 @@ import lombok.experimental.Accessors;
 @ApiModel(value = "文章分类对象")
 public class CategoryVO {
     /**
+     * 主键
+     */
+    @ApiModelProperty("主键")
+    private Integer id;
+    /**
      * 分类名称
      */
     @ApiModelProperty("分类名称")
