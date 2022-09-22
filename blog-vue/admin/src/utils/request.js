@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from "@/store";
-import { Message } from "element-ui";
+import { Message, MessageBox } from "element-ui";
 import { isCheckTimeout } from "@/utils/auth";
 
 const service = axios.create({
@@ -15,11 +15,21 @@ service.interceptors.request.use(
     // 统一注入 token
     if (store.getters.token) {
       // 当 token 存在时判断是否已经过期
-      // if (isCheckTimeout()) {
-      //   // 超时执行退出操作
-      //   store.dispatch("user/logout");
-      //   return Promise.reject(new Error("当前 token 已失效"));
-      // }
+      if (isCheckTimeout()) {
+        // 超时执行退出操作
+        MessageBox.alert(
+          "登录状态已过期，请您重新登录，点击确定退出系统",
+          "系统提示",
+          {
+            confirmButtonText: "确定",
+            type: "warning",
+            callback: (action) => {
+              store.dispatch("user/logout");
+            },
+          }
+        );
+        // return Promise.reject(new Error("当前会话已过期，请重新登录"));
+      }
       config.headers.Authorization = `Bearer ${store.getters.token}`;
     }
     return config;

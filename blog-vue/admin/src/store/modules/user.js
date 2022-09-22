@@ -60,7 +60,7 @@ export default {
             // 将 token 进行存储
             this.commit("user/setToken", data.token);
             // 保存登录时间
-            // setTimeStamp();
+            setTimeStamp();
             resolve();
           })
           // 如果出现错误
