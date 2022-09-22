@@ -6,6 +6,7 @@
           <el-form-item>
             <span class="title-label">分类名称</span>
             <el-input
+              size="small"
               v-model="name"
               placeholder="请输入分类名称"
               style="width: 300px"
@@ -80,9 +81,16 @@
           </el-table-column>
           <el-table-column prop="name" label="分类名称" align="center">
           </el-table-column>
-          <el-table-column label="分类图片" align="center">
+          <el-table-column label="分类图片" align="center" width="200">
             <template slot-scope="scope">
+              <el-empty
+                v-if="!scope.row.image"
+                description="暂无图片"
+                :image-size="40"
+                style="height: 60px"
+              ></el-empty>
               <el-image
+                v-else
                 :src="scope.row.image"
                 @click="preViewImage(scope.row.image)"
                 :preview-src-list="srcList"
@@ -132,44 +140,54 @@
       </div>
     </el-card>
 
+    <!-- 编辑分类信息对话框 -->
     <el-dialog
       :title="dialogTitle"
       width="600px"
       :visible="dialogShow"
       :before-close="handleClose"
+      :close-on-click-modal="false"
     >
-      <el-form>
+      <el-form style="margin-right: 20px">
         <el-form-item label="分类名称" label-width="80px">
           <el-input
+            size="small"
             placeholder="请输入分类名称"
             v-model="category.name"
           ></el-input>
         </el-form-item>
         <el-form-item label="分类图片" label-width="80px">
-          <el-image fit="contain" :src="category.image"></el-image>
+          <el-row style="margin-bottom: 10px">
+            <el-button
+              size="small"
+              icon="el-icon-picture"
+              @click="handleChoose"
+            >
+              选择本地
+            </el-button>
+            <el-button
+              size="small"
+              type="primary"
+              icon="el-icon-picture"
+              @click="handleUpload"
+            >
+              上传图片
+            </el-button>
+          </el-row>
+          <el-row>
+            <div class="image-uploader">
+              <img v-if="category.image" :src="category.image" class="image" />
+              <i v-else class="el-icon-upload image-uploader-icon" />
+              <span>点击这里上传文件</span>
+            </div>
+          </el-row>
         </el-form-item>
         <el-form-item label="分类描述" label-width="80px">
           <el-input
             type="textarea"
             placeholder="请输入分类描述"
+            rows="5"
             v-model="category.description"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="文章数量" label-width="80px">
-          <el-input v-model="category.articleAmount" disabled></el-input>
-        </el-form-item>
-        <el-form-item label="创建时间" label-width="80px">
-          <el-input
-            placeholder="当前分类的创建时间"
-            :value="dateFormat(category.createTime)"
-            disabled
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="更新时间" label-width="80px">
-          <el-input
-            placeholder="当前分类的更新时间"
-            :value="dateFormat(category.updateTime)"
-            disabled
           ></el-input>
         </el-form-item>
       </el-form>
@@ -178,11 +196,30 @@
         <el-button @click="handleClose">取消</el-button>
       </span>
     </el-dialog>
+
+    <!-- 选择图片对话框 -->
+    <el-dialog
+      title="本地图片"
+      :visible="choose"
+      :before-close="handlePictureClose"
+      width="1000"
+    >
+      <picture-view v-bind:url="fileUrl" @func="uploadFileUrl"></picture-view>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="sbumitChoose">确定</el-button>
+        <el-button @click="handlePictureClose">取消</el-button>
+      </span>
+    </el-dialog>
+
+    <!-- 上传文件对话框 -->
+    <upload v-bind:visible="uploadDialog" @func="handleDialogClose"></upload>
   </div>
 </template>
 
 <script>
 import dayjs from "dayjs";
+import Upload from "@/components/Upload";
+import PictureView from "@/components/PictureView/index.vue";
 import {
   getCategoryByPage,
   insertCategory,
@@ -193,7 +230,7 @@ import {
 
 export default {
   name: "Category",
-
+  components: { PictureView, Upload },
   data() {
     return {
       tableData: [],
@@ -223,6 +260,12 @@ export default {
       multipleSelection: [],
       // 图片预览
       srcList: [],
+      // 图片选择对话框
+      choose: false,
+      // 图片路径
+      fileUrl: "",
+      // 文件上传对话框
+      uploadDialog: false,
     };
   },
 
@@ -363,7 +406,40 @@ export default {
         })
         .catch(() => {});
     },
-
+    // 选择本地图片
+    handleChoose() {
+      this.choose = true;
+    },
+    // 关闭选择图片对话框
+    handlePictureClose() {
+      this.choose = false;
+    },
+    // 确定选择
+    sbumitChoose() {
+      if (this.fileUrl) {
+        this.$message.success("图片选择成功");
+        // 将选择的图片赋值给logo
+        this.category.image = this.fileUrl;
+      } else {
+        this.category.image = "";
+        this.fileUrl = "";
+        this.$message.info("取消选择图片");
+      }
+      // 关闭对话框
+      this.handlePictureClose();
+    },
+    // 更新图片的路径
+    uploadFileUrl(val) {
+      this.fileUrl = val;
+    },
+    // 关闭对话框
+    handleDialogClose() {
+      this.uploadDialog = false;
+    },
+    // 处理上传文件方法
+    handleUpload() {
+      this.uploadDialog = true;
+    },
     // 格式化时间
     dateFormat(date) {
       // 使用 dayjs 处理时间
@@ -403,6 +479,33 @@ export default {
   .category-footer {
     padding-left: 15px;
     margin-top: 40px;
+  }
+
+  .image-uploader {
+    width: 460px;
+    height: 260px;
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .image-uploader:hover {
+    border-color: #409eff;
+  }
+  .image-uploader-icon {
+    font-size: 80px;
+    color: #8c939d;
+    width: 460px;
+    height: 100px;
+    line-height: 220px;
+    text-align: center;
+  }
+
+  .image {
+    width: 460px;
+    height: 260px;
+    display: block;
   }
 }
 </style>
