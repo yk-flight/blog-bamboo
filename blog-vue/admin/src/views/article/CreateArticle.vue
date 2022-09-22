@@ -233,8 +233,8 @@ export default {
         type: 1,
         // 文章是否删除
         deleted: false,
-        // 文章状态：0 草稿 1 已发布
-        state: true,
+        // 文章状态：0 草稿 1 已发布 2 回收站
+        state: 1,
       },
       // 文章类型
       typeList: [
@@ -311,7 +311,7 @@ export default {
     // 保存草稿箱事件
     saveDraft() {
       // 修改文章状态为草稿
-      this.article.state = false;
+      this.article.state = 0;
       this.save();
     },
     // 发布文章方法

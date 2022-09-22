@@ -165,3 +165,69 @@ export const saveArticle = (data) => {
     data: data,
   });
 };
+
+/**
+ * 获取文章列表
+ *
+ * @param {*} data
+ * @returns
+ */
+export const getArticleList = (params) => {
+  return request({
+    url: "/article/getArticleList",
+    method: "GET",
+    params: params,
+  });
+};
+
+/**
+ * 更新文章置顶状态
+ *
+ * @param {*} id
+ * @returns
+ */
+export const updateArticleTop = (id) => {
+  return request({
+    url: `/article/updateArticleTop/${id}`,
+    method: "GET",
+  });
+};
+
+/**
+ * 更新文章评论状态
+ *
+ * @param {*} id
+ * @returns
+ */
+export const updateArticleComment = (id) => {
+  return request({
+    url: `/article/updateArticleComment/${id}`,
+    method: "GET",
+  });
+};
+
+/**
+ * 将文章移动到回收站
+ *
+ * @param {*} id
+ * @returns
+ */
+export const removeArticle = (id) => {
+  return request({
+    url: `/article/removeArticle/${id}`,
+    method: "GET",
+  });
+};
+
+/**
+ * 将批量文章移动到回收站
+ *
+ * @param {*} id
+ * @returns
+ */
+export const deleteArticleBatchIds = (ids) => {
+  return request({
+    url: `/article/deleteArticleBatchIds/${ids}`,
+    method: "GET",
+  });
+};
