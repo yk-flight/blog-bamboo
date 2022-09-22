@@ -256,7 +256,7 @@ export default {
       // 文章分类参数
       category: undefined,
       // 发布状态
-      state: undefined,
+      state: 1,
       // 是否回收
       deleted: false,
       // 文章类型集合
@@ -314,7 +314,7 @@ export default {
         title: this.title,
         type: this.type == undefined ? 0 : this.type,
         category: this.category == undefined ? 0 : this.category,
-        state: this.state == undefined ? -1 : this.state,
+        state: this.state,
         deleted: this.deleted,
       }).then((result) => {
         // 定义当前返回的表格集合
@@ -342,7 +342,7 @@ export default {
       // 文章分类参数
       this.category = undefined;
       // 发布状态
-      this.state = undefined;
+      this.state = 1;
       // 是否回收
       this.deleted = false;
     },
