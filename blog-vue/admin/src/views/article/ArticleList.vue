@@ -7,7 +7,7 @@
         </el-tab-pane>
         <el-tab-pane label="草稿箱" name="draft-box">这里是草稿箱</el-tab-pane>
         <el-tab-pane label="回收站" name="recycle-bin">
-          这里是回收站
+          <recycle-bin></recycle-bin>
         </el-tab-pane>
       </el-tabs>
     </el-card>
@@ -16,10 +16,11 @@
 
 <script>
 import Articles from "./components/Articles.vue";
+import RecycleBin from "./components/RecycleBin.vue";
 
 export default {
   name: "ArticleList",
-  components: { Articles },
+  components: { Articles, RecycleBin },
   data() {
     return {
       activeName: "articles",

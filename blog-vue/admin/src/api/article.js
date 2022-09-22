@@ -222,12 +222,63 @@ export const removeArticle = (id) => {
 /**
  * 将批量文章移动到回收站
  *
+ * @param {*} ids
+ * @returns
+ */
+export const removeArticleBatchIds = (ids) => {
+  return request({
+    url: `/article/removeArticleBatchIds/${ids}`,
+    method: "GET",
+  });
+};
+
+/**
+ * 从回收站中恢复指定文章
+ *
  * @param {*} id
+ * @returns
+ */
+export const recoverArticle = (id) => {
+  return request({
+    url: `article/recoverArticle/${id}`,
+  });
+};
+
+/**
+ * 批量恢复删除的文章
+ *
+ * @param {*} ids
+ * @returns
+ */
+export const recoverArticleBatchIds = (ids) => {
+  return request({
+    url: `/article/recoverArticleBatchIds/${ids}`,
+    method: "GET",
+  });
+};
+
+/**
+ * 从回收站中删除指定文章
+ *
+ * @param {*} id
+ * @returns
+ */
+export const deleteArticle = (id) => {
+  return request({
+    url: `/article/deleteArticle/${id}`,
+    method: "DELETE",
+  });
+};
+
+/**
+ * 批量删除回收站中的文章
+ *
+ * @param {*} ids
  * @returns
  */
 export const deleteArticleBatchIds = (ids) => {
   return request({
     url: `/article/deleteArticleBatchIds/${ids}`,
-    method: "GET",
+    method: "DELETE",
   });
 };

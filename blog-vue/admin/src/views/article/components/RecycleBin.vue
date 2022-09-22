@@ -64,13 +64,13 @@
 
       <div class="button-container">
         <el-button
-          type="primary"
+          type="success"
           plain
-          icon="el-icon-plus"
+          icon="el-icon-refresh-right"
           size="mini"
-          @click="handleAdd"
+          @click="handleRecoverBatch"
         >
-          写文章
+          批量恢复
         </el-button>
         <el-button
           type="danger"
@@ -80,24 +80,6 @@
           @click="handleDeleteBatch"
         >
           批量删除
-        </el-button>
-        <el-button
-          type="info"
-          plain
-          icon="el-icon-upload2"
-          size="mini"
-          disabled
-        >
-          导入
-        </el-button>
-        <el-button
-          type="warning"
-          plain
-          icon="el-icon-download"
-          size="mini"
-          disabled
-        >
-          导出
         </el-button>
       </div>
     </div>
@@ -142,7 +124,7 @@
         </el-table-column>
         <el-table-column label="发布状态" align="center" width="90">
           <template slot-scope="scope">
-            <el-tag v-if="scope.row.state == 1" type="success"> 已发布 </el-tag>
+            <el-tag v-if="scope.row.state == 2" type="danger"> 回收站 </el-tag>
           </template>
         </el-table-column>
         <el-table-column prop="categoryName" label="文章分类" align="center">
@@ -160,20 +142,12 @@
         </el-table-column>
         <el-table-column label="置顶" align="center" width="70">
           <template slot-scope="scope">
-            <el-switch
-              v-model="scope.row.top"
-              @change="handleTopChange(scope.row)"
-            >
-            </el-switch>
+            <el-switch v-model="scope.row.top" disabled> </el-switch>
           </template>
         </el-table-column>
         <el-table-column label="评论" align="center" width="70">
           <template slot-scope="scope">
-            <el-switch
-              v-model="scope.row.allowComment"
-              @change="handleCommentChange(scope.row)"
-            >
-            </el-switch>
+            <el-switch v-model="scope.row.allowComment" disabled> </el-switch>
           </template>
         </el-table-column>
         <el-table-column
@@ -197,9 +171,12 @@
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
-            <!-- @click="handleClick(scope.row)" -->
-            <el-button type="text" icon="el-icon-edit-outline">
-              编辑
+            <el-button
+              type="text"
+              icon="el-icon-refresh-right"
+              @click="handleClick(scope.row)"
+            >
+              恢复
             </el-button>
             <el-button
               type="text"
@@ -231,14 +208,14 @@
 import {
   getAllCategory,
   getArticleList,
-  updateArticleTop,
-  updateArticleComment,
-  removeArticle,
-  removeArticleBatchIds,
+  deleteArticle,
+  deleteArticleBatchIds,
+  recoverArticle,
+  recoverArticleBatchIds,
 } from "@/api/article";
 
 export default {
-  name: "Articles",
+  name: "RecycleBin",
 
   data() {
     return {
@@ -258,7 +235,7 @@ export default {
       // 发布状态
       state: undefined,
       // 是否回收
-      deleted: false,
+      deleted: true,
       // 文章类型集合
       typeList: [
         {
@@ -342,29 +319,25 @@ export default {
       // 文章分类参数
       this.category = undefined;
       // 发布状态
-      this.state = undefined;
+      this.state = 2;
       // 是否回收
-      this.deleted = false;
+      this.deleted = true;
     },
-    // 点击写文章的按钮
-    handleAdd() {
-      this.$router.push("/article/create-article");
-    },
-    // 点击批量删除的按钮
-    handleDeleteBatch() {
+    // 点击批量恢复的按钮
+    handleRecoverBatch() {
       // 将选中的id进行存储
       const ids = [];
       this.multipleSelection.forEach((item) => {
         ids.push(item.id);
       });
-      this.$confirm("确定要将这些文章移动到回收站吗？", "提示", {
+      this.$confirm("确定要恢复这些文章吗？", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "success",
       })
         .then(() => {
-          // 执行删除操作
-          removeArticleBatchIds(ids).then(() => {
+          // 执行恢复操作
+          recoverArticleBatchIds(ids).then(() => {
             // 重新获取表格数据
             this.getTableData();
             // 清除当前多选框数据
@@ -398,33 +371,59 @@ export default {
     },
     // 点击删除按钮
     handleDelete(row) {
-      this.$confirm("确定要将 " + row.title + " 移动到回收站吗？", "提示", {
+      this.$confirm("确定要删除 " + row.title + " 吗？删除后不可恢复", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(() => {
           // 执行删除操作
-          removeArticle(row.id).then(() => {
+          deleteArticle(row.id).then(() => {
             // 重新获取数据
             this.getTableData();
           });
         })
         .catch(() => {});
     },
-    // 修改文章置顶状态
-    handleTopChange(row) {
-      updateArticleTop(row.id).then(() => {
-        // 刷新表格数据
-        this.getTableData();
+
+    // 点击删除按钮
+    handleDeleteBatch() {
+      // 将选中的id进行存储
+      const ids = [];
+      this.multipleSelection.forEach((item) => {
+        ids.push(item.id);
       });
+      this.$confirm("确定要删除这些文章吗？删除后不可恢复", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          // 执行删除操作
+          deleteArticleBatchIds(ids).then(() => {
+            // 清除当前多选框数据
+            this.multipleSelection = [];
+            // 重新获取表格数据
+            this.getTableData();
+          });
+        })
+        .catch(() => {});
     },
-    // 修改文章评论状态
-    handleCommentChange(row) {
-      updateArticleComment(row.id).then(() => {
-        // 刷新表格数据
-        this.getTableData();
-      });
+    // 恢复指定文章
+    handleClick(row) {
+      this.$confirm("确定要恢复 " + row.title + " 吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "success",
+      })
+        .then(() => {
+          // 执行指定恢复操作
+          recoverArticle(row.id).then(() => {
+            // 重新获取数据
+            this.getTableData();
+          });
+        })
+        .catch(() => {});
     },
     // 图片预览
     preViewImage(val) {
