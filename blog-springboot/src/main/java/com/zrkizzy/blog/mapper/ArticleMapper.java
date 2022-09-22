@@ -22,4 +22,12 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return 受影响的行数
      */
     Integer removeArticleBatchIds(@Param("ids") List<Integer> ids);
+
+    /**
+     * 将文章批量从回收站恢复
+     *
+     * @param ids 文章ID集合
+     * @return 受影响的行数
+     */
+    Integer recoverArticleBatchIds(@Param("ids") List<Integer> ids);
 }

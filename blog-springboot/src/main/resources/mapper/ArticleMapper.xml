@@ -26,9 +26,20 @@
         id, title, category, publish_time, tags, summary, content_md, `type`, `state`, deleted, allow_comment, top, background, view_num, comment_num
     </sql>
 
+    <!-- 批量删除文章到回收站 -->
     <update id="removeArticleBatchIds">
         UPDATE article
-        SET `state`=3, deleted=1
+        SET `state`=2, deleted=1
+        WHERE id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!-- 批量从回收站恢复文章 -->
+    <update id="recoverArticleBatchIds">
+        UPDATE article
+        SET `state`=1, deleted=0
         WHERE id IN
         <foreach collection="ids" item="id" separator="," open="(" close=")">
             #{id}

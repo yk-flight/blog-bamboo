@@ -47,4 +47,28 @@ public interface IArticleService extends IService<Article> {
      * @return 前端响应对象
      */
     Result removeArticleBatchIds(List<Integer> ids);
+
+    /**
+     * 批量恢复删除的文章
+     *
+     * @param ids 文章ID集合
+     * @return 前端响应对象
+     */
+    Result recoverArticleBatchIds(List<Integer> ids);
+
+    /**
+     * 删除指定文章
+     *
+     * @param id 文章ID
+     * @return 前端响应对象
+     */
+    Result deleteArticle(Integer id);
+
+    /**
+     * 批量删除回收站中的文章
+     *
+     * @param ids 文章ID集合
+     * @return 前端响应对象
+     */
+    Result deleteArticleBatchIds(List<Integer> ids);
 }

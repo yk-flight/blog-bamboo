@@ -3,9 +3,11 @@ package com.zrkizzy.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.dto.ArticleDto;
 import com.zrkizzy.blog.entity.Article;
 import com.zrkizzy.blog.entity.Category;
+import com.zrkizzy.blog.entity.Tags;
 import com.zrkizzy.blog.mapper.ArticleMapper;
 import com.zrkizzy.blog.mapper.CategoryMapper;
 import com.zrkizzy.blog.mapper.TagsMapper;
@@ -18,6 +20,7 @@ import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.ArticleVO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -26,7 +29,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author zhangrongkang
@@ -66,7 +69,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         // 更新分类的文章数量
         Category category = categoryMapper.selectById(article.getCategory());
-        category.setArticleAmount(category.getId() + 1);
+        category.setArticleAmount(category.getArticleAmount() + 1);
         categoryMapper.updateById(category);
         // 将文章添加到数据库中
         int count = articleMapper.insert(article);
@@ -152,5 +155,91 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             return Result.success("文章批量删除成功");
         }
         return Result.error("文章批量删除失败");
+    }
+
+    /**
+     * 批量恢复删除的文章
+     *
+     * @param ids 文章ID集合
+     * @return 前端响应对象
+     */
+    @Override
+    public Result recoverArticleBatchIds(List<Integer> ids) {
+        int count = articleMapper.recoverArticleBatchIds(ids);
+        if (count == ids.size()) {
+            return Result.success("文章批量恢复成功");
+        }
+        return Result.error("文章批量恢复失败");
+    }
+
+    /**
+     * 删除指定文章
+     *
+     * @param id 文章ID
+     * @return 前端响应对象
+     */
+    @Override
+    @LogAnnotation(module = "文章管理模块", description = "删除指定文章")
+    @Transactional(rollbackFor = RuntimeException.class)
+    public Result deleteArticle(Integer id) {
+        // 处理文章对应的标签以及分类数据
+        deleteTagsAndCategoryNum(id);
+        // 删除文章并返回
+        int count = articleMapper.deleteById(id);
+        if (count > 0) {
+            return Result.success("文章删除成功");
+        }
+        return Result.error("文章删除失败");
+    }
+
+    /**
+     * 批量删除回收站中的文章
+     *
+     * @param ids 文章ID集合
+     * @return 前端响应对象
+     */
+    @Override
+    @LogAnnotation(module = "文章管理模块", description = "批量删除回收站中的文章")
+    @Transactional(rollbackFor = RuntimeException.class)
+    public Result deleteArticleBatchIds(List<Integer> ids) {
+        if (ids == null || ids.size() == 0) {
+            return Result.error("请选择要删除的文章");
+        }
+        // 更新文章对应分类以及标签下的文章数量
+        for (Integer id : ids) {
+            deleteTagsAndCategoryNum(id);
+        }
+        // 批量删除文章
+        int count = articleMapper.deleteBatchIds(ids);
+        if (count == ids.size()) {
+            return Result.success("文章删除成功");
+        }
+        return Result.error("文章删除失败");
+    }
+
+    /**
+     * 删除文章对应的分类以及标签的文章数量
+     *
+     * @param id 文章ID
+     */
+    private void deleteTagsAndCategoryNum(Integer id) {
+        // 获取对应的文章对象
+        Article article = articleMapper.selectById(id);
+        // 更新文章对应分类下的文章数量
+        Category category = categoryMapper.selectById(article.getCategory());
+        category.setArticleAmount(category.getArticleAmount() - 1);
+        categoryMapper.updateById(category);
+        // 更新文章对应标签下的文章数量
+        List<Integer> tagIds = CollectionUtil.stringToIntegerList(article.getTags());
+        // 查询到当前文章的标签
+        if (tagIds != null && tagIds.size() > 0) {
+            for (Integer tagId : tagIds) {
+                // 删除当前标签的文章数量
+                Tags tags = tagsMapper.selectById(tagId);
+                tags.setArticleNum(tags.getArticleNum() - 1);
+                // 更新标签对象
+                tagsMapper.updateById(tags);
+            }
+        }
     }
 }

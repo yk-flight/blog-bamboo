@@ -85,7 +85,7 @@ public class ArticleController {
         Article article = articleService.getById(id);
         // 将当前文章移动到回收站中
         article.setDeleted(true);
-        article.setState(3);
+        article.setState(2);
         // 更新并返回结果
         if (articleService.updateById(article)) {
             return Result.success("文章删除成功");
@@ -95,9 +95,43 @@ public class ArticleController {
 
     @ApiOperation("批量移动文章到回收站")
     @LogAnnotation(module = "文章管理模块", description = "批量移动文章到回收站")
-    @GetMapping("/deleteArticleBatchIds/{ids}")
-    public Result deleteArticleBatchIds(@PathVariable Integer[] ids) {
+    @GetMapping("/removeArticleBatchIds/{ids}")
+    public Result removeArticleBatchIds(@PathVariable Integer[] ids) {
         return articleService.removeArticleBatchIds(Arrays.asList(ids));
+    }
+
+    @ApiOperation("恢复回收站文章")
+    @LogAnnotation(module = "文章管理模块", description = "恢复回收站文章")
+    @GetMapping("/recoverArticle/{id}")
+    public Result recoverArticle(@PathVariable Integer id) {
+        // 根据文章ID获取到文章对象
+        Article article = articleService.getById(id);
+        article.setDeleted(false);
+        article.setState(1);
+        // 更新文章对象并返回
+        if (articleService.updateById(article)) {
+            return Result.success("文章恢复成功");
+        }
+        return Result.error("文章恢复失败");
+    }
+
+    @ApiOperation("批量恢复删除的文章")
+    @LogAnnotation(module = "文章管理模块", description = "批量恢复删除的文章")
+    @GetMapping("/recoverArticleBatchIds/{ids}")
+    public Result recoverArticleBatchIds(@PathVariable Integer[] ids) {
+        return articleService.recoverArticleBatchIds(Arrays.asList(ids));
+    }
+
+    @ApiOperation("删除指定文章")
+    @DeleteMapping("/deleteArticle/{id}")
+    public Result deleteArticle(@PathVariable Integer id) {
+        return articleService.deleteArticle(id);
+    }
+
+    @ApiOperation("批量删除回收站的文章")
+    @DeleteMapping("/deleteArticleBatchIds/{ids}")
+    public Result deleteArticleBatchIds(@PathVariable Integer[] ids) {
+        return articleService.deleteArticleBatchIds(Arrays.asList(ids));
     }
 }
 
