@@ -54,7 +54,7 @@ public class Article implements Serializable {
     private Integer type;
 
     @ApiModelProperty(value = "文章状态")
-    private Boolean state;
+    private Integer state;
 
     @ApiModelProperty(value = "是否删除")
     private Boolean deleted;
@@ -67,6 +67,12 @@ public class Article implements Serializable {
 
     @ApiModelProperty(value = "文章封面图")
     private String background;
+
+    @ApiModelProperty(value = "浏览数量")
+    private Integer viewNum;
+
+    @ApiModelProperty(value = "评论数量")
+    private Integer commentNum;
 
     @ApiModelProperty(value = "更新时间")
     @TableField(fill = FieldFill.UPDATE)

@@ -1,17 +1,18 @@
 package com.zrkizzy.blog.controller;
 
 
+import com.zrkizzy.blog.annotation.LogAnnotation;
+import com.zrkizzy.blog.entity.Article;
 import com.zrkizzy.blog.service.IArticleService;
+import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.ArticleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 
 /**
  * <p>
@@ -34,5 +35,69 @@ public class ArticleController {
         return articleService.saveArticle(articleVO);
     }
 
+    @ApiOperation("获取文章列表(分页)")
+    @GetMapping("/getArticleList")
+    public PageVO getArticleList(@RequestParam("curPage") Integer curPage,
+                                 @RequestParam("size") Integer size,
+                                 @RequestParam("title") String title,
+                                 @RequestParam("state") Integer state,
+                                 @RequestParam("type") Integer type,
+                                 @RequestParam("category") Integer category,
+                                 @RequestParam("deleted") Boolean deleted) {
+        return articleService.getArticleList(curPage, size, title, state, type, category, deleted);
+    }
+
+    @ApiOperation("修改文章置顶状态")
+    @LogAnnotation(module = "文章管理模块", description = "更新文章置顶状态")
+    @GetMapping("/updateArticleTop/{id}")
+    public Result updateArticleTop(@PathVariable Integer id) {
+        // 通过ID获取到文章
+        Article article = articleService.getById(id);
+        // 设置文章是否置顶
+        article.setTop(!article.getTop());
+        // 更新数据并返回结果
+        if (articleService.updateById(article)) {
+            return Result.success("文章置顶状态更新成功");
+        }
+        return Result.error("文章置顶状态更新失败");
+    }
+
+    @ApiOperation("修改文章是否可评论")
+    @LogAnnotation(module = "文章管理模块", description = "修改文章评论状态")
+    @GetMapping("/updateArticleComment/{id}")
+    public Result updateArticleComment(@PathVariable Integer id) {
+        // 通过ID获取到文章
+        Article article = articleService.getById(id);
+        // 设置文章是否可评论
+        article.setAllowComment(!article.getAllowComment());
+        // 更新数据并返回结果
+        if (articleService.updateById(article)) {
+            return Result.success("文章评论状态更新成功");
+        }
+        return Result.error("文章评论状态更新失败");
+    }
+
+    @ApiOperation("将指定文章移动到回收站")
+    @LogAnnotation(module = "文章管理模块", description = "移动指定文章到回收站")
+    @GetMapping("/removeArticle/{id}")
+    public Result removeArticle(@PathVariable Integer id) {
+        // 根据ID获取到当前文章对象
+        Article article = articleService.getById(id);
+        // 将当前文章移动到回收站中
+        article.setDeleted(true);
+        article.setState(3);
+        // 更新并返回结果
+        if (articleService.updateById(article)) {
+            return Result.success("文章删除成功");
+        }
+        return Result.error("文章删除失败");
+    }
+
+    @ApiOperation("批量移动文章到回收站")
+    @LogAnnotation(module = "文章管理模块", description = "批量移动文章到回收站")
+    @GetMapping("/deleteArticleBatchIds/{ids}")
+    public Result deleteArticleBatchIds(@PathVariable Integer[] ids) {
+        return articleService.removeArticleBatchIds(Arrays.asList(ids));
+    }
 }
 

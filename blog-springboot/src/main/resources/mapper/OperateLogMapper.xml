@@ -5,22 +5,24 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.zrkizzy.blog.entity.OperateLog">
         <id column="id" property="id" />
-        <result column="model" property="model" />
-        <result column="type" property="type" />
+        <result column="module" property="module" />
+        <result column="description" property="description"/>
         <result column="request_method" property="requestMethod" />
         <result column="operate_method" property="operateMethod" />
         <result column="user" property="user" />
         <result column="operate_ip" property="operateIp" />
-        <result column="operate_addr" property="operateAddr" />
+        <result column="operate_source" property="operateSource" />
         <result column="status" property="status" />
+        <result column="status_description" property="statusDescription"/>
         <result column="request_param" property="requestParam" />
         <result column="return_param" property="returnParam" />
+        <result column="duration" property="duration"/>
         <result column="operate_time" property="operateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, model, type, request_method, operate_method, user, operate_ip, operate_addr, status, request_param, return_param, operate_time
+        id, `module`, description, request_method, operate_method, `user`, operate_ip, operate_source, status, status_description, request_param, return_param, duration, operate_time
     </sql>
 
 </mapper>

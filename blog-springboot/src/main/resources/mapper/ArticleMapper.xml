@@ -17,11 +17,22 @@
         <result column="allow_comment" property="allowComment" />
         <result column="top" property="top" />
         <result column="background" property="background" />
+        <result column="view_num" property="viewNum"/>
+        <result column="comment_num" property="commentNum"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, title, category, publish_time, tags, summary, content_md, type, state, deleted, allow_comment, top, background
+        id, title, category, publish_time, tags, summary, content_md, `type`, `state`, deleted, allow_comment, top, background, view_num, comment_num
     </sql>
+
+    <update id="removeArticleBatchIds">
+        UPDATE article
+        SET `state`=3, deleted=1
+        WHERE id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
 
 </mapper>

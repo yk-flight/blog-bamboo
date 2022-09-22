@@ -1,15 +1,18 @@
-package com.zrkizzy.blog.vo.param;
+package com.zrkizzy.blog.dto;
 
 import lombok.Data;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 文章数据传输对象
  *
  * @author zhangrongkang
- * @date 2022/9/20
+ * @date 2022/9/21
  */
 @Data
-public class ArticleVO {
+public class ArticleDto {
     /**
      * 主键
      */
@@ -19,17 +22,17 @@ public class ArticleVO {
      */
     private String title;
     /**
-     * 博客分类
+     * 博客分类名称
      */
-    private Integer category;
+    private String categoryName;
     /**
      * 发表时间
      */
-    private String publishTime;
+    private LocalDateTime publishTime;
     /**
      * 标签
      */
-    private String[] tags;
+    private List<String> tags;
     /**
      * 摘要
      */
@@ -39,7 +42,7 @@ public class ArticleVO {
      */
     private String contentMd;
     /**
-     * 文章类型
+     * 文章类型名称
      */
     private Integer type;
     /**
@@ -73,5 +76,5 @@ public class ArticleVO {
     /**
      * 更新时间
      */
-    private String updateTime;
+    private LocalDateTime updateTime;
 }

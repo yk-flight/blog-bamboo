@@ -14,4 +14,16 @@
         id, name, create_time
     </sql>
 
+    <select id="selectTagsByIds" resultType="java.lang.String">
+        SELECT
+            `name`
+        FROM
+            tags
+        WHERE
+            id IN
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+    </select>
+
 </mapper>
