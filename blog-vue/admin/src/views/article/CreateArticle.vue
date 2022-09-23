@@ -8,9 +8,23 @@
             v-model="article.title"
           ></el-input>
         </el-col>
-        <el-col :span="4">
-          <el-button type="danger" @click="showDrawer">保存草稿</el-button>
-          <el-button type="primary" @click="showDrawer">发布文章</el-button>
+        <el-col :span="4" style="text-align: center">
+          <el-button
+            type="danger"
+            @click="showDrawer"
+            size="small"
+            icon="el-icon-edit-outline"
+          >
+            保存草稿
+          </el-button>
+          <el-button
+            size="small"
+            type="primary"
+            @click="showDrawer"
+            icon="el-icon-s-promotion"
+          >
+            发布文章
+          </el-button>
         </el-col>
       </el-row>
     </div>
@@ -138,6 +152,23 @@
         <!-- 文章封面 -->
         <el-form-item label="文章封面">
           <el-row>
+            <el-button
+              size="small"
+              icon="el-icon-picture"
+              @click="handleChoose"
+            >
+              选择本地
+            </el-button>
+            <el-button
+              type="primary"
+              size="small"
+              icon="el-icon-upload"
+              @click="handleUpload"
+            >
+              上传图片
+            </el-button>
+          </el-row>
+          <el-row>
             <el-empty
               v-if="!article.background"
               :image-size="100"
@@ -150,26 +181,24 @@
               fit="contain"
             ></el-image>
           </el-row>
-          <el-row style="text-align: center">
-            <el-button
-              size="small"
-              icon="el-icon-picture"
-              @click="handleChoose"
-            >
-              选择本地
-            </el-button>
-            <el-button type="primary" size="small" icon="el-icon-upload">
-              上传图片
-            </el-button>
-          </el-row>
         </el-form-item>
       </el-form>
       <!-- 发布文章按钮 -->
       <div class="drawer-footer">
-        <el-button type="danger" @click="saveDraft" size="medium">
+        <el-button
+          type="danger"
+          @click="saveDraft"
+          size="small"
+          icon="el-icon-edit-outline"
+        >
           保存草稿
         </el-button>
-        <el-button type="primary" @click="save" size="medium">
+        <el-button
+          type="primary"
+          @click="save"
+          size="small"
+          icon="el-icon-s-promotion"
+        >
           发布文章
         </el-button>
       </div>
@@ -188,6 +217,9 @@
         <el-button @click="handleClose">取消</el-button>
       </span>
     </el-dialog>
+
+    <!-- 上传文件对话框 -->
+    <upload v-bind:visible="uploadDialog" @func="handleDialogClose"></upload>
   </div>
 </template>
 
@@ -196,6 +228,7 @@ import dayjs from "dayjs";
 import PictureView from "@/components/PictureView/index.vue";
 import { upload } from "@/api/picture";
 import { deleteFileByPath } from "@/api/file";
+import Upload from "@/components/Upload";
 import {
   getAllCategory,
   getAllTags,
@@ -205,7 +238,7 @@ import {
 
 export default {
   name: "CreateArticle",
-  components: { PictureView },
+  components: { PictureView, Upload },
   data() {
     return {
       article: {
@@ -261,6 +294,8 @@ export default {
       choose: false,
       // 图片路径
       fileUrl: "",
+      // 文件上传对话框
+      uploadDialog: false,
     };
   },
 
@@ -384,6 +419,14 @@ export default {
       // 文章状态：0 草稿 1 已发布
       this.article.state = undefined;
     },
+    // 关闭对话框
+    handleDialogClose() {
+      this.uploadDialog = false;
+    },
+    // 处理上传文件方法
+    handleUpload() {
+      this.uploadDialog = true;
+    },
     // 格式化时间
     dateFormat(date) {
       // 使用 dayjs 处理时间
@@ -413,7 +456,7 @@ export default {
     margin-right: 10px;
     margin-bottom: 10px;
     position: relative;
-    top: 10px;
+    top: 30px;
   }
 }
 </style>
