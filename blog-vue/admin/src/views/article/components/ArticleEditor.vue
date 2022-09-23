@@ -2,22 +2,14 @@
   <div class="create-container">
     <div class="article-title">
       <el-row :gutter="20">
-        <el-col :span="20">
+        <el-col :span="22">
           <el-input
             size="medium"
             placeholder="请输入文章标题"
             v-model="article.title"
           ></el-input>
         </el-col>
-        <el-col :span="4" style="text-align: center">
-          <el-button
-            type="danger"
-            @click="showDrawer"
-            size="medium"
-            icon="el-icon-edit-outline"
-          >
-            保存草稿
-          </el-button>
+        <el-col :span="2" style="text-align: center">
           <el-button
             size="medium"
             type="primary"
@@ -183,20 +175,24 @@
             ></el-image>
           </el-row>
         </el-form-item>
+        <!-- 文章状态 -->
+        <el-form-item label="文章状态">
+          <el-tag v-if="article.state == 1"> 已发布 </el-tag>
+          <el-tag v-else type="warning"> 草稿 </el-tag>
+        </el-form-item>
       </el-form>
       <!-- 发布文章按钮 -->
       <div class="drawer-footer">
         <el-button
-          type="danger"
-          @click="saveDraft"
+          @click="saveArticleInfo"
           size="small"
-          icon="el-icon-edit-outline"
+          icon="el-icon-s-promotion"
         >
-          保存草稿
+          保存文章
         </el-button>
         <el-button
           type="primary"
-          @click="save"
+          @click="publishArticle"
           size="small"
           icon="el-icon-s-promotion"
         >
@@ -235,10 +231,11 @@ import {
   getAllTags,
   insertTags,
   saveArticle,
+  getArticleById,
 } from "@/api/article";
 
 export default {
-  name: "CreateArticle",
+  name: "ArticleEditor",
   components: { PictureView, Upload },
   data() {
     return {
@@ -285,6 +282,21 @@ export default {
           description: "翻译",
         },
       ],
+      // 文章状态集合
+      stateList: [
+        {
+          value: 0,
+          description: "草稿",
+        },
+        {
+          value: 1,
+          description: "已发布",
+        },
+        {
+          value: 2,
+          description: "回收站",
+        },
+      ],
       // 抽屉是否展示
       drawerVisible: false,
       // 文章分类
@@ -301,7 +313,13 @@ export default {
   },
 
   mounted() {
-    this.article.title = this.dateFormat(new Date());
+    // 从当前路由中截取出文章ID
+    let id = this.$route.params.id;
+    // 获取指定文章内容
+    getArticleById(id).then((result) => {
+      this.article = result;
+      console.log(this.article);
+    });
   },
 
   methods: {
@@ -344,14 +362,20 @@ export default {
         this.getTags();
       });
     },
-    // 保存草稿箱事件
-    saveDraft() {
-      // 修改文章状态为草稿
-      this.article.state = 0;
-      this.save();
+    // 保存文章方法
+    saveArticleInfo() {
+      // 直接调用发布文章方法
+      this.publish();
+    },
+    // 发布文章按钮
+    publishArticle() {
+      // 修改当前文章状态为已发布
+      this.article.state = 1;
+      // 调用发布文章方法
+      this.publish();
     },
     // 发布文章方法
-    save() {
+    publish() {
       // 如果当前用户没有写摘要
       if (!this.article.summary) {
         // 截取摘要
@@ -454,10 +478,9 @@ export default {
   }
   .drawer-footer {
     float: right;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    position: relative;
-    top: 30px;
+    margin-right: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 }
 </style>

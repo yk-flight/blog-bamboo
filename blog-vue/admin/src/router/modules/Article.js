@@ -37,5 +37,13 @@ export default {
         icon: "tags",
       },
     },
+    {
+      path: "/article/editor/:id",
+      name: "articleEditor",
+      component: () => import("@/views/article/components/ArticleEditor"),
+      meta: {
+        title: "文章编辑",
+      },
+    },
   ],
 };

@@ -197,8 +197,11 @@
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
-            <!-- @click="handleClick(scope.row)" -->
-            <el-button type="text" icon="el-icon-edit-outline">
+            <el-button
+              type="text"
+              icon="el-icon-edit-outline"
+              @click="onEditClick(scope.row)"
+            >
               编辑
             </el-button>
             <el-button
@@ -425,6 +428,10 @@ export default {
         // 刷新表格数据
         this.getTableData();
       });
+    },
+    // 前往编辑文章页面
+    onEditClick(row) {
+      this.$router.push("/article/editor/" + row.id);
     },
     // 图片预览
     preViewImage(val) {
