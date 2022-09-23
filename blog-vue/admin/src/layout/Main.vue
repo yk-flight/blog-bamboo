@@ -2,9 +2,10 @@
   <!-- 带有切换动画，并且具备组件缓存的 -->
   <div>
     <transition name="fade-transform" mode="out-in">
-      <!-- 开启组件缓存 -->
-      <keep-alive>
-        <router-view />
+      <!-- 将创建文章页面开启组件缓存 -->
+      <keep-alive include="CreateArticle">
+        <!-- 绑定唯一路由，Vue就会认为每个内部路由都是不同的，在跳转时便会强制刷新组件 -->
+        <router-view :key="$route.fullPath" />
       </keep-alive>
     </transition>
   </div>

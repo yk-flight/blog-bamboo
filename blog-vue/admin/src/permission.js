@@ -52,8 +52,17 @@ router.beforeEach(async (to, from, next) => {
 
       // 查看当前用户访问的路径是否为白名单当中的路径
       const res = whiteList.includes(to.path);
+
       // 如果用户访问的路径不是白名单的路径
       if (!res) {
+        // 如果前用户访问的路径是编辑文章路径则直接放行
+        if (
+          to.path.length >= 16 &&
+          to.path.substr(0, 16) === "/article/editor/"
+        ) {
+          next();
+          return;
+        }
         // 判断用户是否具有该页面的权限
         const accessPath = store.getters.accessPath;
         for (let i in accessPath) {

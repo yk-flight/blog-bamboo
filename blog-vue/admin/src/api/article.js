@@ -282,3 +282,16 @@ export const deleteArticleBatchIds = (ids) => {
     method: "DELETE",
   });
 };
+
+/**
+ * 通过文章ID获取指定文章对象
+ *
+ * @param {*} id
+ * @returns
+ */
+export const getArticleById = (id) => {
+  return request({
+    url: `/article/getArticleById/${id}`,
+    method: "GET",
+  });
+};
