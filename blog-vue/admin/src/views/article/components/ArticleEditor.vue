@@ -186,7 +186,8 @@
         <el-button
           @click="saveArticleInfo"
           size="small"
-          icon="el-icon-s-promotion"
+          type="success"
+          icon="el-icon-document-checked"
         >
           保存文章
         </el-button>
@@ -318,7 +319,6 @@ export default {
     // 获取指定文章内容
     getArticleById(id).then((result) => {
       this.article = result;
-      console.log(this.article);
     });
   },
 
@@ -386,10 +386,7 @@ export default {
           .replace(/\r|\n/gi, " ");
       }
       // 发布文章
-      saveArticle(this.article).then(() => {
-        // 重置当前文章对象
-        this.reset();
-      });
+      saveArticle(this.article).then(() => {});
     },
     // 选择本地图片
     handleChoose() {
@@ -416,33 +413,6 @@ export default {
     // 更新图片的路径
     uploadFileUrl(val) {
       this.fileUrl = val;
-    },
-    // 重置当前文章对象
-    reset() {
-      // 博客标题
-      this.article.title = "";
-      // 博客文本数据
-      this.article.contentMd = "";
-      // 文章发布时间
-      this.article.publishTime = undefined;
-      // 是否开启评论
-      this.article.allowComment = true;
-      // 是否置顶
-      this.article.top = false;
-      // 文章摘要
-      this.article.summary = "";
-      // 分类目录
-      this.article.category = undefined;
-      // 文章标签
-      this.article.tags = [];
-      // 文章封面
-      this.article.background = "";
-      // 文章类型
-      this.article.type = 1;
-      // 文章是否删除
-      this.article.deleted = false;
-      // 文章状态：0 草稿 1 已发布
-      this.article.state = undefined;
     },
     // 关闭对话框
     handleDialogClose() {
