@@ -71,4 +71,12 @@ public interface IArticleService extends IService<Article> {
      * @return 前端响应对象
      */
     Result deleteArticleBatchIds(List<Integer> ids);
+
+    /**
+     * 更新文章操作
+     *
+     * @param articleVO 文章数据传输对象
+     * @return 前端响应对象
+     */
+    Result updateArticle(ArticleVO articleVO);
 }

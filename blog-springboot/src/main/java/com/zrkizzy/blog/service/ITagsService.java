@@ -28,7 +28,16 @@ public interface ITagsService extends IService<Tags> {
      * 将标签名称集合转为对应的ID集合
      *
      * @param tags 标签名称集合
+     * @param flag 是否需要更新标签数量
      * @return ID集合
      */
-    String tagsConvertIds(String[] tags);
+    String tagsConvertIds(String[] tags, Boolean flag);
+
+    /**
+     * 将标签ID集合转为对应的数据集合
+     *
+     * @param tagIds 标签ID集合
+     * @return 标签名称集合
+     */
+    String[] idsConvertTags(String tagIds);
 }

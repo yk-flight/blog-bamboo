@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zrkizzy.blog.entity.Tags;
 import com.zrkizzy.blog.mapper.TagsMapper;
 import com.zrkizzy.blog.service.ITagsService;
+import com.zrkizzy.blog.utils.CollectionUtil;
 import com.zrkizzy.blog.vo.PageVO;
 import org.springframework.stereotype.Service;
 
@@ -48,10 +49,11 @@ public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements IT
      * 将标签名称集合转为对应的ID集合
      *
      * @param tags 标签名称集合
+     * @param flag 是否需要更新标签数量
      * @return ID集合
      */
     @Override
-    public String tagsConvertIds(String[] tags) {
+    public String tagsConvertIds(String[] tags, Boolean flag) {
         // 定义返回结果
         StringBuilder builder = new StringBuilder();
         builder.append("[");
@@ -62,8 +64,10 @@ public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements IT
             for (Tags tag : tagsList) {
                 if (tag.getName().equals(name)) {
                     // 更新当前标签下的文章数量
-                    tag.setArticleNum(tag.getArticleNum() + 1);
-                    tagsMapper.updateById(tag);
+                    if (flag) {
+                        tag.setArticleNum(tag.getArticleNum() + 1);
+                        tagsMapper.updateById(tag);
+                    }
                     // 拼接标签内容
                     builder.append(tag.getId()).append(",");
                     break;
@@ -73,5 +77,22 @@ public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements IT
         // 删除最后一个","并添加最后一个"]"
         builder.deleteCharAt(builder.length() - 1).append("]");
         return builder.toString();
+    }
+
+    /**
+     * 将标签ID集合转为对应的数据集合
+     *
+     * @param tagIds 标签ID集合
+     * @return 标签名称集合
+     */
+    @Override
+    public String[] idsConvertTags(String tagIds) {
+        // 将String类型的标签ID集合转为整型集合并进行查询
+        List<String> tags = tagsMapper.selectTagsByIds(CollectionUtil.stringToIntegerList(tagIds));
+        String[] result = new String[tags.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = tags.get(i);
+        }
+        return result;
     }
 }

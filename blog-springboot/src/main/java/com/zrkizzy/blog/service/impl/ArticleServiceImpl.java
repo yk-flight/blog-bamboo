@@ -65,7 +65,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         article.setCommentNum(0);
         article.setViewNum(0);
         // 标签处理
-        article.setTags(tagsService.tagsConvertIds(articleVO.getTags()));
+        article.setTags(tagsService.tagsConvertIds(articleVO.getTags(), true));
 
         // 更新分类的文章数量
         Category category = categoryMapper.selectById(article.getCategory());
@@ -215,6 +215,34 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             return Result.success("文章删除成功");
         }
         return Result.error("文章删除失败");
+    }
+
+    /**
+     * 更新文章操作
+     *
+     * @param articleVO 文章数据传输对象
+     * @return 前端响应对象
+     */
+    @Override
+    public Result updateArticle(ArticleVO articleVO) {
+        // 复制文章数据传递对象
+        Article article = BeanCopyUtil.copy(articleVO, Article.class);
+        // 发布时间
+        article.setPublishTime(TimeUtil.stringToLocalDateTime(articleVO.getPublishTime()));
+        // 更新时间
+        article.setUpdateTime(LocalDateTime.now());
+        // 标签处理
+        article.setTags(tagsService.tagsConvertIds(articleVO.getTags(), false));
+        // 更新文章对象
+        int count = articleMapper.updateById(article);
+
+        if (count < 1) {
+            return Result.error("文章保存失败");
+        }
+        if (article.getState().equals(1)) {
+            return Result.success("文章发布成功");
+        }
+        return Result.success("文章保存成功");
     }
 
     /**

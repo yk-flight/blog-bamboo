@@ -4,6 +4,9 @@ package com.zrkizzy.blog.controller;
 import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.entity.Article;
 import com.zrkizzy.blog.service.IArticleService;
+import com.zrkizzy.blog.service.ITagsService;
+import com.zrkizzy.blog.utils.BeanCopyUtil;
+import com.zrkizzy.blog.utils.TimeUtil;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.ArticleVO;
@@ -28,10 +31,17 @@ import java.util.Arrays;
 public class ArticleController {
     @Resource
     private IArticleService articleService;
+    @Resource
+    private ITagsService tagsService;
 
     @ApiOperation("保存文章")
     @PostMapping("/save")
     public Result save(@RequestBody ArticleVO articleVO) {
+        // 如果传来的文章对象存在ID则说明为文章编辑操作
+        if (articleVO.getId() != null) {
+            return articleService.updateArticle(articleVO);
+        }
+        // 如果文章对象不存在ID则说明为添加文章操作
         return articleService.saveArticle(articleVO);
     }
 
@@ -132,6 +142,21 @@ public class ArticleController {
     @DeleteMapping("/deleteArticleBatchIds/{ids}")
     public Result deleteArticleBatchIds(@PathVariable Integer[] ids) {
         return articleService.deleteArticleBatchIds(Arrays.asList(ids));
+    }
+
+    @ApiOperation("通过文章ID获取指定文章内容")
+    @GetMapping("/getArticleById/{id}")
+    public ArticleVO getArticleById(@PathVariable Integer id) {
+        // 获取到对应的文章信息对象
+        Article article = articleService.getById(id);
+        ArticleVO articleVO = BeanCopyUtil.copy(article, ArticleVO.class);
+        // 文章发布时间
+        articleVO.setPublishTime(TimeUtil.localDateTimeToString(article.getPublishTime()));
+        // 文章更新时间
+        articleVO.setUpdateTime(TimeUtil.localDateTimeToString(article.getUpdateTime()));
+        // 文章标签
+        articleVO.setTags(tagsService.idsConvertTags(article.getTags()));
+        return articleVO;
     }
 }
 
