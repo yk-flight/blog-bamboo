@@ -2,53 +2,56 @@
   <div>
     <el-form label-position="left" label-width="90px" :model="website">
       <el-form-item label="网站头像">
-        <div class="upload-container">
-          <el-upload action="#" class="avatar-uploader" :show-file-list="false">
-            <img v-if="website.logo" :src="website.logo" class="avatar" />
-            <i v-else class="el-icon-plus avatar-uploader-icon" />
-          </el-upload>
-          <div class="choose-button">
-            <el-button
-              icon="el-icon-picture"
-              type="primary"
-              @click="handleChoose"
-              size="small"
-              style="margin-top: 30px"
-            >
-              选择本地图片
-            </el-button>
+        <el-row>
+          <div class="upload-container">
+            <div class="avatar-uploader">
+              <img v-if="website.logo" :src="website.logo" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon" />
+            </div>
           </div>
-        </div>
+        </el-row>
+        <el-row>
+          <el-button
+            icon="el-icon-picture"
+            type="primary"
+            @click="handleChoose"
+            plain
+            size="mini"
+          >
+            选择本地图片
+          </el-button>
+        </el-row>
       </el-form-item>
       <!-- 网站名称 -->
-      <el-row :gutter="5">
-        <el-col :span="12">
+      <el-row :gutter="3">
+        <el-col :span="8">
           <el-form-item label="网站名称">
             <el-input size="small" v-model="website.name"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <!-- 网站作者 -->
-      <el-row :gutter="5">
-        <el-col :span="12">
+      <el-row :gutter="3">
+        <el-col :span="8">
           <el-form-item label="网站作者">
             <el-input size="small" v-model="website.author"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <!-- 网站简介 -->
-      <el-row :gutter="5">
-        <el-col :span="12">
+      <el-row :gutter="3">
+        <el-col :span="8">
           <el-form-item label="网站简介">
             <el-input size="small" v-model="website.introduction"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <!-- 创建日期 -->
-      <el-row :gutter="5">
-        <el-col :span="12">
+      <el-row :gutter="3">
+        <el-col :span="8">
           <el-form-item label="创建日期">
             <el-date-picker
+              size="small"
               v-model="website.createDate"
               placeholder="选择日期"
               style="width: 100%"
@@ -58,8 +61,8 @@
         </el-col>
       </el-row>
       <!-- 网站公告 -->
-      <el-row :gutter="5">
-        <el-col :span="12">
+      <el-row :gutter="3">
+        <el-col :span="8">
           <el-form-item label="网站公告">
             <el-input
               type="textarea"
@@ -72,8 +75,8 @@
         </el-col>
       </el-row>
       <!-- 座右铭 -->
-      <el-row :gutter="5">
-        <el-col :span="12">
+      <el-row :gutter="3">
+        <el-col :span="8">
           <el-form-item label="座右铭">
             <el-input
               type="textarea"
@@ -86,8 +89,8 @@
         </el-col>
       </el-row>
       <!-- 备案号 -->
-      <el-row :gutter="5">
-        <el-col :span="12">
+      <el-row :gutter="3">
+        <el-col :span="8">
           <el-form-item label="备案号">
             <el-input size="small" v-model="website.record"></el-input>
           </el-form-item>
@@ -203,10 +206,10 @@ export default {
   font-weight: 500;
 }
 .el-row {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .el-form-item {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .avatar-uploader {
   width: 100px;
@@ -235,9 +238,6 @@ export default {
 }
 .upload-container {
   display: flex;
-  margin-bottom: 10px;
-}
-.choose-button {
-  margin-left: 30px;
+  margin-top: 10px;
 }
 </style>

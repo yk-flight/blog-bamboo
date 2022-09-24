@@ -34,7 +34,7 @@
             <!-- 退出登录 -->
             <el-dropdown-item icon="el-icon-user-solid">
               <router-link
-                to="profile"
+                to="/profile"
                 style="text-decoration: none; color: #606266; font-size: 14px"
               >
                 <span>个人中心</span>
