@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 24/09/2022 21:10:11
+ Date: 24/09/2022 23:27:56
 */
 
 SET NAMES utf8mb4;
@@ -106,6 +106,28 @@ INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_ti
 COMMIT;
 
 -- ----------------------------
+-- Table structure for links
+-- ----------------------------
+DROP TABLE IF EXISTS `links`;
+CREATE TABLE `links` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` varchar(100) DEFAULT NULL COMMENT '网站名称',
+  `website` varchar(255) DEFAULT NULL COMMENT '网站地址',
+  `logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '网站logo',
+  `description` varchar(255) DEFAULT NULL COMMENT '网站描述',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of links
+-- ----------------------------
+BEGIN;
+INSERT INTO `links` (`id`, `title`, `website`, `logo`, `description`, `create_time`) VALUES (1, '世纪末的架构师', 'https://www.zrkizzy.com', 'https://www.zrkizzy.com/upload/2021/11/header-90431fbd9cf848e2a5aaea0bf6b1089b.jpg', '疯狂的热爱夹带着文雅', '2022-09-24 22:09:13');
+INSERT INTO `links` (`id`, `title`, `website`, `logo`, `description`, `create_time`) VALUES (4, '风丶宇的个人博客', 'https://static.talkxj.com', 'https://static.talkxj.com/photos/b553f564f81a80dc338695acb1b475d2.jpg', '往事不随风', '2022-09-24 14:56:58');
+COMMIT;
+
+-- ----------------------------
 -- Table structure for menu
 -- ----------------------------
 DROP TABLE IF EXISTS `menu`;
@@ -177,7 +199,7 @@ CREATE TABLE `operate_log` (
   `duration` int unsigned DEFAULT NULL COMMENT '执行时长',
   `operate_time` datetime DEFAULT NULL COMMENT '操作日期',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of operate_log
@@ -286,6 +308,14 @@ INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `ope
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (101, '页面管理模块', '更新页面', 'PUT', 'com.zrkizzy.blog.controller.PagesController.updatePageInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"id\":4,\"image\":\"/images/cover/FvDOfIrj.jpg\",\"label\":\"log\",\"path\":\"/log\",\"title\":\"日志\"}]', '{\"code\":200,\"message\":\"页面信息更新成功\"}', 19, '2022-09-24 17:25:37');
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (102, '页面管理模块', '更新页面', 'PUT', 'com.zrkizzy.blog.controller.PagesController.updatePageInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"id\":8,\"image\":\"/images/cover/xGx9zwY8.jpg\",\"label\":\"message\",\"path\":\"/message\",\"title\":\"留言\"}]', '{\"code\":200,\"message\":\"页面信息更新成功\"}', 14, '2022-09-24 17:25:52');
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (103, '页面管理模块', '更新页面', 'PUT', 'com.zrkizzy.blog.controller.PagesController.updatePageInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"id\":8,\"image\":\"/images/cover/xGx9zwY8.jpg\",\"label\":\"message\",\"path\":\"/message\",\"title\":\"留言\"}]', '{\"code\":200,\"message\":\"页面信息更新成功\"}', 6, '2022-09-24 17:25:58');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (104, '友链模块', '添加友链', 'POST', 'com.zrkizzy.blog.controller.LinksController.addLinks', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"createTime\":1664001929839,\"description\":\"包子博客，我用来测试一下\",\"logo\":\"https://tse3-mm.cn.bing.net/th/id/OIP.N9gKzFp25pPG7h7sIVznSwHaHa?pid=ImgDet&rs=1\",\"title\":\"测试网站\",\"website\":\"https://www/zrkizzy.com\"}]', '{\"code\":200,\"message\":\"友链添加成功\"}', 31, '2022-09-24 22:45:30');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (105, '友链模块', '添加友链', 'POST', 'com.zrkizzy.blog.controller.LinksController.addLinks', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"createTime\":1664002013422,\"description\":\"往事不随风\",\"logo\":\"https://static.talkxj.com/photos/b553f564f81a80dc338695acb1b475d2.jpg\",\"title\":\"风丶宇的个人博客\",\"website\":\"https://www.talkxj.com\"}]', '{\"code\":200,\"message\":\"友链添加成功\"}', 24, '2022-09-24 22:46:53');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (106, '友链模块', '更新友链', 'PUT', 'com.zrkizzy.blog.controller.LinksController.updateLinks', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"createTime\":1664028553000,\"description\":\"疯狂的热爱夹带着文雅\",\"id\":1,\"logo\":\"https://www.zrkizzy.com/upload/2021/11/header-90431fbd9cf848e2a5aaea0bf6b1089b.jpg\",\"title\":\"世纪末的架构师\",\"website\":\"https://www.zrkizzy.com\"}]', '{\"code\":200,\"message\":\"友链更新成功\"}', 9, '2022-09-24 22:52:09');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (107, '友链模块', '删除友链', 'DELETE', 'com.zrkizzy.blog.controller.LinksController.deleteLinkById', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[3]', '{\"code\":200,\"message\":\"友链删除成功\"}', 17, '2022-09-24 22:56:23');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (108, '友链模块', '添加友链', 'POST', 'com.zrkizzy.blog.controller.LinksController.addLinks', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"createTime\":1664002617738,\"description\":\"往事不随风\",\"logo\":\"https://static.talkxj.com/photos/b553f564f81a80dc338695acb1b475d2.jpg\",\"title\":\"风丶宇的个人博客\",\"website\":\"https://static.talkxj.com\"}]', '{\"code\":200,\"message\":\"友链添加成功\"}', 21, '2022-09-24 22:56:58');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (109, '友链模块', '添加友链', 'POST', 'com.zrkizzy.blog.controller.LinksController.addLinks', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"createTime\":1664002631856,\"description\":\"111\",\"logo\":\"111\",\"title\":\"测试\",\"website\":\"111\"}]', '{\"code\":200,\"message\":\"友链添加成功\"}', 16, '2022-09-24 22:57:12');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (110, '友链模块', '删除友链', 'DELETE', 'com.zrkizzy.blog.controller.LinksController.deleteLinkById', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[5]', '{\"code\":200,\"message\":\"友链删除成功\"}', 25, '2022-09-24 23:06:25');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (111, '友链模块', '删除友链', 'DELETE', 'com.zrkizzy.blog.controller.LinksController.deleteLinkById', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[2]', '{\"code\":200,\"message\":\"友链删除成功\"}', 23, '2022-09-24 23:06:30');
 COMMIT;
 
 -- ----------------------------
@@ -404,7 +434,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (1, '世纪末的架构师', 'admin', '$2a$10$Tt3NW32EBpMk9ClWUCAkOu6FIRXyhfze7xJ0bQGx8sdVgV4IqYzqO', '/images/avatar/m4VH2s1n.jpeg', '127.0.0.1', '本机登录', '2022-09-24 20:52:24', 1, '2022-08-06 23:40:44', '2022-09-16 00:57:35');
+INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (1, '世纪末的架构师', 'admin', '$2a$10$Tt3NW32EBpMk9ClWUCAkOu6FIRXyhfze7xJ0bQGx8sdVgV4IqYzqO', '/images/avatar/m4VH2s1n.jpeg', '127.0.0.1', '本机登录', '2022-09-24 22:52:58', 1, '2022-08-06 23:40:44', '2022-09-16 00:57:35');
 INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (2, '测试账号', 'test', '$2a$10$o5mhJfOF1brtQb0kxeAu7OiurnwRn/d9TqbzdE08RinS4p3s60Cey', '/images/avatar/ogClDqhN.jpg', '127.0.0.1', '本机登录', '2022-09-23 15:41:35', 1, '2022-08-13 18:23:02', '2022-09-16 00:59:07');
 COMMIT;
 
