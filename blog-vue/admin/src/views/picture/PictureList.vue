@@ -6,6 +6,7 @@
           <el-form-item>
             <span class="title-label">上传用户</span>
             <el-input
+              size="small"
               v-model="nickName"
               placeholder="请输入用户名称"
               style="width: 230px"
@@ -15,6 +16,7 @@
           <el-form-item>
             <span class="title-label">上传时间</span>
             <el-date-picker
+              size="small"
               v-model="times"
               type="daterange"
               value-format="yyyy-MM-dd"
@@ -121,8 +123,8 @@
 
       <div class="file-footer">
         <el-pagination
-          :page-sizes="[20, 30, 40, 50]"
-          :page-size="20"
+          :page-sizes="[24, 32, 48, 56]"
+          :page-size="24"
           layout="total, sizes, prev, pager, next, jumper"
           :total="total"
           @size-change="handleSizeChange"
@@ -224,7 +226,7 @@ export default {
       // 当前页数
       curPage: 1,
       // 页面大小
-      size: 20,
+      size: 24,
       // 数据总数
       total: 0,
       // 用户数据
