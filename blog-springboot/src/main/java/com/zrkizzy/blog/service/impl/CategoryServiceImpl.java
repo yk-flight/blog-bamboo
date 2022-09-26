@@ -91,7 +91,11 @@ public class CategoryServiceImpl implements CategoryService {
     @LogAnnotation(module = "文章模块", description = "删除文章分类")
     @Transactional(rollbackFor = RuntimeException.class)
     public Result deleteCategory(Integer id) {
-        // TODO 将当前分类下的文章所属分类重置
+        // 如果当前文章分类下存在文章则不能删除该分类
+        Category category = categoryMapper.selectById(id);
+        if (category.getArticleAmount() > 0) {
+            return Result.error("当前分类下还有文章，不能删除");
+        }
 
         int count = categoryMapper.deleteById(id);
         if (count > 0) {
@@ -107,9 +111,16 @@ public class CategoryServiceImpl implements CategoryService {
      * @return 前端返回对象
      */
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     @LogAnnotation(module = "文章模块", description = "批量删除文章分类")
     public Result deleteCategoryBatchIds(Integer[] ids) {
-        // TODO 将当前分类下的文章所属分类重置
+        // 如果当前要删除的分类下还有文章
+        for (Integer id : ids) {
+            Category category = categoryMapper.selectById(id);
+            if (category.getArticleAmount() > 0) {
+                return Result.error("分类删除失败，" + category.getName() + " 中还有文章");
+            }
+        }
 
         int count = categoryMapper.deleteBatchIds(Arrays.asList(ids));
         if (ids.length == count) {
