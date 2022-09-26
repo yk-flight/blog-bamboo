@@ -114,9 +114,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional(rollbackFor = RuntimeException.class)
     @LogAnnotation(module = "文章模块", description = "批量删除文章分类")
     public Result deleteCategoryBatchIds(Integer[] ids) {
+        QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("id", Arrays.asList(ids));
+        List<Category> categories = categoryMapper.selectList(queryWrapper);
         // 如果当前要删除的分类下还有文章
-        for (Integer id : ids) {
-            Category category = categoryMapper.selectById(id);
+        for (Category category : categories) {
             if (category.getArticleAmount() > 0) {
                 return Result.error("分类删除失败，" + category.getName() + " 中还有文章");
             }

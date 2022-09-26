@@ -61,6 +61,11 @@ public class TagsController {
     @LogAnnotation(module = "标签模块", description = "删除标签")
     @DeleteMapping("/deleteTags/{id}")
     public Result deleteTags(@PathVariable Integer id) {
+        // 判断当前标签下是否还有文章
+        Tags tags = tagsService.getById(id);
+        if (tags.getArticleNum() > 0) {
+            return Result.error("删除失败，当前标签下还有文章");
+        }
         if (tagsService.removeById(id)) {
             return Result.success("标签删除成功");
         }
@@ -71,6 +76,13 @@ public class TagsController {
     @LogAnnotation(module = "标签模块", description = "批量删除标签")
     @DeleteMapping("/deleteTagsBatchIds/{ids}")
     public Result deleteTagsBatchIds(@PathVariable Integer[] ids) {
+        List<Tags> tags = tagsService.listByIds(Arrays.asList(ids));
+        // 判断当前标签下是否还有文章
+        for (Tags tag : tags) {
+            if (tag.getArticleNum() > 0) {
+                return Result.error("删除失败，" + tag.getName() + " 中还有文章");
+            }
+        }
         if (tagsService.removeByIds(Arrays.asList(ids))) {
             return Result.success("标签删除成功");
         }
