@@ -68,8 +68,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 放行静态资源文件
                 "/css/**",
                 "/js/**",
-                // 放行网站首页
-                "/index.html",
                 // 放行网站图标
                 "favicon.ico",
                 // 放行swagger相关文件
@@ -79,7 +77,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/v2/api-docs/**",
                 // 放行验证码
                 "/kaptcha",
-                "/images/**"
+                // 放行查看图片路径
+                "/images/**",
+                // 放行上传文件路径
+                "/upload/**"
         );
     }
 

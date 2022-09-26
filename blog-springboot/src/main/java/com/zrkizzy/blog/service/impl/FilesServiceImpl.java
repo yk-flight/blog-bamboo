@@ -109,6 +109,52 @@ public class FilesServiceImpl extends ServiceImpl<FilesMapper, Files> implements
      *
      * @param file 要进行上传到文件
      * @param filePath 文件存储路径
+     * @param user 上传用户
+     * @return 文件上传数据对象
+     * @throws IOException IO流异常
+     */
+    @Override
+    public FilesDto saveImage(MultipartFile file, String filePath, String user) throws IOException {
+        // 获取文件类型
+        int index = file.getOriginalFilename().lastIndexOf(".") + 1;
+        String suffix = file.getOriginalFilename().substring(index);
+        String fileName = UuidUtil.getShortUuid() + "." + suffix;
+
+        // 拼接文件的全路径
+        String fullPath = path +
+                // 文件存储路径
+                filePath +
+                // 拼接文件名
+                fileName;
+        // 如果不存在文件保存的位置
+        if (!java.nio.file.Files.exists(Paths.get(path + File.separator + filePath))) {
+            // 创建文件夹
+            java.nio.file.Files.createDirectory(Paths.get(path + File.separator + filePath));
+        }
+        // 保存上传的文件
+        file.transferTo(new File(fullPath));
+        // 定义返回的路径
+        String url = DOMAIN + filePath + fileName;
+        // 将当前上传的图片保存在数据库中
+        FilesDto filesDto = new FilesDto();
+        // 上传的用户
+        filesDto.setUser(user);
+        // 上传时间
+        filesDto.setUploadTime(LocalDate.now());
+        // 文件路径
+        filesDto.setUrl(url);
+        // 文件名称
+        filesDto.setFileName(fileName);
+        // 设置备注
+        filesDto.setDescription("用户上传图片");
+        return filesDto;
+    }
+
+    /**
+     * 将文件解析并上传到指定路径
+     *
+     * @param file 要进行上传到文件
+     * @param filePath 文件存储路径
      * @return 文件上传数据对象
      */
     @Override

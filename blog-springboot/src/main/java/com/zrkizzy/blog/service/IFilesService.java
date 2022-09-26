@@ -48,4 +48,15 @@ public interface IFilesService extends IService<Files> {
      * @return 前端响应对象
      */
     Result deleteFileBatchIds(Integer[] ids);
+
+    /**
+     * 将文件解析并上传到指定路径
+     *
+     * @param file 要进行上传到文件
+     * @param filePath 文件存储路径
+     * @param user 上传用户
+     * @return 文件上传数据对象
+     * @exception IOException IO流异常
+     */
+    FilesDto saveImage(MultipartFile file, String filePath, String user) throws IOException;
 }

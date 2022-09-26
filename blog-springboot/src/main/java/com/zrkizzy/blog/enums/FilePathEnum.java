@@ -25,6 +25,10 @@ public enum FilePathEnum {
      */
     COVER("cover/", "封面图片"),
     /**
+     * 打赏图片
+     */
+    RECEIPT("receipt/", "打赏图片"),
+    /**
      * 文章图片
      */
     ARTICLE("article/", "文章图片");

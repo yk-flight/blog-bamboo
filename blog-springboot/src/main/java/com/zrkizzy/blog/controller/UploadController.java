@@ -49,6 +49,14 @@ public class UploadController {
         return Result.error("图片上传失败");
     }
 
+    @ApiOperation("上传文件")
+    @PostMapping("/uploadImage")
+    public String uploadImage(MultipartFile file, String path, String user) throws IOException {
+        FilesDto filesDto = filesService.saveImage(file, path, user);
+        filesMapper.insert(BeanCopyUtil.copy(filesDto, Files.class));
+        return filesDto.getUrl();
+    }
+
     @ApiOperation("根据文件访问路径删除文件")
     @LogAnnotation(module = "文章模块", description = "根据上传图片的访问路径删除对应图片")
     @GetMapping("/deleteFileByPath")
