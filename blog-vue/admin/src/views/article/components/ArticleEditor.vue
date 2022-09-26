@@ -23,7 +23,7 @@
     </div>
     <!-- 博客区域 -->
     <mavon-editor
-      ref="md"
+      ref="mdedit"
       v-model="article.contentMd"
       @imgAdd="handleImgAdd"
       @imgDel="handleImgDel"

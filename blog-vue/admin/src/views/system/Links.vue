@@ -140,7 +140,7 @@
         <el-form-item label="网站地址">
           <el-input
             v-model="links.website"
-            placeholder="请输入网地址"
+            placeholder="请输入网地址，需要加上 http:// 或 https://"
             size="small"
           ></el-input>
         </el-form-item>
