@@ -63,3 +63,16 @@ export const getWebsiteOtherInfo = () => {
     method: "GET",
   });
 };
+
+/**
+ * 更新网站其他信息
+ *
+ * @param {*} data
+ */
+export const updateWebsiteOtherInfo = (data) => {
+  return request({
+    url: "/website/updateOtherInfo",
+    method: "PUT",
+    data: data,
+  });
+};

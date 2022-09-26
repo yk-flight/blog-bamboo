@@ -8,7 +8,9 @@
         <el-tab-pane label="社交设置" name="second">
           <social-set></social-set>
         </el-tab-pane>
-        <el-tab-pane label="其他设置" name="third">角色管理</el-tab-pane>
+        <el-tab-pane label="其他设置" name="third">
+          <other-info></other-info>
+        </el-tab-pane>
       </el-tabs>
     </el-card>
   </div>
@@ -17,10 +19,11 @@
 <script>
 import Webset from "./components/Webset.vue";
 import SocialSet from "./components/SocialSet.vue";
+import OtherInfo from "./components/OtherInfo.vue";
 
 export default {
   name: "Website",
-  components: { Webset, SocialSet },
+  components: { Webset, SocialSet, OtherInfo },
   data() {
     return {
       activeName: "first",

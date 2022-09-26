@@ -46,7 +46,7 @@
           </el-row>
         </el-form-item>
         <!--  CSDN信息  -->
-        <el-form-item label="CSDN">
+        <el-form-item label="CSDN：">
           <el-row :gutter="40">
             <el-col :span="9">
               <el-input
