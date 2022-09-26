@@ -20,9 +20,9 @@ export default {
       },
     },
     {
-      path: "/information/leave",
-      name: "leave",
-      component: () => import("@/views/information/Leave.vue"),
+      path: "/information/message",
+      name: "message",
+      component: () => import("@/views/information/Message.vue"),
       meta: {
         title: "留言管理",
         icon: "message",
