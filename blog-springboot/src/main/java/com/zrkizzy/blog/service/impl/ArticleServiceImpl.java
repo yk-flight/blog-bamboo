@@ -224,7 +224,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @return 前端响应对象
      */
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public Result updateArticle(ArticleVO articleVO) {
+        // 更新当前文章的分类数据以及标签数据
+        updateCategoryAndTags(articleVO);
         // 复制文章数据传递对象
         Article article = BeanCopyUtil.copy(articleVO, Article.class);
         // 发布时间
@@ -243,6 +246,58 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             return Result.success("文章发布成功");
         }
         return Result.success("文章保存成功");
+    }
+
+    /**
+     * 更新当前文章的分类以及标签对应的文章数量
+     *
+     * @param articleVO 文章数据传输对象
+     */
+    private void updateCategoryAndTags(ArticleVO articleVO) {
+        // 通过ID获取到文章对象
+        Article article = articleMapper.selectById(articleVO.getId());
+        // 如果文章到分类发生了变化
+        if (!article.getCategory().equals(articleVO.getCategory())) {
+            // 更新分类数据
+            Category oldCategory = categoryMapper.selectById(article.getCategory());
+            Category newCategory = categoryMapper.selectById(articleVO.getCategory());
+            oldCategory.setArticleAmount(oldCategory.getArticleAmount() - 1);
+            newCategory.setArticleAmount(newCategory.getArticleAmount() + 1);
+            categoryMapper.updateById(oldCategory);
+            categoryMapper.updateById(newCategory);
+        }
+
+        // 查看标签数据是否发生变化
+        String tagsIds = tagsService.tagsConvertIds(articleVO.getTags(), false);
+        System.out.println(tagsIds);
+        if (!tagsIds.equals(article.getTags())) {
+            // 将原本所有的标签数进行-1操作，将新的所有标签进行+1操作
+            updateTagsArticleNum(CollectionUtil.stringToIntegerList(article.getTags()),
+                    CollectionUtil.stringToIntegerList(tagsIds));
+        }
+    }
+
+    /**
+     * 修改标签对应的文章数<br/>
+     * 1. 旧标签对应的文章数执行 - 1操作<br/>
+     * 2. 新标签对应的文章数执行 + 1操作<br/>
+     *
+     * @param oldIds 旧的标签ID集合
+     * @param newIds 新的标签ID集合
+     */
+    private void updateTagsArticleNum(List<Integer> oldIds, List<Integer> newIds) {
+        // 旧标签对应的文章数执行-1
+        for (Integer id : oldIds) {
+            Tags tags = tagsMapper.selectById(id);
+            tags.setArticleNum(tags.getArticleNum() - 1);
+            tagsMapper.updateById(tags);
+        }
+        // 新标签对应的文章数+1
+        for (Integer id : newIds) {
+            Tags tags = tagsMapper.selectById(id);
+            tags.setArticleNum(tags.getArticleNum() + 1);
+            tagsMapper.updateById(tags);
+        }
     }
 
     /**
