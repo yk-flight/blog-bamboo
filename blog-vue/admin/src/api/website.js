@@ -51,3 +51,15 @@ export const updateSocialInfo = (data) => {
     data: data,
   });
 };
+
+/**
+ * 获取网站其他信息
+ *
+ * @returns
+ */
+export const getWebsiteOtherInfo = () => {
+  return request({
+    url: "/website/getOtherInfo",
+    method: "GET",
+  });
+};

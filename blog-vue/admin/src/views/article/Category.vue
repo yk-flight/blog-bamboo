@@ -178,7 +178,6 @@
             <div class="image-uploader">
               <img v-if="category.image" :src="category.image" class="image" />
               <i v-else class="el-icon-upload image-uploader-icon" />
-              <span>点击这里上传文件</span>
             </div>
           </el-row>
         </el-form-item>
@@ -475,12 +474,10 @@ export default {
     padding-left: 15px;
     padding-right: 15px;
   }
-
   .category-footer {
     padding-left: 15px;
     margin-top: 40px;
   }
-
   .image-uploader {
     width: 460px;
     height: 260px;
@@ -501,7 +498,6 @@ export default {
     line-height: 220px;
     text-align: center;
   }
-
   .image {
     width: 460px;
     height: 260px;

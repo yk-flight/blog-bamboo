@@ -3,14 +3,6 @@
     <el-form label-position="left" label-width="90px" :model="website">
       <el-form-item label="网站头像">
         <el-row>
-          <div class="upload-container">
-            <div class="avatar-uploader">
-              <img v-if="website.logo" :src="website.logo" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon" />
-            </div>
-          </div>
-        </el-row>
-        <el-row>
           <el-button
             icon="el-icon-picture"
             type="primary"
@@ -18,8 +10,23 @@
             plain
             size="mini"
           >
-            选择本地图片
+            选择本地
           </el-button>
+        </el-row>
+        <el-row>
+          <el-upload
+            class="upload-container"
+            action="/upload/uploadImage"
+            :show-file-list="false"
+            accept="image/jpeg,image/gif,image/png,image/jpg"
+            :data="uploadData"
+            :on-success="handleLogoSuccess"
+          >
+            <div class="avatar-uploader">
+              <img v-if="website.logo" :src="website.logo" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon" />
+            </div>
+          </el-upload>
         </el-row>
       </el-form-item>
       <!-- 网站名称 -->
@@ -139,11 +146,19 @@ export default {
         motto: "",
         publish: "",
         record: "",
+        createDate: "",
       },
       // 图片选择对话框
       choose: false,
       // 图片路径
       fileUrl: "",
+      // 文件上传附带参数
+      uploadData: {
+        // 文件存储路径
+        path: "avatar/",
+        // 上传用户
+        user: this.$store.getters.userInfo.nickName,
+      },
     };
   },
 
@@ -190,6 +205,10 @@ export default {
         // 刷新当前表格数据
         this.getData();
       });
+    },
+    // 网站Logo上传成功回调
+    handleLogoSuccess(result) {
+      this.website.logo = result;
     },
     // 格式化时间
     dateFormat(date) {
@@ -238,6 +257,5 @@ export default {
 }
 .upload-container {
   display: flex;
-  margin-top: 10px;
 }
 </style>
