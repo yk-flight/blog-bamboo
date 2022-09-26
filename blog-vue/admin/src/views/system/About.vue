@@ -12,7 +12,7 @@
     <div class="about-header">
       <span class="update-title">
         上次更新时间：
-        {{ about.createTime | dateFilter }}
+        {{ about.updateTime | dateFilter }}
       </span>
       <el-button type="primary" size="mini" @click="updateAbout">
         修改
