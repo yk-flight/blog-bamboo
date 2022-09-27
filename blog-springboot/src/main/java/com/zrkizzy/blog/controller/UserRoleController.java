@@ -28,7 +28,7 @@ public class UserRoleController {
     }
 
     @ApiOperation("更新用户角色")
-    @PutMapping("/updateUserRole")
+    @GetMapping("/updateUserRole")
     public Result updateUserRole(Integer userId, Integer roleId) {
         return userRoleService.updateUserRole(userId, roleId);
     }

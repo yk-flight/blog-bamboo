@@ -67,7 +67,7 @@ export const getRoleByUserId = (id) => {
 export const updateUserRole = (params) => {
   return request({
     url: "/user-role/updateUserRole",
-    method: "PUT",
+    method: "GET",
     params: params,
   });
 };

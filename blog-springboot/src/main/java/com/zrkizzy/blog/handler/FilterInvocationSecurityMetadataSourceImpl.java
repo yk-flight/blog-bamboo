@@ -55,7 +55,7 @@ public class FilterInvocationSecurityMetadataSourceImpl implements FilterInvocat
         for (ResourceRoleDTO resourceRoleDTO : resourceRoleList) {
             // 如果请求路径与请求方法一致则进行权限添加操作
             if (antPathMatcher.match(resourceRoleDTO.getUrl(), requestUrl) && resourceRoleDTO.getRequestMethod().equals(method)) {
-                return SecurityConfig.createList(resourceRoleDTO.getRoleList().toArray(new String[0]));
+                return SecurityConfig.createList(resourceRoleDTO.getRoleList().toArray(new String[]{}));
             }
         }
         // 没有匹配到的url默认登录即可访问
