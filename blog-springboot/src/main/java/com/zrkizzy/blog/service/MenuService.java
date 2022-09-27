@@ -1,7 +1,7 @@
 package com.zrkizzy.blog.service;
 
-import com.zrkizzy.blog.dto.MenuDto;
-import com.zrkizzy.blog.dto.PermissionDto;
+import com.zrkizzy.blog.dto.MenuDTO;
+import com.zrkizzy.blog.dto.PermissionDTO;
 import com.zrkizzy.blog.entity.Menu;
 import com.zrkizzy.blog.vo.param.MenuVO;
 
@@ -25,12 +25,12 @@ public interface MenuService {
      * @param menuVO 菜单参数对象
      * @return 菜单列表
      */
-    List<MenuDto> getAllMenus(MenuVO menuVO);
+    List<MenuDTO> getAllMenus(MenuVO menuVO);
 
     /**
      * 获取所有权限
      *
      * @return 所有角色权限
      */
-    List<PermissionDto> getAllPermission();
+    List<PermissionDTO> getAllPermission();
 }

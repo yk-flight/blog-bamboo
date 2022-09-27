@@ -2,7 +2,7 @@ package com.zrkizzy.blog.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zrkizzy.blog.annotation.LogAnnotation;
-import com.zrkizzy.blog.dto.FilesDto;
+import com.zrkizzy.blog.dto.FilesDTO;
 import com.zrkizzy.blog.entity.Files;
 import com.zrkizzy.blog.mapper.FilesMapper;
 import com.zrkizzy.blog.service.IFilesService;
@@ -41,7 +41,7 @@ public class UploadController {
     @ApiOperation("上传文件")
     @PostMapping("/")
     public Result upload(@RequestPart("file")MultipartFile file, @RequestPart("filePath") String filePath) throws IOException {
-        FilesDto filesDto = filesService.saveFile(file, filePath);
+        FilesDTO filesDto = filesService.saveFile(file, filePath);
         int count = filesMapper.insert(BeanCopyUtil.copy(filesDto, Files.class));
         if (count > 0) {
             return Result.success("图片上传成功", filesDto.getUrl());
@@ -52,7 +52,7 @@ public class UploadController {
     @ApiOperation("上传文件")
     @PostMapping("/uploadImage")
     public String uploadImage(MultipartFile file, String path, String user) throws IOException {
-        FilesDto filesDto = filesService.saveImage(file, path, user);
+        FilesDTO filesDto = filesService.saveImage(file, path, user);
         filesMapper.insert(BeanCopyUtil.copy(filesDto, Files.class));
         return filesDto.getUrl();
     }

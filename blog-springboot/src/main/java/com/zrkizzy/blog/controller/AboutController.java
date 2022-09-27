@@ -1,7 +1,7 @@
 package com.zrkizzy.blog.controller;
 
 
-import com.zrkizzy.blog.dto.AboutDto;
+import com.zrkizzy.blog.dto.AboutDTO;
 import com.zrkizzy.blog.entity.About;
 import com.zrkizzy.blog.service.IAboutService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
@@ -31,8 +31,8 @@ public class AboutController {
 
     @ApiOperation("获取关于我的信息")
     @GetMapping("/getAboutInfo")
-    public AboutDto getAboutInfo() {
-        return BeanCopyUtil.copy(aboutService.getById(1), AboutDto.class);
+    public AboutDTO getAboutInfo() {
+        return BeanCopyUtil.copy(aboutService.getById(1), AboutDTO.class);
     }
 
     @ApiOperation("更新关于我信息")

@@ -12,7 +12,7 @@ import java.util.List;
  * @date 2022/9/21
  */
 @Data
-public class ArticleDto {
+public class ArticleDTO {
     /**
      * 主键
      */

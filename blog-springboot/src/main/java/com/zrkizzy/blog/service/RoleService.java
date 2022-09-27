@@ -1,6 +1,6 @@
 package com.zrkizzy.blog.service;
 
-import com.zrkizzy.blog.dto.RoleDto;
+import com.zrkizzy.blog.dto.RoleDTO;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.RoleVO;
 
@@ -16,7 +16,7 @@ public interface RoleService {
      *
      * @return 获取所有角色
      */
-    List<RoleDto> getAllRoles();
+    List<RoleDTO> getAllRoles();
 
     /**
      * 更新角色信息

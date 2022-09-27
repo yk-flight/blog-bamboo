@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.blog.annotation.LogAnnotation;
-import com.zrkizzy.blog.dto.CategoryDto;
+import com.zrkizzy.blog.dto.CategoryDTO;
 import com.zrkizzy.blog.entity.Category;
 import com.zrkizzy.blog.mapper.CategoryMapper;
 import com.zrkizzy.blog.service.CategoryService;
@@ -140,7 +140,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     @LogAnnotation(module = "文章模块", description = "更新文章分类")
-    public Result updateCategory(CategoryDto categoryDto) {
+    public Result updateCategory(CategoryDTO categoryDto) {
         // 设置当前分类的更新时间
         categoryDto.setUpdateTime(new Date());
         // 将当前文章分类传参对象进行复制

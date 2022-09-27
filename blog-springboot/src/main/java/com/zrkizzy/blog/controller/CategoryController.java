@@ -1,6 +1,6 @@
 package com.zrkizzy.blog.controller;
 
-import com.zrkizzy.blog.dto.CategoryDto;
+import com.zrkizzy.blog.dto.CategoryDTO;
 import com.zrkizzy.blog.entity.Category;
 import com.zrkizzy.blog.service.CategoryService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
@@ -52,7 +52,7 @@ public class CategoryController {
 
     @ApiOperation("更新指定的文章分类")
     @PutMapping("/admin/updateCategory")
-    public Result updateCategory(@RequestBody CategoryDto categoryDto) {
+    public Result updateCategory(@RequestBody CategoryDTO categoryDto) {
         return categoryService.updateCategory(categoryDto);
     }
 

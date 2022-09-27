@@ -1,7 +1,7 @@
 package com.zrkizzy.blog.service.impl;
 
 import com.zrkizzy.blog.annotation.LogAnnotation;
-import com.zrkizzy.blog.dto.RoleDto;
+import com.zrkizzy.blog.dto.RoleDTO;
 import com.zrkizzy.blog.entity.Role;
 import com.zrkizzy.blog.entity.UserRole;
 import com.zrkizzy.blog.mapper.MenuMapper;
@@ -39,16 +39,16 @@ public class RoleServiceImpl implements RoleService {
      * @return 获取所有角色
      */
     @Override
-    public List<RoleDto> getAllRoles() {
+    public List<RoleDTO> getAllRoles() {
         List<Role> roles = roleMapper.selectList(null);
-        List<RoleDto> roleDtoList = new ArrayList<>();
+        List<RoleDTO> roleDTOList = new ArrayList<>();
         // 设置每一个角色对象
         for (Role role : roles) {
-            RoleDto roleDto = BeanCopyUtil.copy(role, RoleDto.class);
+            RoleDTO roleDto = BeanCopyUtil.copy(role, RoleDTO.class);
             roleDto.setPermission(UserUtil.getPermissionByString(role.getPermission()));
-            roleDtoList.add(roleDto);
+            roleDTOList.add(roleDto);
         }
-        return roleDtoList;
+        return roleDTOList;
     }
 
     /**

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zrkizzy.blog.annotation.LogAnnotation;
-import com.zrkizzy.blog.dto.ArticleDto;
+import com.zrkizzy.blog.dto.ArticleDTO;
 import com.zrkizzy.blog.entity.Article;
 import com.zrkizzy.blog.entity.Category;
 import com.zrkizzy.blog.entity.Tags;
@@ -125,10 +125,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         // 对要进行返回的数据进行处理
         List<Article> list = articlePage.getRecords();
         // 定义返回的集合
-        List<ArticleDto> result = new ArrayList<>();
+        List<ArticleDTO> result = new ArrayList<>();
         // 遍历查询到的集合对象
         for (Article article : list) {
-            ArticleDto articleDto = BeanCopyUtil.copy(article, ArticleDto.class);
+            ArticleDTO articleDto = BeanCopyUtil.copy(article, ArticleDTO.class);
             // 将字符串类型的标签ID转为整型集合
             List<Integer> ids = CollectionUtil.stringToIntegerList(article.getTags());
             // 设置文章标签名称

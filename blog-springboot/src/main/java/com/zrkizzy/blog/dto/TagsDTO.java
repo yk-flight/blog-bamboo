@@ -9,12 +9,11 @@ import lombok.Data;
  * @date 2022/9/20
  */
 @Data
-public class TagsDto {
+public class TagsDTO {
     /**
      * 主键
      */
     private Integer id;
-
     /**
      * 标签名称
      */

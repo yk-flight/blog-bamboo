@@ -1,8 +1,6 @@
 package com.zrkizzy.blog.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,7 +36,6 @@ public class Article implements Serializable {
     private Integer category;
 
     @ApiModelProperty(value = "发表时间")
-    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime publishTime;
 
     @ApiModelProperty(value = "标签")
@@ -75,7 +72,6 @@ public class Article implements Serializable {
     private Integer commentNum;
 
     @ApiModelProperty(value = "更新时间")
-    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
 }

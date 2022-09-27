@@ -2,7 +2,7 @@ package com.zrkizzy.blog.controller;
 
 
 import com.zrkizzy.blog.annotation.LogAnnotation;
-import com.zrkizzy.blog.dto.TagsDto;
+import com.zrkizzy.blog.dto.TagsDTO;
 import com.zrkizzy.blog.entity.Tags;
 import com.zrkizzy.blog.service.ITagsService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
@@ -102,9 +102,9 @@ public class TagsController {
 
     @ApiOperation("获取所有标签")
     @GetMapping("/getAllTags")
-    public List<TagsDto> getAllTags() {
+    public List<TagsDTO> getAllTags() {
         List<Tags> list = tagsService.list();
         // 复制集合对象并返回
-        return BeanCopyUtil.copyList(list, TagsDto.class);
+        return BeanCopyUtil.copyList(list, TagsDTO.class);
     }
 }

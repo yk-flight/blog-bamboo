@@ -1,6 +1,6 @@
 package com.zrkizzy.blog.service;
 
-import com.zrkizzy.blog.dto.CategoryDto;
+import com.zrkizzy.blog.dto.CategoryDTO;
 import com.zrkizzy.blog.entity.Category;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
@@ -54,7 +54,7 @@ public interface CategoryService {
      * @param categoryDto 文章分类参数对象
      * @return 前端返回对象
      */
-    Result updateCategory(CategoryDto categoryDto);
+    Result updateCategory(CategoryDTO categoryDto);
 
     /**
      * 获取所有文章分类

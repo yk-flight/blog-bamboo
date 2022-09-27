@@ -3,7 +3,7 @@ package com.zrkizzy.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.blog.annotation.LogAnnotation;
-import com.zrkizzy.blog.dto.FilesDto;
+import com.zrkizzy.blog.dto.FilesDTO;
 import com.zrkizzy.blog.entity.*;
 import com.zrkizzy.blog.enums.FilePathEnum;
 import com.zrkizzy.blog.mapper.*;
@@ -344,7 +344,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public Result uploadAvatar(MultipartFile file) throws IOException {
-        FilesDto filesDto = filesService.saveFile(file, FilePathEnum.AVATAR.getPath());
+        FilesDTO filesDto = filesService.saveFile(file, FilePathEnum.AVATAR.getPath());
         int count = filesMapper.insert(BeanCopyUtil.copy(filesDto, Files.class));
         if (count > 0) {
             return Result.success("头像上传成功", filesDto.getUrl());

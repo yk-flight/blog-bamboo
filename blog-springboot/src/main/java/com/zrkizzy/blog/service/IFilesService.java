@@ -1,7 +1,7 @@
 package com.zrkizzy.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zrkizzy.blog.dto.FilesDto;
+import com.zrkizzy.blog.dto.FilesDTO;
 import com.zrkizzy.blog.entity.Files;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
@@ -38,7 +38,7 @@ public interface IFilesService extends IService<Files> {
      * @return 文件上传数据对象
      * @exception IOException IO流异常
      */
-    FilesDto saveFile(MultipartFile file, String filePath) throws IOException;
+    FilesDTO saveFile(MultipartFile file, String filePath) throws IOException;
 
 
     /**
@@ -58,5 +58,5 @@ public interface IFilesService extends IService<Files> {
      * @return 文件上传数据对象
      * @exception IOException IO流异常
      */
-    FilesDto saveImage(MultipartFile file, String filePath, String user) throws IOException;
+    FilesDTO saveImage(MultipartFile file, String filePath, String user) throws IOException;
 }

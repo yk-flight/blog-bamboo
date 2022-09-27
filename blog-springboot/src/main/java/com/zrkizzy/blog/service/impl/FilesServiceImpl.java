@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zrkizzy.blog.annotation.LogAnnotation;
-import com.zrkizzy.blog.dto.FilesDto;
+import com.zrkizzy.blog.dto.FilesDTO;
 import com.zrkizzy.blog.entity.Files;
 import com.zrkizzy.blog.mapper.FilesMapper;
 import com.zrkizzy.blog.service.IFilesService;
@@ -114,7 +114,7 @@ public class FilesServiceImpl extends ServiceImpl<FilesMapper, Files> implements
      * @throws IOException IO流异常
      */
     @Override
-    public FilesDto saveImage(MultipartFile file, String filePath, String user) throws IOException {
+    public FilesDTO saveImage(MultipartFile file, String filePath, String user) throws IOException {
         // 获取文件类型
         int index = file.getOriginalFilename().lastIndexOf(".") + 1;
         String suffix = file.getOriginalFilename().substring(index);
@@ -136,7 +136,7 @@ public class FilesServiceImpl extends ServiceImpl<FilesMapper, Files> implements
         // 定义返回的路径
         String url = DOMAIN + filePath + fileName;
         // 将当前上传的图片保存在数据库中
-        FilesDto filesDto = new FilesDto();
+        FilesDTO filesDto = new FilesDTO();
         // 上传的用户
         filesDto.setUser(user);
         // 上传时间
@@ -159,7 +159,7 @@ public class FilesServiceImpl extends ServiceImpl<FilesMapper, Files> implements
      */
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public FilesDto saveFile(MultipartFile file, String filePath) throws IOException {
+    public FilesDTO saveFile(MultipartFile file, String filePath) throws IOException {
         // 获取文件类型
         int index = file.getOriginalFilename().lastIndexOf(".") + 1;
         String suffix = file.getOriginalFilename().substring(index);
@@ -181,7 +181,7 @@ public class FilesServiceImpl extends ServiceImpl<FilesMapper, Files> implements
         // 定义返回的路径
         String url = DOMAIN + filePath + fileName;
         // 将当前上传的图片保存在数据库中
-        FilesDto filesDto = new FilesDto();
+        FilesDTO filesDto = new FilesDTO();
         // 上传的用户
         filesDto.setUser(UserUtil.getCurrentUser().getNickName());
         // 上传时间

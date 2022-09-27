@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zrkizzy.blog.mapper.RoleMapper">
+    <!-- 角色对应资源查询列 -->
+    <resultMap id="ResourceRoles" type="com.zrkizzy.blog.dto.ResourceRoleDTO">
+        <id column="id" property="id"/>
+        <result column="url" property="url"/>
+        <result column="request_method" property="requestMethod"/>
+        <collection property="roleList" ofType="java.lang.String">
+            <constructor>
+                <arg column="role_name"/>
+            </constructor>
+        </collection>
+    </resultMap>
 
     <select id="getRoles" resultType="com.zrkizzy.blog.entity.Role">
         SELECT
@@ -15,7 +26,7 @@
     </select>
 
     <!-- 获取所有权限 -->
-    <select id="getAllPermission" resultType="com.zrkizzy.blog.dto.PermissionDto">
+    <select id="getAllPermission" resultType="com.zrkizzy.blog.dto.PermissionDTO">
         SELECT DISTINCT
         m.id,
         m.path,
@@ -36,5 +47,20 @@
         WHERE
             ur.user_id = #{userId}
           AND r.id = ur.role_id
+    </select>
+
+    <!-- 查询所有角色对应的资源权限 -->
+    <select id="selectResourceRoles" resultMap="ResourceRoles">
+        SELECT
+            res.id,
+            url,
+            request_method,
+            role_name
+        FROM
+            resource res
+                LEFT JOIN resource_role r ON res.id = r.resource_id
+                LEFT JOIN role ON r.role_id = role.id
+        WHERE
+            parent_id != 0
     </select>
 </mapper>

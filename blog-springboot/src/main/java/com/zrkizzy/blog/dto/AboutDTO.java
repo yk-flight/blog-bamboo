@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @date 2022/9/26
  */
 @Data
-public class AboutDto {
+public class AboutDTO {
     /**
      * 主键
      */

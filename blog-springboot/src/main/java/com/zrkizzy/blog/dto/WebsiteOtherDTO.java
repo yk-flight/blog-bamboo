@@ -9,7 +9,7 @@ import lombok.Data;
  * @date 2022/9/26
  */
 @Data
-public class WebsiteOtherDto {
+public class WebsiteOtherDTO {
     /**
      * 主键
      */
