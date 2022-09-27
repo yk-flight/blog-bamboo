@@ -1,15 +1,16 @@
 package com.zrkizzy.blog.handler;
 
-import com.zrkizzy.blog.entity.Menu;
-import com.zrkizzy.blog.entity.Role;
-import com.zrkizzy.blog.service.MenuService;
+import com.zrkizzy.blog.dto.ResourceRoleDTO;
+import com.zrkizzy.blog.mapper.RoleMapper;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.util.CollectionUtils;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
@@ -22,22 +23,39 @@ import java.util.List;
  */
 @Component
 public class FilterInvocationSecurityMetadataSourceImpl implements FilterInvocationSecurityMetadataSource {
+    /**
+     * 角色资源列表
+     */
+    private static List<ResourceRoleDTO> resourceRoleList;
     @Resource
-    private MenuService menuService;
+    private RoleMapper roleMapper;
 
-    private AntPathMatcher antPathMatcher = new AntPathMatcher();
+    /**
+     * 加载角色资源信息（在项目启动时执行该方法）
+     */
+    @PostConstruct
+    private void loadResourceData() {
+        resourceRoleList = roleMapper.selectResourceRoles();
+    }
+
+    private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
-        // 获取请求的url
-        String requestUrl = ((FilterInvocation) object).getRequestUrl();
-        // 获取到所有的菜单
-        List<Menu> menus = menuService.getMenuWithRole();
-        // 匹配请求的url与菜单角色中的url是否匹配
-        for (Menu menu : menus) {
-            if (antPathMatcher.match(menu.getUrl(), requestUrl)) {
-                String[] str = menu.getRoles().stream().map(Role::getRoleName).toArray(String[]::new);
-                return SecurityConfig.createList(str);
+        // 如果有修改用户资源权限操作后需要重新进行查询
+        if (CollectionUtils.isEmpty(resourceRoleList)) {
+            this.loadResourceData();
+        }
+        FilterInvocation filter = (FilterInvocation) object;
+        // 获取请求的方法
+        String method = filter.getRequest().getMethod();
+        // 获取请求的URL
+        String requestUrl = filter.getRequestUrl();
+        // 匹配权限的URL
+        for (ResourceRoleDTO resourceRoleDTO : resourceRoleList) {
+            // 如果请求路径与请求方法一致则进行权限添加操作
+            if (antPathMatcher.match(resourceRoleDTO.getUrl(), requestUrl) && resourceRoleDTO.getRequestMethod().equals(method)) {
+                return SecurityConfig.createList(resourceRoleDTO.getRoleList().toArray(new String[0]));
             }
         }
         // 没有匹配到的url默认登录即可访问
