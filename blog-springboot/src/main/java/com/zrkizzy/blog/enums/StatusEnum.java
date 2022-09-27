@@ -18,6 +18,10 @@ public enum StatusEnum {
      */
     SUCCESS(200, true, "响应成功"),
     /**
+     * 操作失败
+     */
+    FAIL(500, false, "操作失败"),
+    /**
      * 未找到路径
      */
     PATH_ERROR(404, false, "未找到路径"),
@@ -32,7 +36,11 @@ public enum StatusEnum {
     /**
      * 用户未登录
      */
-    LOGIN_ERROR(401, false, "用户未登录");
+    LOGIN_ERROR(401, false, "用户未登录"),
+    /**
+     * 参数格式错误
+     */
+    VALID_ERROR(400, false, "参数格式错误");
 
     /**
      * 状态码

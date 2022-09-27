@@ -68,4 +68,15 @@ public class Result {
     public static Result error(String message, Object data) {
         return new Result(500, message, data);
     }
+
+    /**
+     * 失败返回结果
+     *
+     * @param code 状态码
+     * @param message 提示信息
+     * @return 返回失败
+     */
+    public static Result error(Integer code, String message) {
+        return new Result(code, message, null);
+    }
 }

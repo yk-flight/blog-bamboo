@@ -43,7 +43,7 @@ public class LogAspect {
     private void pointCut() {}
 
     /**
-     * 环绕通知
+     * 环绕通知，当前方法中记录的都是请求成功的情况
      */
     @Around("pointCut()")
     public Object recordLog(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -102,15 +102,9 @@ public class LogAspect {
         operateLog.setReturnParam(JSON.toJSONString(result));
         // 操作状态
         StatusEnum statusEnum = StatusEnum.getStatusEnum(response.getStatus());
-        if (statusEnum == null) {
-            operateLog.setStatus(false);
-            // 操作描述
-            operateLog.setStatusDescription("未知错误");
-        } else {
-            operateLog.setStatus(statusEnum.getResult());
-            // 操作描述
-            operateLog.setStatusDescription(statusEnum.getDescription());
-        }
+        operateLog.setStatus(statusEnum.getResult());
+        // 操作描述
+        operateLog.setStatusDescription(statusEnum.getDescription());
         // 设置当前操作的用户
         operateLog.setUser(UserUtil.getCurrentUser().getNickName());
 
