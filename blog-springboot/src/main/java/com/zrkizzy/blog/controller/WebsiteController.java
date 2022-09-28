@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
+import static com.zrkizzy.blog.constant.CommonConst.WEBSITE_INFO;
+
 /**
  * <p>
  *  前端控制器
@@ -67,7 +69,7 @@ public class WebsiteController {
         // 开启Redis
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
         // 从Redis中获取对应的数据
-        WebsiteOtherDTO websiteInfo = BeanCopyUtil.copy(valueOperations.get("website_info"), WebsiteOtherDTO.class);
+        WebsiteOtherDTO websiteInfo = BeanCopyUtil.copy(valueOperations.get(WEBSITE_INFO), WebsiteOtherDTO.class);
         if (websiteInfo == null) {
             // 如果不存在则到数据库中获取
             WebsiteOther websiteOther = websiteOtherService.getById(1);

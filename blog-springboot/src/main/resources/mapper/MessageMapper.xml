@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zrkizzy.blog.mapper.MessageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zrkizzy.blog.entity.Message">
+        <id column="id" property="id" />
+        <result column="nick_name" property="nickName" />
+        <result column="content" property="content" />
+        <result column="message_time" property="messageTime" />
+        <result column="ip_source" property="ipSource" />
+        <result column="ip_address" property="ipAddress" />
+        <result column="allow" property="allow" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, nick_name, content, message_time, ip_source, ip_address, allow
+    </sql>
+
+</mapper>
