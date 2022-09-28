@@ -71,3 +71,42 @@ export const updateUserRole = (params) => {
     params: params,
   });
 };
+
+/**
+ * 获取所有资源权限
+ *
+ * @returns
+ */
+export const getResourceList = () => {
+  return request({
+    url: "/resource/getResourceList",
+    method: "GET",
+  });
+};
+
+/**
+ * 根据角色ID获取对应的资源权限
+ *
+ * @param {*} id
+ * @returns
+ */
+export const getResourceById = (id) => {
+  return request({
+    url: `/resource/getResourceById/${id}`,
+    method: "GET",
+  });
+};
+
+/**
+ * 更新用户的资源权限
+ *
+ * @param {*} data
+ * @returns
+ */
+export const updateResourceRole = (data) => {
+  return request({
+    url: "/resource-role/updateResourceRole",
+    method: "POST",
+    data: data,
+  });
+};

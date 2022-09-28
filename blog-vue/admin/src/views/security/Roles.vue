@@ -22,7 +22,6 @@
           ref="table"
           row-key="id"
           style="width: 100%"
-          size="medium"
         >
           <el-table-column label="序号" width="60" align="center">
             <template slot-scope="scope">
@@ -38,17 +37,13 @@
               <span>{{ scope.row.createTime | dateFilter }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="上一次更新时间" align="center">
-            <template slot-scope="scope">
-              <span>{{ scope.row.updateTime | dateFilter }}</span>
-            </template>
-          </el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <el-button
                 @click="handleUpdate(scope.row)"
                 type="text"
                 size="small"
+                icon="el-icon-edit"
                 >编辑角色
               </el-button>
               <el-button
@@ -56,11 +51,21 @@
                 @click="handlePermission(scope.row)"
                 type="text"
                 size="small"
-                >分配权限
+                icon="el-icon-document"
+                >页面权限
+              </el-button>
+              <el-button
+                v-if="scope.row.roleName != 'ROLE_admin'"
+                @click="handleResource(scope.row.id)"
+                type="text"
+                size="small"
+                icon="el-icon-folder-checked"
+                >资源权限
               </el-button>
               <el-button
                 type="text"
                 size="small"
+                icon="el-icon-delete"
                 v-if="scope.row.roleName != 'ROLE_admin'"
                 @click="handleDelete(scope.row)"
                 >删除角色
@@ -86,7 +91,6 @@
         </el-form-item>
         <el-form-item label="权限字符" label-width="80px">
           <el-input v-model="role.roleName" placeholder="请输入权限字符">
-            <!-- <template slot="prepend">ROLE_</template> -->
           </el-input>
         </el-form-item>
         <el-form-item label="创建时间" label-width="80px">
@@ -111,9 +115,9 @@
       </span>
     </el-dialog>
 
-    <!--  分配权限对话框  -->
+    <!--  页面权限对话框  -->
     <el-dialog
-      title="分配权限"
+      title="页面权限"
       width="500px"
       :visible="permissoionDialog"
       :before-close="handleClosePermission"
@@ -140,6 +144,33 @@
         <el-button @click="handleClosePermission">取消</el-button>
       </span>
     </el-dialog>
+
+    <!-- 资源权限对话框 -->
+    <el-dialog
+      title="资源权限"
+      width="500px"
+      :visible="resourceDialog"
+      :before-close="handleCloseResource"
+    >
+      <el-tree
+        ref="resource"
+        :data="resourceData"
+        show-checkbox
+        node-key="id"
+        style="margin-bottom: 20px"
+      >
+        <span class="custom-tree-node" slot-scope="{ data }">
+          <span style="margin-left: 5px; margin-right: 50px">
+            {{ data.resourceName }}
+          </span>
+        </span>
+      </el-tree>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="saveResource">确定</el-button>
+        <el-button @click="handleCloseResource">取消</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -151,6 +182,9 @@ import {
   updateRole,
   deleteRole,
   getAllPermission,
+  getResourceList,
+  getResourceById,
+  updateResourceRole,
 } from "@/api/security";
 
 export default {
@@ -175,10 +209,23 @@ export default {
         createTime: "",
         updateTime: "",
       },
-      // 分配权限对话框
+      // 页面权限对话框
       permissoionDialog: false,
-      // 权限数据
+      // 页面权限数据
       permissionData: [],
+      // 资源权限对话框
+      resourceDialog: false,
+      // 资源权限数据
+      resourceData: [],
+      // 角色资源权限
+      resoueceRole: [],
+      // 角色资源对象
+      resourceRoleVO: {
+        roleId: undefined,
+        ids: [],
+      },
+      // 角色ID
+      roleId: undefined,
     };
   },
 
@@ -198,6 +245,7 @@ export default {
 
     // 获取所有权限数据
     getPermission() {
+      // 获取页面权限数据
       getAllPermission().then((result) => {
         // 先将权限数据清空
         this.permissionData = [];
@@ -205,7 +253,15 @@ export default {
         result.forEach((element) => {
           this.permissionData.push(element);
         });
-        // this.permissionData = result;
+      });
+      // 获取资源权限数据
+      getResourceList().then((result) => {
+        // 将资源权限数据清空
+        this.resourceData = [];
+        // 将获取到的权限数据赋值到权限数据集合中
+        result.forEach((element) => {
+          this.resourceData.push(element);
+        });
       });
     },
 
@@ -264,17 +320,35 @@ export default {
       // 修改表单标题
       this.dialogTitle = "";
       // 重置表单对象
-      this.role = {};
+      this.role = {
+        id: undefined,
+        roleName: "",
+        roleNameZh: "",
+        permission: [],
+        createTime: "",
+        updateTime: "",
+      };
     },
-    // 点击分配权限对话框
+    // 点击页面权限对话框
     handlePermission(row) {
       this.role = row;
       this.permissoionDialog = true;
-      // this.permissionList = this.getUserPermission(row.permission);
       this.$nextTick(() => {
         // 设置选中的节点
-        // this.$refs.tree.setCheckedKeys(row.permission);
         this.$refs.tree.setCheckedKeys(this.role.permission);
+      });
+    },
+    // 资源权限对话框
+    handleResource(id) {
+      this.resourceDialog = true;
+      this.resourceRoleVO.roleId = id;
+      // 获取角色对应的资源权限
+      getResourceById(id).then((result) => {
+        this.resoueceRole = result;
+        this.$nextTick(() => {
+          // 设置选中的节点
+          this.$refs.resource.setCheckedKeys(this.resoueceRole);
+        });
       });
     },
     // 点击确定分配权限
@@ -284,10 +358,31 @@ export default {
       // 关闭对话框
       this.handleClosePermission();
     },
+    // 点击确定分配资源权限
+    saveResource() {
+      // 将权限进行赋值
+      this.resourceRoleVO.ids = this.$refs.resource
+        .getCheckedNodes()
+        .map((v) => v.id);
+      // 更新资源权限
+      updateResourceRole(this.resourceRoleVO).then(() => {
+        // 关闭对话框
+        this.handleCloseResource();
+      });
+    },
 
-    // 关闭分配权限对话框
+    // 关闭页面权限对话框
     handleClosePermission() {
       this.permissoionDialog = false;
+      // 重新获取权限数据
+      this.getPermission();
+    },
+    // 关闭资源权限对话框
+    handleCloseResource() {
+      this.resourceDialog = false;
+      this.roleId = undefined;
+      // 清空资源权限
+      this.resoueceRole = [];
       // 重新获取权限数据
       this.getPermission();
     },
