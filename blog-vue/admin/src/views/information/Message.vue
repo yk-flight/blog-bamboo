@@ -29,7 +29,9 @@
 
         <div class="button-container">
           <div class="left">
-            <span class="span-label" style="margin-right: 20px">状态</span>
+            <span class="span-label-title" style="margin-right: 20px">
+              状态
+            </span>
             <span
               @click="changeActive(-1)"
               :class="isAllow == -1 ? 'span-label-active' : 'span-label'"
@@ -337,6 +339,12 @@ export default {
     }
     .span-label {
       cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: #909399;
+      margin-right: 20px;
+    }
+    .span-label-title {
       font-size: 14px;
       font-weight: 600;
       color: #909399;

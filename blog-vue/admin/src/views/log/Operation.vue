@@ -62,12 +62,7 @@
           style="width: 100%"
           size="medium"
         >
-          <el-table-column
-            type="selection"
-            width="40"
-            :reserve-selection="true"
-          >
-          </el-table-column>
+          <el-table-column type="selection" width="40"> </el-table-column>
           <el-table-column label="序号" width="50" align="center">
             <template slot-scope="scope">
               {{ scope.$index + 1 }}

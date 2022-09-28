@@ -95,12 +95,7 @@
         style="width: 100%"
         size="medium"
       >
-        <el-table-column
-          type="selection"
-          width="50"
-          align="center"
-          :reserve-selection="true"
-        >
+        <el-table-column type="selection" width="50" align="center">
         </el-table-column>
         <el-table-column prop="title" label="文章名称" align="center">
         </el-table-column>
