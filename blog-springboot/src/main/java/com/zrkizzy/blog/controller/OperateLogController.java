@@ -1,7 +1,7 @@
 package com.zrkizzy.blog.controller;
 
 
-import com.zrkizzy.blog.service.IOperateLogService;
+import com.zrkizzy.blog.service.OperateLogService;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
 import io.swagger.annotations.Api;
@@ -25,7 +25,7 @@ import java.util.Arrays;
 public class OperateLogController {
 
     @Resource
-    private IOperateLogService operateLogService;
+    private OperateLogService operateLogService;
 
     @ApiOperation("获取日志记录")
     @GetMapping("/list")

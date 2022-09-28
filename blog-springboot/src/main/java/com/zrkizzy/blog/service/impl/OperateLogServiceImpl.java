@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zrkizzy.blog.entity.OperateLog;
 import com.zrkizzy.blog.mapper.OperateLogMapper;
-import com.zrkizzy.blog.service.IOperateLogService;
+import com.zrkizzy.blog.service.OperateLogService;
 import com.zrkizzy.blog.vo.PageVO;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * @since 2022-09-03
  */
 @Service
-public class OperateLogServiceImpl extends ServiceImpl<OperateLogMapper, OperateLog> implements IOperateLogService {
+public class OperateLogServiceImpl extends ServiceImpl<OperateLogMapper, OperateLog> implements OperateLogService {
     @Resource
     private OperateLogMapper operateLogMapper;
 

@@ -2,7 +2,7 @@ package com.zrkizzy.blog.controller;
 
 
 import com.zrkizzy.blog.dto.ResourceDTO;
-import com.zrkizzy.blog.service.IResourceService;
+import com.zrkizzy.blog.service.ResourceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +27,7 @@ import java.util.List;
 @RequestMapping("/resource")
 public class ResourceController {
     @Resource
-    private IResourceService resourceService;
+    private ResourceService resourceService;
 
     @ApiOperation("获取所有资源权限")
     @GetMapping("/getResourceList")

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.blog.entity.Links;
 import com.zrkizzy.blog.mapper.LinksMapper;
-import com.zrkizzy.blog.service.ILinksService;
+import com.zrkizzy.blog.service.LinksService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zrkizzy.blog.vo.PageVO;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * @since 2022-09-24
  */
 @Service
-public class LinksServiceImpl extends ServiceImpl<LinksMapper, Links> implements ILinksService {
+public class LinksServiceImpl extends ServiceImpl<LinksMapper, Links> implements LinksService {
     @Resource
     private LinksMapper linksMapper;
 

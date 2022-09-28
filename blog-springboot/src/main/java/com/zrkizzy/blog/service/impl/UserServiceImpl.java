@@ -7,7 +7,7 @@ import com.zrkizzy.blog.dto.FilesDTO;
 import com.zrkizzy.blog.entity.*;
 import com.zrkizzy.blog.enums.FilePathEnum;
 import com.zrkizzy.blog.mapper.*;
-import com.zrkizzy.blog.service.IFilesService;
+import com.zrkizzy.blog.service.FilesService;
 import com.zrkizzy.blog.service.UserService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.utils.IpUtil;
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserDetailsService userDetailsService;
     @Resource
-    private IFilesService filesService;
+    private FilesService filesService;
     @Resource
     private PasswordEncoder passwordEncoder;
     @Resource

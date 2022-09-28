@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zrkizzy.blog.entity.ResourceRole;
 import com.zrkizzy.blog.mapper.ResourceRoleMapper;
-import com.zrkizzy.blog.service.IResourceRoleService;
+import com.zrkizzy.blog.service.ResourceRoleService;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.handler.FilterInvocationSecurityMetadataSourceImpl;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2022-09-27
  */
 @Service
-public class ResourceRoleServiceImpl extends ServiceImpl<ResourceRoleMapper, ResourceRole> implements IResourceRoleService {
+public class ResourceRoleServiceImpl extends ServiceImpl<ResourceRoleMapper, ResourceRole> implements ResourceRoleService {
     @Resource
     private ResourceRoleMapper resourceRoleMapper;
     @Resource

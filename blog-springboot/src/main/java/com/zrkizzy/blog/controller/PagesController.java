@@ -3,7 +3,7 @@ package com.zrkizzy.blog.controller;
 
 import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.entity.Pages;
-import com.zrkizzy.blog.service.IPagesService;
+import com.zrkizzy.blog.service.PagesService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.PagesVO;
@@ -27,7 +27,7 @@ import java.util.List;
 @RequestMapping("/pages")
 public class PagesController {
     @Resource
-    private IPagesService pagesService;
+    private PagesService pagesService;
 
     @ApiOperation("获取所有页面")
     @GetMapping("/getPagesList")

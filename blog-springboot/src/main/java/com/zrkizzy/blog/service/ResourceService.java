@@ -14,7 +14,7 @@ import java.util.List;
  * @author zhangrongkang
  * @since 2022-09-27
  */
-public interface IResourceService extends IService<Resource> {
+public interface ResourceService extends IService<Resource> {
 
     /**
      * 获取所有封装好的资源权限

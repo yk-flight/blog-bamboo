@@ -17,7 +17,7 @@ import java.io.IOException;
  * @author zhangrongkang
  * @since 2022-09-05
  */
-public interface IFilesService extends IService<Files> {
+public interface FilesService extends IService<Files> {
     /**
      * 获取上传的图片列表
      *

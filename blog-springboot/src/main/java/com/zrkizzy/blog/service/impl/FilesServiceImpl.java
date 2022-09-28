@@ -7,7 +7,7 @@ import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.dto.FilesDTO;
 import com.zrkizzy.blog.entity.Files;
 import com.zrkizzy.blog.mapper.FilesMapper;
-import com.zrkizzy.blog.service.IFilesService;
+import com.zrkizzy.blog.service.FilesService;
 import com.zrkizzy.blog.utils.TimeUtil;
 import com.zrkizzy.blog.utils.UserUtil;
 import com.zrkizzy.blog.utils.UuidUtil;
@@ -38,7 +38,7 @@ import static com.zrkizzy.blog.constant.CommonConst.DOMAIN;
  * @since 2022-09-05
  */
 @Service
-public class FilesServiceImpl extends ServiceImpl<FilesMapper, Files> implements IFilesService {
+public class FilesServiceImpl extends ServiceImpl<FilesMapper, Files> implements FilesService {
     @Resource
     private FilesMapper filesMapper;
 

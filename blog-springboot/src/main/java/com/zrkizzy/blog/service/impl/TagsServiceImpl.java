@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zrkizzy.blog.entity.Tags;
 import com.zrkizzy.blog.mapper.TagsMapper;
-import com.zrkizzy.blog.service.ITagsService;
+import com.zrkizzy.blog.service.TagsService;
 import com.zrkizzy.blog.utils.CollectionUtil;
 import com.zrkizzy.blog.vo.PageVO;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2022-09-14
  */
 @Service
-public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements ITagsService {
+public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements TagsService {
     @Resource
     private TagsMapper tagsMapper;
 

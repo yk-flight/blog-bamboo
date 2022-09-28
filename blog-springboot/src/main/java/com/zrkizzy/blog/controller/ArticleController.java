@@ -3,8 +3,8 @@ package com.zrkizzy.blog.controller;
 
 import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.entity.Article;
-import com.zrkizzy.blog.service.IArticleService;
-import com.zrkizzy.blog.service.ITagsService;
+import com.zrkizzy.blog.service.ArticleService;
+import com.zrkizzy.blog.service.TagsService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.utils.TimeUtil;
 import com.zrkizzy.blog.vo.PageVO;
@@ -30,9 +30,9 @@ import java.util.Arrays;
 @RequestMapping("/article")
 public class ArticleController {
     @Resource
-    private IArticleService articleService;
+    private ArticleService articleService;
     @Resource
-    private ITagsService tagsService;
+    private TagsService tagsService;
 
     @ApiOperation("保存文章")
     @PostMapping("/save")

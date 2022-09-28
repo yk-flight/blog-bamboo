@@ -3,7 +3,7 @@ package com.zrkizzy.blog.controller;
 
 import com.zrkizzy.blog.dto.AboutDTO;
 import com.zrkizzy.blog.entity.About;
-import com.zrkizzy.blog.service.IAboutService;
+import com.zrkizzy.blog.service.AboutService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.AboutVO;
@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 @RequestMapping("/about")
 public class AboutController {
     @Resource
-    private IAboutService aboutService;
+    private AboutService aboutService;
 
     @ApiOperation("获取关于我的信息")
     @GetMapping("/getAboutInfo")

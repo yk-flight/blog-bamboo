@@ -16,7 +16,7 @@ import java.util.List;
  * @author zhangrongkang
  * @since 2022-09-14
  */
-public interface IArticleService extends IService<Article> {
+public interface ArticleService extends IService<Article> {
 
     /**
      * 用户进行发布文章/保存草稿业务逻辑

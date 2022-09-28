@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author zhangrongkang
  * @since 2022-09-13
  */
-public interface ISocialService extends IService<Social> {
+public interface SocialService extends IService<Social> {
 
 }

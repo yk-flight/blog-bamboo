@@ -5,7 +5,7 @@ import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.dto.FilesDTO;
 import com.zrkizzy.blog.entity.Files;
 import com.zrkizzy.blog.mapper.FilesMapper;
-import com.zrkizzy.blog.service.IFilesService;
+import com.zrkizzy.blog.service.FilesService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.vo.Result;
 import io.swagger.annotations.Api;
@@ -31,7 +31,7 @@ import static com.zrkizzy.blog.constant.CommonConst.DOMAIN;
 @RequestMapping("/upload")
 public class UploadController {
     @Resource
-    private IFilesService filesService;
+    private FilesService filesService;
     @Resource
     private FilesMapper filesMapper;
 

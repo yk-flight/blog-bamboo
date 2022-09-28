@@ -12,7 +12,7 @@ import com.zrkizzy.blog.vo.PageVO;
  * @author zhangrongkang
  * @since 2022-09-24
  */
-public interface ILinksService extends IService<Links> {
+public interface LinksService extends IService<Links> {
 
     /**
      * 获取友链列表(分页)

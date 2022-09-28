@@ -2,7 +2,7 @@ package com.zrkizzy.blog.service.impl;
 
 import com.zrkizzy.blog.entity.Social;
 import com.zrkizzy.blog.mapper.SocialMapper;
-import com.zrkizzy.blog.service.ISocialService;
+import com.zrkizzy.blog.service.SocialService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2022-09-13
  */
 @Service
-public class SocialServiceImpl extends ServiceImpl<SocialMapper, Social> implements ISocialService {
+public class SocialServiceImpl extends ServiceImpl<SocialMapper, Social> implements SocialService {
 
 }

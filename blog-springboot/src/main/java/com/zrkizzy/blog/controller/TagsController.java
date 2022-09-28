@@ -4,7 +4,7 @@ package com.zrkizzy.blog.controller;
 import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.dto.TagsDTO;
 import com.zrkizzy.blog.entity.Tags;
-import com.zrkizzy.blog.service.ITagsService;
+import com.zrkizzy.blog.service.TagsService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
@@ -31,7 +31,7 @@ import java.util.List;
 @RequestMapping("/tags")
 public class TagsController {
     @Resource
-    private ITagsService tagsService;
+    private TagsService tagsService;
 
     @ApiOperation("获取所有标签(分页)")
     @GetMapping("/getTagsList")

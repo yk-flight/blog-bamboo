@@ -2,7 +2,7 @@ package com.zrkizzy.blog.controller;
 
 
 import com.zrkizzy.blog.entity.Social;
-import com.zrkizzy.blog.service.ISocialService;
+import com.zrkizzy.blog.service.SocialService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.SocialVO;
@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RequestMapping("/social")
 public class SocialController {
     @Resource
-    private ISocialService socialService;
+    private SocialService socialService;
 
     @ApiOperation("获取所有社交信息是否启用")
     @GetMapping("/getSocialInfo")

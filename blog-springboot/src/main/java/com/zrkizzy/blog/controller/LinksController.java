@@ -3,7 +3,7 @@ package com.zrkizzy.blog.controller;
 
 import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.entity.Links;
-import com.zrkizzy.blog.service.ILinksService;
+import com.zrkizzy.blog.service.LinksService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
@@ -27,7 +27,7 @@ import javax.annotation.Resource;
 @RequestMapping("/links")
 public class LinksController {
     @Resource
-    private ILinksService linksService;
+    private LinksService linksService;
 
     @ApiOperation("获取友链列表(分页)")
     @GetMapping("/getLinksList")

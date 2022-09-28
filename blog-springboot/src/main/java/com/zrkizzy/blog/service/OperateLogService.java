@@ -12,7 +12,7 @@ import com.zrkizzy.blog.vo.PageVO;
  * @author zhangrongkang
  * @since 2022-09-03
  */
-public interface IOperateLogService extends IService<OperateLog> {
+public interface OperateLogService extends IService<OperateLog> {
 
     /**
      * 获取操作日志列表

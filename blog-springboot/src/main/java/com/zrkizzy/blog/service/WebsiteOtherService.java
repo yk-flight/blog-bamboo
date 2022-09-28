@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author zhangrongkang
  * @since 2022-09-26
  */
-public interface IWebsiteOtherService extends IService<WebsiteOther> {
+public interface WebsiteOtherService extends IService<WebsiteOther> {
 
 }

@@ -2,7 +2,7 @@ package com.zrkizzy.blog.service.impl;
 
 import com.zrkizzy.blog.entity.Website;
 import com.zrkizzy.blog.mapper.WebsiteMapper;
-import com.zrkizzy.blog.service.IWebsiteService;
+import com.zrkizzy.blog.service.WebsiteService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2022-09-11
  */
 @Service
-public class WebsiteServiceImpl extends ServiceImpl<WebsiteMapper, Website> implements IWebsiteService {
+public class WebsiteServiceImpl extends ServiceImpl<WebsiteMapper, Website> implements WebsiteService {
 
 }

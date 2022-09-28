@@ -3,7 +3,7 @@ package com.zrkizzy.blog.controller;
 import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.entity.Files;
 import com.zrkizzy.blog.enums.FilePathEnum;
-import com.zrkizzy.blog.service.IFilesService;
+import com.zrkizzy.blog.service.FilesService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
@@ -30,7 +30,7 @@ import java.util.List;
 @RequestMapping("/files")
 public class FilesController {
     @Resource
-    private IFilesService filesService;
+    private FilesService filesService;
 
     @ApiOperation("获取所有文件")
     @GetMapping("/getFilesList")

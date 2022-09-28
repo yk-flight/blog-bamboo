@@ -11,8 +11,8 @@ import com.zrkizzy.blog.entity.Tags;
 import com.zrkizzy.blog.mapper.ArticleMapper;
 import com.zrkizzy.blog.mapper.CategoryMapper;
 import com.zrkizzy.blog.mapper.TagsMapper;
-import com.zrkizzy.blog.service.IArticleService;
-import com.zrkizzy.blog.service.ITagsService;
+import com.zrkizzy.blog.service.ArticleService;
+import com.zrkizzy.blog.service.TagsService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.utils.CollectionUtil;
 import com.zrkizzy.blog.utils.TimeUtil;
@@ -36,7 +36,7 @@ import java.util.List;
  * @since 2022-09-14
  */
 @Service
-public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements IArticleService {
+public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
     @Resource
     private ArticleMapper articleMapper;
     @Resource
@@ -45,7 +45,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private TagsMapper tagsMapper;
 
     @Resource
-    private ITagsService tagsService;
+    private TagsService tagsService;
 
     /**
      * 用户进行发布文章/保存草稿业务逻辑

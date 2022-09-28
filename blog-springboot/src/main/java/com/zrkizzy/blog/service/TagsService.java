@@ -12,7 +12,7 @@ import com.zrkizzy.blog.vo.PageVO;
  * @author zhangrongkang
  * @since 2022-09-14
  */
-public interface ITagsService extends IService<Tags> {
+public interface TagsService extends IService<Tags> {
 
     /**
      * 获取标签列表

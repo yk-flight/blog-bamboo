@@ -5,8 +5,8 @@ import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.dto.WebsiteOtherDTO;
 import com.zrkizzy.blog.entity.Website;
 import com.zrkizzy.blog.entity.WebsiteOther;
-import com.zrkizzy.blog.service.IWebsiteOtherService;
-import com.zrkizzy.blog.service.IWebsiteService;
+import com.zrkizzy.blog.service.WebsiteOtherService;
+import com.zrkizzy.blog.service.WebsiteService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.utils.TimeUtil;
 import com.zrkizzy.blog.vo.Result;
@@ -33,9 +33,9 @@ import javax.annotation.Resource;
 @RequestMapping("/website")
 public class WebsiteController {
     @Resource
-    private IWebsiteService websiteService;
+    private WebsiteService websiteService;
     @Resource
-    private IWebsiteOtherService websiteOtherService;
+    private WebsiteOtherService websiteOtherService;
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;

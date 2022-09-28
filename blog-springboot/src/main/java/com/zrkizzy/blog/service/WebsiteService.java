@@ -1,7 +1,7 @@
 package com.zrkizzy.blog.service;
 
+import com.zrkizzy.blog.entity.Website;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zrkizzy.blog.entity.Pages;
 
 /**
  * <p>
@@ -9,8 +9,8 @@ import com.zrkizzy.blog.entity.Pages;
  * </p>
  *
  * @author zhangrongkang
- * @since 2022-09-24
+ * @since 2022-09-11
  */
-public interface IPagesService extends IService<Pages> {
+public interface WebsiteService extends IService<Website> {
 
 }

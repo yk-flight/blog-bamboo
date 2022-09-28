@@ -2,7 +2,7 @@ package com.zrkizzy.blog.controller;
 
 
 import com.zrkizzy.blog.annotation.LogAnnotation;
-import com.zrkizzy.blog.service.IResourceRoleService;
+import com.zrkizzy.blog.service.ResourceRoleService;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.ResourceRoleVO;
 import io.swagger.annotations.ApiOperation;
@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @RequestMapping("/resource-role")
 public class ResourceRoleController {
     @Resource
-    private IResourceRoleService resourceRoleService;
+    private ResourceRoleService resourceRoleService;
 
     @ApiOperation("更新角色资源权限")
     @LogAnnotation(module = "角色管理模块", description = "更新角色的资源权限")

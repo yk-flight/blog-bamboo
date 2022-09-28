@@ -14,7 +14,7 @@ import java.util.List;
  * @author zhangrongkang
  * @since 2022-09-27
  */
-public interface IResourceRoleService extends IService<ResourceRole> {
+public interface ResourceRoleService extends IService<ResourceRole> {
 
     /**
      * 更新角色资源权限

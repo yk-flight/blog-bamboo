@@ -3,7 +3,7 @@ package com.zrkizzy.blog.service.impl;
 import com.zrkizzy.blog.dto.ResourceDTO;
 import com.zrkizzy.blog.entity.Resource;
 import com.zrkizzy.blog.mapper.ResourceMapper;
-import com.zrkizzy.blog.service.IResourceService;
+import com.zrkizzy.blog.service.ResourceService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2022-09-27
  */
 @Service
-public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> implements IResourceService {
+public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> implements ResourceService {
     @Autowired
     private ResourceMapper resourceMapper;
 
