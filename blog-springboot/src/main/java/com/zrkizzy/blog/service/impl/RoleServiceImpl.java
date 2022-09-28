@@ -1,12 +1,12 @@
 package com.zrkizzy.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.dto.RoleDTO;
+import com.zrkizzy.blog.entity.ResourceRole;
 import com.zrkizzy.blog.entity.Role;
 import com.zrkizzy.blog.entity.UserRole;
-import com.zrkizzy.blog.mapper.MenuMapper;
-import com.zrkizzy.blog.mapper.RoleMapper;
-import com.zrkizzy.blog.mapper.UserRoleMapper;
+import com.zrkizzy.blog.mapper.*;
 import com.zrkizzy.blog.service.RoleService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.utils.UserUtil;
@@ -30,6 +30,8 @@ public class RoleServiceImpl implements RoleService {
     private RoleMapper roleMapper;
     @Resource
     private MenuMapper menuMapper;
+    @Resource
+    private ResourceRoleMapper resourceRoleMapper;
     @Resource
     private UserRoleMapper userRoleMapper;
 
@@ -86,6 +88,8 @@ public class RoleServiceImpl implements RoleService {
     @LogAnnotation(module = "角色模块", description = "删除角色")
     @Transactional(rollbackFor = RuntimeException.class)
     public Result deleteRoleById(Integer roleId) {
+        // 删除资源角色表对应的数据
+        resourceRoleMapper.delete(new QueryWrapper<ResourceRole>().eq("role_id", roleId));
         // 删除角色表中对应的数据
         int row = roleMapper.deleteById(roleId);
         if (row > 0) {

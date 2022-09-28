@@ -17,4 +17,10 @@
         id, resource_name, url, request_method, parent_id, create_time
     </sql>
 
+    <select id="getResourceById" resultType="java.lang.Integer">
+        SELECT resource_id
+        FROM resource_role
+        WHERE role_id=#{roleId}
+    </select>
+
 </mapper>

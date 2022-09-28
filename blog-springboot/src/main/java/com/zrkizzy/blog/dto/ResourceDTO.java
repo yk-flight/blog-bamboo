@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -26,21 +25,9 @@ public class ResourceDTO {
      */
     private String resourceName;
     /**
-     * 权限路径
-     */
-    private String url;
-    /**
-     * 请求方式
-     */
-    private String requestMethod;
-    /**
      * 父权限id
      */
     private Integer parentId;
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
     /**
      * 权限列表
      */

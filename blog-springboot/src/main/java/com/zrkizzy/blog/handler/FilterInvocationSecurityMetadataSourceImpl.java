@@ -37,6 +37,13 @@ public class FilterInvocationSecurityMetadataSourceImpl implements FilterInvocat
     private void loadResourceData() {
         resourceRoleList = roleMapper.selectResourceRoles();
     }
+    /**
+     * 清空当前角色信息权限
+     */
+    public void clearDataSource() {
+        resourceRoleList = null;
+    }
+
 
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 

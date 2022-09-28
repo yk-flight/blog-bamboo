@@ -1,7 +1,10 @@
 package com.zrkizzy.blog.config;
 
 import com.zrkizzy.blog.filters.JwtAuthenticationTokenFilter;
-import com.zrkizzy.blog.handler.*;
+import com.zrkizzy.blog.handler.AccessDecisionManagerImpl;
+import com.zrkizzy.blog.handler.AccessDeniedHandlerImpl;
+import com.zrkizzy.blog.handler.AuthenticationEntryPointImpl;
+import com.zrkizzy.blog.handler.FilterInvocationSecurityMetadataSourceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
