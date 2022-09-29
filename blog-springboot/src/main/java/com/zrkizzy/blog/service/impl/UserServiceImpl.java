@@ -20,6 +20,7 @@ import com.zrkizzy.blog.vo.param.PasswordVO;
 import com.zrkizzy.blog.vo.param.UserInfoVO;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.zrkizzy.blog.constant.CommonConst.LOCAL_HOST;
+import static com.zrkizzy.blog.constant.CommonConst.USER_INFO;
 
 /**
  * @author zhangrongkang
@@ -62,6 +64,8 @@ public class UserServiceImpl implements UserService {
     @Value("${jwt.tokenHead}")
     private String tokenHead;
 
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
     @Resource
     private UserDetailsService userDetailsService;
     @Resource
@@ -308,6 +312,8 @@ public class UserServiceImpl implements UserService {
         int deleteUserInfo = userInfoMapper.deleteById(userId);
         // 3. 删除user_role表中的数据
         int deleteUserRole = userRoleMapper.delete(new QueryWrapper<UserRole>().eq("user_id", userId));
+        // 4. 删除Redis中的数据
+        redisTemplate.delete(USER_INFO + userId);
         if (deleteUser > 0 && deleteUserInfo > 0 && deleteUserRole > 0) {
             return Result.success("删除成功");
         }

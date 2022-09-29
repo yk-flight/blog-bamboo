@@ -20,4 +20,8 @@ public class CommonConst {
      * Redis中存储网站其他信息键
      */
     public static final String WEBSITE_INFO = "website_info";
+    /**
+     * Redis中存储的用户信息前缀
+     */
+    public static final String USER_INFO = "userInfo_";
 }

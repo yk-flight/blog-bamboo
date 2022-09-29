@@ -19,6 +19,8 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.Date;
 
+import static com.zrkizzy.blog.constant.CommonConst.USER_INFO;
+
 /**
  * @author zhangrongkang
  * @date 2022/8/15
@@ -44,11 +46,11 @@ public class UserInfoServiceImpl implements UserInfoService {
         Integer userId = UserUtil.getCurrentUser().getId();
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
         // 从Redis中获取个人信息数据
-        UserInfo userInfo = (UserInfo) valueOperations.get("userInfo_" + userId);
+        UserInfo userInfo = (UserInfo) valueOperations.get(USER_INFO + userId);
         if (userInfo == null) {
             // 如果Redis中不存在个人信息数据则到数据库中查询，查询后存储到Redis中
             userInfo = userInfoMapper.selectById(userId);
-            valueOperations.set("userInfo_" + userId, userInfo);
+            valueOperations.set(USER_INFO + userId, userInfo);
         }
         return userInfo;
     }
@@ -88,7 +90,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         int count = userInfoMapper.updateById(userInfo);
         // 更新Redis中的用户信息对象
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
-        valueOperations.set("userInfo_" + userId, userInfo);
+        valueOperations.set(USER_INFO + userId, userInfo);
 
         if (count > 0) {
             return Result.success("信息更新成功");
@@ -106,11 +108,11 @@ public class UserInfoServiceImpl implements UserInfoService {
     public UserInfo getUserInfoById(Integer userId) {
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
         // 从Redis中获取个人信息数据
-        UserInfo userInfo = (UserInfo) valueOperations.get("userInfo_" + userId);
+        UserInfo userInfo = (UserInfo) valueOperations.get(USER_INFO + userId);
         if (userInfo == null) {
             // 如果Redis中不存在个人信息数据则到数据库中查询，查询后存储到Redis中
             userInfo = userInfoMapper.selectById(userId);
-            valueOperations.set("userInfo_" + userId, userInfo);
+            valueOperations.set(USER_INFO + userId, userInfo);
         }
         return userInfo;
     }
