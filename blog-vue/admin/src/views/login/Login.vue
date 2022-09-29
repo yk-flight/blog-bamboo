@@ -37,6 +37,7 @@
         type="primary"
         style="width: 100%; margin-bottom: 20px"
         @click="submitLogin"
+        :loading="loading"
         >登录
       </el-button>
     </el-form>
@@ -56,6 +57,9 @@ export default {
         password: "",
         code: "",
       },
+      // 登录按钮是否等待
+      loading: false,
+      // 用户登录表单校验规则
       loginRules: {
         username: [
           {
@@ -88,12 +92,19 @@ export default {
     // 表单提交事件
     submitLogin() {
       this.$refs.loginForm.validate((valid) => {
+        this.loading = true;
         if (valid) {
-          this.$store.dispatch("user/login", this.loginForm).then(() => {
-            // 跳转到后台首页
-            this.$router.push("/dashboard");
-          });
+          this.$store.dispatch("user/login", this.loginForm).then(
+            () => {
+              // 跳转到后台首页
+              this.$router.push("/dashboard");
+            },
+            (error) => {
+              this.loading = false;
+            }
+          );
         } else {
+          this.loading = false;
           this.$message.error("请输入所有内容");
           return false;
         }
