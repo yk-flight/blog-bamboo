@@ -4,7 +4,6 @@ package com.zrkizzy.blog.controller;
 import com.zrkizzy.blog.dto.WebsiteOtherDTO;
 import com.zrkizzy.blog.entity.Website;
 import com.zrkizzy.blog.entity.WebsiteOther;
-import com.zrkizzy.blog.service.MessageService;
 import com.zrkizzy.blog.service.WebsiteOtherService;
 import com.zrkizzy.blog.service.WebsiteService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
@@ -34,8 +33,6 @@ import static com.zrkizzy.blog.constant.CommonConst.WEBSITE_INFO;
 @Api(tags = "WebsiteController")
 @RequestMapping("/website")
 public class WebsiteController {
-    @Resource
-    private MessageService messageService;
     @Resource
     private WebsiteService websiteService;
     @Resource
@@ -75,7 +72,7 @@ public class WebsiteController {
             WebsiteOther websiteOther = websiteOtherService.getById(1);
             websiteInfo = BeanCopyUtil.copy(websiteOther, WebsiteOtherDTO.class);
             // 将从数据库中获取到的对象设置到Redis中
-            valueOperations.set("website_info", websiteInfo);
+            valueOperations.set(WEBSITE_INFO, websiteInfo);
         }
         return websiteInfo;
     }

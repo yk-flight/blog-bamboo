@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 29/09/2022 10:37:41
+ Date: 29/09/2022 11:51:35
 */
 
 SET NAMES utf8mb4;
@@ -105,14 +105,13 @@ CREATE TABLE `files` (
   `description` varchar(255) DEFAULT NULL COMMENT '备注',
   `upload_time` datetime DEFAULT NULL COMMENT '文件上传时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of files
 -- ----------------------------
 BEGIN;
 INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (1, 'm4VH2s1n.jpeg', '世纪末的架构师', '/images/avatar/m4VH2s1n.jpeg', '用户上传图片', '2022-09-16 00:00:00');
-INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (2, 'ogClDqhN.jpg', '测试账号', '/images/avatar/ogClDqhN.jpg', '用户上传图片', '2022-09-16 00:00:00');
 INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (3, 'qm0coWzM.jpg', '世纪末的架构师', '/images/cover/qm0coWzM.jpg', '用户上传图片', '2022-09-16 00:00:00');
 INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (4, 'xGx9zwY8.jpg', '世纪末的架构师', '/images/cover/xGx9zwY8.jpg', '用户上传图片', '2022-09-16 00:00:00');
 INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (22, 'Y1TbZfkL.jpg', '世纪末的架构师', '/images/cover/Y1TbZfkL.jpg', '用户上传图片', '2022-09-22 00:00:00');
@@ -127,7 +126,7 @@ INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_ti
 INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (35, 'P7E1vO0l.jpeg', '世纪末的架构师', '/images/avatar/P7E1vO0l.jpeg', '用户上传图片', '2022-09-26 00:00:00');
 INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (36, 'zxYMikB5.jpg', '世纪末的架构师', '/images/receipt/zxYMikB5.jpg', '用户上传图片', '2022-09-27 00:00:00');
 INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (37, 'yloYMa7v.jpg', '世纪末的架构师', '/images/receipt/yloYMa7v.jpg', '用户上传图片', '2022-09-27 00:00:00');
-INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (40, 'RVtNwlKZ.jpg', '世纪末的架构师', '/images/avatar/RVtNwlKZ.jpg', '用户上传图片', '2022-09-29 00:00:00');
+INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (44, 'x8uRIbC3.jpg', '世纪末的架构师', '/images/avatar/x8uRIbC3.jpg', '用户上传图片', '2022-09-29 00:00:00');
 COMMIT;
 
 -- ----------------------------
@@ -216,7 +215,6 @@ CREATE TABLE `message` (
   `ip_source` varchar(255) DEFAULT NULL COMMENT 'IP属地',
   `ip_address` varchar(255) DEFAULT NULL COMMENT 'IP地址',
   `allow` tinyint DEFAULT NULL COMMENT '是否通过 1 正常 0 审核中',
-  `avatar` varchar(255) DEFAULT NULL COMMENT '留言用户头像',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -224,11 +222,11 @@ CREATE TABLE `message` (
 -- Records of message
 -- ----------------------------
 BEGIN;
-INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`, `ip_address`, `allow`, `avatar`) VALUES (1, '测试账号', '测试评论', '2022-09-28 11:39:55', '江苏省苏州市 移动', '223.104.148.77', 1, '/images/avatar/RVtNwlKZ.jpg');
-INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`, `ip_address`, `allow`, `avatar`) VALUES (2, '管小肾的伤悲', '鸿鹄之志定可鹏程万里，加油！！', '2022-09-06 10:47:00', '江苏省苏州市 移动', '223.104.148.77', 1, '/images/avatar/RVtNwlKZ.jpg');
-INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`, `ip_address`, `allow`, `avatar`) VALUES (3, '测试账号', '测试评论', '2022-09-28 11:39:55', '江苏省苏州市 移动', '223.104.148.77', 1, '/images/avatar/RVtNwlKZ.jpg');
-INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`, `ip_address`, `allow`, `avatar`) VALUES (7, '超级无敌架构师', '超级无敌架构师到此一游！', '2022-09-29 10:30:27', '', '0:0:0:0:0:0:0:1', 1, '/images/avatar/RVtNwlKZ.jpg');
-INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`, `ip_address`, `allow`, `avatar`) VALUES (8, '超级无敌架构师', '超级无敌架构师到此一游！', '2022-09-29 10:30:07', '', '0:0:0:0:0:0:0:1', 1, '/images/avatar/RVtNwlKZ.jpg');
+INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`, `ip_address`, `allow`) VALUES (1, '测试账号', '测试评论', '2022-09-28 11:39:55', '江苏省苏州市 移动', '223.104.148.77', 1);
+INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`, `ip_address`, `allow`) VALUES (2, '管小肾的伤悲', '鸿鹄之志定可鹏程万里，加油！！', '2022-09-06 10:47:00', '江苏省苏州市 移动', '223.104.148.77', 1);
+INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`, `ip_address`, `allow`) VALUES (3, '测试账号', '测试评论', '2022-09-28 11:39:55', '江苏省苏州市 移动', '223.104.148.77', 1);
+INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`, `ip_address`, `allow`) VALUES (7, '超级无敌架构师', '超级无敌架构师到此一游！', '2022-09-29 10:30:27', '', '0:0:0:0:0:0:0:1', 1);
+INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`, `ip_address`, `allow`) VALUES (8, '超级无敌架构师', '超级无敌架构师到此一游！', '2022-09-29 10:30:07', '', '0:0:0:0:0:0:0:1', 1);
 COMMIT;
 
 -- ----------------------------
@@ -251,7 +249,7 @@ CREATE TABLE `operate_log` (
   `duration` int unsigned DEFAULT NULL COMMENT '执行时长',
   `operate_time` datetime DEFAULT NULL COMMENT '操作日期',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=210 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of operate_log
@@ -455,6 +453,15 @@ INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `ope
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (198, '留言模块', '批量删除留言', 'DELETE', 'com.zrkizzy.blog.controller.MessageController.deleteMessageBatchIds', '测试账号', '127.0.0.1', '本地登录', 1, '响应成功', '[[4,5]]', '{\"code\":200,\"message\":\"批量删除成功\"}', 18, '2022-09-29 01:26:11');
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (199, '角色管理模块', '更新角色的资源权限', 'POST', 'com.zrkizzy.blog.controller.ResourceRoleController.updateResourceRole', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"ids\":[],\"roleId\":2}]', '{\"code\":200,\"message\":\"更新成功\"}', 20, '2022-09-29 01:26:34');
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (200, '网站管理模块', '更新网站其他信息', 'PUT', 'com.zrkizzy.blog.controller.WebsiteController.updateOtherInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"alipayReceipt\":\"/images/receipt/yloYMa7v.jpg\",\"avatar\":\"/images/avatar/RVtNwlKZ.jpg\",\"commentAllow\":false,\"id\":1,\"messageAllow\":false,\"reward\":true,\"wechatReceipt\":\"/images/receipt/zxYMikB5.jpg\"}]', '{\"code\":200,\"message\":\"更新成功\"}', 74, '2022-09-29 10:33:55');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (201, '网站管理模块', '更新网站其他信息', 'PUT', 'com.zrkizzy.blog.service.impl.WebsiteServiceImpl.updateOtherInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"alipayReceipt\":\"/images/receipt/yloYMa7v.jpg\",\"avatar\":\"/images/avatar/sXREg4Q5.jpg\",\"commentAllow\":false,\"id\":1,\"messageAllow\":false,\"reward\":true,\"wechatReceipt\":\"/images/receipt/zxYMikB5.jpg\"}]', '{\"code\":200,\"message\":\"更新成功\"}', 118, '2022-09-29 10:50:28');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (202, '文件管理模块', '用户批量删除文件', 'DELETE', 'com.zrkizzy.blog.service.impl.FilesServiceImpl.deleteFileBatchIds', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[[41]]', '{\"code\":200,\"message\":\"删除成功\"}', 16, '2022-09-29 10:51:17');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (203, '网站管理模块', '更新网站其他信息', 'PUT', 'com.zrkizzy.blog.service.impl.WebsiteServiceImpl.updateOtherInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"alipayReceipt\":\"/images/receipt/yloYMa7v.jpg\",\"avatar\":\"/images/avatar/ZKhQl1uf.jpg\",\"commentAllow\":false,\"id\":1,\"messageAllow\":false,\"reward\":true,\"wechatReceipt\":\"/images/receipt/zxYMikB5.jpg\"}]', '{\"code\":200,\"message\":\"更新成功\"}', 23, '2022-09-29 10:51:54');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (204, '文件管理模块', '用户批量删除文件', 'DELETE', 'com.zrkizzy.blog.service.impl.FilesServiceImpl.deleteFileBatchIds', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[[40]]', '{\"code\":200,\"message\":\"删除成功\"}', 14, '2022-09-29 10:52:20');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (205, '文件管理模块', '用户批量删除文件', 'DELETE', 'com.zrkizzy.blog.service.impl.FilesServiceImpl.deleteFileBatchIds', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[[2]]', '{\"code\":200,\"message\":\"删除成功\"}', 19, '2022-09-29 10:53:56');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (206, '文件管理模块', '用户批量删除文件', 'DELETE', 'com.zrkizzy.blog.service.impl.FilesServiceImpl.deleteFileBatchIds', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[[2]]', '{\"code\":500,\"message\":\"删除失败\"}', 11, '2022-09-29 10:54:29');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (207, '网站管理模块', '更新网站其他信息', 'PUT', 'com.zrkizzy.blog.service.impl.WebsiteServiceImpl.updateOtherInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"alipayReceipt\":\"/images/receipt/yloYMa7v.jpg\",\"avatar\":\"/images/avatar/S7yEr9M5.jpg\",\"commentAllow\":false,\"id\":1,\"messageAllow\":false,\"reward\":true,\"wechatReceipt\":\"/images/receipt/zxYMikB5.jpg\"}]', '{\"code\":200,\"message\":\"更新成功\"}', 28, '2022-09-29 11:47:45');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (208, '文件管理模块', '用户批量删除文件', 'DELETE', 'com.zrkizzy.blog.service.impl.FilesServiceImpl.deleteFileBatchIds', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[[43,42]]', '{\"code\":200,\"message\":\"删除成功\"}', 17, '2022-09-29 11:48:39');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (209, '网站管理模块', '更新网站其他信息', 'PUT', 'com.zrkizzy.blog.service.impl.WebsiteServiceImpl.updateOtherInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"alipayReceipt\":\"/images/receipt/yloYMa7v.jpg\",\"avatar\":\"/images/avatar/x8uRIbC3.jpg\",\"commentAllow\":false,\"id\":1,\"messageAllow\":false,\"reward\":true,\"wechatReceipt\":\"/images/receipt/zxYMikB5.jpg\"}]', '{\"code\":200,\"message\":\"更新成功\"}', 11, '2022-09-29 11:48:56');
 COMMIT;
 
 -- ----------------------------
@@ -722,8 +729,8 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (1, '世纪末的架构师', 'admin', '$2a$10$Tt3NW32EBpMk9ClWUCAkOu6FIRXyhfze7xJ0bQGx8sdVgV4IqYzqO', '/images/avatar/m4VH2s1n.jpeg', '0:0:0:0:0:0:0:1', '', '2022-09-29 10:27:06', 1, '2022-08-06 23:40:44', '2022-09-16 00:57:35');
-INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (2, '测试账号', 'test', '$2a$10$d4AA4SDGcvCKMnPdoi2IyuNLxqwPINZwViN3pekUGUYXkqQozX.4y', '/images/avatar/ogClDqhN.jpg', '127.0.0.1', '本机登录', '2022-09-29 01:25:41', 1, '2022-08-13 18:23:02', '2022-09-27 20:33:51');
+INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (1, '世纪末的架构师', 'admin', '$2a$10$Tt3NW32EBpMk9ClWUCAkOu6FIRXyhfze7xJ0bQGx8sdVgV4IqYzqO', '/images/avatar/m4VH2s1n.jpeg', '127.0.0.1', '本机登录', '2022-09-29 11:15:13', 1, '2022-08-06 23:40:44', '2022-09-16 00:57:35');
+INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (2, '测试账号', 'test', '$2a$10$d4AA4SDGcvCKMnPdoi2IyuNLxqwPINZwViN3pekUGUYXkqQozX.4y', '/images/avatar/ZKhQl1uf.jpg', '127.0.0.1', '本机登录', '2022-09-29 11:14:32', 1, '2022-08-13 18:23:02', '2022-09-27 20:33:51');
 COMMIT;
 
 -- ----------------------------
@@ -813,7 +820,7 @@ CREATE TABLE `website_other` (
 -- Records of website_other
 -- ----------------------------
 BEGIN;
-INSERT INTO `website_other` (`id`, `avatar`, `comment_allow`, `message_allow`, `reward`, `wechat_receipt`, `alipay_receipt`) VALUES (1, '/images/avatar/RVtNwlKZ.jpg', 0, 0, 1, '/images/receipt/zxYMikB5.jpg', '/images/receipt/yloYMa7v.jpg');
+INSERT INTO `website_other` (`id`, `avatar`, `comment_allow`, `message_allow`, `reward`, `wechat_receipt`, `alipay_receipt`) VALUES (1, '/images/avatar/x8uRIbC3.jpg', 0, 0, 1, '/images/receipt/zxYMikB5.jpg', '/images/receipt/yloYMa7v.jpg');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

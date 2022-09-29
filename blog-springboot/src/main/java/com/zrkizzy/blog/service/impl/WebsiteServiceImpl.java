@@ -1,13 +1,12 @@
 package com.zrkizzy.blog.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.entity.Website;
 import com.zrkizzy.blog.entity.WebsiteOther;
 import com.zrkizzy.blog.mapper.WebsiteMapper;
 import com.zrkizzy.blog.mapper.WebsiteOtherMapper;
-import com.zrkizzy.blog.service.MessageService;
 import com.zrkizzy.blog.service.WebsiteService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.WebsiteOtherVO;
@@ -31,8 +30,6 @@ import static com.zrkizzy.blog.constant.CommonConst.WEBSITE_INFO;
 @Service
 public class WebsiteServiceImpl extends ServiceImpl<WebsiteMapper, Website> implements WebsiteService {
     @Resource
-    private MessageService messageService;
-    @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
     @Resource
@@ -52,8 +49,6 @@ public class WebsiteServiceImpl extends ServiceImpl<WebsiteMapper, Website> impl
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
         // 更新Redis中存储的网站其他信息对象
         WebsiteOther websiteOther = BeanCopyUtil.copy(websiteOtherVO, WebsiteOther.class);
-        // 更新留言用户对应的头像
-        messageService.updateAvatar(websiteOther.getAvatar());
         valueOperations.set(WEBSITE_INFO, websiteOther);
         // 更新数据库中存储的网站信息对象
         if (websiteOtherMapper.updateById(websiteOther) > 0) {

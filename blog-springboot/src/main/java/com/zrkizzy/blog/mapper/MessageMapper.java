@@ -13,10 +13,4 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface MessageMapper extends BaseMapper<Message> {
 
-    /**
-     * 更新所有留言用户的头像
-     *
-     * @param avatar 头像路径
-     */
-    void updateAvatar(String avatar);
 }

@@ -16,7 +16,6 @@ import com.zrkizzy.blog.vo.Result;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -88,8 +87,6 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
             // 设置当前留言状态为已通过
             message.setAllow(1);
         }
-        // 设置留言的用户头像
-        message.setAvatar(websiteInfo.getAvatar());
         // 获取IP地址
         String ipAddress = IpUtil.getCurIpAddress(request);
         message.setIpAddress(ipAddress);
@@ -101,18 +98,6 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
             return Result.success("留言发布成功");
         }
         return Result.error("留言发布失败");
-    }
-
-    /**
-     * 更新留言用户的头像
-     *
-     * @param avatar 头像路径
-     */
-    @Override
-    @Transactional(rollbackFor = RuntimeException.class)
-    public void updateAvatar(String avatar) {
-        // 更新所有留言用户的头像
-        messageMapper.updateAvatar(avatar);
     }
 
     /**
