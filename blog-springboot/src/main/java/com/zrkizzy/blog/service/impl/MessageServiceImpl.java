@@ -7,21 +7,17 @@ import com.zrkizzy.blog.dto.MessageDTO;
 import com.zrkizzy.blog.entity.Message;
 import com.zrkizzy.blog.entity.WebsiteOther;
 import com.zrkizzy.blog.mapper.MessageMapper;
-import com.zrkizzy.blog.mapper.WebsiteOtherMapper;
 import com.zrkizzy.blog.service.MessageService;
+import com.zrkizzy.blog.service.WebsiteOtherService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.utils.IpUtil;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-
-import static com.zrkizzy.blog.constant.CommonConst.WEBSITE_INFO;
 
 /**
  * <p>
@@ -34,9 +30,8 @@ import static com.zrkizzy.blog.constant.CommonConst.WEBSITE_INFO;
 @Service
 public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> implements MessageService {
     @Resource
-    private RedisTemplate<String, Object> redisTemplate;
-    @Resource
-    private WebsiteOtherMapper websiteOtherMapper;
+    private WebsiteOtherService websiteOtherService;
+
     @Resource
     private MessageMapper messageMapper;
 
@@ -78,14 +73,14 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
         // 评论时间
         message.setMessageTime(LocalDateTime.now());
         // 获取到网站信息对象
-        WebsiteOther websiteInfo = getWebsiteInfo();
+        WebsiteOther websiteInfo = websiteOtherService.getWebsiteInfo();
         // 查看是否需要进行留言审核
-        if (websiteInfo.getMessageAllow()) {
+        if (!websiteInfo.getMessageAllow()) {
             // 设置当前留言为审核中
-            message.setAllow(0);
+            message.setAllow(1);
         } else {
             // 设置当前留言状态为已通过
-            message.setAllow(1);
+            message.setAllow(0);
         }
         // 获取IP地址
         String ipAddress = IpUtil.getCurIpAddress(request);
@@ -94,28 +89,12 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
         String ipSource = IpUtil.getIpSource(ipAddress);
         message.setIpSource(ipSource);
         // 将留言数据添加到数据库中
-        if (messageMapper.insert(message) > 0) {
-            return Result.success("留言发布成功");
+        if (messageMapper.insert(message) < 1) {
+            return Result.error("留言发布失败");
         }
-        return Result.error("留言发布失败");
-    }
-
-    /**
-     * 获取网站信息对象
-     *
-     * @return 网站信息对象
-     */
-    private WebsiteOther getWebsiteInfo() {
-        // 开启Redis
-        ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
-        // 从Redis中获取评论审核信息
-        WebsiteOther websiteInfo = (WebsiteOther) valueOperations.get(WEBSITE_INFO);
-        // 如果获取到的对象为空
-        if (websiteInfo == null) {
-            websiteInfo = websiteOtherMapper.selectById(1);
-            // 将从数据库中获取到的对象设置到Redis中
-            valueOperations.set(WEBSITE_INFO, websiteInfo);
+        if (websiteInfo.getMessageAllow()) {
+            return Result.success("留言成功，请等待管理员审核");
         }
-        return websiteInfo;
+        return Result.success("留言发布成功");
     }
 }

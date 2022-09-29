@@ -12,5 +12,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-09-26
  */
 public interface WebsiteOtherService extends IService<WebsiteOther> {
-
+    /**
+     * 获取网站信息对象
+     *
+     * @return 网站信息对象
+     */
+    WebsiteOther getWebsiteInfo();
 }
