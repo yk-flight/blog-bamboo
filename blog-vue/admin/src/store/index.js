@@ -5,6 +5,7 @@ import getters from "./getter";
 import app from "./modules/app";
 import permission from "./modules/permisssion";
 import user from "./modules/user";
+import website from "./modules/website";
 
 Vue.use(Vuex);
 
@@ -14,5 +15,6 @@ export default new Vuex.Store({
     app,
     permission,
     user,
+    website,
   },
 });

@@ -31,6 +31,8 @@ router.beforeEach(async (to, from, next) => {
         store.dispatch("user/getUserInfoById");
         // 获取用户可访问的页面
         store.dispatch("user/getAccessPath");
+        // 获取游客的头像
+        store.dispatch("website/getOtherInfo");
 
         const { permission } = await store.dispatch("user/getUserInfo");
         // 处理用户权限，筛选出需要添加的路由

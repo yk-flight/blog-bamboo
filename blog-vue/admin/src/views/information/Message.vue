@@ -90,19 +90,14 @@
           <el-table-column prop="nickName" label="留言用户" align="center">
           </el-table-column>
           <el-table-column label="用户头像" align="center" width="100">
-            <template slot-scope="scope">
+            <template>
               <el-empty
-                v-if="!scope.row.avatar"
+                v-if="!this.$store.getters.avatar"
                 description="暂无图片"
                 :image-size="40"
                 style="height: 60px"
               ></el-empty>
-              <el-image
-                v-else
-                :src="scope.row.avatar"
-                @click="preViewImage(scope.row.avatar)"
-                :preview-src-list="srcList"
-              ></el-image>
+              <el-image v-else :src="this.$store.getters.avatar"></el-image>
             </template>
           </el-table-column>
           <el-table-column
@@ -193,8 +188,6 @@ export default {
       total: 0,
       // 表格多选框
       multipleSelection: [],
-      // 图片预览
-      srcList: [],
     };
   },
 
@@ -332,11 +325,6 @@ export default {
     // 多选框按钮
     handleSelectionChange(val) {
       this.multipleSelection = val; //存储选中的数据
-    },
-    // 图片预览
-    preViewImage(val) {
-      this.srcList = [];
-      this.srcList.push(val);
     },
   },
 };

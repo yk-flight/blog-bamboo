@@ -17,6 +17,8 @@ const getters = {
   userOtherInfo: (state) => state.user.userOtherInfo,
   // 用户可以访问的页面
   accessPath: (state) => state.user.accessPath,
+  // 游客头像
+  avatar: (state) => state.website.avatar,
 };
 
 export default getters;

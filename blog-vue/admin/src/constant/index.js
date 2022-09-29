@@ -6,3 +6,5 @@ export const TIME_STAMP = "timeStamp";
 export const TOKEN_TIMEOUT_VALUE = 2 * 3600 * 1000;
 // tags
 export const TAGS_VIEW = "tagsView";
+// 游客用户头像
+export const AVATAR = "avatar";
