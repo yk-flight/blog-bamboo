@@ -5,8 +5,8 @@ import { isCheckTimeout } from "@/utils/auth";
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
-  // 超时时间 => 5s
-  timeout: 5000,
+  // 超时时间 => 15s
+  timeout: 15 * 1000,
 });
 
 // 请求拦截器
