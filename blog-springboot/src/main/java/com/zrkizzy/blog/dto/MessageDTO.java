@@ -18,8 +18,4 @@ public class MessageDTO {
      * 留言内容
      */
     private String content;
-    /**
-     * 是否通过 1 正常 0 审核中
-     */
-    private Integer allow;
 }

@@ -44,6 +44,9 @@ public class Message implements Serializable {
     @ApiModelProperty(value = "IP地址")
     private String ipAddress;
 
+    @ApiModelProperty(value = "用户头像")
+    private String avatar;
+
     @ApiModelProperty(value = "是否通过 1 正常 0 审核中")
     private Integer allow;
 

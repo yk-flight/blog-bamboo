@@ -36,4 +36,11 @@ public interface MessageService extends IService<Message> {
      * @return 前端响应对象
      */
     Result addMessage(MessageDTO messageDTO, HttpServletRequest request);
+
+    /**
+     * 更新留言用户的头像
+     *
+     * @param avatar 头像路径
+     */
+    void updateAvatar(String avatar);
 }

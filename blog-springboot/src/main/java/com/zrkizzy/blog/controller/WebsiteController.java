@@ -1,10 +1,10 @@
 package com.zrkizzy.blog.controller;
 
 
-import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.dto.WebsiteOtherDTO;
 import com.zrkizzy.blog.entity.Website;
 import com.zrkizzy.blog.entity.WebsiteOther;
+import com.zrkizzy.blog.service.MessageService;
 import com.zrkizzy.blog.service.WebsiteOtherService;
 import com.zrkizzy.blog.service.WebsiteService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
@@ -35,6 +35,8 @@ import static com.zrkizzy.blog.constant.CommonConst.WEBSITE_INFO;
 @RequestMapping("/website")
 public class WebsiteController {
     @Resource
+    private MessageService messageService;
+    @Resource
     private WebsiteService websiteService;
     @Resource
     private WebsiteOtherService websiteOtherService;
@@ -61,8 +63,6 @@ public class WebsiteController {
         return Result.error("网站信息修改失败");
     }
 
-
-
     @ApiOperation("获取网站管理其他信息")
     @GetMapping("/getOtherInfo")
     public WebsiteOtherDTO getOtherInfo() {
@@ -81,18 +81,8 @@ public class WebsiteController {
     }
 
     @ApiOperation("更新网站管理其他信息")
-    @LogAnnotation(module = "网站管理模块", description = "更新网站其他信息")
     @PutMapping("/updateOtherInfo")
     public Result updateOtherInfo(@RequestBody WebsiteOtherVO websiteOtherVO) {
-        // 开启Redis
-        ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
-        // 更新Redis中存储的网站其他信息对象
-        WebsiteOther websiteOther = BeanCopyUtil.copy(websiteOtherVO, WebsiteOther.class);
-        valueOperations.set("website_info", websiteOther);
-        // 更新数据库中存储的网站信息对象
-        if (websiteOtherService.updateById(websiteOther)) {
-            return Result.success("更新成功");
-        }
-        return Result.error("更新失败");
+        return websiteService.updateOtherInfo(websiteOtherVO);
     }
 }

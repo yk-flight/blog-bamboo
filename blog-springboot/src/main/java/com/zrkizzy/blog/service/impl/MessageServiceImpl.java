@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zrkizzy.blog.dto.MessageDTO;
-import com.zrkizzy.blog.dto.WebsiteOtherDTO;
 import com.zrkizzy.blog.entity.Message;
+import com.zrkizzy.blog.entity.WebsiteOther;
 import com.zrkizzy.blog.mapper.MessageMapper;
 import com.zrkizzy.blog.mapper.WebsiteOtherMapper;
 import com.zrkizzy.blog.service.MessageService;
@@ -16,6 +16,7 @@ import com.zrkizzy.blog.vo.Result;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -78,7 +79,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
         // 评论时间
         message.setMessageTime(LocalDateTime.now());
         // 获取到网站信息对象
-        WebsiteOtherDTO websiteInfo = getWebsiteInfo();
+        WebsiteOther websiteInfo = getWebsiteInfo();
         // 查看是否需要进行留言审核
         if (websiteInfo.getMessageAllow()) {
             // 设置当前留言为审核中
@@ -87,6 +88,8 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
             // 设置当前留言状态为已通过
             message.setAllow(1);
         }
+        // 设置留言的用户头像
+        message.setAvatar(websiteInfo.getAvatar());
         // 获取IP地址
         String ipAddress = IpUtil.getCurIpAddress(request);
         message.setIpAddress(ipAddress);
@@ -101,21 +104,33 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     }
 
     /**
+     * 更新留言用户的头像
+     *
+     * @param avatar 头像路径
+     */
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void updateAvatar(String avatar) {
+        // 更新所有留言用户的头像
+        messageMapper.updateAvatar(avatar);
+    }
+
+    /**
      * 获取网站信息对象
      *
      * @return 网站信息对象
      */
-    private WebsiteOtherDTO getWebsiteInfo() {
+    private WebsiteOther getWebsiteInfo() {
         // 开启Redis
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
         // 从Redis中获取评论审核信息
-        WebsiteOtherDTO websiteOtherDTO = ( WebsiteOtherDTO) valueOperations.get(WEBSITE_INFO);
+        WebsiteOther websiteInfo = (WebsiteOther) valueOperations.get(WEBSITE_INFO);
         // 如果获取到的对象为空
-        if (websiteOtherDTO == null) {
-            WebsiteOtherDTO websiteInfo = BeanCopyUtil.copy(websiteOtherMapper.selectById(1), WebsiteOtherDTO.class);
+        if (websiteInfo == null) {
+            websiteInfo = websiteOtherMapper.selectById(1);
             // 将从数据库中获取到的对象设置到Redis中
             valueOperations.set(WEBSITE_INFO, websiteInfo);
         }
-        return websiteOtherDTO;
+        return websiteInfo;
     }
 }
