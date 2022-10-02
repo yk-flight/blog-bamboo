@@ -28,7 +28,7 @@ public class ResourceRoleController {
     private ResourceRoleService resourceRoleService;
 
     @ApiOperation("更新角色资源权限")
-    @LogAnnotation(module = "角色管理模块", description = "更新角色的资源权限")
+    @LogAnnotation(module = "角色管理模块", description = "更新角色资源权限")
     @PostMapping("/updateResourceRole")
     public Result updateResourceRole(@RequestBody ResourceRoleVO resourceRoleVO) {
         return resourceRoleService.updateResourceRole(resourceRoleVO.getRoleId(), resourceRoleVO.getIds());

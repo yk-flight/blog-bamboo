@@ -58,7 +58,7 @@ public class UploadController {
     }
 
     @ApiOperation("根据文件访问路径删除文件")
-    @LogAnnotation(module = "文章模块", description = "根据上传图片的访问路径删除对应图片")
+    @LogAnnotation(module = "文章模块", description = "根据图片路径删除图片")
     @GetMapping("/deleteFileByPath")
     public Result deleteFileByPath(String path) {
         // 1. 删除当前数据库中存储的上传文件信息
