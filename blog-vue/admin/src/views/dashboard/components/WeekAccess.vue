@@ -1,16 +1,12 @@
 <template>
-  <div class="access-picture">
-    <el-card shadow="hover">
-      <div class="proCharts" ref="charts" style="height: 360px"></div>
-    </el-card>
-  </div>
+  <div class="proCharts" ref="charts" style="height: 350px"></div>
 </template>
 
 <script>
 import echarts from "echarts";
 
 export default {
-  name: "BodyView",
+  name: "WeekAccess",
 
   data() {
     return {
@@ -92,8 +88,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.access-picture {
-  margin-top: 30px;
-}
-</style>
+<style lang="scss" scoped></style>
