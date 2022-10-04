@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 29/09/2022 11:51:35
+ Date: 04/10/2022 12:00:36
 */
 
 SET NAMES utf8mb4;
@@ -57,16 +57,18 @@ CREATE TABLE `article` (
   `view_num` int DEFAULT '0' COMMENT '浏览数量',
   `comment_num` int DEFAULT '0' COMMENT '评论数量',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of article
 -- ----------------------------
 BEGIN;
-INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (1, '第一篇测试文章', 8, '2022-08-04 16:26:26', '[5]', '# 一级标题 测试内容', '# 一级标题\n测试内容，这里是测试内容\n## 二级标题\n继续测试\n测试权限', 1, 1, 0, 1, 1, '/images/cover/8zkLNfgw.jpg', '2022-09-27 16:26:26', 0, 0);
-INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (6, '第二篇测试文章', 1, '2022-09-22 15:18:54', '[4,6,7]', '测试文章二', '测试文章', 1, 2, 1, 0, 1, '/images/cover/xGx9zwY8.jpg', '2022-09-22 15:18:54', 0, 0);
-INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (7, '第三篇测试文章', 1, '2022-09-22 17:44:06', '[4,7]', '测试摘要', '测试\n继续测试能不能保存', 1, 1, 0, 1, 0, '/images/cover/Y1TbZfkL.jpg', '2022-09-23 17:44:06', 0, 0);
-INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (8, '第四篇测试文章', 1, '2022-09-22 15:27:11', '[7,6,4]', '测试', '第四篇测试文章', 1, 1, 0, 1, 0, '/images/cover/xGx9zwY8.jpg', '2022-09-22 15:27:11', 0, 0);
+INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (1, '第一篇', 8, '2022-08-04 04:19:17', '[5]', '# 一级标题 测试内容', '# 一级标题\n测试内容，这里是测试内容\n## 二级标题\n继续测试\n测试权限', 1, 1, 0, 1, 1, '/images/cover/8zkLNfgw.jpg', '2022-10-03 04:19:17', 17, 0);
+INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (2, '第二篇', 8, '2022-08-04 04:19:17', '[5]', '# 一级标题 测试内容', '# 一级标题\n测试内容，这里是测试内容\n## 二级标题\n继续测试\n测试权限', 1, 1, 0, 1, 1, '/images/cover/8zkLNfgw.jpg', '2022-10-03 04:19:17', 17, 0);
+INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (6, '第二篇测试文章', 1, '2022-09-22 15:18:54', '[4,6,7]', '测试文章二', '测试文章', 1, 2, 1, 0, 1, '/images/cover/xGx9zwY8.jpg', '2022-09-22 15:18:54', 23, 0);
+INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (7, '第三篇', 1, '2022-09-22 04:17:45', '[4,7]', '测试摘要', '测试\n继续测试能不能保存', 1, 1, 0, 1, 0, '/images/cover/Y1TbZfkL.jpg', '2022-10-03 04:17:45', 31, 0);
+INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (8, '第四篇测试文章', 1, '2022-09-22 04:08:23', '[4,6,7]', '测试', '第四篇测试文章', 2, 1, 0, 1, 0, '/images/cover/xGx9zwY8.jpg', '2022-10-03 04:08:23', 0, 0);
+INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (9, '前路有光，初心莫忘', 11, '2022-10-03 20:56:55', '[8]', '2021年终总结', '2021年的旅程也落下了帷幕', 1, 1, 0, 1, 0, '/images/cover/LlfcijKq.jpeg', '2022-10-03 20:56:55', 0, 0);
 COMMIT;
 
 -- ----------------------------
@@ -82,7 +84,7 @@ CREATE TABLE `categories` (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of categories
@@ -91,6 +93,35 @@ BEGIN;
 INSERT INTO `categories` (`id`, `name`, `description`, `article_amount`, `image`, `create_time`, `update_time`) VALUES (1, '测试分类', '测试修改文章分类', 2, '/images/cover/8zkLNfgw.jpg', '2022-08-18 08:00:00', '2022-09-22 19:14:03');
 INSERT INTO `categories` (`id`, `name`, `description`, `article_amount`, `image`, `create_time`, `update_time`) VALUES (8, '数据结构', '数据结构学习笔记', 2, '/images/cover/KU5ZUmz9.jpg', '2022-09-20 15:17:43', '2022-09-22 19:12:49');
 INSERT INTO `categories` (`id`, `name`, `description`, `article_amount`, `image`, `create_time`, `update_time`) VALUES (9, '继续测试', '哈哈哈', 0, '/images/cover/z0qKbnAk.jpg', '2022-09-27 09:52:16', '2022-09-28 15:32:16');
+INSERT INTO `categories` (`id`, `name`, `description`, `article_amount`, `image`, `create_time`, `update_time`) VALUES (11, '生活记录', '生活记录文章', 1, '/images/article/SbKJJVb8.jpg', '2022-10-03 20:56:23', '2022-10-03 20:56:32');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for comment
+-- ----------------------------
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `content` varchar(255) DEFAULT NULL COMMENT '评论内容',
+  `nick_name` varchar(255) DEFAULT NULL COMMENT '用户昵称',
+  `parent_id` int DEFAULT NULL COMMENT '父id',
+  `comment_time` datetime DEFAULT NULL COMMENT '评论时间',
+  `allow` tinyint DEFAULT NULL COMMENT '是否通过 1 已通过 0 审核中',
+  `ip_address` varchar(255) DEFAULT NULL COMMENT 'IP地址',
+  `ip_source` varchar(255) DEFAULT NULL COMMENT 'IP属地',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of comment
+-- ----------------------------
+BEGIN;
+INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`) VALUES (1, '第一条评论', '测试账号', 0, '2022-09-29 15:01:38', 1, '223.104.148.77', '江苏省苏州市 移动');
+INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`) VALUES (2, '第2条评论', '测试账号', 0, '2022-09-29 15:01:38', 1, '223.104.148.77', '江苏省苏州市 移动');
+INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`) VALUES (3, '第3条评论', '测试账号', 0, '2022-09-29 15:01:38', 1, '223.104.148.77', '江苏省苏州市 移动');
+INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`) VALUES (8, '超级无敌架构师到此一游！', '超级无敌架构师', 0, '2022-09-29 23:26:28', 1, '0:0:0:0:0:0:0:1', '');
+INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`) VALUES (9, '超级无敌架构师再次到此一游！', '超级无敌架构师', 8, '2022-09-29 23:30:04', 1, '0:0:0:0:0:0:0:1', '');
+INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`) VALUES (10, '超级无敌架构师还来这里到此一游！', '超级无敌架构师', 8, '2022-09-29 23:30:44', 0, '0:0:0:0:0:0:0:1', '');
 COMMIT;
 
 -- ----------------------------
@@ -216,7 +247,7 @@ CREATE TABLE `message` (
   `ip_address` varchar(255) DEFAULT NULL COMMENT 'IP地址',
   `allow` tinyint DEFAULT NULL COMMENT '是否通过 1 正常 0 审核中',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of message
@@ -227,6 +258,8 @@ INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`
 INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`, `ip_address`, `allow`) VALUES (3, '测试账号', '测试评论', '2022-09-28 11:39:55', '江苏省苏州市 移动', '223.104.148.77', 1);
 INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`, `ip_address`, `allow`) VALUES (7, '超级无敌架构师', '超级无敌架构师到此一游！', '2022-09-29 10:30:27', '', '0:0:0:0:0:0:0:1', 1);
 INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`, `ip_address`, `allow`) VALUES (8, '超级无敌架构师', '超级无敌架构师到此一游！', '2022-09-29 10:30:07', '', '0:0:0:0:0:0:0:1', 1);
+INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`, `ip_address`, `allow`) VALUES (9, '超级无敌架构师', '超级无敌架构师再次到此一游！', '2022-09-29 23:31:34', '', '0:0:0:0:0:0:0:1', 0);
+INSERT INTO `message` (`id`, `nick_name`, `content`, `message_time`, `ip_source`, `ip_address`, `allow`) VALUES (10, '超级无敌架构师', '超级无敌架构师继续到此一游！', '2022-09-29 23:32:09', '', '0:0:0:0:0:0:0:1', 1);
 COMMIT;
 
 -- ----------------------------
@@ -249,7 +282,7 @@ CREATE TABLE `operate_log` (
   `duration` int unsigned DEFAULT NULL COMMENT '执行时长',
   `operate_time` datetime DEFAULT NULL COMMENT '操作日期',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=210 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of operate_log
@@ -462,6 +495,32 @@ INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `ope
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (207, '网站管理模块', '更新网站其他信息', 'PUT', 'com.zrkizzy.blog.service.impl.WebsiteServiceImpl.updateOtherInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"alipayReceipt\":\"/images/receipt/yloYMa7v.jpg\",\"avatar\":\"/images/avatar/S7yEr9M5.jpg\",\"commentAllow\":false,\"id\":1,\"messageAllow\":false,\"reward\":true,\"wechatReceipt\":\"/images/receipt/zxYMikB5.jpg\"}]', '{\"code\":200,\"message\":\"更新成功\"}', 28, '2022-09-29 11:47:45');
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (208, '文件管理模块', '用户批量删除文件', 'DELETE', 'com.zrkizzy.blog.service.impl.FilesServiceImpl.deleteFileBatchIds', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[[43,42]]', '{\"code\":200,\"message\":\"删除成功\"}', 17, '2022-09-29 11:48:39');
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (209, '网站管理模块', '更新网站其他信息', 'PUT', 'com.zrkizzy.blog.service.impl.WebsiteServiceImpl.updateOtherInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"alipayReceipt\":\"/images/receipt/yloYMa7v.jpg\",\"avatar\":\"/images/avatar/x8uRIbC3.jpg\",\"commentAllow\":false,\"id\":1,\"messageAllow\":false,\"reward\":true,\"wechatReceipt\":\"/images/receipt/zxYMikB5.jpg\"}]', '{\"code\":200,\"message\":\"更新成功\"}', 11, '2022-09-29 11:48:56');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (210, '评论模块', '删除指定评论', 'DELETE', 'com.zrkizzy.blog.controller.CommentController.deleteCommentById', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[5]', '{\"code\":200,\"message\":\"删除成功\"}', 38, '2022-09-29 17:39:14');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (211, '评论模块', '删除指定评论', 'DELETE', 'com.zrkizzy.blog.controller.CommentController.deleteCommentById', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[2]', '{\"code\":200,\"message\":\"删除成功\"}', 24, '2022-09-29 17:39:32');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (212, '评论模块', '通过审核评论', 'GET', 'com.zrkizzy.blog.controller.CommentController.passCommentById', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[3]', '{\"code\":200,\"message\":\"评论审核通过成功\"}', 30, '2022-09-29 17:41:26');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (213, '评论模块', '批量删除评论', 'DELETE', 'com.zrkizzy.blog.controller.CommentController.deleteCommentBatchIds', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[[4,2,3]]', '{\"code\":200,\"message\":\"批量删除成功\"}', 23, '2022-09-29 17:43:50');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (214, '评论模块', '批量审核通过评论', 'GET', 'com.zrkizzy.blog.controller.CommentController.passCommentBatchIds', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[[6,7]]', '{\"code\":200,\"message\":\"评论审核批量通过成功\"}', 45, '2022-09-29 17:44:05');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (215, '评论模块', '删除指定评论', 'DELETE', 'com.zrkizzy.blog.controller.CommentController.deleteCommentById', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[7]', '{\"code\":200,\"message\":\"删除成功\"}', 21, '2022-09-29 20:26:04');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (216, '评论模块', '通过审核评论', 'GET', 'com.zrkizzy.blog.controller.CommentController.passCommentById', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[4]', '{\"code\":200,\"message\":\"评论审核通过成功\"}', 27, '2022-09-29 20:27:12');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (217, '评论模块', '通过审核评论', 'GET', 'com.zrkizzy.blog.controller.CommentController.passCommentById', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[3]', '{\"code\":200,\"message\":\"评论审核通过成功\"}', 22, '2022-09-29 20:27:17');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (218, '角色管理模块', '更新角色的资源权限', 'POST', 'com.zrkizzy.blog.controller.ResourceRoleController.updateResourceRole', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"ids\":[58,59,60,61,62],\"roleId\":2}]', '{\"code\":200,\"message\":\"更新成功\"}', 83, '2022-09-29 20:28:41');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (219, '评论模块', '删除指定评论', 'DELETE', 'com.zrkizzy.blog.controller.CommentController.deleteCommentById', '测试账号', '127.0.0.1', '本地登录', 1, '响应成功', '[6]', '{\"code\":200,\"message\":\"删除成功\"}', 27, '2022-09-29 20:29:18');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (220, '评论模块', '通过审核评论', 'GET', 'com.zrkizzy.blog.controller.CommentController.passCommentById', '测试账号', '127.0.0.1', '本地登录', 1, '响应成功', '[5]', '{\"code\":200,\"message\":\"评论审核通过成功\"}', 11, '2022-09-29 20:29:26');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (221, '评论模块', '批量审核通过评论', 'GET', 'com.zrkizzy.blog.controller.CommentController.passCommentBatchIds', '测试账号', '127.0.0.1', '本地登录', 1, '响应成功', '[[3,4]]', '{\"code\":200,\"message\":\"评论审核批量通过成功\"}', 30, '2022-09-29 20:29:30');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (222, '评论模块', '批量删除评论', 'DELETE', 'com.zrkizzy.blog.controller.CommentController.deleteCommentBatchIds', '测试账号', '127.0.0.1', '本地登录', 1, '响应成功', '[[4,5]]', '{\"code\":200,\"message\":\"批量删除成功\"}', 19, '2022-09-29 20:29:37');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (223, '评论模块', '通过审核评论', 'GET', 'com.zrkizzy.blog.controller.CommentController.passCommentById', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[8]', '{\"code\":200,\"message\":\"评论审核通过成功\"}', 28, '2022-09-29 23:29:31');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (224, '网站管理模块', '更新网站其他信息', 'PUT', 'com.zrkizzy.blog.service.impl.WebsiteServiceImpl.updateOtherInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"alipayReceipt\":\"/images/receipt/yloYMa7v.jpg\",\"avatar\":\"/images/avatar/x8uRIbC3.jpg\",\"commentAllow\":true,\"id\":1,\"messageAllow\":false,\"reward\":true,\"wechatReceipt\":\"/images/receipt/zxYMikB5.jpg\"}]', '{\"code\":200,\"message\":\"更新成功\"}', 34, '2022-09-29 23:30:27');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (225, '网站管理模块', '更新网站其他信息', 'PUT', 'com.zrkizzy.blog.service.impl.WebsiteServiceImpl.updateOtherInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"alipayReceipt\":\"/images/receipt/yloYMa7v.jpg\",\"avatar\":\"/images/avatar/x8uRIbC3.jpg\",\"commentAllow\":true,\"id\":1,\"messageAllow\":true,\"reward\":true,\"wechatReceipt\":\"/images/receipt/zxYMikB5.jpg\"}]', '{\"code\":200,\"message\":\"更新成功\"}', 15, '2022-09-29 23:31:16');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (226, '网站管理模块', '更新网站其他信息', 'PUT', 'com.zrkizzy.blog.service.impl.WebsiteServiceImpl.updateOtherInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"alipayReceipt\":\"/images/receipt/yloYMa7v.jpg\",\"avatar\":\"/images/avatar/x8uRIbC3.jpg\",\"commentAllow\":false,\"id\":1,\"messageAllow\":false,\"reward\":true,\"wechatReceipt\":\"/images/receipt/zxYMikB5.jpg\"}]', '{\"code\":200,\"message\":\"更新成功\"}', 10, '2022-09-29 23:31:50');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (227, '用户模块', '新增用户', 'POST', 'com.zrkizzy.blog.service.impl.UserServiceImpl.addUser', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"csdn\":\"\",\"description\":\"\",\"email\":\"\",\"gitee\":\"\",\"github\":\"\",\"leetcode\":\"\",\"nickName\":\"111\",\"phone\":\"\",\"qq\":\"\",\"username\":\"111\"}]', '{\"code\":200,\"message\":\"添加用户成功\"}', 106, '2022-09-30 00:23:56');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (228, '用户信息模块', '更新用户个人信息', 'POST', 'com.zrkizzy.blog.service.impl.UserInfoServiceImpl.updateUserInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"csdn\":\"1\",\"description\":\"1\",\"email\":\"111\",\"gitee\":\"111\",\"github\":\"111\",\"id\":5,\"leetcode\":\"1\",\"nickName\":\"111\",\"phone\":\"1\",\"qq\":\"111\",\"username\":\"111\"}]', '{\"code\":200,\"message\":\"信息更新成功\"}', 35, '2022-09-30 00:24:24');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (229, '角色模块', '用户更新角色', 'GET', 'com.zrkizzy.blog.service.impl.UserRoleServiceImpl.updateUserRole', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[5,4]', '{\"code\":200,\"message\":\"更新成功\"}', 14, '2022-09-30 00:24:28');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (230, '用户模块', '删除用户', 'DELETE', 'com.zrkizzy.blog.service.impl.UserServiceImpl.deleteUserById', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[5]', '{\"code\":200,\"message\":\"删除成功\"}', 34, '2022-09-30 00:24:38');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (231, '用户信息模块', '更新用户个人信息', 'POST', 'com.zrkizzy.blog.service.impl.UserInfoServiceImpl.updateUserInfo', '测试账号', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"csdn\":\"csdn111\",\"description\":\"这里是测试账号的自我描述\",\"email\":\"test@qq.com\",\"gitee\":\"github.com\",\"github\":\"github.com\",\"id\":2,\"leetcode\":\"leetcode\",\"nickName\":\"测试账号\",\"phone\":\"15234410000\",\"qq\":\"2675525537\",\"username\":\"test\"}]', '{\"code\":200,\"message\":\"信息更新成功\"}', 26, '2022-09-30 00:28:44');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (232, '用户信息模块', '更新用户个人信息', 'POST', 'com.zrkizzy.blog.service.impl.UserInfoServiceImpl.updateUserInfo', '测试账号', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"csdn\":\"csdn111\",\"description\":\"这里是测试账号的自我描述\",\"email\":\"test@qq.com\",\"gitee\":\"github.com\",\"github\":\"github.com\",\"id\":2,\"leetcode\":\"leetcode\",\"nickName\":\"测试账号\",\"phone\":\"15234410000\",\"qq\":\"2675525537\",\"username\":\"test\"}]', '{\"code\":200,\"message\":\"信息更新成功\"}', 50, '2022-09-30 19:37:41');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (233, '文章模块', '新增文章分类', 'POST', 'com.zrkizzy.blog.service.impl.CategoryServiceImpl.insertCategory', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"description\":\"生活记录文章\",\"image\":\"/images/cover/z0qKbnAk.jpg\",\"name\":\"生活记录\"}]', '{\"code\":200,\"message\":\"文章分类创建成功\"}', 13, '2022-10-03 20:56:23');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (234, '文章模块', '更新文章分类', 'PUT', 'com.zrkizzy.blog.service.impl.CategoryServiceImpl.updateCategory', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"articleAmount\":0,\"createTime\":1664801783000,\"description\":\"生活记录文章\",\"id\":11,\"image\":\"/images/article/SbKJJVb8.jpg\",\"name\":\"生活记录\",\"updateTime\":1664801791778}]', '{\"code\":200,\"message\":\"文章分类更新成功\"}', 16, '2022-10-03 20:56:32');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (235, '标签模块', '添加新标签', 'POST', 'com.zrkizzy.blog.controller.TagsController.insertTags', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"name\":\"生活记录\"}]', '{\"code\":200,\"message\":\"标签添加成功\"}', 24, '2022-10-03 20:56:50');
 COMMIT;
 
 -- ----------------------------
@@ -522,7 +581,7 @@ INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_
 INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (11, '社交模块', NULL, NULL, 0, '2022-09-27 14:13:28');
 INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (12, '关于我模块', NULL, NULL, 0, '2022-09-27 14:13:28');
 INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (13, '网站信息模块', NULL, NULL, 0, '2022-09-27 14:13:28');
-INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (14, '更新指定用户密码', '/user/admin/updatePasswordById?**', 'PUT', 1, '2022-09-27 14:13:28');
+INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (14, '修改指定用户密码', '/user/admin/updatePasswordById?**', 'PUT', 1, '2022-09-27 14:13:28');
 INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (15, '新增用户', '/user/admin/addUser', 'POST', 1, '2022-09-27 14:13:28');
 INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (16, '删除用户', '/user/admin/deleteUserById/**', 'DELETE', 1, '2022-09-27 15:21:46');
 INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (17, '修改指定用户启用状态', '/admin/changeUserEnabled/**', 'PUT', 1, '2022-09-27 15:23:16');
@@ -565,6 +624,11 @@ INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_
 INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (55, '批量删除留言', '/message/deleteMessageBatchIds/**', 'DELETE', 53, '2022-09-29 01:14:20');
 INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (56, '通过审核留言', '/message/passMessageById/**', 'GET', 53, '2022-09-29 01:14:20');
 INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (57, '批量审核通过留言', '/message/passMessageBatchIds/**', 'GET', 53, '2022-09-29 01:14:20');
+INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (58, '评论模块', NULL, NULL, 0, '2022-09-29 01:14:20');
+INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (59, '删除指定评论', '/comment/deleteCommentById/**', 'DELETE', 58, '2022-09-29 01:14:20');
+INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (60, '批量删除评论', '/comment/deleteCommentBatchIds/**', 'DELETE', 58, '2022-09-29 01:14:20');
+INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (61, '通过审核评论', '/comment/passCommentById/**', 'GET', 58, '2022-09-29 01:14:20');
+INSERT INTO `resource` (`id`, `resource_name`, `url`, `request_method`, `parent_id`, `create_time`) VALUES (62, '批量审核通过评论', '/comment/passCommentBatchIds/**', 'GET', 58, '2022-09-29 01:14:20');
 COMMIT;
 
 -- ----------------------------
@@ -576,7 +640,7 @@ CREATE TABLE `resource_role` (
   `resource_id` int DEFAULT NULL COMMENT '资源权限ID',
   `role_id` int DEFAULT NULL COMMENT '用户角色ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of resource_role
@@ -638,6 +702,11 @@ INSERT INTO `resource_role` (`id`, `resource_id`, `role_id`) VALUES (54, 54, 1);
 INSERT INTO `resource_role` (`id`, `resource_id`, `role_id`) VALUES (55, 55, 1);
 INSERT INTO `resource_role` (`id`, `resource_id`, `role_id`) VALUES (56, 56, 1);
 INSERT INTO `resource_role` (`id`, `resource_id`, `role_id`) VALUES (57, 57, 1);
+INSERT INTO `resource_role` (`id`, `resource_id`, `role_id`) VALUES (58, 58, 1);
+INSERT INTO `resource_role` (`id`, `resource_id`, `role_id`) VALUES (59, 59, 1);
+INSERT INTO `resource_role` (`id`, `resource_id`, `role_id`) VALUES (60, 60, 1);
+INSERT INTO `resource_role` (`id`, `resource_id`, `role_id`) VALUES (61, 61, 1);
+INSERT INTO `resource_role` (`id`, `resource_id`, `role_id`) VALUES (62, 62, 1);
 COMMIT;
 
 -- ----------------------------
@@ -694,7 +763,7 @@ CREATE TABLE `tags` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `article_num` int DEFAULT '0' COMMENT '文章数量',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of tags
@@ -704,6 +773,7 @@ INSERT INTO `tags` (`id`, `name`, `create_time`, `article_num`) VALUES (4, '测�
 INSERT INTO `tags` (`id`, `name`, `create_time`, `article_num`) VALUES (5, '数据结构', '2022-09-20 19:13:19', 1);
 INSERT INTO `tags` (`id`, `name`, `create_time`, `article_num`) VALUES (6, '测试', '2022-09-20 19:13:26', 3);
 INSERT INTO `tags` (`id`, `name`, `create_time`, `article_num`) VALUES (7, '学习笔记', '2022-09-21 15:03:49', 3);
+INSERT INTO `tags` (`id`, `name`, `create_time`, `article_num`) VALUES (8, '生活记录', '2022-10-03 20:56:50', 1);
 COMMIT;
 
 -- ----------------------------
@@ -723,14 +793,14 @@ CREATE TABLE `user` (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (1, '世纪末的架构师', 'admin', '$2a$10$Tt3NW32EBpMk9ClWUCAkOu6FIRXyhfze7xJ0bQGx8sdVgV4IqYzqO', '/images/avatar/m4VH2s1n.jpeg', '127.0.0.1', '本机登录', '2022-09-29 11:15:13', 1, '2022-08-06 23:40:44', '2022-09-16 00:57:35');
-INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (2, '测试账号', 'test', '$2a$10$d4AA4SDGcvCKMnPdoi2IyuNLxqwPINZwViN3pekUGUYXkqQozX.4y', '/images/avatar/ZKhQl1uf.jpg', '127.0.0.1', '本机登录', '2022-09-29 11:14:32', 1, '2022-08-13 18:23:02', '2022-09-27 20:33:51');
+INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (1, '世纪末的架构师', 'admin', '$2a$10$Tt3NW32EBpMk9ClWUCAkOu6FIRXyhfze7xJ0bQGx8sdVgV4IqYzqO', '/images/avatar/m4VH2s1n.jpeg', '127.0.0.1', '本机登录', '2022-10-04 11:36:07', 1, '2022-08-06 23:40:44', '2022-09-16 00:57:35');
+INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (2, '测试账号', 'test', '$2a$10$d4AA4SDGcvCKMnPdoi2IyuNLxqwPINZwViN3pekUGUYXkqQozX.4y', '/images/avatar/x8uRIbC3.jpg', '127.0.0.1', '本机登录', '2022-09-30 19:37:30', 1, '2022-08-13 18:23:02', '2022-09-30 19:37:41');
 COMMIT;
 
 -- ----------------------------
@@ -748,7 +818,7 @@ CREATE TABLE `user_info` (
   `leetcode` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'leetcode主页',
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '自我描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of user_info
@@ -767,7 +837,7 @@ CREATE TABLE `user_role` (
   `user_id` int DEFAULT NULL COMMENT '用户ID',
   `role_id` int DEFAULT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of user_role
@@ -821,6 +891,30 @@ CREATE TABLE `website_other` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `website_other` (`id`, `avatar`, `comment_allow`, `message_allow`, `reward`, `wechat_receipt`, `alipay_receipt`) VALUES (1, '/images/avatar/x8uRIbC3.jpg', 0, 0, 1, '/images/receipt/zxYMikB5.jpg', '/images/receipt/yloYMa7v.jpg');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for week_view
+-- ----------------------------
+DROP TABLE IF EXISTS `week_view`;
+CREATE TABLE `week_view` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `view_count` int DEFAULT NULL COMMENT '访问量',
+  `create_time` date DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of week_view
+-- ----------------------------
+BEGIN;
+INSERT INTO `week_view` (`id`, `view_count`, `create_time`) VALUES (1, 60, '2022-09-27');
+INSERT INTO `week_view` (`id`, `view_count`, `create_time`) VALUES (2, 62, '2022-09-28');
+INSERT INTO `week_view` (`id`, `view_count`, `create_time`) VALUES (3, 29, '2022-09-29');
+INSERT INTO `week_view` (`id`, `view_count`, `create_time`) VALUES (4, 48, '2022-09-30');
+INSERT INTO `week_view` (`id`, `view_count`, `create_time`) VALUES (5, 15, '2022-10-01');
+INSERT INTO `week_view` (`id`, `view_count`, `create_time`) VALUES (6, 25, '2022-10-02');
+INSERT INTO `week_view` (`id`, `view_count`, `create_time`) VALUES (7, 40, '2022-10-03');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
