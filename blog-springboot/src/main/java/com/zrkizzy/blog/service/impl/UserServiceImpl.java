@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.zrkizzy.blog.constant.CommonConst.LOCAL_HOST;
-import static com.zrkizzy.blog.constant.CommonConst.USER_INFO;
+import static com.zrkizzy.blog.constant.RedisConst.USER_INFO;
 
 /**
  * @author zhangrongkang

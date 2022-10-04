@@ -35,6 +35,16 @@ public class TimeUtil {
     }
 
     /**
+     * 获取当前时间（字符串格式）
+     *
+     * @return 当前时间
+     */
+    public static String getNowDate(){
+        SimpleDateFormat df = new SimpleDateFormat("MM-dd");
+        return df.format(new Date());
+    }
+
+    /**
      * String 转 LocalDate
      *
      * @param time String
@@ -78,6 +88,16 @@ public class TimeUtil {
         // 先转LocalDate ===> 再转LocalDateTime
         LocalDate localDate = stringToLocalDate(time);
         return localDate.atTime(LocalTime.now());
+    }
+
+    /**
+     * LocalDate转String
+     *
+     * @param time LocalDate
+     * @return String
+     */
+    public static String localDateToString(LocalDate time) {
+        return time.format(DateTimeFormatter.ofPattern("MM-dd"));
     }
 
 }

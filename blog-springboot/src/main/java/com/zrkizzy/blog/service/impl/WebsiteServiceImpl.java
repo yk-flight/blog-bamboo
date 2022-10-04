@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
-import static com.zrkizzy.blog.constant.CommonConst.WEBSITE_INFO;
+import static com.zrkizzy.blog.constant.RedisConst.WEBSITE_INFO;
 
 /**
  * <p>

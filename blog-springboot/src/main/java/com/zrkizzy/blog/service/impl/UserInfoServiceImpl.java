@@ -19,7 +19,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.Date;
 
-import static com.zrkizzy.blog.constant.CommonConst.USER_INFO;
+import static com.zrkizzy.blog.constant.RedisConst.USER_INFO;
 
 /**
  * @author zhangrongkang
