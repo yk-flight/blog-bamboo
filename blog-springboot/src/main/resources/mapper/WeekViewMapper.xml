@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zrkizzy.blog.mapper.WeekViewMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zrkizzy.blog.entity.WeekView">
+        <id column="id" property="id" />
+        <result column="view_count" property="viewCount" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, view_count, create_time
+    </sql>
+    <!-- 更新昨日访问量 -->
+    <update id="updateLastDayCount">
+        UPDATE week_view
+        SET view_count=#{lastDayCount}
+        WHERE create_time=#{lastDay}
+    </update>
+
+</mapper>
