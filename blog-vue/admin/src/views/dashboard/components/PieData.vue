@@ -9,34 +9,17 @@ import echarts from "echarts";
 
 export default {
   name: "PieData",
-
+  props: {
+    pieData: {
+      type: Array,
+      require: true,
+    },
+  },
   data() {
     return {
       myChart: {},
-      pieData: [
-        {
-          value: 463,
-          name: "江苏",
-        },
-        {
-          value: 395,
-          name: "浙江",
-        },
-        {
-          value: 157,
-          name: "山东",
-        },
-        {
-          value: 149,
-          name: "广东",
-        },
-        {
-          value: 147,
-          name: "湖南",
-        },
-      ],
       pieName: [],
-      myChartStyle: { width: "100%", height: "350px" }, //图表样式
+      myChartStyle: { width: "100%", height: "330px" }, //图表样式
     };
   },
 
@@ -55,7 +38,7 @@ export default {
       // 饼图
       const option = {
         color: [
-          "#5470c6",
+          "rgb(102, 177, 255)",
           "#91cc75",
           "#fac858",
           "#ee6666",

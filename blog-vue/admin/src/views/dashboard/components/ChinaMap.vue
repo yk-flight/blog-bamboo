@@ -106,8 +106,8 @@ export default {
           pieces: [
             // 自定义『分段式视觉映射组件（visualMapPiecewise）』的每一段的范围，
             // 以及每一段的文字，以及每一段的特别的样式
-            { gt: 100, label: ">101人", color: "#409EFF" }, // (100, ]
-            { gt: 50, lte: 100, label: "51-100人", color: "#67C23A" }, // (50, 100]
+            { gt: 100, label: ">101人", color: "rgb(102, 177, 255)" }, // (100, ]
+            { gt: 50, lte: 100, label: "51-100人", color: "#91cc75" }, // (50, 100]
             { gt: 10, lte: 50, label: "10-50人", color: "#E6A23C" }, // (10, 50]
             { gt: 0, lte: 10, label: "1-10人", color: "#F56C6C" }, // (0, 10]
           ],

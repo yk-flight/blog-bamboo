@@ -12,46 +12,21 @@ export default {
   },
   data() {
     return {
-      // tags: [
-      //   "万事如意",
-      //   "事事如意 ",
-      //   "万事亨通",
-      //   "一帆风顺",
-      //   "万事大吉",
-      //   "吉祥如意",
-      //   "步步高升",
-      //   "步步登高",
-      //   "三羊开泰",
-      //   "得心应手",
-      //   "财源广进",
-      //   "陶未媲美",
-      //   "阖家安康",
-      //   "龙马精神",
-      //   "锦绣前程",
-      //   "吉祥如意",
-      //   "生龙活虎",
-      //   "神采奕奕",
-      //   "五谷丰登",
-      //   "马到成功",
-      //   "飞黄腾达",
-      //   " 步步高升",
-      //   "福禄寿禧",
-      // ],
       color: [
-        "#a18cd1",
-        "#fad0c4",
-        "#ff8177",
-        "#fecfef",
+        "#409eff",
+        "#409eff",
+        "#f4516c",
         "#fda085",
-        "#f5576c",
+        "#40c9c6",
         "#fe9a8b",
-        "#30cfd0",
-        "#38f9d7",
+        "#67C23A",
+        "#E6A23C",
       ],
       wordArr: [],
       timer: null,
       resetTime: 10,
       ContainerSize: "",
+      handleData: {},
     };
   },
   mounted() {
@@ -71,7 +46,7 @@ export default {
         spanDom.style.position = "relative";
         spanDom.style.display = "inline-block";
         spanDom.style.color = this.randomColor();
-        spanDom.style.fontSize = this.randomNumber(15, 30) + "px";
+        spanDom.style.fontSize = this.randomNumber(18, 30) + "px";
         spanDom.innerHTML = value;
         spanDom.local = {
           position: {
@@ -86,8 +61,8 @@ export default {
           },
           velocity: {
             // 每次位移初速度
-            x: -0.5 + Math.random(),
-            y: -0.5 + Math.random(),
+            x: -1.5 + Math.random(),
+            y: -1.5 + Math.random(),
           },
         };
         this.$refs.wordCloud.appendChild(spanDom);
@@ -182,6 +157,6 @@ export default {
 .wordCloud {
   margin-top: 10px;
   width: 100%;
-  height: 310px;
+  height: 290px;
 }
 </style>
