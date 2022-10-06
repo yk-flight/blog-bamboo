@@ -25,6 +25,7 @@
     <mavon-editor
       ref="mdedit"
       v-model="article.contentMd"
+      :ishljs="true"
       @imgAdd="handleImgAdd"
       @imgDel="handleImgDel"
       class="article-content"

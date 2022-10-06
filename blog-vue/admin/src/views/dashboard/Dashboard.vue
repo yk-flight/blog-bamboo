@@ -238,7 +238,6 @@ export default {
         this.hotArticles = result.hotArticles;
         // 最新留言
         this.messages = result.messages;
-        console.log(result);
       });
     },
     // 前往编辑文章页面
