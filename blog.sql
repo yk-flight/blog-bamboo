@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 04/10/2022 12:00:36
+ Date: 08/10/2022 14:23:39
 */
 
 SET NAMES utf8mb4;
@@ -46,7 +46,7 @@ CREATE TABLE `article` (
   `publish_time` datetime DEFAULT NULL COMMENT '发表时间',
   `tags` varchar(255) DEFAULT NULL COMMENT '标签',
   `summary` varchar(255) DEFAULT NULL COMMENT '摘要',
-  `content_md` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT '文章内容md',
+  `content_md` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT '文章内容',
   `type` tinyint DEFAULT NULL COMMENT '文章类型 1 原创 2 转载 3 翻译',
   `state` tinyint DEFAULT NULL COMMENT '文章状态 0 草稿 1 已发布 2 回收站',
   `deleted` tinyint DEFAULT '0' COMMENT '是否删除 1 已删除 0 未删除',
@@ -57,7 +57,7 @@ CREATE TABLE `article` (
   `view_num` int DEFAULT '0' COMMENT '浏览数量',
   `comment_num` int DEFAULT '0' COMMENT '评论数量',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of article
@@ -69,6 +69,7 @@ INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summa
 INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (7, '第三篇', 1, '2022-09-22 04:17:45', '[4,7]', '测试摘要', '测试\n继续测试能不能保存', 1, 1, 0, 1, 0, '/images/cover/Y1TbZfkL.jpg', '2022-10-03 04:17:45', 31, 0);
 INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (8, '第四篇测试文章', 1, '2022-09-22 04:08:23', '[4,6,7]', '测试', '第四篇测试文章', 2, 1, 0, 1, 0, '/images/cover/xGx9zwY8.jpg', '2022-10-03 04:08:23', 0, 0);
 INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (9, '前路有光，初心莫忘', 11, '2022-10-03 20:56:55', '[8]', '2021年终总结', '2021年的旅程也落下了帷幕', 1, 1, 0, 1, 0, '/images/cover/LlfcijKq.jpeg', '2022-10-03 20:56:55', 0, 0);
+INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (10, '测试转HTML文章', 9, '2022-10-06 12:06:37', '[4,6]', '# 测试文本内容 测试图片 ![老农民](/images/avatar/P7E1vO0l.jpeg)  ## 测试二级标题', '# 测试一级标题\n测试图片\n![老农民](http://localhost:8081/images/avatar/P7E1vO0l.jpeg)\n\n```java\n// 代码内容，也不知道他为什么不高亮\npublic void static main () {\n    System.out.println();\n}\n```', 1, 1, 0, 1, 0, '/images/avatar/P7E1vO0l.jpeg', '2022-10-06 12:06:37', 0, 0);
 COMMIT;
 
 -- ----------------------------
@@ -92,7 +93,7 @@ CREATE TABLE `categories` (
 BEGIN;
 INSERT INTO `categories` (`id`, `name`, `description`, `article_amount`, `image`, `create_time`, `update_time`) VALUES (1, '测试分类', '测试修改文章分类', 2, '/images/cover/8zkLNfgw.jpg', '2022-08-18 08:00:00', '2022-09-22 19:14:03');
 INSERT INTO `categories` (`id`, `name`, `description`, `article_amount`, `image`, `create_time`, `update_time`) VALUES (8, '数据结构', '数据结构学习笔记', 2, '/images/cover/KU5ZUmz9.jpg', '2022-09-20 15:17:43', '2022-09-22 19:12:49');
-INSERT INTO `categories` (`id`, `name`, `description`, `article_amount`, `image`, `create_time`, `update_time`) VALUES (9, '继续测试', '哈哈哈', 0, '/images/cover/z0qKbnAk.jpg', '2022-09-27 09:52:16', '2022-09-28 15:32:16');
+INSERT INTO `categories` (`id`, `name`, `description`, `article_amount`, `image`, `create_time`, `update_time`) VALUES (9, '继续测试', '哈哈哈', 1, '/images/cover/z0qKbnAk.jpg', '2022-09-27 09:52:16', '2022-09-28 15:32:16');
 INSERT INTO `categories` (`id`, `name`, `description`, `article_amount`, `image`, `create_time`, `update_time`) VALUES (11, '生活记录', '生活记录文章', 1, '/images/article/SbKJJVb8.jpg', '2022-10-03 20:56:23', '2022-10-03 20:56:32');
 COMMIT;
 
@@ -109,6 +110,7 @@ CREATE TABLE `comment` (
   `allow` tinyint DEFAULT NULL COMMENT '是否通过 1 已通过 0 审核中',
   `ip_address` varchar(255) DEFAULT NULL COMMENT 'IP地址',
   `ip_source` varchar(255) DEFAULT NULL COMMENT 'IP属地',
+  `article_id` int DEFAULT NULL COMMENT '评论文章',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -116,12 +118,12 @@ CREATE TABLE `comment` (
 -- Records of comment
 -- ----------------------------
 BEGIN;
-INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`) VALUES (1, '第一条评论', '测试账号', 0, '2022-09-29 15:01:38', 1, '223.104.148.77', '江苏省苏州市 移动');
-INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`) VALUES (2, '第2条评论', '测试账号', 0, '2022-09-29 15:01:38', 1, '223.104.148.77', '江苏省苏州市 移动');
-INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`) VALUES (3, '第3条评论', '测试账号', 0, '2022-09-29 15:01:38', 1, '223.104.148.77', '江苏省苏州市 移动');
-INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`) VALUES (8, '超级无敌架构师到此一游！', '超级无敌架构师', 0, '2022-09-29 23:26:28', 1, '0:0:0:0:0:0:0:1', '');
-INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`) VALUES (9, '超级无敌架构师再次到此一游！', '超级无敌架构师', 8, '2022-09-29 23:30:04', 1, '0:0:0:0:0:0:0:1', '');
-INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`) VALUES (10, '超级无敌架构师还来这里到此一游！', '超级无敌架构师', 8, '2022-09-29 23:30:44', 0, '0:0:0:0:0:0:0:1', '');
+INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`, `article_id`) VALUES (1, '第一条评论', '测试账号', 0, '2022-09-29 15:01:38', 1, '223.104.148.77', '江苏省苏州市 移动', 1);
+INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`, `article_id`) VALUES (2, '第2条评论', '测试账号', 0, '2022-09-29 15:01:38', 1, '223.104.148.77', '江苏省苏州市 移动', 1);
+INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`, `article_id`) VALUES (3, '第3条评论', '测试账号', 0, '2022-09-29 15:01:38', 1, '223.104.148.77', '江苏省苏州市 移动', 1);
+INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`, `article_id`) VALUES (8, '超级无敌架构师到此一游！', '超级无敌架构师', 0, '2022-09-29 23:26:28', 1, '0:0:0:0:0:0:0:1', '', 1);
+INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`, `article_id`) VALUES (9, '超级无敌架构师再次到此一游！', '超级无敌架构师', 8, '2022-09-29 23:30:04', 1, '0:0:0:0:0:0:0:1', '', 1);
+INSERT INTO `comment` (`id`, `content`, `nick_name`, `parent_id`, `comment_time`, `allow`, `ip_address`, `ip_source`, `article_id`) VALUES (10, '超级无敌架构师还来这里到此一游！', '超级无敌架构师', 8, '2022-09-29 23:30:44', 0, '0:0:0:0:0:0:0:1', '', 1);
 COMMIT;
 
 -- ----------------------------
@@ -136,7 +138,7 @@ CREATE TABLE `files` (
   `description` varchar(255) DEFAULT NULL COMMENT '备注',
   `upload_time` datetime DEFAULT NULL COMMENT '文件上传时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of files
@@ -158,6 +160,9 @@ INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_ti
 INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (36, 'zxYMikB5.jpg', '世纪末的架构师', '/images/receipt/zxYMikB5.jpg', '用户上传图片', '2022-09-27 00:00:00');
 INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (37, 'yloYMa7v.jpg', '世纪末的架构师', '/images/receipt/yloYMa7v.jpg', '用户上传图片', '2022-09-27 00:00:00');
 INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (44, 'x8uRIbC3.jpg', '世纪末的架构师', '/images/avatar/x8uRIbC3.jpg', '用户上传图片', '2022-09-29 00:00:00');
+INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (45, 'kxCDcvX0.jpg', '世纪末的架构师', '/images/cover/kxCDcvX0.jpg', '用户上传图片', '2022-10-05 00:00:00');
+INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (46, 'v8WtLNhP.jpg', '世纪末的架构师', '/images/cover/v8WtLNhP.jpg', '用户上传图片', '2022-10-06 00:00:00');
+INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (48, 'vSf982o2.jpg', '世纪末的架构师', '/images/cover/vSf982o2.jpg', '用户上传图片', '2022-10-07 00:00:00');
 COMMIT;
 
 -- ----------------------------
@@ -282,7 +287,7 @@ CREATE TABLE `operate_log` (
   `duration` int unsigned DEFAULT NULL COMMENT '执行时长',
   `operate_time` datetime DEFAULT NULL COMMENT '操作日期',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=242 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of operate_log
@@ -521,6 +526,12 @@ INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `ope
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (233, '文章模块', '新增文章分类', 'POST', 'com.zrkizzy.blog.service.impl.CategoryServiceImpl.insertCategory', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"description\":\"生活记录文章\",\"image\":\"/images/cover/z0qKbnAk.jpg\",\"name\":\"生活记录\"}]', '{\"code\":200,\"message\":\"文章分类创建成功\"}', 13, '2022-10-03 20:56:23');
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (234, '文章模块', '更新文章分类', 'PUT', 'com.zrkizzy.blog.service.impl.CategoryServiceImpl.updateCategory', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"articleAmount\":0,\"createTime\":1664801783000,\"description\":\"生活记录文章\",\"id\":11,\"image\":\"/images/article/SbKJJVb8.jpg\",\"name\":\"生活记录\",\"updateTime\":1664801791778}]', '{\"code\":200,\"message\":\"文章分类更新成功\"}', 16, '2022-10-03 20:56:32');
 INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (235, '标签模块', '添加新标签', 'POST', 'com.zrkizzy.blog.controller.TagsController.insertTags', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"name\":\"生活记录\"}]', '{\"code\":200,\"message\":\"标签添加成功\"}', 24, '2022-10-03 20:56:50');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (236, '页面管理模块', '更新页面', 'PUT', 'com.zrkizzy.blog.controller.PagesController.updatePageInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"id\":2,\"image\":\"/images/article/SbKJJVb8.jpg\",\"label\":\"archive\",\"path\":\"/archive\",\"title\":\"归档\"}]', '{\"code\":200,\"message\":\"页面信息更新成功\"}', 10, '2022-10-05 09:15:25');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (237, '页面管理模块', '更新页面', 'PUT', 'com.zrkizzy.blog.controller.PagesController.updatePageInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"id\":2,\"image\":\"/images/cover/kxCDcvX0.jpg\",\"label\":\"archive\",\"path\":\"/archive\",\"title\":\"归档\"}]', '{\"code\":200,\"message\":\"页面信息更新成功\"}', 21, '2022-10-05 09:15:50');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (238, '页面管理模块', '更新页面', 'PUT', 'com.zrkizzy.blog.controller.PagesController.updatePageInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"id\":3,\"image\":\"/images/cover/v8WtLNhP.jpg\",\"label\":\"category\",\"path\":\"/category\",\"title\":\"分类\"}]', '{\"code\":200,\"message\":\"页面信息更新成功\"}', 25, '2022-10-06 10:44:05');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (239, '页面管理模块', '更新页面', 'PUT', 'com.zrkizzy.blog.controller.PagesController.updatePageInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"id\":4,\"image\":\"/images/cover/PyQGsDJS.jpg\",\"label\":\"tags\",\"path\":\"/tags\",\"title\":\"日志\"}]', '{\"code\":200,\"message\":\"页面信息更新成功\"}', 31, '2022-10-07 00:24:36');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (240, '文件管理模块', '用户批量删除文件', 'DELETE', 'com.zrkizzy.blog.service.impl.FilesServiceImpl.deleteFileBatchIds', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[[47]]', '{\"code\":200,\"message\":\"删除成功\"}', 23, '2022-10-07 00:30:24');
+INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (241, '页面管理模块', '更新页面', 'PUT', 'com.zrkizzy.blog.controller.PagesController.updatePageInfo', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[{\"id\":4,\"image\":\"/images/cover/vSf982o2.jpg\",\"label\":\"tags\",\"path\":\"/tags\",\"title\":\"标签\"}]', '{\"code\":200,\"message\":\"页面信息更新成功\"}', 21, '2022-10-07 00:30:46');
 COMMIT;
 
 -- ----------------------------
@@ -541,9 +552,9 @@ CREATE TABLE `pages` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (1, '首页', 'home', '/images/cover/KU5ZUmz9.jpg', '/');
-INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (2, '归档', 'archive', '/images/article/SbKJJVb8.jpg', '/archive');
-INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (3, '分类', 'category', '/images/article/VKXMSCmV.jpg', '/category');
-INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (4, '日志', 'log', '/images/cover/FvDOfIrj.jpg', '/log');
+INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (2, '归档', 'archive', '/images/cover/kxCDcvX0.jpg', '/archive');
+INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (3, '分类', 'category', '/images/cover/v8WtLNhP.jpg', '/category');
+INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (4, '标签', 'tags', '/images/cover/vSf982o2.jpg', '/tags');
 INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (5, '相册', 'photo', '/images/cover/z0qKbnAk.jpg', '/photo');
 INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (6, '友链', 'link', '/images/cover/8zkLNfgw.jpg', '/link');
 INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (7, '关于我', 'about', '/images/cover/Y1TbZfkL.jpg', '/about');
@@ -769,9 +780,9 @@ CREATE TABLE `tags` (
 -- Records of tags
 -- ----------------------------
 BEGIN;
-INSERT INTO `tags` (`id`, `name`, `create_time`, `article_num`) VALUES (4, '测试标签', '2022-09-15 01:23:40', 3);
+INSERT INTO `tags` (`id`, `name`, `create_time`, `article_num`) VALUES (4, '测试标签', '2022-09-15 01:23:40', 4);
 INSERT INTO `tags` (`id`, `name`, `create_time`, `article_num`) VALUES (5, '数据结构', '2022-09-20 19:13:19', 1);
-INSERT INTO `tags` (`id`, `name`, `create_time`, `article_num`) VALUES (6, '测试', '2022-09-20 19:13:26', 3);
+INSERT INTO `tags` (`id`, `name`, `create_time`, `article_num`) VALUES (6, '测试', '2022-09-20 19:13:26', 4);
 INSERT INTO `tags` (`id`, `name`, `create_time`, `article_num`) VALUES (7, '学习笔记', '2022-09-21 15:03:49', 3);
 INSERT INTO `tags` (`id`, `name`, `create_time`, `article_num`) VALUES (8, '生活记录', '2022-10-03 20:56:50', 1);
 COMMIT;
@@ -799,7 +810,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (1, '世纪末的架构师', 'admin', '$2a$10$Tt3NW32EBpMk9ClWUCAkOu6FIRXyhfze7xJ0bQGx8sdVgV4IqYzqO', '/images/avatar/m4VH2s1n.jpeg', '127.0.0.1', '本机登录', '2022-10-04 11:36:07', 1, '2022-08-06 23:40:44', '2022-09-16 00:57:35');
+INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (1, '世纪末的架构师', 'admin', '$2a$10$Tt3NW32EBpMk9ClWUCAkOu6FIRXyhfze7xJ0bQGx8sdVgV4IqYzqO', '/images/avatar/m4VH2s1n.jpeg', '127.0.0.1', '本机登录', '2022-10-08 14:01:09', 1, '2022-08-06 23:40:44', '2022-09-16 00:57:35');
 INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (2, '测试账号', 'test', '$2a$10$d4AA4SDGcvCKMnPdoi2IyuNLxqwPINZwViN3pekUGUYXkqQozX.4y', '/images/avatar/x8uRIbC3.jpg', '127.0.0.1', '本机登录', '2022-09-30 19:37:30', 1, '2022-08-13 18:23:02', '2022-09-30 19:37:41');
 COMMIT;
 
@@ -902,7 +913,7 @@ CREATE TABLE `week_view` (
   `view_count` int DEFAULT NULL COMMENT '访问量',
   `create_time` date DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of week_view
@@ -915,6 +926,7 @@ INSERT INTO `week_view` (`id`, `view_count`, `create_time`) VALUES (4, 48, '2022
 INSERT INTO `week_view` (`id`, `view_count`, `create_time`) VALUES (5, 15, '2022-10-01');
 INSERT INTO `week_view` (`id`, `view_count`, `create_time`) VALUES (6, 25, '2022-10-02');
 INSERT INTO `week_view` (`id`, `view_count`, `create_time`) VALUES (7, 40, '2022-10-03');
+INSERT INTO `week_view` (`id`, `view_count`, `create_time`) VALUES (8, 0, '2022-10-07');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

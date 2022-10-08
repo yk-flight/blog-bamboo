@@ -50,5 +50,6 @@ public class Comment implements Serializable {
     @ApiModelProperty(value = "IP属地")
     private String ipSource;
 
-
+    @ApiModelProperty(value = "评论文章")
+    private Integer articleId;
 }

@@ -22,4 +22,8 @@ public class CommentVO {
      * 父id
      */
     private Integer parentId;
+    /**
+     * 评论文章
+     */
+    private Integer articleId;
 }

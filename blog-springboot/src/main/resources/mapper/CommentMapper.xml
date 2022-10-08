@@ -12,11 +12,12 @@
         <result column="allow" property="allow" />
         <result column="ip_address" property="ipAddress" />
         <result column="ip_source" property="ipSource" />
+        <result column="article_id" property="articleId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, content, nick_name, parent_id, comment_time, allow, ip_address, ip_source
+        id, content, nick_name, parent_id, comment_time, allow, ip_address, ip_source, article_id
     </sql>
 
     <!-- 评论数据 -->
@@ -30,6 +31,7 @@
             <result column="allow2" property="allow" />
             <result column="ip_address2" property="ipAddress" />
             <result column="ip_source2" property="ipSource" />
+            <result column="article_id" property="articleId" />
         </collection>
     </resultMap>
 
