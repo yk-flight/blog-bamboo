@@ -1,5 +1,6 @@
 package com.zrkizzy.blog.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.zrkizzy.blog.dto.CategoryDTO;
 import com.zrkizzy.blog.entity.Category;
 import com.zrkizzy.blog.vo.PageVO;
@@ -12,7 +13,7 @@ import java.util.List;
  * @author zhangrongkang
  * @date 2022/8/18
  */
-public interface CategoryService {
+public interface CategoryService extends IService<Category> {
 
     /**
      * 查询指定的文章分类列表（分页）

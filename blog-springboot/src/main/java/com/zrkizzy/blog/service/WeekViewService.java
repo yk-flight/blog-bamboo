@@ -19,4 +19,11 @@ public interface WeekViewService extends IService<WeekView> {
      * @return 本周访问量数据传输对象
      */
     WeekViewDTO getWeekViewData();
+
+    /**
+     * 获取博客总访问量
+     *
+     * @return 博客总访问量
+     */
+    Integer getBlogVisitCount();
 }

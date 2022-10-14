@@ -20,4 +20,10 @@
         WHERE create_time=#{lastDay}
     </update>
 
+    <!-- 获取博客总访问量 -->
+    <select id="getBlogVisitCount" resultType="java.lang.Integer">
+        SELECT SUM(view_count)
+        FROM week_view
+    </select>
+
 </mapper>

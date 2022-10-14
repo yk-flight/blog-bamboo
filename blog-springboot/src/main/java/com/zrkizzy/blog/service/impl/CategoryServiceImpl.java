@@ -3,6 +3,7 @@ package com.zrkizzy.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.dto.CategoryDTO;
 import com.zrkizzy.blog.entity.Category;
@@ -25,7 +26,7 @@ import java.util.List;
  * @date 2022/8/18
  */
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
     @Resource
     private CategoryMapper categoryMapper;
 

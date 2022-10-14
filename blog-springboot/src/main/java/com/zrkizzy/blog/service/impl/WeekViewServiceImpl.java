@@ -61,6 +61,16 @@ public class WeekViewServiceImpl extends ServiceImpl<WeekViewMapper, WeekView> i
     }
 
     /**
+     * 获取博客总访问量
+     *
+     * @return 博客总访问量
+     */
+    @Override
+    public Integer getBlogVisitCount() {
+        return weekViewMapper.getBlogVisitCount();
+    }
+
+    /**
      * 存储每日用户访问量（每天凌晨0点将昨日用户访问量进行存储）
      */
     @Scheduled(cron = " 0 0 0 * * ?", zone = "Asia/Shanghai")

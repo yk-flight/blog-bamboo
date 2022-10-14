@@ -53,7 +53,6 @@ public class WebsiteController {
         Website website = BeanCopyUtil.copy(websiteVO, Website.class);
         // 设置网站的创建时间
         website.setCreateDate(TimeUtil.stringToLocalDateTimeDay(websiteVO.getCreateDate()));
-        System.out.println(website);
         if (websiteService.updateById(website)) {
             return Result.success("网站信息修改成功");
         }

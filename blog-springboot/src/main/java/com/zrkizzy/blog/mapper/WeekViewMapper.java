@@ -21,4 +21,11 @@ public interface WeekViewMapper extends BaseMapper<WeekView> {
      * @return 受影响的行数
      */
     Integer updateLastDayCount(@Param("lastDay") String lastDay, @Param("lastDayCount") Integer lastDayCount);
+
+    /**
+     * 获取博客总访问量
+     *
+     * @return 博客总访问量
+     */
+    Integer getBlogVisitCount();
 }
