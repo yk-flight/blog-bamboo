@@ -15,5 +15,5 @@ public class CommonConst {
     /**
      * 文件上传访问路径前缀
      */
-    public static final String DOMAIN = "/images/";
+    public static final String DOMAIN = "http://localhost:8090/images/";
 }
