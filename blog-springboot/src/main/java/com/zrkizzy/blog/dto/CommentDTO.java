@@ -50,4 +50,12 @@ public class CommentDTO {
      * 回复评论
      */
     private List<Comment> children;
+    /**
+     * 用户身份
+     */
+    private Integer identity;
+    /**
+     * 评论文章
+     */
+    private Integer articleId;
 }

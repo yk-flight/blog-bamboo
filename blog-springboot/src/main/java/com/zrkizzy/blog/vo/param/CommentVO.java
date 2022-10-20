@@ -26,4 +26,8 @@ public class CommentVO {
      * 评论文章
      */
     private Integer articleId;
+    /**
+     * 用户身份
+     */
+    private Integer identity;
 }

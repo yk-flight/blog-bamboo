@@ -52,4 +52,7 @@ public class Comment implements Serializable {
 
     @ApiModelProperty(value = "评论文章")
     private Integer articleId;
+
+    @ApiModelProperty(value = "用户身份")
+    private Integer identity;
 }
