@@ -262,24 +262,25 @@ export default {
   align-items: center;
 }
 .view-body {
-  width: 50%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .icon-access {
   color: #40c9c6;
-  font-size: 50px;
+  font-size: 40px;
 }
 .icon-article {
   color: #36a3f7;
-  font-size: 50px;
+  font-size: 40px;
 }
 .icon-message {
   color: #f4516c;
-  font-size: 50px;
+  font-size: 40px;
 }
 .icon-user {
   color: #34bfa3;
-  font-size: 50px;
+  font-size: 40px;
 }
 .font-title {
   margin-bottom: 5px;
@@ -386,6 +387,10 @@ export default {
   font-weight: 500;
   font-size: 12px;
   width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-line-clamp: 1;
 }
 .message-content {
   width: 40%;

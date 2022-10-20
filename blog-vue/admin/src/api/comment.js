@@ -79,3 +79,17 @@ export const passCommentBatchIds = (ids) => {
     method: "GET",
   });
 };
+
+/**
+ * 回复评论
+ *
+ * @param {*} data
+ * @returns
+ */
+export const addComment = (data) => {
+  return request({
+    url: "/comment/addComment",
+    method: "POST",
+    data: data,
+  });
+};

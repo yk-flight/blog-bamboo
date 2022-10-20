@@ -87,17 +87,33 @@
         >
           <el-table-column type="selection" width="50" align="center">
           </el-table-column>
-          <el-table-column prop="nickName" label="评论用户" align="center">
+          <el-table-column label="评论用户" align="center">
+            <template slot-scope="scope">
+              <span>
+                {{ scope.row.nickName }}
+              </span>
+              <el-tag
+                size="mini"
+                style="margin-left: 5px"
+                v-if="scope.row.identity == 0"
+              >
+                博主
+              </el-tag>
+            </template>
           </el-table-column>
           <el-table-column label="用户头像" align="center" width="100">
-            <template>
+            <template slot-scope="scope">
               <el-empty
-                v-if="!this.$store.getters.avatar"
+                v-if="!commonAvatar"
                 description="暂无图片"
                 :image-size="40"
                 style="height: 60px"
               ></el-empty>
-              <el-image v-else :src="this.$store.getters.avatar"></el-image>
+              <el-image
+                v-else-if="scope.row.identity == 0"
+                :src="avatar"
+              ></el-image>
+              <el-image v-else :src="commonAvatar"></el-image>
             </template>
           </el-table-column>
           <el-table-column
@@ -143,6 +159,13 @@
               >
                 删除
               </el-button>
+              <el-button
+                type="text"
+                @click="handleReply(scope.row)"
+                icon="el-icon-circle-check"
+              >
+                回复
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -159,6 +182,27 @@
         >
         </el-pagination>
       </div>
+
+      <el-dialog
+        :visible="showReply"
+        title="回复评论"
+        width="600px"
+        :before-close="closeReplay"
+      >
+        <el-form>
+          <el-form-item label="回复内容">
+            <el-input
+              type="textarea"
+              rows="10"
+              v-model="commentVO.content"
+            ></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="handleSubmit">确定</el-button>
+          <el-button @click="closeReplay">取消</el-button>
+        </span>
+      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -171,6 +215,7 @@ import {
   passCommentById,
   passCommentBatchIds,
   getAllowCommentList,
+  addComment,
 } from "@/api/comment.js";
 
 export default {
@@ -178,6 +223,10 @@ export default {
 
   data() {
     return {
+      // 当前用户头像
+      avatar: this.$store.getters.userInfo.avatar,
+      // 游客头像
+      commonAvatar: this.$store.getters.avatar,
       // 用户昵称
       nickName: "",
       // 是否通过
@@ -192,6 +241,21 @@ export default {
       total: 0,
       // 表格多选框
       multipleSelection: [],
+      // 是否显示回复内容
+      showReply: false,
+      // 回复评论对象
+      commentVO: {
+        // 父ID
+        parentId: undefined,
+        // 评论内容
+        content: "",
+        // 用户昵称
+        nickName: this.$store.getters.userInfo.nickName,
+        // 用户身份
+        identity: 0,
+        // 评论文章
+        articleId: undefined,
+      },
     };
   },
 
@@ -344,6 +408,44 @@ export default {
     // 多选框按钮
     handleSelectionChange(val) {
       this.multipleSelection = val; //存储选中的数据
+    },
+    // 回复按钮响应时间
+    handleReply(val) {
+      this.showReply = true;
+      // 判断当前评论的父ID
+      if (val.parentId == 0) {
+        // 如果当前评论的父Id为0，则将当前评论的ID作为回复的父ID
+        this.commentVO.parentId = val.id;
+      } else {
+        this.commentVO.parentId = val.parentId;
+      }
+      // 定义回复文章ID
+      this.commentVO.articleId = val.articleId;
+    },
+    // 关闭回复评论
+    closeReplay() {
+      this.showReply = false;
+      this.commentVO = {
+        // 父ID
+        parentId: undefined,
+        // 评论内容
+        content: "",
+        // 用户昵称
+        nickName: this.$store.getters.userInfo.nickName,
+        // 用户身份
+        identity: 0,
+        // 评论文章
+        articleId: undefined,
+      };
+    },
+    // 点击确定回复评论按钮
+    handleSubmit() {
+      addComment(this.commentVO).then((result) => {
+        // 刷新评论
+        this.getTableData();
+        // 关闭对话框
+        this.closeReplay();
+      });
     },
   },
 };
