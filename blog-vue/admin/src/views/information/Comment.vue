@@ -101,6 +101,14 @@
               </el-tag>
             </template>
           </el-table-column>
+          <el-table-column label="回复人" align="center">
+            <template slot-scope="scope">
+              <span v-if="!scope.row.replyName"> 无 </span>
+              <span v-else>
+                {{ scope.row.replyName }}
+              </span>
+            </template>
+          </el-table-column>
           <el-table-column label="用户头像" align="center" width="100">
             <template slot-scope="scope">
               <el-empty
@@ -127,10 +135,10 @@
           </el-table-column>
           <el-table-column prop="ipAddress" label="IP属地" align="center">
           </el-table-column>
-          <el-table-column label="评论时间" align="center" width="200">
+          <el-table-column label="评论时间" align="center">
             <template slot-scope="scope">
               <i class="el-icon-time"></i>
-              <span style="margin-left: 10px">
+              <span style="margin-left: 5px">
                 {{ scope.row.commentTime | dateFilter }}
               </span>
             </template>
@@ -255,6 +263,8 @@ export default {
         identity: 0,
         // 评论文章
         articleId: undefined,
+        // 回复人
+        replyName: "",
       },
     };
   },
@@ -421,6 +431,8 @@ export default {
       }
       // 定义回复文章ID
       this.commentVO.articleId = val.articleId;
+      // 定义回复人姓名
+      this.commentVO.replyName = val.nickName;
     },
     // 关闭回复评论
     closeReplay() {
@@ -436,6 +448,8 @@ export default {
         identity: 0,
         // 评论文章
         articleId: undefined,
+        // 回复人
+        replyName: "",
       };
     },
     // 点击确定回复评论按钮
