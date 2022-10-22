@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zrkizzy.blog.dto.CommentDTO;
+import com.zrkizzy.blog.entity.Article;
 import com.zrkizzy.blog.entity.Comment;
 import com.zrkizzy.blog.entity.WebsiteOther;
+import com.zrkizzy.blog.mapper.ArticleMapper;
 import com.zrkizzy.blog.mapper.CommentMapper;
 import com.zrkizzy.blog.service.CommentService;
 import com.zrkizzy.blog.service.WebsiteOtherService;
@@ -35,6 +37,8 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Resource
     private WebsiteOtherService websiteOtherService;
     @Resource
+    private ArticleMapper articleMapper;
+    @Resource
     private CommentMapper commentMapper;
 
     /**
@@ -52,19 +56,8 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         // 定义查询条件
         QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("nick_name", nickName);
-        // 查询一级评论
-        queryWrapper.eq("parent_id", 0);
-        // 一级评论分页集合
         Page<Comment> commentPage = commentMapper.selectPage(page, queryWrapper);
-        // 复制集合对象
-        List<CommentDTO> commentDTOList = BeanCopyUtil.copyList(commentPage.getRecords(), CommentDTO.class);
-        // 查询所有评论
-        List<Comment> commentList = commentMapper.selectList(null);
-        for (CommentDTO commentDTO : commentDTOList) {
-            setCommentChild(commentDTO, commentList);
-        }
-        // 返回到查询的数据
-        return new PageVO(commentPage.getTotal(), commentDTOList);
+        return new PageVO(commentPage.getTotal(), commentPage.getRecords());
     }
 
     /**
@@ -114,6 +107,13 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         } else {
             comment.setAllow(0);
         }
+        // 更新当前评论对应文章的评论数
+        if (!comment.getArticleId().equals(0)) {
+            // 如果当前评论的来源不是关于我页面
+            Article article = articleMapper.selectById(comment.getArticleId());
+            article.setCommentNum(article.getCommentNum() + 1);
+            articleMapper.updateById(article);
+        }
         // 添加评论到数据库
         if (commentMapper.insert(comment) < 1) {
             return Result.error("评论失败");
@@ -122,6 +122,36 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             return Result.success("评论成功，请等待管理员审核");
         }
         return Result.success("评论成功");
+    }
+
+    /**
+     * 获取指定文章的评论列表
+     *
+     * @param curPage 当前页数
+     * @param size    页面大小
+     * @param id      文章ID
+     * @return 评论列表
+     */
+    @Override
+    public PageVO listComment(Integer curPage, Integer size, Integer id) {
+        // 开启分页
+        Page<Comment> page = new Page<>(curPage, size);
+        // 定义查询条件
+        QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
+        // 查询当前文章通过审核的评论总数
+        queryWrapper.eq("article_id", id).eq("allow", 1);
+        List<Comment> comments = commentMapper.selectList(queryWrapper);
+        // 查询当前文章的一级评论总数
+        queryWrapper.eq("parent_id", 0);
+        // 查询分页
+        Page<Comment> commentPage = commentMapper.selectPage(page, queryWrapper);
+        // 复制集合对象
+        List<CommentDTO> commentDTOList = BeanCopyUtil.copyList(commentPage.getRecords(), CommentDTO.class);
+        // 查询所有评论
+        for (CommentDTO commentDTO : commentDTOList) {
+            setCommentChild(commentDTO, comments);
+        }
+        return new PageVO((long) comments.size(), commentDTOList);
     }
 
     /**

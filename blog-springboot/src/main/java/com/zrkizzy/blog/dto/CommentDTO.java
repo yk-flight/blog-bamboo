@@ -58,4 +58,8 @@ public class CommentDTO {
      * 评论文章
      */
     private Integer articleId;
+    /**
+     * 回复人
+     */
+    private String replyName;
 }

@@ -47,4 +47,14 @@ public interface CommentService extends IService<Comment> {
      * @return 前端响应对象
      */
     Result addComment(CommentVO commentVO, HttpServletRequest request);
+
+    /**
+     * 获取指定文章的评论列表
+     *
+     * @param curPage 当前页数
+     * @param size 页面大小
+     * @param id 文章ID
+     * @return 评论列表
+     */
+    PageVO listComment(Integer curPage, Integer size, Integer id);
 }

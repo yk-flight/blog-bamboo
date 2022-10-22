@@ -55,4 +55,7 @@ public class Comment implements Serializable {
 
     @ApiModelProperty(value = "用户身份")
     private Integer identity;
+
+    @ApiModelProperty(value = "回复人")
+    private String replyName;
 }

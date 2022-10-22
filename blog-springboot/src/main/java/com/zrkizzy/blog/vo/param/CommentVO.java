@@ -30,4 +30,8 @@ public class CommentVO {
      * 用户身份
      */
     private Integer identity;
+    /**
+     * 回复人
+     */
+    private String replyName;
 }
