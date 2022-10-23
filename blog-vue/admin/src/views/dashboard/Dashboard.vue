@@ -7,26 +7,17 @@
         <!-- 热门文章 -->
         <el-row class="el-row-container">
           <el-card shadow="hover" style="height: 200px">
-            <div class="span-title">热门文章</div>
-            <div class="article-container">
-              <div
-                class="article-item"
-                v-for="item in hotArticles"
-                :key="item.id"
-              >
-                <span class="article-title" @click="onEditClick(item.id)">
-                  {{ item.title }}
-                </span>
-                <div class="article-date">
-                  {{ item.publishTime | dateFilter }}
+            <div class="span-title">最新评论</div>
+            <div class="message-container">
+              <div class="message-item" v-for="item in comments" :key="item.id">
+                <router-link to="/information/comment" class="message-title">
+                  {{ item.nickName }}
+                </router-link>
+                <div class="message-content">
+                  {{ item.content }}
                 </div>
-                <div class="article-icon">
-                  <el-tag v-if="item.type == 1" size="mini"> 原创 </el-tag>
-                  <el-tag v-else-if="item.type == 2" type="success" size="mini">
-                    转载
-                  </el-tag>
-                  <el-tag v-else type="info" size="mini">翻译</el-tag>
-                  <svg-icon icon="fire"></svg-icon>
+                <div class="message-date">
+                  {{ item.messageTime | dateFilter }}
                 </div>
               </div>
             </div>
@@ -36,19 +27,17 @@
         <el-row>
           <el-card shadow="hover" style="height: 200px">
             <div class="span-title">最新动态</div>
-            <div class="operation-container">
+            <div class="message-container">
               <div
-                class="operation-item"
+                class="message-item"
                 v-for="item in operateLogs"
                 :key="item.id"
               >
-                <div>
-                  <span class="operation-title"> {{ item.user }} </span>&nbsp;
-                  <span>
-                    {{ item.description }}
-                  </span>
-                </div>
-                <div class="operation-date">
+                <span class="message-title"> {{ item.user }} </span>
+                <span class="message-content">
+                  {{ item.description }}
+                </span>
+                <div class="message-date">
                   {{ item.operateTime | dateFilter }}
                 </div>
               </div>
@@ -207,8 +196,8 @@ export default {
       operateLogs: [],
       // 分类集合
       categories: [],
-      // 热门文章
-      hotArticles: [],
+      // 最新评论
+      comments: [],
       // 最新留言
       messages: [],
     };
@@ -234,15 +223,11 @@ export default {
         this.operateLogs = result.operateLogs;
         // 文章分类
         this.categories = result.categories;
-        // 热门文章
-        this.hotArticles = result.hotArticles;
+        // 最新评论
+        this.comments = result.comments;
         // 最新留言
         this.messages = result.messages;
       });
-    },
-    // 前往编辑文章页面
-    onEditClick(id) {
-      this.$router.push("/article/editor/" + id);
     },
   },
 };
@@ -298,44 +283,7 @@ export default {
   font-size: 18px;
   font-weight: 800;
 }
-.operation-container {
-  padding-top: 10px;
-}
-.operation-item {
-  font-size: 12px;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-.operation-title {
-  color: #409eff;
-  font-weight: 500;
-}
-.operation-date {
-  color: #909399;
-  font-weight: 500;
-}
-.article-container {
-  padding-top: 10px;
-}
-.article-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
-  .article-icon {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 20%;
-  }
-  .svg-icon {
-    font-size: 16px;
-    margin-left: 10px;
-    color: red;
-  }
-}
-.article-title {
+.comment-title {
   font-size: 12px;
   cursor: pointer;
   color: #303133;
@@ -346,11 +294,11 @@ export default {
   white-space: nowrap;
   -webkit-line-clamp: 1;
 }
-.article-title:hover {
+.comment-title:hover {
   transition: 0.5s;
   color: #409eff;
 }
-.article-date {
+.comment-date {
   color: #909399;
   font-weight: 500;
   font-size: 12px;
