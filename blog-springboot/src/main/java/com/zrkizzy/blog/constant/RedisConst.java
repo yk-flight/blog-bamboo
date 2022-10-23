@@ -16,10 +16,6 @@ public class RedisConst {
      */
     public static final String USER_INFO = "userInfo_";
     /**
-     * Redis中存储的用户总访问量
-     */
-    public static final String BLOG_VIEWS_COUNT = "view_count";
-    /**
      * Redis中存储的当日访问量
      */
     public static final String DAILY_VISITS = "daily_visits";

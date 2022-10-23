@@ -1,6 +1,6 @@
 package com.zrkizzy.blog.dto;
 
-import com.zrkizzy.blog.entity.Article;
+import com.zrkizzy.blog.entity.Comment;
 import com.zrkizzy.blog.entity.Message;
 import com.zrkizzy.blog.entity.OperateLog;
 import lombok.Data;
@@ -16,9 +16,9 @@ import java.util.List;
 @Data
 public class BlogDTO {
     /**
-     * 热门文章
+     * 最新评论
      */
-    private List<Article> hotArticles;
+    private List<Comment> comments;
     /**
      * 最新动态
      */
