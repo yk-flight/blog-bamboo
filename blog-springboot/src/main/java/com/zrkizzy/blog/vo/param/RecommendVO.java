@@ -5,27 +5,27 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * 标签数据传输对象
+ * 推荐文章返回对象
  *
  * @author zhangrongkang
- * @date 2022/9/14
+ * @date 2022/10/19
  */
 @Data
-public class TagsVO {
+public class RecommendVO {
     /**
      * 主键
      */
     private Integer id;
     /**
-     * 标签名称
+     * 博客标题
      */
-    private String name;
+    private String title;
     /**
-     * 文章数量
+     * 文章封面图
      */
-    private Integer articleNum;
+    private String background;
     /**
-     * 创建时间
+     * 发表时间
      */
-    private LocalDateTime createTime;
+    private LocalDateTime publishTime;
 }

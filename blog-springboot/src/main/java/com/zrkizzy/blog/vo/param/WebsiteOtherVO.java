@@ -19,14 +19,6 @@ public class WebsiteOtherVO {
      */
     private String avatar;
     /**
-     * 评论审核 1 开启 0 关闭
-     */
-    private Boolean commentAllow;
-    /**
-     * 留言审核 1 开启 0 关闭
-     */
-    private Boolean messageAllow;
-    /**
      * 打赏状态 1 开启 0 关闭
      */
     private Boolean reward;

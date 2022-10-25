@@ -1,12 +1,15 @@
 package com.zrkizzy.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zrkizzy.blog.dto.ArticleDTO;
 import com.zrkizzy.blog.entity.Article;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.param.ArticleVO;
+import com.zrkizzy.blog.vo.param.RecommendVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -79,4 +82,48 @@ public interface ArticleService extends IService<Article> {
      * @return 前端响应对象
      */
     Result updateArticle(ArticleVO articleVO);
+
+    /**
+     * 博客前台获取文章归档数据
+     *
+     * @param curPage 当前页数
+     * @param size 页面大小
+     * @return 前端分页对象
+     */
+    PageVO getArchiveList(Integer curPage, Integer size);
+
+    /**
+     * 获取所有前台文章(分页)
+     *
+     * @param curPage 当前页数
+     * @param size 页面大小
+     * @return 分页对象
+     */
+    PageVO listArticle(Integer curPage, Integer size);
+
+    /**
+     * 根据文章ID获取到文章对象
+     *
+     * @param id 文章ID
+     * @return 文章数据传输对象
+     */
+    ArticleDTO getArticleById(Integer id);
+
+    /**
+     * 获取相关推荐文章
+     *
+     * @return 相关推荐文章
+     */
+    List<RecommendVO> listRecommend();
+
+    /**
+     * 获取文章列表
+     *
+     * @param curPage 当前页数
+     * @param size 页面大小
+     * @param path 标签 / 分类
+     * @param id 对应ID
+     * @return 哈希表
+     */
+    Map<String, Object> listArticleById(Integer curPage, Integer size, String path, Integer id);
 }

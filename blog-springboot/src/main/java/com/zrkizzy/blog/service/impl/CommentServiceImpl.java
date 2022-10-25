@@ -24,6 +24,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.zrkizzy.blog.constant.CommonConst.LOCAL_HOST;
+
 /**
  * <p>
  *  服务实现类
@@ -98,6 +100,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         String ipAddress = IpUtil.getCurIpAddress(request);
         String ipSource = IpUtil.getIpSource(ipAddress);
         comment.setIpAddress(ipAddress);
+        if (ipAddress.equals(LOCAL_HOST)) {
+            ipSource = "本地登录";
+        }
         comment.setIpSource(ipSource);
         // 获取网站信息对象
         WebsiteOther websiteInfo = websiteOtherService.getWebsiteInfo();

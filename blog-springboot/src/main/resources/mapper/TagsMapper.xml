@@ -26,4 +26,16 @@
             </foreach>
     </select>
 
+    <select id="listTagsByIds" resultType="com.zrkizzy.blog.dto.TagsDTO">
+        SELECT
+        id, `name`
+        FROM
+        tags
+        WHERE
+        id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
 </mapper>

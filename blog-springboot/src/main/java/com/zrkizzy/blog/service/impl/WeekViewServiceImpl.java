@@ -67,6 +67,16 @@ public class WeekViewServiceImpl extends ServiceImpl<WeekViewMapper, WeekView> i
      */
     @Override
     public Integer getBlogVisitCount() {
+        // 更新Redis中存储的当日访问量
+        ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
+        // 获取当日的访问量
+        Integer viewCounts = (Integer) valueOperations.get(DAILY_VISITS);
+        if (viewCounts == null) {
+            // 如果不存在当日访问量则进行添加
+            valueOperations.set(DAILY_VISITS, 0);
+        } else {
+            valueOperations.set(DAILY_VISITS, viewCounts + 1);
+        }
         return weekViewMapper.getBlogVisitCount();
     }
 

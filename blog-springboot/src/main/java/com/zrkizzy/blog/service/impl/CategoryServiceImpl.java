@@ -163,4 +163,24 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     public List<Category> getAllCategory() {
         return categoryMapper.selectList(null);
     }
+
+    /**
+     * 博客前台获取分类集合
+     *
+     * @param curPage 当前页数
+     * @param size    页面大小
+     * @return 文章分页对象
+     */
+    @Override
+    public PageVO getCategoryList(Integer curPage, Integer size) {
+        // 开启分页
+        Page<Category> page = new Page<>(curPage, size);
+        // 定义查询条件
+        QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("create_time");
+        // 查询分页结果
+        Page<Category> categories = categoryMapper.selectPage(page, queryWrapper);
+        // 处理查询结果并返回
+        return new PageVO(categories.getTotal(), BeanCopyUtil.copyList(categories.getRecords(), CategoryVO.class));
+    }
 }

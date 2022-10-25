@@ -9,7 +9,6 @@ import com.zrkizzy.blog.service.WebsiteService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.utils.TimeUtil;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.WebsiteOtherVO;
 import com.zrkizzy.blog.vo.param.WebsiteVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -78,7 +77,7 @@ public class WebsiteController {
 
     @ApiOperation("更新网站管理其他信息")
     @PutMapping("/updateOtherInfo")
-    public Result updateOtherInfo(@RequestBody WebsiteOtherVO websiteOtherVO) {
-        return websiteService.updateOtherInfo(websiteOtherVO);
+    public Result updateOtherInfo(@RequestBody WebsiteOtherDTO websiteOtherDTO) {
+        return websiteService.updateOtherInfo(websiteOtherDTO);
     }
 }

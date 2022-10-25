@@ -1,6 +1,7 @@
 package com.zrkizzy.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zrkizzy.blog.annotation.LogAnnotation;
@@ -18,14 +19,22 @@ import com.zrkizzy.blog.utils.CollectionUtil;
 import com.zrkizzy.blog.utils.TimeUtil;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
+import com.zrkizzy.blog.vo.param.ArchiveVO;
 import com.zrkizzy.blog.vo.param.ArticleVO;
+import com.zrkizzy.blog.vo.param.ArticlesVO;
+import com.zrkizzy.blog.vo.param.RecommendVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.zrkizzy.blog.constant.CommonConst.CATEGORY;
+import static com.zrkizzy.blog.constant.CommonConst.TAG;
 
 /**
  * <p>
@@ -247,6 +256,157 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
         return Result.success("文章保存成功");
     }
+
+    /**
+     * 博客前台获取文章归档数据
+     *
+     * @param curPage 当前页数
+     * @param size    页面大小
+     * @return 前端分页对象
+     */
+    @Override
+    public PageVO getArchiveList(Integer curPage, Integer size) {
+        // 开启分页
+        Page<Article> page = new Page<>(curPage, size);
+        // 定义查询条件
+        QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("publish_time")
+                .eq("state", 1)
+                .eq("deleted", 0);
+        Page<Article> articles = articleMapper.selectPage(page, queryWrapper);
+        // 处理查询到的结果并返回
+        return new PageVO(articles.getTotal(), BeanCopyUtil.copyList(articles.getRecords(), ArchiveVO.class));
+    }
+
+    /**
+     * 获取所有前台文章(分页)
+     *
+     * @param curPage  当前页数
+     * @param size     页面大小
+     * @return 分页对象
+     */
+    @Override
+    public PageVO listArticle(Integer curPage, Integer size) {
+        // 开启分页
+        Page<Article> page = new Page<>(curPage, size);
+        // 定义查询条件
+        QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
+        // 发布状态和是否在回收站
+        queryWrapper.eq("state", 1)
+                .eq("deleted", 0)
+                .orderByDesc("top")
+                .orderByDesc("publish_time");
+        // 查询数据
+        IPage<Article> articlePage = articleMapper.selectPage(page, queryWrapper);
+        // 定义返回结果
+        List<ArticlesVO> result = new ArrayList<>();
+        // 对要进行返回的数据进行处理
+        List<Article> list = articlePage.getRecords();
+        for (Article article : list) {
+            ArticlesVO articlesVO = BeanCopyUtil.copy(article, ArticlesVO.class);
+            // 将字符串类型的标签ID转为整型集合
+            List<Integer> ids = CollectionUtil.stringToIntegerList(article.getTags());
+            // 设置标签集合
+            articlesVO.setTags(tagsMapper.listTagsByIds(ids));
+            // 设置文章分类名称
+            articlesVO.setCategoryName(categoryMapper.selectById(article.getCategory()).getName());
+            result.add(articlesVO);
+        }
+        return new PageVO(articlePage.getTotal(), result);
+    }
+
+    /**
+     * 根据文章ID获取到文章对象
+     *
+     * @param id 文章ID
+     * @return 文章数据传输对象
+     */
+    @Override
+    public ArticleDTO getArticleById(Integer id) {
+        // 获取到对应的文章信息对象
+        Article article = articleMapper.selectById(id);
+        // 更新当前文章的访问量
+        articleMapper.updateArticleById(article.getId(), article.getViewNum() + 1);
+        ArticleDTO articleDTO = BeanCopyUtil.copy(article, ArticleDTO.class);
+        // 将字符串类型的标签ID转为整型集合
+        List<Integer> ids = CollectionUtil.stringToIntegerList(article.getTags());
+        // 设置文章标签名称
+        articleDTO.setTags(tagsMapper.selectTagsByIds(ids));
+        // 设置文章分类名称
+        articleDTO.setCategoryName(categoryMapper.selectById(article.getCategory()).getName());
+        return articleDTO;
+    }
+
+    /**
+     * 获取相关推荐文章
+     *
+     * @return 相关推荐文章
+     */
+    @Override
+    public List<RecommendVO> listRecommend() {
+        // 定义查询条件
+        QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("state", 1)
+                .eq("deleted", 0)
+                .orderByDesc("view_num")
+                .last("limit 5");
+        // 处理查询到的文章并返回结果
+        return BeanCopyUtil.copyList(articleMapper.selectList(queryWrapper), RecommendVO.class);
+    }
+
+    /**
+     * 获取文章列表
+     *
+     * @param curPage 当前页数
+     * @param size    页面大小
+     * @param path    标签 / 分类
+     * @param id      对应ID
+     * @return 哈希表
+     */
+    @Override
+    public Map<String, Object> listArticleById(Integer curPage, Integer size, String path, Integer id) {
+        String name = "";
+        // 开启分页
+        Page<Article> page = new Page<>(curPage, size);
+        // 定义查询条件
+        QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
+        // 已发布和未删除
+        queryWrapper.eq("state", 1)
+                .eq("deleted", 0);
+        // 判断路径
+        if (path.equals(CATEGORY)) {
+            // 根据分类查询文章
+            queryWrapper.eq("category", id);
+            name = categoryMapper.selectById(id).getName();
+        } else {
+            name = tagsMapper.selectById(id).getName();
+        }
+        // 查询数据
+        IPage<Article> articlePage = articleMapper.selectPage(page, queryWrapper);
+        // 定义返回结果
+        List<ArticlesVO> result = new ArrayList<>();
+        // 对要进行返回的数据进行处理
+        List<Article> list = articlePage.getRecords();
+        for (Article article : list) {
+            ArticlesVO articlesVO = BeanCopyUtil.copy(article, ArticlesVO.class);
+            // 将字符串类型的标签ID转为整型集合
+            List<Integer> ids = CollectionUtil.stringToIntegerList(article.getTags());
+            // 设置标签集合
+            articlesVO.setTags(tagsMapper.listTagsByIds(ids));
+            // 设置文章分类名称
+            articlesVO.setCategoryName(categoryMapper.selectById(article.getCategory()).getName());
+            if (path.equals(TAG) && ids != null && ids.contains(id)) {
+                result.add(articlesVO);
+            } else if (path.equals(CATEGORY)) {
+                result.add(articlesVO);
+            }
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("page", new PageVO((long) result.size(), result));
+        map.put("name", name);
+        return map;
+    }
+
 
     /**
      * 更新当前文章的分类以及标签对应的文章数量

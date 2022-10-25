@@ -63,4 +63,13 @@ public interface CategoryService extends IService<Category> {
      * @return 所有文章分类集合
      */
     List<Category> getAllCategory();
+
+    /**
+     * 博客前台获取分类集合
+     *
+     * @param curPage 当前页数
+     * @param size 页面大小
+     * @return 文章分页对象
+     */
+    PageVO getCategoryList(Integer curPage, Integer size);
 }

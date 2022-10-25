@@ -93,8 +93,8 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
             return Result.error("留言发布失败");
         }
         if (websiteInfo.getMessageAllow()) {
-            return Result.success("留言成功，请等待管理员审核");
+            return Result.success("留言成功，请等待管理员审核", websiteInfo.getMessageAllow());
         }
-        return Result.success("留言发布成功");
+        return Result.success("留言发布成功", websiteInfo.getMessageAllow());
     }
 }

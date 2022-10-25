@@ -46,4 +46,11 @@
         </foreach>
     </update>
 
+    <!-- 更新指定文章的访问量 -->
+    <update id="updateArticleById">
+        UPDATE article
+        SET view_num = #{viewNum}
+        WHERE id = #{id}
+    </update>
+
 </mapper>

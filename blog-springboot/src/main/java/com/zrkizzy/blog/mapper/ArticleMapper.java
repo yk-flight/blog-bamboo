@@ -1,7 +1,7 @@
 package com.zrkizzy.blog.mapper;
 
-import com.zrkizzy.blog.entity.Article;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zrkizzy.blog.entity.Article;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -30,4 +30,13 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return 受影响的行数
      */
     Integer recoverArticleBatchIds(@Param("ids") List<Integer> ids);
+
+    /**
+     * 更新指定文章的访问量
+     *
+     * @param id 文章ID
+     * @param viewNum 访问量
+     * @return 受影响的行数
+     */
+    Integer updateArticleById(@Param("id")Integer id, @Param("viewNum") Integer viewNum);
 }

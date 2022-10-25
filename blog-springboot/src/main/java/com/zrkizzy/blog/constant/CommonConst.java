@@ -16,4 +16,12 @@ public class CommonConst {
      * 文件上传访问路径前缀
      */
     public static final String DOMAIN = "http://localhost:8090/images/";
+    /**
+     * 根据分类获取文章常量
+     */
+    public static final String CATEGORY = "category";
+    /**
+     * 根据标签获取文章
+     */
+    public static final String TAG = "tag";
 }

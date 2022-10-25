@@ -15,6 +15,10 @@ public class BlogConfigVO {
      */
     private WebsiteVO websiteVO;
     /**
+     * 网站其他配置信息
+     */
+    private WebsiteOtherVO websiteOtherVO;
+    /**
      * 网站社交信息
      */
     private SocialVO socialVO;
