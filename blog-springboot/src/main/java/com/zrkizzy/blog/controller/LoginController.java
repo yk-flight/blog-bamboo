@@ -2,7 +2,7 @@ package com.zrkizzy.blog.controller;
 
 import com.zrkizzy.blog.service.UserService;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.UserLoginVO;
+import com.zrkizzy.blog.vo.UserLoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;

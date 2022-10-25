@@ -2,7 +2,7 @@ package com.zrkizzy.blog.service;
 
 import com.zrkizzy.blog.entity.UserInfo;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.UserInfoVO;
+import com.zrkizzy.blog.vo.UserInfoVO;
 
 /**
  * @author zhangrongkang

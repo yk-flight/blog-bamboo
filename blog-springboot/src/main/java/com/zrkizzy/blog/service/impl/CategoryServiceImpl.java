@@ -12,7 +12,7 @@ import com.zrkizzy.blog.service.CategoryService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.CategoryVO;
+import com.zrkizzy.blog.vo.CategoryVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

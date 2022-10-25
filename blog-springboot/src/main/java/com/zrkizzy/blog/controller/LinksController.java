@@ -7,7 +7,7 @@ import com.zrkizzy.blog.service.LinksService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.LinksVO;
+import com.zrkizzy.blog.vo.LinksVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

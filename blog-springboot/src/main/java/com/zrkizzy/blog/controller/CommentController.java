@@ -7,7 +7,7 @@ import com.zrkizzy.blog.entity.Comment;
 import com.zrkizzy.blog.service.CommentService;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.CommentVO;
+import com.zrkizzy.blog.vo.CommentVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

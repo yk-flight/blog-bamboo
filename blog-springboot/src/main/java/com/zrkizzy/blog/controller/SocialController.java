@@ -5,7 +5,7 @@ import com.zrkizzy.blog.entity.Social;
 import com.zrkizzy.blog.service.SocialService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.SocialVO;
+import com.zrkizzy.blog.vo.SocialVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

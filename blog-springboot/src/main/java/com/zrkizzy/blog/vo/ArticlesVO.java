@@ -1,4 +1,4 @@
-package com.zrkizzy.blog.vo.param;
+package com.zrkizzy.blog.vo;
 
 import com.zrkizzy.blog.dto.TagsDTO;
 import lombok.Data;

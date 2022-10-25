@@ -1,4 +1,4 @@
-package com.zrkizzy.blog.vo.param;
+package com.zrkizzy.blog.vo;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

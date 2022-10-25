@@ -4,7 +4,7 @@ import com.zrkizzy.blog.entity.Comment;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.CommentVO;
+import com.zrkizzy.blog.vo.CommentVO;
 
 import javax.servlet.http.HttpServletRequest;
 

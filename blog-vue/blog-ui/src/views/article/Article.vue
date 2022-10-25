@@ -183,7 +183,10 @@
         <!-- 分割线 -->
         <hr />
         <!-- 评论 -->
-        <comment :article-id="Number(this.$route.params.id)"></comment>
+        <comment
+          :article-id="Number(this.$route.params.id)"
+          v-if="article.allowComment"
+        ></comment>
       </div>
 
       <!-- 文章目录 -->

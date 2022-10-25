@@ -3,7 +3,7 @@ package com.zrkizzy.blog.controller;
 import com.zrkizzy.blog.dto.MenuDTO;
 import com.zrkizzy.blog.dto.PermissionDTO;
 import com.zrkizzy.blog.service.MenuService;
-import com.zrkizzy.blog.vo.param.MenuVO;
+import com.zrkizzy.blog.vo.MenuVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;

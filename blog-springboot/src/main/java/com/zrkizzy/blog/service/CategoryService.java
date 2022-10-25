@@ -5,7 +5,7 @@ import com.zrkizzy.blog.dto.CategoryDTO;
 import com.zrkizzy.blog.entity.Category;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.CategoryVO;
+import com.zrkizzy.blog.vo.CategoryVO;
 
 import java.util.List;
 

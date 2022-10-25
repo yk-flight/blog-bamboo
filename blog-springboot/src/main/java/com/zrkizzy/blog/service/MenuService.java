@@ -3,7 +3,7 @@ package com.zrkizzy.blog.service;
 import com.zrkizzy.blog.dto.MenuDTO;
 import com.zrkizzy.blog.dto.PermissionDTO;
 import com.zrkizzy.blog.entity.Menu;
-import com.zrkizzy.blog.vo.param.MenuVO;
+import com.zrkizzy.blog.vo.MenuVO;
 
 import java.util.List;
 

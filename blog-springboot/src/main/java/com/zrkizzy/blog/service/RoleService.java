@@ -2,7 +2,7 @@ package com.zrkizzy.blog.service;
 
 import com.zrkizzy.blog.dto.RoleDTO;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.RoleVO;
+import com.zrkizzy.blog.vo.RoleVO;
 
 import java.util.List;
 

@@ -9,7 +9,7 @@ import com.zrkizzy.blog.service.WebsiteService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.utils.TimeUtil;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.WebsiteVO;
+import com.zrkizzy.blog.vo.WebsiteVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.redis.core.RedisTemplate;

@@ -15,7 +15,7 @@ import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.utils.IpUtil;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.CommentVO;
+import com.zrkizzy.blog.vo.CommentVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -3,7 +3,7 @@ package com.zrkizzy.blog.controller;
 import com.zrkizzy.blog.dto.RoleDTO;
 import com.zrkizzy.blog.service.RoleService;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.RoleVO;
+import com.zrkizzy.blog.vo.RoleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

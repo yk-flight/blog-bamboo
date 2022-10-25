@@ -19,10 +19,10 @@ import com.zrkizzy.blog.utils.CollectionUtil;
 import com.zrkizzy.blog.utils.TimeUtil;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.ArchiveVO;
-import com.zrkizzy.blog.vo.param.ArticleVO;
-import com.zrkizzy.blog.vo.param.ArticlesVO;
-import com.zrkizzy.blog.vo.param.RecommendVO;
+import com.zrkizzy.blog.vo.ArchiveVO;
+import com.zrkizzy.blog.vo.ArticleVO;
+import com.zrkizzy.blog.vo.ArticlesVO;
+import com.zrkizzy.blog.vo.RecommendVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

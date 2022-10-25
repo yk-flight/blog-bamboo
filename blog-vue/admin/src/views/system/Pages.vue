@@ -313,13 +313,13 @@ export default {
     padding-left: 15px;
   }
   .page-body {
-    margin: 30px 15px 80px 15px;
+    margin: 30px 15px 0px 15px;
   }
   .file-img {
     position: relative;
     border-radius: 5px;
     width: 100%;
-    height: 200px;
+    height: 180px;
   }
   .file-item {
     width: 100%;

@@ -1,17 +1,17 @@
-package com.zrkizzy.blog.vo.param;
+package com.zrkizzy.blog.vo;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 /**
- * 推荐文章返回对象
+ * 文章归档数据传输对象
  *
  * @author zhangrongkang
- * @date 2022/10/19
+ * @date 2022/10/14
  */
 @Data
-public class RecommendVO {
+public class ArchiveVO {
     /**
      * 主键
      */
@@ -21,11 +21,11 @@ public class RecommendVO {
      */
     private String title;
     /**
-     * 文章封面图
-     */
-    private String background;
-    /**
      * 发表时间
      */
     private LocalDateTime publishTime;
+    /**
+     * 文章封面图
+     */
+    private String background;
 }

@@ -10,7 +10,7 @@ import com.zrkizzy.blog.mapper.RoleMapper;
 import com.zrkizzy.blog.service.MenuService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.utils.UserUtil;
-import com.zrkizzy.blog.vo.param.MenuVO;
+import com.zrkizzy.blog.vo.MenuVO;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;

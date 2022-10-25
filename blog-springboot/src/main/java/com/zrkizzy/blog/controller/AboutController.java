@@ -6,7 +6,7 @@ import com.zrkizzy.blog.entity.About;
 import com.zrkizzy.blog.service.AboutService;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.AboutVO;
+import com.zrkizzy.blog.vo.AboutVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

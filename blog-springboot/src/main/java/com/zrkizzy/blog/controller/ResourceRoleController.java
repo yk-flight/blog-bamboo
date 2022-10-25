@@ -4,7 +4,7 @@ package com.zrkizzy.blog.controller;
 import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.service.ResourceRoleService;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.ResourceRoleVO;
+import com.zrkizzy.blog.vo.ResourceRoleVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

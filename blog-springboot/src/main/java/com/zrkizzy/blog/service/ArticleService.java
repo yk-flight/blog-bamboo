@@ -5,8 +5,8 @@ import com.zrkizzy.blog.dto.ArticleDTO;
 import com.zrkizzy.blog.entity.Article;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.ArticleVO;
-import com.zrkizzy.blog.vo.param.RecommendVO;
+import com.zrkizzy.blog.vo.ArticleVO;
+import com.zrkizzy.blog.vo.RecommendVO;
 
 import java.util.List;
 import java.util.Map;

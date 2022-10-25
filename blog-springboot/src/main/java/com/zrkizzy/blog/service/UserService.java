@@ -4,9 +4,9 @@ import com.zrkizzy.blog.entity.Role;
 import com.zrkizzy.blog.entity.User;
 import com.zrkizzy.blog.vo.PageVO;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.AvatarVO;
-import com.zrkizzy.blog.vo.param.PasswordVO;
-import com.zrkizzy.blog.vo.param.UserInfoVO;
+import com.zrkizzy.blog.vo.AvatarVO;
+import com.zrkizzy.blog.vo.PasswordVO;
+import com.zrkizzy.blog.vo.UserInfoVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;

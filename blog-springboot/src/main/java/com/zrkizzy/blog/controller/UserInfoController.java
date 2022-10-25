@@ -3,7 +3,7 @@ package com.zrkizzy.blog.controller;
 import com.zrkizzy.blog.entity.UserInfo;
 import com.zrkizzy.blog.service.UserInfoService;
 import com.zrkizzy.blog.vo.Result;
-import com.zrkizzy.blog.vo.param.UserInfoVO;
+import com.zrkizzy.blog.vo.UserInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
