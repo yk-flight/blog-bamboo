@@ -321,7 +321,7 @@ FISH.prototype = {
     context.save();
     // 设置鱼的颜色
     // context.fillStyle = "rgba(66, 185, 133, 0.8)";
-    context.fillStyle = "#fff";
+    context.fillStyle = "#EBEEF5";
     context.translate(this.x, this.y);
     context.rotate(Math.PI + Math.atan2(this.vy, this.vx));
     context.scale(1, this.direction ? 1 : -1);
@@ -367,7 +367,7 @@ FISH.prototype = {
     context.restore();
     // 定义海的颜色
     // context.fillStyle = "rgba(66, 185, 133, 0.6)";
-    context.fillStyle = "#7396ee";
+    context.fillStyle = "#036cd5";
     // ================================ 画鱼结束 ================================
     this.controlStatus(context);
   },
@@ -375,3 +375,6 @@ FISH.prototype = {
 $(function () {
   RENDERER.init();
 });
+// export function fish() {
+//   RENDERER.init();
+// }

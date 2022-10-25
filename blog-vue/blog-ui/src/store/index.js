@@ -1,15 +1,16 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
+import getters from "./getter";
 
-Vue.use(Vuex)
+import navbar from "./modules/navbar";
+import config from "./modules/config";
+
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+  getters,
   modules: {
-  }
-})
+    navbar,
+    config,
+  },
+});

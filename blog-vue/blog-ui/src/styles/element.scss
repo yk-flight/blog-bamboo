@@ -16,3 +16,32 @@
   font-size: 1.8rem;
   animation-iteration-count:infinite;
 }
+
+.paginate {
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  li {
+    list-style: none;
+    margin: 0 5px;
+    color: #303133;
+    border: #DCDFE6 1px solid;
+    padding: 3px 10px;
+    border-radius: 3px;
+  }
+}
+
+.paginate-active {
+  a {
+    color: #fff;
+  }
+  background-color: #409EFF;
+}
+.prev-link-item {
+  color: #409EFF;
+}
+.next-link-item {
+  color: #409EFF;
+}

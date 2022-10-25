@@ -11,7 +11,7 @@ proxyObjct["/api"] = {
   changeOrigin: true,
   // 不重写请求地址
   pathRewrite: {
-    "^/": "/",
+    "^/api": "",
   },
 };
 

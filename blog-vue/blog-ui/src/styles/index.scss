@@ -1,5 +1,6 @@
 @import url(./element.scss);
 @import url(./transition.scss);
+@import url(./tocbot.scss);
 
 body {
   cursor: url(
@@ -14,26 +15,15 @@ html,
 body {
   margin: 0 !important;
   padding: 0 !important;
-  height: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 
-  // 森林背景图片
-  // background-image: url("../assets/images/home.jpg");
-  // background-repeat: no-repeat;
-  // background-attachment: fixed;
-  // background-size: 100% 100%;
-
-  // 星辰大海
-  background: linear-gradient(200deg, pink, white, #6da9f3); 
+  background-image: url("../assets/images/background.jpg");
+  background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: cover;
-  -webkit-background-size: cover;
-  -o-background-size: cover;
-  -moz-background-size: cover;
-  -ms-background-size: cover;
+  background-size: 100%;
 }
 
 #app {
@@ -41,11 +31,6 @@ body {
   padding: 0;
   height: 100%;
 }
-
-// 页面切换进度条
-// #nprogress .bar {
-//   background: blue !important;
-// }
 
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
 ::-webkit-scrollbar {
@@ -59,8 +44,6 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   border-radius: 2px;
-  // box-shadow: inset 0 0 5px rgba(66, 185, 133);
-  // background: rgba(66, 185, 133, 0.8);
   background: #409EFF;
 }
 
@@ -68,28 +51,4 @@ body {
   position: absolute;
   width: 100%;
   overflow-x: hidden;
-  // bottom: 0;
-}
-
-.navbar-container {
-  background-color: rgba(19, 38, 30, 0.3);
-  height: 50px;
-  position: fixed;
-  top: 0;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  text-align: center;
-  color: #fff;
-  z-index: 1;
-
-  a {
-    color: #fff;
-    text-decoration: none;
-  }
-
-  .svg-icon {
-    margin-right: 2px;
-    font-size: 12px;
-  }
 }

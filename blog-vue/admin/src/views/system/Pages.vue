@@ -225,6 +225,7 @@ export default {
       this.page.id = undefined;
       this.page.title = "";
       this.page.label = "";
+      this.page.path = "";
       this.page.image = "";
     },
     // 更新页面信息方法

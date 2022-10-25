@@ -39,6 +39,5 @@ export const removeItem = (key) => {
  * 删除所有数据
  */
 export const removeAllItem = () => {
-  console.log("删除所有数据");
   window.localStorage.clear();
 };

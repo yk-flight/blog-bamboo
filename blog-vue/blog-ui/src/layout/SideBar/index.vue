@@ -4,31 +4,28 @@
     <div class="blog-user">
       <div class="avatar">
         <!-- 头像 -->
-        <img
-          class="avatar__image"
-          src="https://www.zrkizzy.com/upload/2021/11/header-90431fbd9cf848e2a5aaea0bf6b1089b.jpg"
-        />
+        <img class="avatar__image" :src="website.logo" />
       </div>
       <!-- 博主信息 -->
-      <div class="blog-name">世纪末的架构师</div>
+      <div class="blog-name">{{ website.author }}</div>
       <!-- 博客座右铭 -->
-      <div class="blog-title">疯狂的热爱夹带着文雅</div>
+      <div class="blog-title">{{ website.introduction }}</div>
       <!-- 文章信息 -->
       <div class="blog-info">
         <!-- 文章 -->
         <div class="info-item">
           <div class="item-title">文章</div>
-          <div class="item-data">10</div>
+          <div class="item-data">{{ website.articleCount }}</div>
         </div>
         <!-- 分类 -->
         <div class="info-item">
           <div class="item-title">分类</div>
-          <div class="item-data">9</div>
+          <div class="item-data">{{ website.categoryCount }}</div>
         </div>
         <!-- 标签 -->
         <div class="info-item">
           <div class="item-title">标签</div>
-          <div class="item-data">6</div>
+          <div class="item-data">{{ website.tagsCount }}</div>
         </div>
       </div>
       <!-- 收藏本站 -->
@@ -39,22 +36,19 @@
       <!-- 链接 -->
       <div class="blog-link">
         <!-- Github -->
-        <a href="https://github.com/Architect-Java" target="_blank">
+        <a :href="social.github" target="_blank" v-if="social.githubShow">
           <svg-icon icon="github" class="link-icon"></svg-icon>
         </a>
         <!-- Gitee -->
-        <a href="https://gitee.com/dream-flight" target="_blank">
+        <a :href="social.gitee" target="_blank" v-if="social.giteeShow">
           <svg-icon icon="gitee" class="link-icon"></svg-icon>
         </a>
         <!-- CSDN -->
-        <a
-          href="https://blog.csdn.net/qq_48455576?spm=1000.2115.3001.5343"
-          target="_blank"
-        >
+        <a :href="social.csdn" target="_blank" v-if="social.csdnShow">
           <svg-icon icon="csdn" class="link-icon"></svg-icon>
         </a>
         <!-- leetcode -->
-        <a href="https://leetcode.cn/u/dream-flight/" target="_blank">
+        <a :href="social.leetcode" target="_blank" v-if="social.leetcodeShow">
           <svg-icon icon="leetcode" class="link-icon"></svg-icon>
         </a>
       </div>
@@ -67,35 +61,55 @@
       </div>
       <div class="web-body">
         <div class="body-item">
-          <span>本站总字数：</span>
-          <span>29.8k 字</span>
-        </div>
-        <div class="body-item">
           <span>运行时间：</span>
-          <span>982 天</span>
+          <span>{{ time }} 天</span>
         </div>
         <div class="body-item">
           <span>总访问量：</span>
-          <span>40274 次</span>
+          <span>{{ website.visitCount }} 次</span>
         </div>
       </div>
     </div>
+
+    <toast ref="toast"></toast>
   </div>
 </template>
 
 <script>
+import dayjs from "dayjs";
+import Toast from "../../components/Toast/index.vue";
+
 export default {
   name: "SideBar",
-
+  components: { Toast },
   data() {
-    return {};
+    return {
+      // 网站社交信息
+      social: this.$store.getters.social,
+      // 网站配置信息
+      website: this.$store.getters.website,
+      // 网站运行时间
+      time: "",
+    };
   },
 
-  mounted() {},
-
+  mounted() {
+    this.runtime();
+  },
   methods: {
     // 收藏本站
-    collect() {},
+    collect() {
+      this.$refs.toast.binxs("按Ctrl + D即可收藏本站");
+    },
+    // 计算网站运行时间
+    runtime() {
+      // 将网站创建时间转为时间戳
+      var date = dayjs().format("YYYY-MM-DD");
+      var startDate = dayjs(this.$store.getters.website.createDate).format(
+        "YYYY-MM-DD"
+      );
+      this.time = dayjs(date).diff(startDate, "day");
+    },
   },
 };
 </script>
@@ -206,7 +220,7 @@ export default {
 .blog-web {
   margin-top: 20px;
   width: 100%;
-  height: 160px;
+  height: 130px;
   background-color: #fff;
   box-shadow: 0 1px 20px -6px rgb(0 0 0 / 50%);
   border-radius: 10px;
@@ -215,7 +229,6 @@ export default {
   padding-top: 20px;
   padding-left: 30px;
   font-size: 18px;
-
   .svg-icon {
     font-size: 16px;
     margin-right: 5px;
@@ -235,5 +248,8 @@ export default {
   color: #606266;
   display: flex;
   justify-content: space-between;
+}
+a {
+  color: #000;
 }
 </style>

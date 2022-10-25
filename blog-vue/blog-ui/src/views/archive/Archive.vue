@@ -1,63 +1,117 @@
 <template>
   <div class="archive-container">
     <div class="archive-header" :style="cover">
-      <h1 class="archive-title">归档</h1>
+      <span class="archive-title">文章归档</span>
     </div>
     <div class="archive-body">
-      <span class="archive-date">时间轴 ( 月 )</span>
-      <div class="container">
-        <div class="container__line"></div>
-        <ul class="container__items">
-          <!-- 单个时间节点 -->
-          <li class="container__item">
-            <div class="container__top">
-              <!--  圆圈  -->
-              <div class="container__circle"></div>
-              <!-- 归档标题 -->
-              <div class="container__title">2021 年 11 月</div>
+      <timeline class="time-line">
+        <timeline-title>
+          <span class="article-title"> 归档存记忆，留史鉴未来！ </span>
+        </timeline-title>
+        <timeline-item v-for="item in archiveList" :key="item.id">
+          <div class="timeline-container">
+            <!-- 文章图片 -->
+            <router-link :to="'/article/' + item.id">
+              <img :src="item.background" width="120px" />
+            </router-link>
+            <!-- 文章信息 -->
+            <div class="timeline-body">
+              <div class="article-date">
+                <span class="date-span">
+                  {{ item.publishTime | date }}
+                </span>
+              </div>
+              <div>
+                <router-link :to="'/article/' + item.id" class="title-span">
+                  {{ item.title }}
+                </router-link>
+              </div>
             </div>
-            <!-- 归档博客 -->
-            <div class="container__desc">Docker与Docker Compose的安装</div>
-            <div class="container__desc">Docker基础学习笔记</div>
-            <div class="container__desc">Docker命令学习笔记</div>
-          </li>
+          </div>
+        </timeline-item>
+      </timeline>
 
-          <li class="container__item">
-            <div class="container__top">
-              <div class="container__circle"></div>
-              <div class="container__title">2021 年 1 月</div>
-            </div>
-            <div class="container__desc">线性表顺序表示和实现（C语言)</div>
-          </li>
-        </ul>
+      <!-- 分页组件 -->
+      <div style="text-align: center; margin: 30px 0">
+        <paginate
+          :page-count="pageCount"
+          :prev-text="'上一页'"
+          :next-text="'下一页'"
+          :container-class="'paginate'"
+          :page-class="'page-item'"
+          :prev-class="'prev-item'"
+          :prev-link-class="'prev-link-item'"
+          :next-link-class="'next-link-item'"
+          :active-class="'paginate-active'"
+          :click-handler="handleClick"
+        >
+        </paginate>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { Timeline, TimelineItem, TimelineTitle } from "vue-cute-timeline";
+import "vue-cute-timeline/dist/index.css";
+import { getArchiveList } from "../../api/blog";
+
 export default {
   name: "Archive",
-
+  components: {
+    Timeline,
+    TimelineItem,
+    TimelineTitle,
+  },
   data() {
-    return {};
+    return {
+      // 文章归档数据
+      archiveList: [],
+      // 当前页数
+      curPage: 1,
+      // 页面大小
+      size: 10,
+      // 文章最大页数
+      pageCount: 0,
+    };
   },
   computed: {
     cover() {
       // 定义要拼接的CSS
       let cover = "";
       // 循环获取归档页的图片
-      cover = "https://z3.ax1x.com/2021/11/16/Ifuh6J.jpg";
-      console.log(
-        "background: url(" + cover + ") center center / cover no-repeat"
-      );
+      this.$store.getters.navBarList.forEach((item) => {
+        if (item.label === "archive") {
+          cover = item.image;
+        }
+      });
       // 返回对应的CSS
       return "background: url(" + cover + ") center center / cover no-repeat";
     },
   },
-  mounted() {},
+  mounted() {
+    this.getArchiveInfo();
+  },
 
-  methods: {},
+  methods: {
+    // 获取文章归档信息
+    getArchiveInfo() {
+      getArchiveList({
+        curPage: this.curPage,
+        size: this.size,
+      }).then((result) => {
+        let data = result.data;
+        this.archiveList = data.list;
+        this.pageCount = Math.ceil(data.total / this.size);
+      });
+    },
+    // 点击页面切换按钮后执行的事件
+    handleClick(e) {
+      // 传来的参数为当前页数
+      this.curPage = e;
+      this.getArchiveInfo();
+    },
+  },
 };
 </script>
 
@@ -69,12 +123,11 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  // justify-content: center;
   align-items: center;
 }
 .archive-header {
   width: 100%;
-  height: 40%;
+  height: calc(40vh);
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -83,8 +136,8 @@ export default {
 }
 .archive-title {
   color: #fff;
-  font-size: 40px;
-  letter-spacing: 8px;
+  font-size: 50px;
+  font-weight: 500;
 }
 .archive-body {
   margin-top: 40px;
@@ -92,67 +145,42 @@ export default {
   border-radius: 10px;
   box-shadow: 0 1px 20px -6px rgb(0 0 0 / 50%);
   background-color: #fff;
-  display: flex;
-  flex-direction: column;
+  padding: 20px;
+  min-height: calc(30vh);
 }
-.archive-date {
+.time-line {
+  margin-left: 50px;
   margin-top: 50px;
-  margin-bottom: 30px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 600;
 }
-.container {
-  position: relative;
-  margin-left: 30px;
-  margin-bottom: 50px;
-  padding-left: 50px;
-  width: 30%;
+.timeline-container {
+  display: flex;
 }
-
-.container__line {
-  border-right: 2px solid #c0c4cc;
-  padding-left: 43px;
-  left: 16px;
-  position: absolute;
-  top: 0px;
-  height: 100%;
+.timeline-body {
+  margin-left: 20px;
 }
-
-.container__items {
-  list-style-type: none;
-  margin: 0px;
-  padding: 0px;
-}
-
-.container__item {
+.article-date {
+  margin-top: 5px;
   margin-bottom: 8px;
 }
-
-.container__top {
-  align-items: center;
-  display: flex;
-}
-
-.container__circle {
-  background-color: #c0c4cc;
-  border-radius: 50%;
-  height: 20px;
-  width: 20px;
-}
-
-.container__title {
-  margin-left: 20px;
-  flex: 1;
-  color: #909399;
+.date-span {
   font-size: 15px;
+  color: #606266;
+  font-weight: 600;
 }
-
-.container__desc {
-  margin-left: 48px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  color: rgb(96, 98, 102);
-  font-size: 13px;
+.title-span {
+  cursor: pointer;
+  font-size: 16px;
+  color: #303133;
+  font-weight: 600;
+  text-decoration: none;
+}
+.title-span:hover {
+  transition: 0.8s;
+  color: #409eff;
+}
+.article-title {
+  font-size: 16px;
+  color: #606266;
+  font-weight: 600;
 }
 </style>

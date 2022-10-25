@@ -8,31 +8,37 @@
         <SideBar></SideBar>
       </div>
       <div class="body-right">
+        <!-- 公告 -->
+        <div class="home-item">
+          <div class="item-header">
+            <svg-icon icon="announcement_flat"></svg-icon>
+            <span>公告</span>
+          </div>
+          <span class="item-content">
+            {{ website.publish }}
+          </span>
+        </div>
+
         <!-- 个人座右铭 -->
         <div class="home-item">
           <div class="item-header">座右铭</div>
           <span class="item-content">
-            困难只能吓倒懦夫、懒汉，而胜利永远属于攀登高峰的人。人生的奋斗目标不要太大，认准了一件事情，投入兴趣与热情坚持去做，你就会成功。人生，要的就是惊涛骇浪，这波涛中的每一朵浪花都是伟大的，最后汇成闪着金光的海洋。
+            {{ website.motto }}
           </span>
-        </div>
-        <!-- 公告 -->
-        <div class="home-item" style="height: 230px">
-          <div class="item-header">
-            <svg-icon icon="announcement_flat"></svg-icon>
-            公告
-          </div>
-          <img src="https://ghchart.rshah.org/Architect-Java" width="750px" />
         </div>
 
         <!-- 博客内容 -->
         <div class="main-body">
           <!-- 具体文章 -->
-          <div class="article-item">
-            <!-- :class="isRight(index)" -->
-            <div class="item-img-left">
-              <router-link to="/">
+          <div
+            class="article-item"
+            v-for="(item, index) of articleList"
+            :key="item.id"
+          >
+            <div :class="isRight(index)">
+              <router-link :to="'/article/' + item.id">
                 <img
-                  src="https://pic1.zhimg.com/80/v2-e012e11ff2cd3270df046e3cd4fb9fbe_1440w.jpg"
+                  :src="item.background"
                   height="100%"
                   width="100%"
                   class="on-hover"
@@ -43,92 +49,65 @@
             <div class="blog-content">
               <!-- 文章标题 -->
               <div class="blog-title">
-                <router-link to="/"> 前路有光，初心莫忘 </router-link>
+                <router-link :to="'/article/' + item.id">
+                  {{ item.title }}
+                </router-link>
               </div>
               <div class="blog-body">
                 <!-- 置顶 -->
-                <div class="blog-top">
+                <div class="blog-top" v-if="item.top">
                   <svg-icon icon="on-top"></svg-icon>
                   <span>置顶</span>
+                  <span style="margin: 0px 10px; color: #000">|</span>
                 </div>
-                <span>｜</span>
-                <!-- 日期 -->
-                <div class="blog-item">
-                  <svg-icon icon="date"></svg-icon>
-                  <span class="item-title">2022-01-29</span>
-                </div>
-                <span>｜</span>
-                <!-- 分类 -->
-                <div class="blog-item">
-                  <svg-icon icon="article"></svg-icon>
-                  <router-link to="/">生活随笔</router-link>
-                </div>
-                <span>｜</span>
-                <!-- 标签 -->
-                <div class="blog-item">
-                  <svg-icon icon="tags"></svg-icon>
-                  <router-link to="/">SpringBoot</router-link>
-                </div>
-              </div>
-              <!-- 摘要 -->
-              <div class="blog-summary">
-                <span>
-                  2021年的旅程也落下了帷幕，2021年让我有点依依不舍，在2021年里曾流过辛勤的汗水、也流过激动的泪水，正因为经历了这点点滴
-                  滴的酸与甜，才让我不断成长着，进步着。这一年里我做了不少工作，从一个一无所知的小白到现在初出茅庐的菜鸟，在内心中自己跨出
-                  了面向社会的第一步
-                </span>
-              </div>
-            </div>
-          </div>
 
-          <div class="article-item">
-            <!-- 文章内容 -->
-            <div class="blog-content">
-              <!-- 文章标题 -->
-              <div class="blog-title">
-                <router-link to="/"> 前路有光，初心莫忘 </router-link>
-              </div>
-              <div class="blog-body">
                 <!-- 日期 -->
                 <div class="blog-item">
                   <svg-icon icon="date"></svg-icon>
-                  <span class="item-title">2022-01-29</span>
+                  <span class="item-title">
+                    {{ item.publishTime | date }}
+                  </span>
                 </div>
-                <span>｜</span>
+                <span style="margin: 0px 10px">|</span>
                 <!-- 分类 -->
                 <div class="blog-item">
                   <svg-icon icon="article"></svg-icon>
-                  <router-link to="/">生活随笔</router-link>
+                  <router-link :to="'/category/' + item.category">
+                    {{ item.categoryName }}
+                  </router-link>
                 </div>
-                <span>｜</span>
+                <span style="margin-left: 10px">|</span>
                 <!-- 标签 -->
-                <div class="blog-item">
+                <div
+                  class="blog-item"
+                  style="margin-left: 10px"
+                  v-for="tag in item.tags"
+                  :key="tag.id"
+                >
                   <svg-icon icon="tags"></svg-icon>
-                  <router-link to="/">SpringBoot</router-link>
+                  <router-link :to="'/tag/' + tag.id">
+                    {{ tag.name }}
+                  </router-link>
                 </div>
               </div>
               <!-- 摘要 -->
               <div class="blog-summary">
                 <span>
-                  2021年的旅程也落下了帷幕，2021年让我有点依依不舍，在2021年里曾流过辛勤的汗水、也流过激动的泪水，正因为经历了这点点滴
-                  滴的酸与甜，才让我不断成长着，进步着。这一年里我做了不少工作，从一个一无所知的小白到现在初出茅庐的菜鸟，在内心中自己跨出
-                  了面向社会的第一步
+                  {{ item.summary }}
                 </span>
               </div>
             </div>
-            <div class="item-img-right">
-              <a href="">
-                <img
-                  src="https://pic1.zhimg.com/80/v2-e012e11ff2cd3270df046e3cd4fb9fbe_1440w.jpg"
-                  height="100%"
-                  width="100%"
-                  class="on-hover"
-                />
-              </a>
-            </div>
           </div>
-          <div class="article-item"></div>
-          <div class="article-item"></div>
+        </div>
+
+        <div class="main-footer">
+          <span
+            class="more"
+            @click="handleClick"
+            v-if="total > articleList.length"
+          >
+            点击加载更多...
+          </span>
         </div>
       </div>
     </div>
@@ -138,18 +117,58 @@
 <script>
 import Banner from "@/components/Banner/index.vue";
 import SideBar from "@/layout/SideBar/index.vue";
+import { getArticleList } from "../../api/blog";
 
 export default {
   name: "Home",
   components: { Banner, SideBar },
+  data() {
+    return {
+      // 当前页数
+      curPage: 1,
+      // 页面大小
+      size: 10,
+      // 数据总数
+      total: 0,
+      // 文章列表
+      articleList: [],
+      // 网站配置信息
+      website: this.$store.getters.website,
+    };
+  },
   computed: {
     isRight() {
       return function (index) {
         if (index % 2 == 0) {
-          return "item-img-left";
+          return "item-img-left left-radius";
         }
-        return "item-img-right";
+        return "item-img-right right-radius";
       };
+    },
+  },
+  mounted() {
+    // 修改浏览器标题
+    window.document.title = this.website.name;
+    this.getArticlesInfo();
+  },
+  methods: {
+    // 获取文章列表
+    getArticlesInfo() {
+      getArticleList({
+        curPage: this.curPage,
+        size: this.size,
+      }).then((result) => {
+        let data = result.data;
+        // 定义当前返回的文章集合
+        this.articleList = data.list;
+        // 数据总条数
+        this.total = data.total;
+      });
+    },
+    // 获取更多文章
+    handleClick() {
+      this.size += 10;
+      this.getArticlesInfo();
     },
   },
 };
@@ -181,11 +200,12 @@ export default {
 }
 .home-item {
   display: flex;
+  padding-bottom: 55px;
   margin-bottom: 20px;
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 180px;
+  // height: 180px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 1px 20px -6px rgb(0 0 0 / 50%);
@@ -193,8 +213,11 @@ export default {
 }
 .item-header {
   font-size: 18px;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
 
   .svg-icon {
     font-size: 25px;
@@ -202,7 +225,9 @@ export default {
   }
 }
 .item-content {
-  width: 80%;
+  padding: 0px 100px;
+  font-weight: 500;
+  color: #34495e;
 }
 .main-body {
   display: flex;
@@ -222,17 +247,23 @@ export default {
   justify-content: space-between;
 }
 .item-img-left {
-  width: 45%;
+  width: 50%;
   height: 100%;
   overflow: hidden;
+}
+.left-radius {
   border-radius: 10px 0 0 10px;
+  order: 0;
 }
 .item-img-right {
-  width: 45%;
+  width: 50%;
   right: 0;
   height: 100%;
   overflow: hidden;
+}
+.right-radius {
   border-radius: 0 10px 10px 0;
+  order: 1;
 }
 .on-hover {
   object-fit: cover;
@@ -262,14 +293,13 @@ export default {
   transition: all 0.5s;
 }
 .blog-title a:hover {
-  color: rgba(66, 185, 133);
+  color: #409eff;
 }
 .blog-body {
-  width: 85%;
+  width: 100%;
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
-  justify-content: space-between;
   font-size: 14px;
   .svg-icon {
     margin-right: 5px;
@@ -301,11 +331,28 @@ export default {
   font-size: 14px;
   line-height: 2;
   color: rgba(0, 0, 0, 0.66);
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+.main-footer {
+  margin: 30px 0px;
+  text-align: center;
+}
+.more {
+  cursor: pointer;
+  color: #fff;
+  background: #409eff;
+  padding: 10px 25px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.more:hover {
+  transition: 0.8s;
+  background: #0e5193;
 }
 </style>

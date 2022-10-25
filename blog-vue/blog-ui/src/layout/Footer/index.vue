@@ -1,10 +1,16 @@
 <template>
-  <div class="footer-container">
+  <!-- 如果为留言页面则不渲染Footer组件 -->
+  <div class="footer-container" v-show="!isMessage">
     <div id="jsi-flying-fish-container" class="fish-cartoon"></div>
     <div class="footer-body">
       <div class="link"></div>
-      <div class="footer-custom">©2022 By 世纪末的架构师</div>
-      <div class="footer-copyright">晋ICP备2021018904号</div>
+      <div class="footer-custom">
+        ©2022 By
+        {{ website.author }}
+      </div>
+      <div class="footer-copyright">
+        {{ website.record }}
+      </div>
     </div>
   </div>
 </template>
@@ -17,9 +23,17 @@ export default {
   name: "Footer",
 
   data() {
-    return {};
+    return {
+      // 网站配置信息
+      website: this.$store.getters.website,
+    };
   },
-
+  computed: {
+    // 判断是否为留言页面
+    isMessage() {
+      return this.$route.path == "/message";
+    },
+  },
   mounted() {},
 
   methods: {},
@@ -36,7 +50,7 @@ export default {
   align-items: center;
   color: #fff;
   // background: rgba(66, 185, 133, 0.6);
-  background: #7396ee;
+  background: #036cd5;
 }
 .footer-copyright {
   margin-top: 8px;

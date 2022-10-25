@@ -1,55 +1,23 @@
 <template>
-  <div class="navbar-container">
+  <div :class="navClass">
     <div class="navbar-left">
       <router-link to="/" class="left-container">
-        <img
-          src="https://www.zrkizzy.com/upload/2021/11/header-90431fbd9cf848e2a5aaea0bf6b1089b.jpg"
-          class="logo"
-        />
-        <span class="navbar-title">世纪末的架构师</span>
+        <img :src="website.logo" class="logo" />
+        <span class="navbar-title">{{ website.author }}</span>
       </router-link>
     </div>
     <div class="navbar-right">
-      <div class="menu-item">
-        <router-link class="menu-btn" to="/">
-          <svg-icon icon="home"></svg-icon> 首页
+      <div
+        class="menu-item"
+        v-for="navbar in navBarList"
+        :key="navbar.id"
+        v-show="navbar.label != 'articleList'"
+      >
+        <router-link class="menu-btn" :to="navbar.path">
+          <svg-icon :icon="navbar.label"></svg-icon>
+          {{ navbar.title }}
         </router-link>
         <i class="icon-item"></i>
-      </div>
-      <div class="menu-item">
-        <router-link class="menu-btn" to="/archive">
-          <svg-icon icon="tags"></svg-icon> 归档
-        </router-link>
-      </div>
-      <div class="menu-item">
-        <router-link class="menu-btn" to="/category">
-          <svg-icon icon="bxs-category"></svg-icon> 分类
-        </router-link>
-      </div>
-      <div class="menu-item">
-        <router-link class="menu-btn" to="/">
-          <svg-icon icon="log"></svg-icon> 日志
-        </router-link>
-      </div>
-      <div class="menu-item">
-        <router-link class="menu-btn" to="/">
-          <svg-icon icon="picture"></svg-icon> 相册
-        </router-link>
-      </div>
-      <div class="menu-item">
-        <router-link class="menu-btn" to="/">
-          <svg-icon icon="friend-link"></svg-icon> 友链
-        </router-link>
-      </div>
-      <div class="menu-item">
-        <router-link class="menu-btn" to="/about">
-          <svg-icon icon="guide"></svg-icon> 关于我
-        </router-link>
-      </div>
-      <div class="menu-item">
-        <router-link class="menu-btn" to="/about">
-          <svg-icon icon="message"></svg-icon> 留言
-        </router-link>
       </div>
     </div>
   </div>
@@ -60,22 +28,97 @@ export default {
   name: "NavBar",
 
   data() {
-    return {};
+    return {
+      navClass: "navbar-container",
+      i: 0,
+      navBarList: this.$store.getters.navBarList,
+      // 网站配置信息
+      website: this.$store.getters.website,
+    };
+  },
+  mounted() {
+    window.addEventListener("scroll", this.scroll);
   },
 
-  mounted() {},
-
-  methods: {},
+  methods: {
+    // 顶部滚动样式
+    scroll() {
+      const _this = this;
+      let scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      var scroll = scrollTop - this.i;
+      this.i = scrollTop;
+      if (scroll < 0) {
+        // 鼠标上滚  执行的的方法
+        _this.navClass = "navbar-container-scroll";
+      } else {
+        // 鼠标下滚  执行的的方法
+        _this.navClass = "navbar-hidden";
+      }
+      if (scrollTop == 0) {
+        _this.navClass = "navbar-container";
+      }
+      // if (_this.scrollTop > 0) {
+      //   _this.navClass = "navbar-container-scroll";
+      // } else {
+      //   _this.navClass = "navbar-container";
+      // }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.navbar-container {
+  height: 50px;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  z-index: 1;
+  transition: 1s;
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+.navbar-hidden {
+  height: 50px;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  z-index: -1;
+  transition: 1s;
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+  opacity: 0;
+  transition: 0.8s;
+}
+.svg-icon {
+  margin-right: 2px;
+  font-size: 12px;
+}
 .logo {
   border-radius: 50%;
   width: 40px;
   height: 40px;
   margin-right: 10px;
   margin-left: 20px;
+  transition: all 0.5s;
+}
+.logo:hover {
+  transform: rotate(360deg);
 }
 .navbar-left {
   display: flex;
@@ -90,6 +133,7 @@ export default {
   align-items: center;
 }
 .menu-item {
+  font-weight: 800;
   position: relative;
   display: flex;
   justify-content: center;
@@ -98,7 +142,7 @@ export default {
 }
 .navbar-title {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 700;
   margin-left: 10px;
   line-height: 40px;
 }
@@ -130,5 +174,22 @@ export default {
   background-color: #409eff;
   content: "";
   transition: all 0.3s ease-in-out;
+}
+.navbar-container-scroll {
+  opacity: 0.8;
+  background-color: #f2f6fc;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+  a {
+    color: #303133;
+    text-decoration: none;
+  }
+  transition: 0.8s;
 }
 </style>

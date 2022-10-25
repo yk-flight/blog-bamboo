@@ -1,11 +1,12 @@
 <template>
-  <div class="banner-container">
+  <div class="banner-container" :style="cover">
     <div class="banner-body">
       <h1 class="blog-title animate__animated animate__zoomIn">
-        世纪末的架构师
+        {{ website.name }}
       </h1>
       <div>
         <vue-typed-js
+          v-if="typingTexts.length > 0"
           :strings="typingTexts"
           :loop="false"
           class="blog-word"
@@ -32,12 +33,29 @@ export default {
 
   data() {
     return {
-      typingTexts: ["数风流人物，还看今朝"],
+      typingTexts: [],
+      // 网站配置信息
+      website: this.$store.getters.website,
     };
   },
-
+  created() {
+    this.getWords();
+  },
   mounted() {},
-
+  computed: {
+    cover() {
+      // 定义要拼接的CSS
+      let cover = "";
+      // 循环获取首页的图片
+      this.$store.getters.navBarList.forEach((item) => {
+        if (item.label === "home") {
+          cover = item.image;
+        }
+      });
+      // 返回对应的CSS
+      return "background: url(" + cover + ") center center / cover no-repeat";
+    },
+  },
   methods: {
     // 向下滚动
     scrollDown() {
@@ -45,6 +63,15 @@ export default {
         behavior: "smooth",
         top: document.documentElement.clientHeight,
       });
+    },
+    // 获取每日一言
+    getWords() {
+      this.$axios
+        // .get("https://api.fghrsh.net/hitokoto/rand/?encode=jsc&uid=3335")
+        .get("https://v1.hitokoto.cn?c=i")
+        .then((result) => {
+          this.typingTexts.push(result.data.hitokoto);
+        });
     },
   },
 };
@@ -56,8 +83,7 @@ export default {
   width: 100%;
   height: calc(100vh);
   background-size: 100% 100%;
-  background-image: url("https://blog-springbot.oss-cn-hangzhou.aliyuncs.com/images/banner.gif");
-  // background-image: url("../../assets/images/banner-2.jpg");
+  // background-image: url("../../assets/images/banner.jpg");
 }
 .banner-body {
   height: 100%;
@@ -74,7 +100,7 @@ export default {
 }
 .blog-word {
   color: white;
-  font-weight: 400;
-  font-size: 1.7rem;
+  font-weight: 500;
+  font-size: 1.5rem;
 }
 </style>

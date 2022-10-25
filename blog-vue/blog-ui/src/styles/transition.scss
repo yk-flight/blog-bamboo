@@ -1,18 +1,22 @@
 /* 路由切换动画 */
 .fade-transform-leave-active,
 .fade-transform-enter-active {
-  transition: all 0.8s;
+  transition: all 0.5s;
 }
 
-.fade-transform-enter-from {
+.fade-transform-enter {
   /* 透明度为0 */
   opacity: 0;
   /* 竖向移动 30px */
-  transform: translateY(-10px);
+  transform: translateY(-20px);
   
 }
 
 .fade-transform-leave-to {
   opacity: 0;
-  // transform: translateY(10px);
+  transform: translateY(20px);
+}
+
+#nprogress .bar {
+  background:	#6A5ACD !important; //自定义颜色
 }

@@ -54,14 +54,13 @@ export default {
   font-size: 20px;
   cursor: pointer;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   color: #fff;
-  /* background-color: #42b983; */
   background-color: #409eff;
   text-align: center;
-  line-height: 65px;
-  box-shadow: 1px 1px 1px 1px #fff;
+  line-height: 60px;
+  border: #fff 1px solid;
 }
 .top-btn {
   font-size: 28px;
