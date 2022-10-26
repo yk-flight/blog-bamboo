@@ -6,7 +6,14 @@ import NProgress from "nprogress";
 NProgress.configure({ easing: "ease", speed: 500 });
 
 // 白名单 => 用户未登录也可以进入的页面
-const whiteList = ["/login", "/404", "/401", "/dashboard", "/profile"];
+const whiteList = [
+  "/login",
+  "/404",
+  "/401",
+  "/dashboard",
+  "/profile",
+  "/picture/recyle",
+];
 
 // ======================= 路由导航守卫 =======================
 // to：当前位置，from：从哪来
@@ -57,11 +64,11 @@ router.beforeEach(async (to, from, next) => {
 
       // 如果用户访问的路径不是白名单的路径
       if (!res) {
-        // 如果前用户访问的路径是编辑文章路径则直接放行
-        if (
-          to.path.length >= 16 &&
-          to.path.substr(0, 16) === "/article/editor/"
-        ) {
+        // 如果前用户访问的路径是编辑文章或照片管理路径则直接放行
+        if (to.path.indexOf("/article/editor/") != -1) {
+          next();
+          return;
+        } else if (to.path.indexOf("/photo/photoManage" != -1)) {
           next();
           return;
         }

@@ -28,5 +28,21 @@ export default {
         icon: "tool",
       },
     },
+    {
+      path: "/picture/recyle",
+      name: "PictureManage",
+      component: () => import("@/views/picture/Recyle.vue"),
+      meta: {
+        title: "相册回收站",
+      },
+    },
+    {
+      path: "/picture/photoManage/:id",
+      name: "PhotoManage",
+      component: () => import("@/views/picture/PhotoManage.vue"),
+      meta: {
+        title: "照片管理",
+      },
+    },
   ],
 };
