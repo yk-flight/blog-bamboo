@@ -83,7 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 放行查看图片路径
                 "/images/**",
                 // 放行上传文件路径
-                "/upload/**",
+                "/upload/uploadImage",
                 // 放行前台请求
                 "/api/**"
         );
