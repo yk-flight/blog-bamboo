@@ -19,4 +19,8 @@ public class RedisConst {
      * Redis中存储的当日访问量
      */
     public static final String DAILY_VISITS = "daily_visits";
+    /**
+     * Redis中存储的验证码
+     */
+    public static final String KAPTCHA = "kaptcha";
 }

@@ -89,8 +89,8 @@ public class PhotoController {
         return Result.error("删除失败");
     }
 
-    @ApiOperation("批量恢复相册/图片")
-    @LogAnnotation(module = "相册模块", description = "批量恢复相册/图片")
+    @ApiOperation("批量恢复相册/照片")
+    @LogAnnotation(module = "相册模块", description = "批量恢复相册/照片")
     @GetMapping("/recoverPhotosBatchIds/{ids}")
     public Result recoverPhotosBatchIds(@PathVariable Integer[] ids) {
         return photoService.recoverPhotosBatchIds(Arrays.asList(ids));
@@ -102,7 +102,7 @@ public class PhotoController {
         return photoService.deletePhotoBatchIds(Arrays.asList(ids));
     }
 
-    @ApiOperation("批量删除相册/图片")
+    @ApiOperation("批量删除相册/照片")
     @DeleteMapping("/deletePhotosBatchIds/{ids}")
     public Result deletePhotosBatchIds(@PathVariable Integer[] ids) {
         return photoService.deletePhotosBatchIds(Arrays.asList(ids));

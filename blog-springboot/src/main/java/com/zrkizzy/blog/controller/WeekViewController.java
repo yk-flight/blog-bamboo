@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-10-03
  */
 @RestController
-@Api("WeekViewController")
+@Api(tags = "WeekViewController")
 @RequestMapping("/week-view")
 public class WeekViewController {
     @Resource

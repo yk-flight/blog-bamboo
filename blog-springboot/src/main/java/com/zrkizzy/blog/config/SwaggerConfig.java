@@ -43,7 +43,7 @@ public class SwaggerConfig {
                 // 定义标题
                 .title("个人博客接口文档")
                 // 接口文档描述
-                .description("这里是关于个人博客接口文档的描述")
+                .description("基于SpringBoot + Vue实现的前后端分离的个人博客，采用Spring Security + JWT进行权限管理。使用Redis进行缓存")
                 // 接口文档作者信息
                 .contact(new Contact("世纪末的架构师", "http:localhost:8090/doc.html", "1072876976@qq.com"))
                 // 版本号

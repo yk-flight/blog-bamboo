@@ -68,9 +68,9 @@ public class WebsiteController {
         if (websiteInfo == null) {
             // 如果不存在则到数据库中获取
             WebsiteOther websiteOther = websiteOtherService.getById(1);
-            websiteInfo = BeanCopyUtil.copy(websiteOther, WebsiteOtherDTO.class);
             // 将从数据库中获取到的对象设置到Redis中
-            valueOperations.set(WEBSITE_INFO, websiteInfo);
+            valueOperations.set(WEBSITE_INFO, websiteOther);
+            websiteInfo = BeanCopyUtil.copy(websiteOther, WebsiteOtherDTO.class);
         }
         return websiteInfo;
     }

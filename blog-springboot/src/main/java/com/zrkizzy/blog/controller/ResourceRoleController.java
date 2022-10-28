@@ -5,6 +5,7 @@ import com.zrkizzy.blog.annotation.LogAnnotation;
 import com.zrkizzy.blog.service.ResourceRoleService;
 import com.zrkizzy.blog.vo.Result;
 import com.zrkizzy.blog.vo.ResourceRoleVO;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import javax.annotation.Resource;
  * @since 2022-09-27
  */
 @RestController
+@Api(tags = "ResourceRoleController")
 @RequestMapping("/resource-role")
 public class ResourceRoleController {
     @Resource

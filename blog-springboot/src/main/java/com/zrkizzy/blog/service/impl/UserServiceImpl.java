@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.zrkizzy.blog.constant.CommonConst.LOCAL_HOST;
+import static com.zrkizzy.blog.constant.RedisConst.KAPTCHA;
 import static com.zrkizzy.blog.constant.RedisConst.USER_INFO;
 
 /**
@@ -98,8 +99,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result login(String username, String password, String code, HttpServletRequest request) {
         // 1. -------------------- 判断验证码 --------------------
-        // 从Session中获取验证码
-        String kaptcha = (String) request.getSession().getAttribute("kaptcha");
+        // 从Redis中获取验证码
+        String kaptcha = (String) redisTemplate.opsForValue().get(KAPTCHA);
+        System.out.println(username + "  " + password + "  " + kaptcha);
         // 判断验证码是否正确
         if (StringUtils.isEmpty(kaptcha) || !kaptcha.equals(code)) {
             return Result.error("验证码输入错误，请重新输入");

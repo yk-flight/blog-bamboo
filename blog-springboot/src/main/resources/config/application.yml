@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: 123456
+    url: jdbc:mysql://你的IP地址:3306/blog?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: 你的数据用户名
+    password: 你的数据库密码
     hikari:
       # 连接池名称
       pool-name: DateHikariCP
@@ -37,13 +37,13 @@ spring:
     # 超时时间
     connect-timeout: 10000ms
     # 服务器地址
-    host: 127.0.0.1
+    host: 你的Redis地址
     # 端口号
     port: 6379
     # 数据库
-    database: 1
+    database: 你的Redis数据库
     # 密码
-    # password: 本地暂时没有配置密码
+     password: 你的Redis密码
     lettuce:
       pool:
         # 最大连接数，默认8
@@ -83,4 +83,4 @@ jwt:
 
 # 文件上传配置
 file:
-  path: /Users/zhangrongkang/workspace/MyProject/blog/blog-springboot/upload/
+  path: 你的文件存储路径（之后要在服务器进行挂载）
