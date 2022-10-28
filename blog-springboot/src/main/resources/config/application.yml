@@ -42,8 +42,8 @@ spring:
     port: 6379
     # 数据库
     database: 你的Redis数据库
-    # 密码
-     password: 你的Redis密码
+      # 密码
+      password: 你的Redis密码
     lettuce:
       pool:
         # 最大连接数，默认8
@@ -84,3 +84,4 @@ jwt:
 # 文件上传配置
 file:
   path: 你的文件存储路径（之后要在服务器进行挂载）
+  domain: 你的文件访问域名

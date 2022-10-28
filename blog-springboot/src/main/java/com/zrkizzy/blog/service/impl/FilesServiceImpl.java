@@ -27,8 +27,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.zrkizzy.blog.constant.CommonConst.DOMAIN;
-
 /**
  * <p>
  *  服务实现类
@@ -44,6 +42,8 @@ public class FilesServiceImpl extends ServiceImpl<FilesMapper, Files> implements
 
     @Value("${file.path}")
     private String path;
+    @Value("${file.domain}")
+    private String DOMAIN;
 
     /**
      * 获取上传的图片列表

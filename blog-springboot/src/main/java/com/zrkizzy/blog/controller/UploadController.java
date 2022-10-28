@@ -18,8 +18,6 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 
-import static com.zrkizzy.blog.constant.CommonConst.DOMAIN;
-
 /**
  * 文件上传控制器
  *
@@ -30,6 +28,8 @@ import static com.zrkizzy.blog.constant.CommonConst.DOMAIN;
 @RestController
 @RequestMapping("/upload")
 public class UploadController {
+    @Value("${file.domain}")
+    private String DOMAIN;
     @Resource
     private FilesService filesService;
     @Resource
