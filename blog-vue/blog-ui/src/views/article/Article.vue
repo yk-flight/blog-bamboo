@@ -585,7 +585,7 @@ export default {
 .recommend-body {
   width: 100%;
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  // grid-template-rows: 1fr 1fr;
   // fr 为网格布局定义的一个新单位。它可以帮助我们摆脱计算百分比，并将可用空间按比例分配
   grid-template-columns: repeat(3, 1fr);
   // 设置列间距

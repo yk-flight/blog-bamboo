@@ -8,7 +8,7 @@ import request from "@/utils/request";
  */
 export const getFilesList = (params) => {
   return request({
-    url: "/files/getFilesList",
+    url: "/api/files/getFilesList",
     method: "GET",
     params: params,
   });
@@ -22,7 +22,7 @@ export const getFilesList = (params) => {
  */
 export const upload = (data) => {
   return request({
-    url: "/upload/",
+    url: "/api/upload/",
     method: "POST",
     data: data,
   });
@@ -36,7 +36,7 @@ export const upload = (data) => {
  */
 export const deleteFileBatchIds = (ids) => {
   return request({
-    url: `/files/deleteFileBatchIds/${ids}`,
+    url: `/api/files/deleteFileBatchIds/${ids}`,
     method: "DELETE",
   });
 };
@@ -49,7 +49,7 @@ export const deleteFileBatchIds = (ids) => {
  */
 export const updateFileInfo = (data) => {
   return request({
-    url: "/files/updateFileInfo",
+    url: "/api/files/updateFileInfo",
     method: "POST",
     data: data,
   });

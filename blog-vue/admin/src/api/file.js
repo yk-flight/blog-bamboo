@@ -5,7 +5,7 @@ import request from "@/utils/request";
  */
 export const getFileUse = () => {
   return request({
-    url: "/files/getFileUse",
+    url: "/api/files/getFileUse",
     method: "GET",
   });
 };
@@ -18,7 +18,7 @@ export const getFileUse = () => {
  */
 export const deleteFileByPath = (path) => {
   return request({
-    url: "/upload/deleteFileByPath/",
+    url: "/api/upload/deleteFileByPath/",
     method: "GET",
     params: path,
   });

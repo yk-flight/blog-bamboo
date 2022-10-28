@@ -7,7 +7,7 @@ import request from "@/utils/request";
  */
 export const getWebsiteInfo = () => {
   return request({
-    url: "/website/getWebsiteInfo",
+    url: "/api/website/getWebsiteInfo",
     method: "GET",
   });
 };
@@ -20,7 +20,7 @@ export const getWebsiteInfo = () => {
  */
 export const updateWebsiteInfo = (data) => {
   return request({
-    url: "/website/updateWebsiteInfo",
+    url: "/api/website/updateWebsiteInfo",
     method: "POST",
     data: data,
   });
@@ -33,7 +33,7 @@ export const updateWebsiteInfo = (data) => {
  */
 export const getSocialInfo = () => {
   return request({
-    url: "/social/getSocialInfo",
+    url: "/api/social/getSocialInfo",
     method: "GET",
   });
 };
@@ -46,7 +46,7 @@ export const getSocialInfo = () => {
  */
 export const updateSocialInfo = (data) => {
   return request({
-    url: "/social/updateSocialInfo",
+    url: "/api/social/updateSocialInfo",
     method: "POST",
     data: data,
   });
@@ -59,7 +59,7 @@ export const updateSocialInfo = (data) => {
  */
 export const getWebsiteOtherInfo = () => {
   return request({
-    url: "/website/getOtherInfo",
+    url: "/api/website/getOtherInfo",
     method: "GET",
   });
 };
@@ -71,7 +71,7 @@ export const getWebsiteOtherInfo = () => {
  */
 export const updateWebsiteOtherInfo = (data) => {
   return request({
-    url: "/website/updateOtherInfo",
+    url: "/api/website/updateOtherInfo",
     method: "PUT",
     data: data,
   });

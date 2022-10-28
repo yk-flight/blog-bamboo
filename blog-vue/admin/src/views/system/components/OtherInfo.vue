@@ -59,7 +59,7 @@
       </el-form-item>
       <!-- 收款码 -->
       <el-row>
-        <el-col :span="3">
+        <el-col :span="4">
           <el-form-item label="微信收款码" label-width="60">
             <el-upload
               class="upload-container"
@@ -81,7 +81,7 @@
             </el-upload>
           </el-form-item>
         </el-col>
-        <el-col :span="3">
+        <el-col :span="4">
           <el-form-item label="支付宝收款码" label-width="60">
             <el-upload
               class="upload-container"

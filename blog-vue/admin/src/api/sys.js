@@ -8,7 +8,7 @@ import request from "@/utils/request";
  */
 export const login = (data) => {
   return request({
-    url: "/login",
+    url: "/api/login",
     method: "POST",
     data,
   });
@@ -21,7 +21,7 @@ export const login = (data) => {
  */
 export const getUserInfo = () => {
   return request({
-    url: "/user/admin/getUserById",
+    url: "/api/user/admin/getUserById",
     method: "GET",
   });
 };
@@ -31,7 +31,7 @@ export const getUserInfo = () => {
  */
 export const getUserAgent = () => {
   return request({
-    url: "/user/admin/getUserAgent",
+    url: "/api/user/admin/getUserAgent",
     method: "GET",
   });
 };

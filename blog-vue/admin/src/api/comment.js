@@ -8,7 +8,7 @@ import request from "@/utils/request";
  */
 export const getCommentList = (params) => {
   return request({
-    url: "/comment/getCommentList",
+    url: "/api/comment/getCommentList",
     method: "GET",
     params: params,
   });
@@ -22,7 +22,7 @@ export const getCommentList = (params) => {
  */
 export const getAllowCommentList = (params) => {
   return request({
-    url: "/comment/getAllowCommentList",
+    url: "/api/comment/getAllowCommentList",
     method: "GET",
     params: params,
   });
@@ -36,7 +36,7 @@ export const getAllowCommentList = (params) => {
  */
 export const deleteCommentById = (id) => {
   return request({
-    url: `/comment/deleteCommentById/${id}`,
+    url: `/api/comment/deleteCommentById/${id}`,
     method: "DELETE",
   });
 };
@@ -49,7 +49,7 @@ export const deleteCommentById = (id) => {
  */
 export const deleteCommentBatchIds = (ids) => {
   return request({
-    url: `/comment/deleteCommentBatchIds/${ids}`,
+    url: `/api/comment/deleteCommentBatchIds/${ids}`,
     method: "DELETE",
   });
 };
@@ -62,7 +62,7 @@ export const deleteCommentBatchIds = (ids) => {
  */
 export const passCommentById = (id) => {
   return request({
-    url: `/comment/passCommentById/${id}`,
+    url: `/api/comment/passCommentById/${id}`,
     method: "GET",
   });
 };
@@ -75,7 +75,7 @@ export const passCommentById = (id) => {
  */
 export const passCommentBatchIds = (ids) => {
   return request({
-    url: `/comment/passCommentBatchIds/${ids}`,
+    url: `/api/comment/passCommentBatchIds/${ids}`,
     method: "GET",
   });
 };
@@ -88,7 +88,7 @@ export const passCommentBatchIds = (ids) => {
  */
 export const addComment = (data) => {
   return request({
-    url: "/comment/addComment",
+    url: "/api/comment/addComment",
     method: "POST",
     data: data,
   });

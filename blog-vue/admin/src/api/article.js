@@ -7,7 +7,7 @@ import request from "@/utils/request";
  */
 export const getCategoryByPage = (data) => {
   return request({
-    url: "/admin/getCategoryByPage",
+    url: "/api/admin/getCategoryByPage",
     method: "GET",
     params: data,
   });
@@ -20,7 +20,7 @@ export const getCategoryByPage = (data) => {
  */
 export const getAllCategory = () => {
   return request({
-    url: "/category/getAllCategory",
+    url: "/api/category/getAllCategory",
     method: "GET",
   });
 };
@@ -33,7 +33,7 @@ export const getAllCategory = () => {
  */
 export const insertCategory = (data) => {
   return request({
-    url: "/admin/insertCategory",
+    url: "/api/admin/insertCategory",
     method: "POST",
     data,
   });
@@ -47,7 +47,7 @@ export const insertCategory = (data) => {
  */
 export const updateCategory = (data) => {
   return request({
-    url: "/admin/updateCategory",
+    url: "/api/admin/updateCategory",
     method: "PUT",
     data,
   });
@@ -58,7 +58,7 @@ export const updateCategory = (data) => {
  */
 export const deleteCategory = (id) => {
   return request({
-    url: `/admin/deleteCategory/${id}`,
+    url: `/api/admin/deleteCategory/${id}`,
     method: "DELETE",
   });
 };
@@ -68,7 +68,7 @@ export const deleteCategory = (id) => {
  */
 export const deleteCategoryBatchIds = (ids) => {
   return request({
-    url: `/admin/deleteCategoryBatchIds/${ids}`,
+    url: `/api/admin/deleteCategoryBatchIds/${ids}`,
     method: "DELETE",
   });
 };
@@ -80,7 +80,7 @@ export const deleteCategoryBatchIds = (ids) => {
  */
 export const getTagsList = (params) => {
   return request({
-    url: "/tags/getTagsList",
+    url: "/api/tags/getTagsList",
     method: "GET",
     params: params,
   });
@@ -93,7 +93,7 @@ export const getTagsList = (params) => {
  */
 export const getAllTags = () => {
   return request({
-    url: "/tags/getAllTags",
+    url: "/api/tags/getAllTags",
     method: "GET",
   });
 };
@@ -106,7 +106,7 @@ export const getAllTags = () => {
  */
 export const insertTags = (data) => {
   return request({
-    url: "/tags/insertTags",
+    url: "/api/tags/insertTags",
     method: "POST",
     data: data,
   });
@@ -120,7 +120,7 @@ export const insertTags = (data) => {
  */
 export const updateTags = (data) => {
   return request({
-    url: "/tags/updateTags",
+    url: "/api/tags/updateTags",
     method: "POST",
     data: data,
   });
@@ -134,7 +134,7 @@ export const updateTags = (data) => {
  */
 export const deleteTags = (id) => {
   return request({
-    url: `/tags/deleteTags/${id}`,
+    url: `/api/tags/deleteTags/${id}`,
     method: "DELETE",
   });
 };
@@ -147,7 +147,7 @@ export const deleteTags = (id) => {
  */
 export const deleteTagsBatchIds = (ids) => {
   return request({
-    url: `/tags/deleteTagsBatchIds/${ids}`,
+    url: `/api/tags/deleteTagsBatchIds/${ids}`,
     method: "DELETE",
   });
 };
@@ -160,7 +160,7 @@ export const deleteTagsBatchIds = (ids) => {
  */
 export const saveArticle = (data) => {
   return request({
-    url: "/article/save",
+    url: "/api/article/save",
     method: "POST",
     data: data,
   });
@@ -174,7 +174,7 @@ export const saveArticle = (data) => {
  */
 export const getArticleList = (params) => {
   return request({
-    url: "/article/getArticleList",
+    url: "/api/article/getArticleList",
     method: "GET",
     params: params,
   });
@@ -188,7 +188,7 @@ export const getArticleList = (params) => {
  */
 export const updateArticleTop = (id) => {
   return request({
-    url: `/article/updateArticleTop/${id}`,
+    url: `/api/article/updateArticleTop/${id}`,
     method: "GET",
   });
 };
@@ -201,7 +201,7 @@ export const updateArticleTop = (id) => {
  */
 export const updateArticleComment = (id) => {
   return request({
-    url: `/article/updateArticleComment/${id}`,
+    url: `/api/article/updateArticleComment/${id}`,
     method: "GET",
   });
 };
@@ -214,7 +214,7 @@ export const updateArticleComment = (id) => {
  */
 export const removeArticle = (id) => {
   return request({
-    url: `/article/removeArticle/${id}`,
+    url: `/api/article/removeArticle/${id}`,
     method: "GET",
   });
 };
@@ -227,7 +227,7 @@ export const removeArticle = (id) => {
  */
 export const removeArticleBatchIds = (ids) => {
   return request({
-    url: `/article/removeArticleBatchIds/${ids}`,
+    url: `/api/article/removeArticleBatchIds/${ids}`,
     method: "GET",
   });
 };
@@ -240,7 +240,7 @@ export const removeArticleBatchIds = (ids) => {
  */
 export const recoverArticle = (id) => {
   return request({
-    url: `article/recoverArticle/${id}`,
+    url: `/apiarticle/recoverArticle/${id}`,
   });
 };
 
@@ -252,7 +252,7 @@ export const recoverArticle = (id) => {
  */
 export const recoverArticleBatchIds = (ids) => {
   return request({
-    url: `/article/recoverArticleBatchIds/${ids}`,
+    url: `/api/article/recoverArticleBatchIds/${ids}`,
     method: "GET",
   });
 };
@@ -265,7 +265,7 @@ export const recoverArticleBatchIds = (ids) => {
  */
 export const deleteArticle = (id) => {
   return request({
-    url: `/article/deleteArticle/${id}`,
+    url: `/api/article/deleteArticle/${id}`,
     method: "DELETE",
   });
 };
@@ -278,7 +278,7 @@ export const deleteArticle = (id) => {
  */
 export const deleteArticleBatchIds = (ids) => {
   return request({
-    url: `/article/deleteArticleBatchIds/${ids}`,
+    url: `/api/article/deleteArticleBatchIds/${ids}`,
     method: "DELETE",
   });
 };
@@ -291,7 +291,7 @@ export const deleteArticleBatchIds = (ids) => {
  */
 export const getArticleById = (id) => {
   return request({
-    url: `/article/getArticleById/${id}`,
+    url: `/api/article/getArticleById/${id}`,
     method: "GET",
   });
 };

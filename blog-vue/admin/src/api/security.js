@@ -2,7 +2,7 @@ import request from "@/utils/request";
 
 export const getAllMenus = (data) => {
   return request({
-    url: "/admin/getAllMenus",
+    url: "/api/admin/getAllMenus",
     method: "POST",
     data,
   });
@@ -10,14 +10,14 @@ export const getAllMenus = (data) => {
 
 export const getAllRoles = () => {
   return request({
-    url: "/role/admin/getAllRoles",
+    url: "/api/role/admin/getAllRoles",
     method: "GET",
   });
 };
 
 export const insertRole = (data) => {
   return request({
-    url: "/role/admin/insertRole",
+    url: "/api/role/admin/insertRole",
     method: "POST",
     data,
   });
@@ -25,7 +25,7 @@ export const insertRole = (data) => {
 
 export const updateRole = (data) => {
   return request({
-    url: "/role/admin/updateRole",
+    url: "/api/role/admin/updateRole",
     method: "PUT",
     data,
   });
@@ -33,14 +33,14 @@ export const updateRole = (data) => {
 
 export const deleteRole = (id) => {
   return request({
-    url: `/role/admin/deleteRole/${id}`,
+    url: `/api/role/admin/deleteRole/${id}`,
     method: "DELETE",
   });
 };
 
 export const getAllPermission = () => {
   return request({
-    url: "/admin/getAllPermission",
+    url: "/api/admin/getAllPermission",
     method: "GET",
   });
 };
@@ -53,7 +53,7 @@ export const getAllPermission = () => {
  */
 export const getRoleByUserId = (id) => {
   return request({
-    url: `/user-role/getRoleByUserId/${id}`,
+    url: `/api/user-role/getRoleByUserId/${id}`,
     method: "GET",
   });
 };
@@ -66,7 +66,7 @@ export const getRoleByUserId = (id) => {
  */
 export const updateUserRole = (params) => {
   return request({
-    url: "/user-role/updateUserRole",
+    url: "/api/user-role/updateUserRole",
     method: "GET",
     params: params,
   });
@@ -79,7 +79,7 @@ export const updateUserRole = (params) => {
  */
 export const getResourceList = () => {
   return request({
-    url: "/resource/getResourceList",
+    url: "/api/resource/getResourceList",
     method: "GET",
   });
 };
@@ -105,7 +105,7 @@ export const getResourceById = (id) => {
  */
 export const updateResourceRole = (data) => {
   return request({
-    url: "/resource-role/updateResourceRole",
+    url: "/api/resource-role/updateResourceRole",
     method: "POST",
     data: data,
   });

@@ -8,7 +8,7 @@ import request from "@/utils/request";
  */
 export const getMessageList = (params) => {
   return request({
-    url: "/message/getMessageList",
+    url: "/api/message/getMessageList",
     method: "GET",
     params: params,
   });
@@ -22,7 +22,7 @@ export const getMessageList = (params) => {
  */
 export const deleteMessageById = (id) => {
   return request({
-    url: `/message/deleteMessageById/${id}`,
+    url: `/api/message/deleteMessageById/${id}`,
     method: "DELETE",
   });
 };
@@ -35,7 +35,7 @@ export const deleteMessageById = (id) => {
  */
 export const deleteMessageBatchIds = (ids) => {
   return request({
-    url: `/message/deleteMessageBatchIds/${ids}`,
+    url: `/api/message/deleteMessageBatchIds/${ids}`,
     method: "DELETE",
   });
 };
@@ -48,7 +48,7 @@ export const deleteMessageBatchIds = (ids) => {
  */
 export const passMessageById = (id) => {
   return request({
-    url: `/message/passMessageById/${id}`,
+    url: `/api/message/passMessageById/${id}`,
     method: "GET",
   });
 };
@@ -61,7 +61,7 @@ export const passMessageById = (id) => {
  */
 export const passMessageBatchIds = (ids) => {
   return request({
-    url: `/message/passMessageBatchIds/${ids}`,
+    url: `/api/message/passMessageBatchIds/${ids}`,
     method: "GET",
   });
 };

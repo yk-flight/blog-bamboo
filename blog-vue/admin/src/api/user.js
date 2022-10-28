@@ -7,7 +7,7 @@ import request from "@/utils/request";
  */
 export const getCurrentUserInfo = () => {
   return request({
-    url: "/admin/getCurrentUserInfo",
+    url: "/api/admin/getCurrentUserInfo",
     method: "GET",
   });
 };
@@ -20,7 +20,7 @@ export const getCurrentUserInfo = () => {
  */
 export const updateUserInfo = (data) => {
   return request({
-    url: "/admin/updateUserInfo",
+    url: "/api/admin/updateUserInfo",
     method: "POST",
     data,
   });
@@ -33,7 +33,7 @@ export const updateUserInfo = (data) => {
  */
 export const getAccessPath = () => {
   return request({
-    url: "/role/admin/getAccessPath",
+    url: "/api/role/admin/getAccessPath",
     method: "GET",
   });
 };
@@ -46,7 +46,7 @@ export const getAccessPath = () => {
  */
 export const updatePassword = (data) => {
   return request({
-    url: "/user/admin/updatePassword",
+    url: "/api/user/admin/updatePassword",
     method: "PUT",
     data,
   });
@@ -59,7 +59,7 @@ export const updatePassword = (data) => {
  */
 export const getUserList = (data) => {
   return request({
-    url: "/user/admin/getUserList",
+    url: "/api/user/admin/getUserList",
     method: "GET",
     params: data,
   });
@@ -73,7 +73,7 @@ export const getUserList = (data) => {
  */
 export const getUserInfoById = (id) => {
   return request({
-    url: `/admin/getUserInfoById/${id}`,
+    url: `/api/admin/getUserInfoById/${id}`,
     method: "GET",
   });
 };
@@ -86,7 +86,7 @@ export const getUserInfoById = (id) => {
  */
 export const changeUserEnabled = (id) => {
   return request({
-    url: `/admin/changeUserEnabled/${id}`,
+    url: `/api/admin/changeUserEnabled/${id}`,
     method: "PUT",
   });
 };
@@ -98,7 +98,7 @@ export const changeUserEnabled = (id) => {
  */
 export const addUser = (data) => {
   return request({
-    url: "/user/admin/addUser",
+    url: "/api/user/admin/addUser",
     method: "POST",
     data: data,
   });
@@ -111,7 +111,7 @@ export const addUser = (data) => {
  */
 export const updatePasswordById = (params) => {
   return request({
-    url: "/user/admin/updatePasswordById",
+    url: "/api/user/admin/updatePasswordById",
     method: "PUT",
     params: params,
   });
@@ -125,7 +125,7 @@ export const updatePasswordById = (params) => {
  */
 export const deleteUserById = (id) => {
   return request({
-    url: `/user/admin/deleteUserById/${id}`,
+    url: `/api/user/admin/deleteUserById/${id}`,
     method: "DELETE",
   });
 };
@@ -135,7 +135,7 @@ export const deleteUserById = (id) => {
  */
 export const uploadAvatar = (data) => {
   return request({
-    url: "/user/admin/uploadAvatar",
+    url: "/api/user/admin/uploadAvatar",
     method: "POST",
     data: data,
   });
@@ -149,7 +149,7 @@ export const uploadAvatar = (data) => {
  */
 export const updateAvatarById = (data) => {
   return request({
-    url: "/user/admin/updateAvatarById",
+    url: "/api/user/admin/updateAvatarById",
     method: "POST",
     data: data,
   });

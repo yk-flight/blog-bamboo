@@ -8,7 +8,7 @@ import request from "@/utils/request";
  */
 export const getLinksList = (params) => {
   return request({
-    url: "/links/getLinksList",
+    url: "/api/links/getLinksList",
     method: "GET",
     params: params,
   });
@@ -22,7 +22,7 @@ export const getLinksList = (params) => {
  */
 export const updateLinks = (data) => {
   return request({
-    url: "/links/updateLinks",
+    url: "/api/links/updateLinks",
     method: "PUT",
     data: data,
   });
@@ -36,7 +36,7 @@ export const updateLinks = (data) => {
  */
 export const addLinks = (data) => {
   return request({
-    url: "/links/addLinks",
+    url: "/api/links/addLinks",
     method: "POST",
     data: data,
   });
@@ -50,7 +50,7 @@ export const addLinks = (data) => {
  */
 export const deleteLinkById = (id) => {
   return request({
-    url: `/links/deleteLinkById/${id}`,
+    url: `/api/links/deleteLinkById/${id}`,
     method: "DELETE",
   });
 };

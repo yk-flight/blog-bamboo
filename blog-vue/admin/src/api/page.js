@@ -7,7 +7,7 @@ import request from "@/utils/request";
  */
 export const getPagesList = () => {
   return request({
-    url: "/pages/getPagesList",
+    url: "/api/pages/getPagesList",
     method: "GET",
   });
 };
@@ -20,7 +20,7 @@ export const getPagesList = () => {
  */
 export const updatePageInfo = (data) => {
   return request({
-    url: "/pages/updatePageInfo",
+    url: "/api/pages/updatePageInfo",
     method: "PUT",
     data: data,
   });
@@ -34,7 +34,7 @@ export const updatePageInfo = (data) => {
  */
 export const addPages = (data) => {
   return request({
-    url: "/pages/addPages",
+    url: "/api/pages/addPages",
     method: "POST",
     data: data,
   });
@@ -48,7 +48,7 @@ export const addPages = (data) => {
  */
 export const deletePage = (id) => {
   return request({
-    url: `/pages/deletePageById/${id}`,
+    url: `/api/pages/deletePageById/${id}`,
     method: "DELETE",
   });
 };

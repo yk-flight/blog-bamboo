@@ -7,7 +7,7 @@ import request from "@/utils/request";
  */
 export const getAboutInfo = () => {
   return request({
-    url: "/about/getAboutInfo",
+    url: "/api/about/getAboutInfo",
     method: "GET",
   });
 };
@@ -20,7 +20,7 @@ export const getAboutInfo = () => {
  */
 export const updateAboutInfo = (data) => {
   return request({
-    url: "/about/updateAboutInfo",
+    url: "/api/about/updateAboutInfo",
     method: "PUT",
     data: data,
   });

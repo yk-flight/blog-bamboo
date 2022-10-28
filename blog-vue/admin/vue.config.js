@@ -2,16 +2,16 @@
 let proxyObjct = {};
 
 // 所有路径都要进行代理
-proxyObjct["/"] = {
+proxyObjct["/api"] = {
   // WebSocket
   ws: false,
   // 代理到哪里去
-  target: "http://localhost:8090",
+  target: "http://localhost:8090/",
   // 发送请求头host会被设置成target
   changeOrigin: true,
   // 不重写请求地址
   pathRewrite: {
-    "^/": "/",
+    "^/api": "/",
   },
 };
 

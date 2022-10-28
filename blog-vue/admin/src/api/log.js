@@ -7,7 +7,7 @@ import request from "@/utils/request";
  */
 export const getOperateLogList = (params) => {
   return request({
-    url: "/operate-log/list",
+    url: "/api/operate-log/list",
     method: "GET",
     params: params,
   });
@@ -18,7 +18,7 @@ export const getOperateLogList = (params) => {
  */
 export const deleteLogBatchIds = (ids) => {
   return request({
-    url: `/operate-log/deleteLogBatchIds/${ids}`,
+    url: `/api/operate-log/deleteLogBatchIds/${ids}`,
     method: "DELETE",
   });
 };

@@ -2,14 +2,14 @@
   <div class="create-container">
     <div class="article-title">
       <el-row :gutter="20">
-        <el-col :span="20">
+        <el-col :span="19">
           <el-input
             size="medium"
             placeholder="请输入文章标题"
             v-model="article.title"
           ></el-input>
         </el-col>
-        <el-col :span="4" style="text-align: center">
+        <el-col :span="5" style="text-align: right">
           <el-button
             type="danger"
             @click="showDrawer"

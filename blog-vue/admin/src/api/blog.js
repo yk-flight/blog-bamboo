@@ -7,7 +7,7 @@ import request from "@/utils/request";
  */
 export const getBlogInfo = () => {
   return request({
-    url: "/blog/getBlogInfo",
+    url: "/api/blog/getBlogInfo",
     method: "GET",
   });
 };
@@ -19,7 +19,7 @@ export const getBlogInfo = () => {
  */
 export const getWeekViewData = () => {
   return request({
-    url: "/week-view/getWeekViewData",
+    url: "/api/week-view/getWeekViewData",
     method: "GET",
   });
 };

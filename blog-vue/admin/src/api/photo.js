@@ -7,7 +7,7 @@ import request from "@/utils/request";
  */
 export const listPhotoCover = (params) => {
   return request({
-    url: "/photo/listPhotoCover",
+    url: "/api/photo/listPhotoCover",
     method: "GET",
     params: params,
   });
@@ -21,7 +21,7 @@ export const listPhotoCover = (params) => {
  */
 export const save = (data) => {
   return request({
-    url: "/photo/save",
+    url: "/api/photo/save",
     method: "POST",
     data: data,
   });
@@ -35,7 +35,7 @@ export const save = (data) => {
  */
 export const removePhotos = (id) => {
   return request({
-    url: `/photo/removePhotos/${id}`,
+    url: `/api/photo/removePhotos/${id}`,
     method: "GET",
   });
 };
@@ -48,7 +48,7 @@ export const removePhotos = (id) => {
  */
 export const recoverPhotosBatchIds = (ids) => {
   return request({
-    url: `/photo/recoverPhotosBatchIds/${ids}`,
+    url: `/api/photo/recoverPhotosBatchIds/${ids}`,
     method: "GET",
   });
 };
@@ -61,7 +61,7 @@ export const recoverPhotosBatchIds = (ids) => {
  */
 export const deletePhotosBatchIds = (ids) => {
   return request({
-    url: `/photo/deletePhotosBatchIds/${ids}`,
+    url: `/api/photo/deletePhotosBatchIds/${ids}`,
     method: "DELETE",
   });
 };
@@ -74,7 +74,7 @@ export const deletePhotosBatchIds = (ids) => {
  */
 export const listPhotoById = (id) => {
   return request({
-    url: `/photo/listPhotoById/${id}`,
+    url: `/api/photo/listPhotoById/${id}`,
     method: "GET",
   });
 };
@@ -87,7 +87,7 @@ export const listPhotoById = (id) => {
  */
 export const deletePhotoBatchIds = (ids) => {
   return request({
-    url: `/photo/deletePhotoBatchIds/${ids}`,
+    url: `/api/photo/deletePhotoBatchIds/${ids}`,
     method: "GET",
   });
 };
