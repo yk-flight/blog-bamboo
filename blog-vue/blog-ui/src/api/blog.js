@@ -192,3 +192,27 @@ export const listArticle = (params) => {
     params: params,
   });
 };
+
+/**
+ * 获取所有相册
+ *
+ * @returns
+ */
+export const listPhotos = () => {
+  return request({
+    url: "/api/listPhotos",
+    method: "GET",
+  });
+};
+
+/**
+ * 获取相册对应的照片
+ *
+ * @returns
+ */
+export const listPhotoById = (id) => {
+  return request({
+    url: `/api/listPhotoById/${id}`,
+    method: "GET",
+  });
+};

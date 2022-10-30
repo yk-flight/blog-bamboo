@@ -112,12 +112,10 @@ export default {
         id: this.id,
       }).then((result) => {
         let data = result.data;
-        console.log(data);
         this.name = data.name;
         window.document.title = this.name;
         this.total = data.page.total;
         this.articleList = data.page.list;
-        console.log(this.articleList);
       });
     },
   },

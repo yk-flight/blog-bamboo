@@ -54,6 +54,11 @@ const routes = [
     },
   },
   {
+    path: "/photo/:id",
+    name: "PhotoList",
+    component: () => import("../views/photo/PhotoList.vue"),
+  },
+  {
     path: "/message",
     name: "Message",
     component: () => import("../views/message/Message.vue"),
