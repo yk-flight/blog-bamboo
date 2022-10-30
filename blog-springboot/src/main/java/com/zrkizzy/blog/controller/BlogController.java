@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zrkizzy.blog.dto.*;
 import com.zrkizzy.blog.entity.Article;
 import com.zrkizzy.blog.entity.Message;
+import com.zrkizzy.blog.entity.Photo;
 import com.zrkizzy.blog.entity.Website;
 import com.zrkizzy.blog.service.*;
 import com.zrkizzy.blog.utils.BeanCopyUtil;
@@ -44,6 +45,8 @@ public class BlogController {
     private WebsiteService websiteService;
     @Resource
     private WebsiteOtherService websiteOtherService;
+    @Resource
+    private PhotoService photoService;
     @Resource
     private SocialService socialService;
     @Resource
@@ -173,5 +176,20 @@ public class BlogController {
                                            @RequestParam("path") String path,
                                            @RequestParam("id") Integer id) {
         return articleService.listArticleById(curPage, size, path, id);
+    }
+
+    @ApiOperation("获取所有相册")
+    @GetMapping("/listPhotos")
+    public List<Photo> listPhotos() {
+        // 定义查询条件
+        QueryWrapper<Photo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("parent_id", 0).eq("deleted", 0);
+        return photoService.list(queryWrapper);
+    }
+
+    @ApiOperation("获取相册对应的照片")
+    @GetMapping("/listPhotoById/{id}")
+    public PhotoVO listPhotoById(@PathVariable Integer id) {
+        return photoService.listPhotoById(id);
     }
 }
