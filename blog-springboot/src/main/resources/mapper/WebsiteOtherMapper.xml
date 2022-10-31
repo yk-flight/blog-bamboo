@@ -2,20 +2,4 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zrkizzy.blog.mapper.WebsiteOtherMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.zrkizzy.blog.entity.WebsiteOther">
-        <id column="id" property="id" />
-        <result column="avatar" property="avatar" />
-        <result column="comment_allow" property="commentAllow" />
-        <result column="message_allow" property="messageAllow" />
-        <result column="reward" property="reward" />
-        <result column="wechat_receipt" property="wechatReceipt" />
-        <result column="alipay_receipt" property="alipayReceipt" />
-    </resultMap>
-
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, avatar, comment_allow, message_allow, reward, wechat_receipt, alipay_receipt
-    </sql>
-
 </mapper>

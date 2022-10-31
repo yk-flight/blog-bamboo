@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 28/10/2022 20:48:52
+ Date: 01/11/2022 01:03:11
 */
 
 SET NAMES utf8mb4;
@@ -63,7 +63,7 @@ CREATE TABLE `article` (
 -- Records of article
 -- ----------------------------
 BEGIN;
-INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (1, 'Hello,World', 1, '2022-10-26 09:55:08', '[1]', '个人博客网站第一篇文章，如果你看到了这一篇文章，那么证明你已经安装成功了，感谢使用本项目进行创作，希望能够使用愉快。', '# Hello World\n如果你看到了这一篇文章，那么证明你已经安装成功了，感谢使用本项目进行创作，希望能够使用愉快。', 1, 1, 0, 1, 1, 'http://localhost:8090/images/article/db5BlBTX.jpg', '2022-10-27 09:55:08', 1, 0);
+INSERT INTO `article` (`id`, `title`, `category`, `publish_time`, `tags`, `summary`, `content_md`, `type`, `state`, `deleted`, `allow_comment`, `top`, `background`, `update_time`, `view_num`, `comment_num`) VALUES (1, 'Hello,World', 1, '2022-10-26 09:55:08', '[1]', '个人博客网站第一篇文章，如果你看到了这一篇文章，那么证明你已经安装成功了，感谢使用本项目进行创作，希望能够使用愉快。', '# Hello World\n如果你看到了这一篇文章，那么证明你已经安装成功了，感谢使用本项目进行创作，希望能够使用愉快。', 1, 1, 0, 1, 1, 'http://localhost:8090/images/article/db5BlBTX.jpg', '2022-10-27 09:55:08', 0, 0);
 COMMIT;
 
 -- ----------------------------
@@ -73,7 +73,7 @@ DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '分类名',
-  `description` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '分类描述',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '分类描述',
   `article_amount` int DEFAULT NULL COMMENT '包含文章数',
   `image` varchar(255) DEFAULT NULL COMMENT '分类图片',
   `create_time` datetime NOT NULL COMMENT '创建时间',
@@ -125,7 +125,7 @@ CREATE TABLE `files` (
   `description` varchar(255) DEFAULT NULL COMMENT '备注',
   `upload_time` datetime DEFAULT NULL COMMENT '文件上传时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of files
@@ -146,6 +146,7 @@ INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_ti
 INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (14, '8HjImUIj.jpg', '世纪末的架构师', 'http://localhost:8090/images/avatar/8HjImUIj.jpg', '用户上传图片', '2022-10-26 00:00:00');
 INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (15, 'wJYK57GY.jpg', '世纪末的架构师', 'http://localhost:8090/images/cover/wJYK57GY.jpg', '用户上传图片', '2022-10-26 00:00:00');
 INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (16, 'db5BlBTX.jpg', '世纪末的架构师', 'http://localhost:8090/images/article/db5BlBTX.jpg', '用户上传图片', '2022-10-26 00:00:00');
+INSERT INTO `files` (`id`, `file_name`, `user`, `url`, `description`, `upload_time`) VALUES (17, 'PvX9Jj9z.jpg', '世纪末的架构师', 'http://localhost:8090/images/article/PvX9Jj9z.jpg', '用户上传图片', '2022-10-28 00:00:00');
 COMMIT;
 
 -- ----------------------------
@@ -262,13 +263,12 @@ CREATE TABLE `operate_log` (
   `duration` int unsigned DEFAULT NULL COMMENT '执行时长',
   `operate_time` datetime DEFAULT NULL COMMENT '操作日期',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of operate_log
 -- ----------------------------
 BEGIN;
-INSERT INTO `operate_log` (`id`, `module`, `description`, `request_method`, `operate_method`, `user`, `operate_ip`, `operate_source`, `status`, `status_description`, `request_param`, `return_param`, `duration`, `operate_time`) VALUES (1, '留言模块', '删除指定留言', 'DELETE', 'com.zrkizzy.blog.controller.MessageController.deleteMessageById', '世纪末的架构师', '127.0.0.1', '本地登录', 1, '响应成功', '[1]', '{\"code\":200,\"message\":\"删除成功\"}', 20, '2022-10-28 08:30:29');
 COMMIT;
 
 -- ----------------------------
@@ -292,7 +292,7 @@ INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (1, '首页
 INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (2, '归档', 'archive', 'http://localhost:8090/images/cover/yjKQy31p.jpg', '/archive');
 INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (3, '分类', 'category', 'http://localhost:8090/images/cover/zMorKuQv.jpg', '/category');
 INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (4, '标签', 'tags', 'http://localhost:8090/images/cover/dJKfIxdi.jpg', '/tags');
-INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (5, '相册', 'photo', 'http://localhost:8090/images/cover/z0qKbnAk.jpg', '/photo');
+INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (5, '相册', 'photo', 'http://localhost:8090/images/cover/hAzew3vK.jpg', '/photo');
 INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (6, '友链', 'links', 'http://localhost:8090/images/cover/LDO7EmDk.jpeg', '/links');
 INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (7, '关于我', 'about', 'http://localhost:8090/images/cover/NR7mu3yz.jpg', '/about');
 INSERT INTO `pages` (`id`, `title`, `label`, `image`, `path`) VALUES (8, '留言', 'message', 'http://localhost:8090/images/cover/lkIqXYMZ.jpg', '/message');
@@ -596,7 +596,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (1, '世纪末的架构师', 'admin', '$2a$10$Tt3NW32EBpMk9ClWUCAkOu6FIRXyhfze7xJ0bQGx8sdVgV4IqYzqO', 'http://localhost:8090/images/avatar/HXdqipKH.jpeg', '127.0.0.1', '本机登录', '2022-10-28 11:45:16', 1, '2022-08-06 23:40:44', '2022-10-26 20:18:45');
+INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (1, '世纪末的架构师', 'admin', '$2a$10$Tt3NW32EBpMk9ClWUCAkOu6FIRXyhfze7xJ0bQGx8sdVgV4IqYzqO', 'http://localhost:8090/images/avatar/HXdqipKH.jpeg', '127.0.0.1', '本机登录', '2022-11-01 00:50:26', 1, '2022-08-06 23:40:44', '2022-10-26 20:18:45');
 INSERT INTO `user` (`id`, `nick_name`, `username`, `password`, `avatar`, `ip_address`, `ip_source`, `last_login_time`, `enabled`, `create_time`, `update_time`) VALUES (2, '测试账号', 'test', '$2a$10$7yIvlsT5yiA3vXllBmwHJOAN7d.viT6QzzS/18EF2y4JauhNMFK8i', 'http://localhost:8090/images/avatar/8HjImUIj.jpg', '127.0.0.1', '本机登录', '2022-10-28 11:45:26', 1, '2022-08-13 18:23:02', '2022-10-26 20:16:30');
 COMMIT;
 
@@ -680,6 +680,9 @@ CREATE TABLE `website_other` (
   `reward` tinyint DEFAULT NULL COMMENT '打赏状态 1 开启 0 关闭',
   `wechat_receipt` varchar(255) DEFAULT NULL COMMENT '微信收款码',
   `alipay_receipt` varchar(255) DEFAULT NULL COMMENT '支付宝收款码',
+  `music_show` tinyint DEFAULT NULL COMMENT '音乐播放器 1 开启 0 关闭',
+  `music_auto` tinyint DEFAULT NULL COMMENT '自动播放 1 开启 0 关闭',
+  `music_id` varchar(255) DEFAULT NULL COMMENT '歌单ID',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -687,7 +690,7 @@ CREATE TABLE `website_other` (
 -- Records of website_other
 -- ----------------------------
 BEGIN;
-INSERT INTO `website_other` (`id`, `avatar`, `comment_allow`, `message_allow`, `reward`, `wechat_receipt`, `alipay_receipt`) VALUES (1, 'http://localhost:8090/images/avatar/8HjImUIj.jpg', 0, 0, 1, 'http://localhost:8090/images/receipt/gyV0k4lt.jpg', 'http://localhost:8090/images/receipt/WegCyJWk.jpg');
+INSERT INTO `website_other` (`id`, `avatar`, `comment_allow`, `message_allow`, `reward`, `wechat_receipt`, `alipay_receipt`, `music_show`, `music_auto`, `music_id`) VALUES (1, 'http://localhost:8090/images/avatar/8HjImUIj.jpg', 0, 0, 1, 'http://localhost:8090/images/receipt/gyV0k4lt.jpg', 'http://localhost:8090/images/receipt/WegCyJWk.jpg', 1, 1, '8675647775');
 COMMIT;
 
 -- ----------------------------

@@ -38,4 +38,16 @@ public class WebsiteOtherDTO {
      * 支付宝收款码
      */
     private String alipayReceipt;
+    /**
+     * 音乐播放器 1 开启 0 关闭
+     */
+    private Boolean musicShow;
+    /**
+     * 自动播放 1 开启 0 关闭
+     */
+    private Boolean musicAuto;
+    /**
+     * 歌单ID
+     */
+    private String musicId;
 }
