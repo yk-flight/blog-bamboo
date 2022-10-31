@@ -430,7 +430,7 @@ export default {
   background-color: #fff;
 }
 .markdown-body {
-  padding: 25px;
+  padding: 50px 40px;
 }
 .title-container {
   margin-left: 20px;

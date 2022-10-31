@@ -6,7 +6,7 @@
       ref="userInfoForm"
       label-position="left"
     >
-      <el-form-item prop="nickName" label="昵称" label-width="65px">
+      <el-form-item prop="nickName" label="昵称" label-width="110px">
         <el-input
           placeholder="用户昵称"
           v-model="userInfo.nickName"
@@ -14,7 +14,7 @@
           size="small"
         ></el-input>
       </el-form-item>
-      <el-form-item prop="email" label="邮箱" label-width="65px">
+      <el-form-item prop="email" label="邮箱" label-width="110px">
         <el-input
           placeholder="用户邮箱"
           v-model="userInfo.email"
@@ -22,7 +22,7 @@
           size="small"
         ></el-input>
       </el-form-item>
-      <el-form-item prop="phone" label="电话" label-width="65px">
+      <el-form-item prop="phone" label="电话" label-width="110px">
         <el-input
           placeholder="联系电话"
           v-model="userInfo.phone"
@@ -30,7 +30,7 @@
           size="small"
         ></el-input>
       </el-form-item>
-      <el-form-item prop="" label="QQ" label-width="65px">
+      <el-form-item prop="" label="QQ" label-width="110px">
         <el-input
           placeholder="QQ账号"
           v-model="userInfo.qq"
@@ -38,7 +38,7 @@
           size="small"
         ></el-input>
       </el-form-item>
-      <el-form-item prop="" label="Git hub" label-width="65px">
+      <el-form-item prop="" label="Git hub" label-width="110px">
         <el-input
           placeholder="Github主页"
           v-model="userInfo.github"
@@ -46,7 +46,7 @@
           size="small"
         ></el-input>
       </el-form-item>
-      <el-form-item prop="" label="Gitee" label-width="65px">
+      <el-form-item prop="" label="Gitee" label-width="110px">
         <el-input
           placeholder="Gitee主页"
           v-model="userInfo.gitee"
@@ -54,7 +54,7 @@
           size="small"
         ></el-input>
       </el-form-item>
-      <el-form-item prop="" label="CSDN" label-width="65px">
+      <el-form-item prop="" label="CSDN" label-width="110px">
         <el-input
           placeholder="CSDN主页"
           v-model="userInfo.csdn"
@@ -62,7 +62,7 @@
           size="small"
         ></el-input>
       </el-form-item>
-      <el-form-item prop="" label="力扣" label-width="65px">
+      <el-form-item prop="" label="力扣" label-width="110px">
         <el-input
           placeholder="LeetCode主页"
           v-model="userInfo.leetcode"
@@ -70,7 +70,7 @@
           size="small"
         ></el-input>
       </el-form-item>
-      <el-form-item label="简介" label-width="65px">
+      <el-form-item label="简介" label-width="110px">
         <el-input
           style="margin-top: 5px"
           type="textarea"

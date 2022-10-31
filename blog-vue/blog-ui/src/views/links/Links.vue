@@ -246,6 +246,7 @@ export default {
   margin: 0px 20px;
 }
 .avatar__image {
+  min-width: 80px;
   /* Rounded border */
   border-radius: 50%;
   height: 100%;
@@ -256,9 +257,20 @@ export default {
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 .blog-description {
+  margin: 2px 15px 0px 0px;
   color: #606266;
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 </style>

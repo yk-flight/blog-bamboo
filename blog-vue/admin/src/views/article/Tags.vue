@@ -118,8 +118,8 @@
       :visible="dialogShow"
       :before-close="handleClose"
     >
-      <el-form>
-        <el-form-item label="标签名称：" label-width="90px">
+      <el-form label-position="left">
+        <el-form-item label="标签名称：" label-width="120px">
           <el-input v-model="tags.name" placeholder="请输入标签名称"></el-input>
         </el-form-item>
       </el-form>

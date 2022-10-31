@@ -8,9 +8,13 @@
         ©2022 By
         {{ website.author }}
       </div>
-      <div class="footer-copyright">
+      <a
+        class="footer-copyright"
+        href="https://beian.miit.gov.cn/#/Integrated/index"
+        target="_blank"
+      >
         {{ website.record }}
-      </div>
+      </a>
     </div>
   </div>
 </template>
@@ -56,6 +60,8 @@ export default {
   margin-top: 8px;
   margin-bottom: 5px;
   font-size: 14px;
+  text-decoration: none;
+  color: #fff;
 }
 .footer-custom {
   font-size: 14px;
