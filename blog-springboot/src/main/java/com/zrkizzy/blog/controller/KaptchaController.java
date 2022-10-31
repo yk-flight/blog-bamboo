@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -32,8 +31,8 @@ public class KaptchaController {
     private RedisTemplate<String, Object> redisTemplate;
 
     @ApiOperation(value = "生成返回验证码")
-    @GetMapping(value = "/api/kaptcha", produces = "image/jpeg")
-    public void kaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @GetMapping(value = "/kaptcha", produces = "image/jpeg")
+    public void kaptcha(HttpServletResponse response) throws IOException {
         // 定义response输出类型为image/jpeg类型
         response.setDateHeader("Expires", 0);
         // standard HTTP/1.1 no-cache headers .
@@ -50,8 +49,6 @@ public class KaptchaController {
         // 获取验证码的文本内容
         String text = defaultKaptcha.createText();
         System.out.println("验证码内容为：" + text);
-        // 将验证码文本内容放入session
-//        request.getSession().setAttribute("kaptcha", text);
         // 将验证码内容存储到Redis中
         redisTemplate.opsForValue().set(KAPTCHA, text);
         // 得到图片
