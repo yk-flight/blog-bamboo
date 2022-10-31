@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form label-position="left" label-width="90px" :model="websiteInfo">
+    <el-form label-position="left" label-width="120px" :model="websiteInfo">
       <!-- 游客头像 -->
       <el-form-item label="游客头像">
         <el-row>
@@ -57,6 +57,40 @@
           </el-col>
         </el-row>
       </el-form-item>
+      <!-- 音乐播放器 -->
+      <el-form-item label="音乐播放器">
+        <el-row>
+          <el-col :span="5">
+            <el-radio-group v-model="websiteInfo.musicShow">
+              <el-radio :label="true">开启</el-radio>
+              <el-radio :label="false">关闭</el-radio>
+            </el-radio-group>
+          </el-col>
+        </el-row>
+      </el-form-item>
+      <!-- 自动播放 -->
+      <el-form-item label="自动播放">
+        <el-row>
+          <el-col :span="5">
+            <el-radio-group v-model="websiteInfo.musicAuto">
+              <el-radio :label="true">开启</el-radio>
+              <el-radio :label="false">关闭</el-radio>
+            </el-radio-group>
+          </el-col>
+        </el-row>
+      </el-form-item>
+      <!-- QQ音乐歌单ID -->
+      <el-row :gutter="3">
+        <el-col :span="8">
+          <el-form-item label="QQ音乐歌单ID">
+            <el-input
+              size="small"
+              v-model="websiteInfo.musicId"
+              placeholder="这里输入QQ音乐歌单ID"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
       <!-- 收款码 -->
       <el-row>
         <el-col :span="4">

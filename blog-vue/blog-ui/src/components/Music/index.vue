@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div v-if="websiteOther.musicShow">
     <meting-js
       server="tencent"
       type="playlist"
-      id="8675647775"
+      :id="websiteOther.musicId"
       fixed="true"
-      autoplay="true"
+      :autoplay="websiteOther.musicAuto"
       loop="all"
       order="list"
       preload="auto"
@@ -22,7 +22,10 @@ export default {
   name: "Music",
 
   data() {
-    return {};
+    return {
+      // 网站其他配置信息
+      websiteOther: this.$store.getters.websiteOther,
+    };
   },
 
   mounted() {},
