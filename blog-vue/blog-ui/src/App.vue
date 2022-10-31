@@ -8,6 +8,8 @@
     </transition>
     <!--  返回顶部  -->
     <BackTop></BackTop>
+    <!-- 音乐播放器 -->
+    <Music></Music>
     <!--  博客页脚  -->
     <Footer></Footer>
   </div>
@@ -17,9 +19,10 @@
 import NavBar from "@/layout/NavBar/index.vue";
 import Footer from "@/layout/Footer/index.vue";
 import BackTop from "@/components/BackTop/index.vue";
+import Music from "@/components/Music/index.vue";
 
 export default {
-  components: { NavBar, Footer, BackTop },
+  components: { NavBar, Footer, BackTop, Music },
   created() {
     // 获取博客信息
     this.getBlogInfo();
