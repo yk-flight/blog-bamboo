@@ -50,7 +50,7 @@ export default {
 
   data() {
     return {
-      kaptchaUrl: "http://localhost:8090/api/kaptcha?time=" + new Date(),
+      kaptchaUrl: "http://localhost:8090/kaptcha?time=" + new Date(),
       // 用户登录表单
       loginForm: {
         username: "",
@@ -112,7 +112,7 @@ export default {
     },
     // 点击图片更换验证码
     updateKaptcha() {
-      this.kaptchaUrl = "http://localhost:8090/api/kaptcha?time=" + new Date();
+      this.kaptchaUrl = "http://localhost:8090/kaptcha?time=" + new Date();
     },
   },
 };
