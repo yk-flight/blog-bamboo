@@ -270,8 +270,13 @@ export default {
 .font-title {
   margin-bottom: 5px;
   color: rgba(0, 0, 0, 0.45);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 .font-num {
   color: #666;
