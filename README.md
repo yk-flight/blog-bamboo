@@ -114,7 +114,7 @@ system-springboot
 
 ## 技术介绍：
 
-**前端：** vue + vuex + vue-router + axios + element-ui + sass + vue-cropper + dayjs + nprogress + mavon-editor 
+**前端：** vue + vuex + vue-router + axios + element-ui + sass + vue-cropper + dayjs + nprogress + mavon-editor  
 **后端：** SpringBoot + SpringSecurity + JWT + Swagger2 + MyBatisPlus + MySQL + Redis + Freemarker + FastJson + Kaptcha
 
 ## 开发环境
