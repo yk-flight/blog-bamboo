@@ -48,7 +48,7 @@ public class WeekViewServiceImpl extends ServiceImpl<WeekViewMapper, WeekView> i
         LocalDate endTime = LocalDate.now();
         // 定义查询条件
         QueryWrapper<WeekView> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lt("create_time", endTime).gt("create_time", startTime).orderByAsc("create_time");
+        queryWrapper.between("create_time", startTime, endTime).orderByAsc("create_time");
         List<WeekView> weekViews = weekViewMapper.selectList(queryWrapper);
         // 将查询到的数据进行赋值
         for (WeekView weekView : weekViews) {
@@ -81,9 +81,9 @@ public class WeekViewServiceImpl extends ServiceImpl<WeekViewMapper, WeekView> i
     }
 
     /**
-     * 存储每日用户访问量（每天凌晨0点将昨日用户访问量进行存储）
+     * 存储每日用户访问量（每天凌晨0点01分将昨日用户访问量进行存储）
      */
-    @Scheduled(cron = " 0 0 0 * * ?", zone = "Asia/Shanghai")
+    @Scheduled(cron = " 0 1 0 * * ?", zone = "Asia/Shanghai")
     public void updateViewCount() {
         // 开启Redis
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
@@ -104,9 +104,9 @@ public class WeekViewServiceImpl extends ServiceImpl<WeekViewMapper, WeekView> i
     }
 
     /**
-     * 清空Redis中存储的当日访问量（每天凌晨0点1分执行）
+     * 清空Redis中存储的当日访问量（每天凌晨0点2分执行）
      */
-    @Scheduled(cron = " 0 1 0 * * ?", zone = "Asia/Shanghai")
+    @Scheduled(cron = " 0 2 0 * * ?", zone = "Asia/Shanghai")
     public void clearViewCount() {
         // 开启Redis
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
